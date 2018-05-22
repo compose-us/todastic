@@ -1,0 +1,28 @@
+[ ] this is a sample [L:Sales]
+  [ ] with two sub-tasks [Tracked 01:45, 21.05.2018]
+    [x] which have [Tracked 01:00, 21.05.2018]
+      [x] other subtasks
+      [x] and some have another subtask
+        [x] so pretty
+          [x] nested files [Tracked 00:20, 20.05.2018]
+  [ ] and another task [Tracked 00:30, 21.05.2018]
+[ ] can
+  [ ] be
+  [ ] a
+    [ ] funky [L:Marketing]
+      [ ] nesting
+        [ ] with [Estimated 01:30]
+        [ ] lots
+        [x] of
+        [x] subtasks [Estimated 02:00]
+        [x] or
+          [x] similar
+            [x] things
+    [ ] that
+  [x] may [L:Development]
+    [ ] work [Tracked 01:15, 21.05.2018] [Estimated 02:00]
+    [x] together [Tracked 00:45, 22.05.2018] [Estimated 00:30]
+[x] lets see [Tracked 01:30, 21.05.2018] [Tracked 02:00, 22.05.2018]
+  [x] where [Estimated 01:00]
+    [x] this [Estimated 00:30]
+    [x] ends. [Estimated 00:30]

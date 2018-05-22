@@ -37,5 +37,11 @@ describe("Storage", () => {
       const store = await storage.load(fp);
       expect(store.todos.length).toBeGreaterThan(0);
     });
+
+    it("can load a more complex file with subtasks, labels, tracked time and more", async () => {
+      const fp = `${__dirname}/__test__/complex-sample.todo`;
+      const store = await storage.load(fp);
+      expect(store.todos.length).toBeGreaterThan(0);
+    });
   });
 });

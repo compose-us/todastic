@@ -4,19 +4,16 @@ describe("Storage", () => {
   describe("loading of files", () => {
     it("will throw an error if file is missing", async () => {
       const fp = `${__dirname}/__test__/missing.todo`;
-      expect.assertions(1);
       await expect(storage.load(fp)).rejects.toThrow(/missing/i);
     });
 
     it("will throw an error if file is in a wrong format", async () => {
       const fp = `${__dirname}/__test__/wrong-format.todo`;
-      expect.assertions(1);
       await expect(storage.load(fp)).rejects.toThrow(/format/i);
     });
 
     it("will throw an error if the subtasks are wrongly nested", async () => {
       const fp = `${__dirname}/__test__/wrong-format-nested.todo`;
-      expect.assertions(1);
       await expect(storage.load(fp)).rejects.toThrow(/format/i);
     });
 

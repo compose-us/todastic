@@ -18,10 +18,10 @@ describe("Storage", () => {
     });
 
     it("will not throw errors if file is empty", async () => {
-      const fp = `${__dirname}/__test__/empty.todo`;  
+      const fp = `${__dirname}/__test__/empty.todo`;
       const store = await storage.load(fp);
       expect(store.todos.length).toBe(0);
-    });  
+    });
 
     it("can load a simple file without errors", async () => {
       const fp = `${__dirname}/__test__/simple-sample.todo`;
@@ -45,6 +45,55 @@ describe("Storage", () => {
       const fp = `${__dirname}/__test__/complex-sample.todo`;
       const store = await storage.load(fp);
       expect(store.todos.length).toBeGreaterThan(0);
+    });
+  });
+
+  describe("understands todo format", () => {
+    it("retrieves a list of objects", async () => {
+      const fp = `${__dirname}/__test__/simple-sample.todo`;
+      const store = await storage.load(fp);
+      expect(store.todos.length).toBe(3);
+      store.todos.forEach(todo => {
+        expect(todo.status).toBeDefined();
+        expect(todo.title).toBeDefined();
+        expect(todo.tags).toBeDefined();
+      });
+    });
+
+    it("understands the title of a todo", async () => {
+      const fp = `${__dirname}/__test__/simple-sample.todo`;
+      const store = await storage.load(fp);
+      expect(store.todos.length).toBe(3);
+      expect(store.todos[0].title).toEqual("this is a sample");
+      expect(store.todos[1].title).toEqual("with three tasks");
+      expect(store.todos[2].title).toEqual("and not more");
+    });
+
+    it("understands the status of the various todos", async () => {
+      const fp = `${__dirname}/__test__/status-sample.todo`;
+      const store = await storage.load(fp);
+      expect(store.todos.length).toBe(3);
+      expect(store.todos[0].status).toEqual("open");
+      expect(store.todos[1].status).toEqual("done");
+      expect(store.todos[2].status).toEqual("n/a");
+    });
+
+    it("understands the tags of the various todos", async () => {
+      const fp = `${__dirname}/__test__/simple-tags-sample.todo`;
+      const store = await storage.load(fp);
+      expect(store.todos.length).toBe(3);
+      expect(store.todos[0].tags).toEqual(["TRACK 00:30:00, Narigo, 25.05.2018 08:45:34"]);
+      expect(store.todos[1].tags).toEqual(["ASSIGN Narigo, 25.05.2018 08:56:23"]);
+      expect(store.todos[2].tags).toEqual(["LABEL Development"]);
+    });
+
+    it("can read multiple tags in one todo", async () => {
+      const fp = `${__dirname}/__test__/multiple-tags-sample.todo`;
+      const store = await storage.load(fp);
+      expect(store.todos.length).toBe(3);
+      expect(store.todos[0].tags).toEqual(["TRACK 00:30:00, Narigo, 25.05.2018 08:45:34", "TRACK 00:30:15, Narigo, 25.05.2018 09:15:49"]);
+      expect(store.todos[1].tags).toEqual(["ASSIGN Narigo, 25.05.2018 08:56:23"]);
+      expect(store.todos[2].tags).toEqual(["LABEL Development", "LABEL Business", "ASSIGN Narigo, 25.05.2018 08:56:24"]);
     });
   });
 });

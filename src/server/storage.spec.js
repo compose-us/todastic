@@ -78,6 +78,11 @@ describe("Storage", () => {
       expect(store.todos[2].status).toEqual("n/a");
     });
 
+    it("can return an unknown status", async () => {
+      const fp = `${__dirname}/__test__/wrong-status.todo`;
+      await expect(storage.load(fp)).rejects.toThrow(/status/i);
+    });
+
     it("understands the tags of the various todos", async () => {
       const fp = `${__dirname}/__test__/simple-tags-sample.todo`;
       const store = await storage.load(fp);

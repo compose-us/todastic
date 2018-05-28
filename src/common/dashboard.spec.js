@@ -1,6 +1,6 @@
 const dashboard = require("./dashboard");
 describe("Dashboard", () => {
-  describe("sum tracked time", () => {
+  describe("sums tracked time", () => {
     it("tracks 0 for an empty list", () => {
       const result = dashboard.trackedTime([]);
       expect(result).toEqual(0);
@@ -53,6 +53,22 @@ describe("Dashboard", () => {
         }
       ]);
       expect(result).toEqual(30 * 60 + 1 * 60 * 60 + 30 * 60 + 30 + 30 * 60);
+    });
+
+    it("can filter tracked times by time", () => {
+      const result = dashboard.trackedTime(
+        [
+          {
+            tags: [
+              "TRACK 00:10:00, Narigo, 25.05.2018 08:45:34",
+              "TRACK 00:20:00, Narigo, 26.05.2018 08:45:34",
+              "TRACK 00:30:00, Narigo, 28.05.2018 08:45:34"
+            ]
+          }
+        ],
+        { minTime: "26.05.2018 00:00:00" }
+      );
+      expect(result).toEqual((20 + 3) * 60);
     });
   });
 });

@@ -68,7 +68,7 @@ describe("Dashboard", () => {
         ],
         { minTime: "26.05.2018 00:00:00" }
       );
-      expect(result).toEqual((20 + 3) * 60);
+      expect(result).toEqual((20 + 30) * 60);
     });
   });
 });

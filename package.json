@@ -1,25 +1,28 @@
 {
-	"name": "todastic",
-	"version": "1.0.0",
-	"description": "Simple self-, project- and task management.",
-	"main": "lib/index.js",
-	"scripts": {
-		"format": "prettier --write 'src/**/*.js'",
-		"test": "jest 'src/integration.spec.js'"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/Narigo/todastic.git"
-	},
-	"keywords": [],
-	"author": "Joern Bernhardt <joern.bernhardt@googlemail.com> (http://www.unreleased.de)",
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/Narigo/todastic/issues"
-	},
-	"homepage": "https://github.com/Narigo/todastic#readme",
-	"devDependencies": {
-		"jest": "^22.4.4",
-		"prettier": "^1.12.1"
-	}
+  "name": "todastic",
+  "version": "1.0.0",
+  "description": "Simple self-, project- and task management.",
+  "main": "lib/index.js",
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "format": "prettier --write 'src/**/*.js'",
+	"test": "npm -s run test-packages && npm -s run test-integration",
+	"test-integration": "jest 'src/integration.spec.js'",
+	"test-packages": "lerna run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Narigo/todastic.git"
+  },
+  "keywords": [],
+  "author": "Joern Bernhardt <joern.bernhardt@googlemail.com> (http://www.unreleased.de)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Narigo/todastic/issues"
+  },
+  "homepage": "https://github.com/Narigo/todastic#readme",
+  "devDependencies": {
+    "jest": "^22.4.4",
+    "prettier": "^1.12.1"
+  }
 }

@@ -1,0 +1,25 @@
+{
+  "name": "@todastic/dashboard",
+  "version": "1.0.0",
+  "description": "Dashboard utility functions for todastic.",
+  "main": "src/dashboard.js",
+  "scripts": {
+    "format": "prettier --write 'src/**/*.js'",
+    "test": "jest src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Narigo/todastic.git"
+  },
+  "keywords": [],
+  "author": "Joern Bernhardt <joern.bernhardt@googlemail.com> (http://www.unreleased.de)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Narigo/todastic/issues"
+  },
+  "homepage": "https://github.com/Narigo/todastic#readme",
+  "devDependencies": {
+    "jest": "^22.4.4",
+    "prettier": "^1.12.1"
+  }
+}

@@ -71,4 +71,31 @@ describe("Dashboard", () => {
       expect(result).toEqual((20 + 30) * 60);
     });
   });
+
+  describe("groups by status", () => {
+    it("results in an empty object if there are no todos", () => {
+      expect(dashboard.groupByStatus([])).toEqual({});
+    });
+
+    it("results in an object containing a list grouped by a single status", () => {
+      expect(
+        dashboard.groupByStatus([{ status: "open", title: "First task" }, { status: "open", title: "Second task" }])
+      ).toEqual({ open: [{ status: "open", title: "First task" }, { status: "open", title: "Second task" }] });
+    });
+
+    it("can group by any status", () => {
+      expect(
+        dashboard.groupByStatus([
+          { status: "open", title: "First task" },
+          { status: "done", title: "Second task" },
+          { status: "open", title: "Another open task" },
+          { status: "n/a", title: "Third task" }
+        ])
+      ).toEqual({
+        done: [{ status: "done", title: "Second task" }],
+        "n/a": [{ status: "n/a", title: "Third task" }],
+        open: [{ status: "open", title: "First task" }, { status: "open", title: "Another open task" }]
+      });
+    });
+  });
 });

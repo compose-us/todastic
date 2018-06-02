@@ -9,8 +9,17 @@ function trackedTime(list, { minTime } = {}) {
   );
 }
 
+function groupByStatus(list) {
+  return list.reduce((acc, todo) => {
+    acc[todo.status] = acc[todo.status] || [];
+    acc[todo.status].push(todo);
+    return acc;
+  }, {});
+}
+
 module.exports = {
-  trackedTime
+  trackedTime,
+  groupByStatus
 };
 
 function filterByTime(minTime) {

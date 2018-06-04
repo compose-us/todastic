@@ -6,9 +6,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "format": "prettier --write 'src/**/*.js'",
-	"test": "npm -s run test-packages && npm -s run test-integration",
-	"test-integration": "jest 'src/integration.spec.js'",
-	"test-packages": "lerna run test"
+	"test": "jest"
   },
   "repository": {
     "type": "git",

@@ -55,20 +55,39 @@ describe("Dashboard", () => {
       expect(result).toEqual(30 * 60 + 1 * 60 * 60 + 30 * 60 + 30 + 30 * 60);
     });
 
-    it("can filter tracked times by time", () => {
-      const result = dashboard.trackedTime(
-        [
-          {
-            tags: [
-              "TRACK 00:10:00, Narigo, 25.05.2018 08:45:34",
-              "TRACK 00:20:00, Narigo, 26.05.2018 08:45:34",
-              "TRACK 00:30:00, Narigo, 28.05.2018 08:45:34"
-            ]
-          }
-        ],
-        { minTime: "26.05.2018 00:00:00" }
-      );
-      expect(result).toEqual((20 + 30) * 60);
+    describe("minTime option", () => {
+      const todoList = [
+        {
+          tags: [
+            "TRACK 00:10:00, Narigo, 25.05.2018 08:45:34",
+            "TRACK 00:20:00, Narigo, 25.05.2018 08:45:35",
+            "TRACK 00:30:00, Narigo, 26.05.2018 06:05:32",
+            "TRACK 00:40:00, Narigo, 28.05.2018 18:15:14"
+          ]
+        }
+      ];
+
+      it("will complain if minTime filter is not in a correct format", () => {
+        expect(() => dashboard.trackedTime(todoList, { minTime: "whatever" })).toThrow(/format/i);
+      });
+
+      describe("wrong times", () => {
+        testTime("10.13.2010 10:10:10");
+        testTime("32.10.2010 25:10:10");
+        testTime("10.10.2010 10:61:10");
+        testTime("10.10.2010 10:10:61");
+
+        function testTime(minTime) {
+          it(`will complain if minTime filter is set to wrong time ${minTime}`, () => {
+            expect(() => dashboard.trackedTime(todoList, { minTime })).toThrow(/date.*time/i);
+          });
+        }
+      });
+
+      it("can filter tracked times by time", () => {
+        const result = dashboard.trackedTime(todoList, { minTime: "25.05.2018 08:45:35" });
+        expect(result).toEqual((20 + 30 + 40) * 60);
+      });
     });
   });
 

@@ -23,32 +23,42 @@ module.exports = {
 };
 
 function filterByTime(minTime) {
-  const timeTrackingRegex = /^TRACK (?<hours>\d{2,}):(?<minutes>\d\d):(?<seconds>\d\d), (.*?), (?<day>\d\d)\.(?<month>\d\d)\.(?<year>\d\d\d\d) (?<hour>\d\d):(?<minute>\d\d):(?<second>\d\d)$/;
-  const minTimeRegex = /^(?<day>\d\d)\.(?<month>\d\d)\.(?<year>\d\d\d\d) (?<hour>\d\d):(?<minute>\d\d):(?<second>\d\d)$/;
   if (minTime) {
-    return tag => {
-      const minMatch = minTimeRegex.exec(minTime);
-      if (minMatch) {
-        const match = timeTrackingRegex.exec(tag);
-        if (match) {
-          return (
-            minMatch.groups.year < match.groups.year ||
-            (minMatch.groups.year === match.groups.year &&
-              (minMatch.groups.month < match.groups.month ||
-                (minMatch.groups.month === match.groups.month &&
-                  (minMatch.groups.day < match.groups.day ||
-                    (minMatch.groups.day === match.groups.day &&
-                      (minMatch.groups.hour < match.groups.hour ||
-                        (minMatch.groups.hour === match.groups.hour &&
-                          (minMatch.groups.minute < match.groups.minute ||
-                            (minMatch.groups.minute === match.groups.minute &&
-                              (minMatch.groups.second < match.groups.second ||
-                                minMatch.groups.second === match.groups.second))))))))))
-          );
+    const timeTrackingRegex = /^TRACK (?<h>\d{2,}):(?<m>\d\d):(?<s>\d\d), (.*?), (?<day>\d\d)\.(?<month>\d\d)\.(?<year>\d\d\d\d) (?<hour>\d\d):(?<minute>\d\d):(?<second>\d\d)$/;
+    const minTimeRegex = /^(?<day>\d\d)\.(?<month>\d\d)\.(?<year>\d\d\d\d) (?<hour>\d\d):(?<minute>\d\d):(?<second>\d\d)$/;
+    const minMatch = minTimeRegex.exec(minTime);
+    if (minMatch) {
+      return tag => {
+        const {
+          groups: { year, month, day, hour, minute, second }
+        } = timeTrackingRegex.exec(tag);
+        if (
+          12 < minMatch.groups.month ||
+          31 < minMatch.groups.day ||
+          24 < minMatch.groups.hour ||
+          59 < minMatch.groups.minute ||
+          59 < minMatch.groups.second
+        ) {
+          throw new Error("Incorrect date and time values for 'minTime'.");
         }
-      }
-      return false;
-    };
+
+        return (
+          minMatch.groups.year < year ||
+          (minMatch.groups.year === year &&
+            (minMatch.groups.month < month ||
+              (minMatch.groups.month === month &&
+                (minMatch.groups.day < day ||
+                  (minMatch.groups.day === day &&
+                    (minMatch.groups.hour < hour ||
+                      (minMatch.groups.hour === hour &&
+                        (minMatch.groups.minute < minute ||
+                          (minMatch.groups.minute === minute &&
+                            (minMatch.groups.second < second || minMatch.groups.second === second))))))))))
+        );
+      };
+    } else {
+      throw new Error("'minTime' is not correctly formatted");
+    }
   }
   return () => true;
 }

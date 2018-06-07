@@ -6,7 +6,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "format": "prettier --write 'src/**/*.js'",
-    "start": "todastic",
+    "start": "node ./packages/cli/src/cli.js",
     "test": "jest"
   },
   "repository": {
@@ -20,9 +20,10 @@
     "url": "https://github.com/Narigo/todastic/issues"
   },
   "homepage": "https://github.com/Narigo/todastic#readme",
-  "dependencies": {},
+  "dependencies": {
+    "@todastic/cli": "^1.0.0"
+  },
   "devDependencies": {
-    "@todastic/cli": "^1.0.0",
     "jest": "^22.4.4",
     "prettier": "^1.12.1"
   }

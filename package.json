@@ -1,6 +1,6 @@
 {
   "name": "todastic",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Simple self-, project- and task management.",
   "main": "lib/index.js",
   "scripts": {

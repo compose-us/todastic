@@ -1,6 +1,6 @@
 {
   "name": "@todastic/cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Command-line interface for todastic.",
   "bin": {
     "todastic": "./src/cli.js"
@@ -20,8 +20,8 @@
   },
   "homepage": "https://github.com/Narigo/todastic#readme",
   "dependencies": {
-    "@todastic/dashboard": "^1.0.0",
-    "@todastic/storage-file": "^1.0.0",
+    "@todastic/dashboard": "^0.1.0",
+    "@todastic/storage-file": "^0.1.0",
     "yargs": "^11.0.0"
   },
   "devDependencies": {

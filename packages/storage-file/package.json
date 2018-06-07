@@ -4,10 +4,7 @@
   "description": "File storage/loading for todastic in .todo files.",
   "main": "src/storage.js",
   "scripts": {
-    "build-server": "mkdir -p dist/ && cp -r src/server dist/",
     "format": "prettier --write 'src/**/*.js'",
-    "start": "npm run start-server",
-    "start-server": "npm run build-server && node dist/server/start.js",
     "test": "jest src/"
   },
   "repository": {

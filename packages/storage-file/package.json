@@ -1,6 +1,6 @@
 {
   "name": "@todastic/storage-file",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "File storage/loading for todastic in .todo files.",
   "main": "src/storage.js",
   "scripts": {

@@ -25,6 +25,5 @@ yargs
 
 async function track(argv) {
   const { file, from } = argv;
-  console.log("argv", argv);
   console.log(`Tracked time for ${file}: ${await todastic(file).tracked({ minTime: from })}`);
 }

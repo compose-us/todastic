@@ -24,8 +24,8 @@ module.exports = {
 
 function filterByTime(minTime) {
   if (minTime) {
-    const timeTrackingRegex = /^TRACK (?<h>\d{2,}):(?<m>\d\d):(?<s>\d\d), (.*?), (?<day>\d\d)\.(?<month>\d\d)\.(?<year>\d\d\d\d) (?<hour>\d\d):(?<minute>\d\d):(?<second>\d\d)$/;
-    const minTimeRegex = /^(?<day>\d\d)\.(?<month>\d\d)\.(?<year>\d\d\d\d) (?<hour>\d\d):(?<minute>\d\d):(?<second>\d\d)$/;
+    const timeTrackingRegex = /^TRACK (?<h>\d{2,}):(?<m>\d\d):(?<s>\d\d), (.*?), (?<year>\d\d\d\d)-(?<month>\d\d)-(?<day>\d\d) (?<hour>\d\d):(?<minute>\d\d):(?<second>\d\d)$/;
+    const minTimeRegex = /^(?<year>\d\d\d\d)-(?<month>\d\d)-(?<day>\d\d) (?<hour>\d\d):(?<minute>\d\d):(?<second>\d\d)$/;
     const minMatch = minTimeRegex.exec(minTime);
     if (minMatch) {
       return tag => {

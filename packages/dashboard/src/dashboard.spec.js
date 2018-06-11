@@ -8,20 +8,20 @@ describe("Dashboard", () => {
 
     it("tracks 0 if there are no TRACK tasks in a list", () => {
       const result = dashboard.trackedTime([
-        { tags: ["ASSIGN Narigo, 25.05.2018 08:56:23"] },
-        { tags: ["ASSIGN Narigo, 25.05.2018 08:56:23"] }
+        { tags: ["ASSIGN Narigo, 2018-05-25 08:56:23"] },
+        { tags: ["ASSIGN Narigo, 2018-05-25 08:56:23"] }
       ]);
       expect(result).toEqual(0);
     });
 
     it("tracks the correct time for a single element list", () => {
-      const result = dashboard.trackedTime([{ tags: ["TRACK 01:20:30, Narigo, 25.05.2018 08:45:34"] }]);
+      const result = dashboard.trackedTime([{ tags: ["TRACK 01:20:30, Narigo, 2018-05-25 08:45:34"] }]);
       expect(result).toEqual(1 * 60 * 60 + 20 * 60 + 30);
     });
 
     it("tracks the correct time for multiple track elements in a list", () => {
       const result = dashboard.trackedTime([
-        { tags: ["TRACK 00:30:00, Narigo, 25.05.2018 08:45:34", "TRACK 01:30:30, Narigo, 25.05.2018 08:45:34"] }
+        { tags: ["TRACK 00:30:00, Narigo, 2018-05-25 08:45:34", "TRACK 01:30:30, Narigo, 2018-05-25 08:45:34"] }
       ]);
       expect(result).toEqual(30 * 60 + 1 * 60 * 60 + 30 * 60 + 30);
     });
@@ -30,9 +30,9 @@ describe("Dashboard", () => {
       const result = dashboard.trackedTime([
         {
           tags: [
-            "TRACK 00:30:00, Narigo, 25.05.2018 08:45:34",
-            "ASSIGN Narigo, 25.05.2018 08:56:23",
-            "TRACK 01:30:30, Narigo, 25.05.2018 08:45:34"
+            "TRACK 00:30:00, Narigo, 2018-05-25 08:45:34",
+            "ASSIGN Narigo, 2018-05-25 08:56:23",
+            "TRACK 01:30:30, Narigo, 2018-05-25 08:45:34"
           ]
         }
       ]);
@@ -43,13 +43,13 @@ describe("Dashboard", () => {
       const result = dashboard.trackedTime([
         {
           tags: [
-            "TRACK 00:30:00, Narigo, 25.05.2018 08:45:34",
-            "ASSIGN Narigo, 25.05.2018 08:56:23",
-            "TRACK 01:30:30, Narigo, 25.05.2018 08:45:34"
+            "TRACK 00:30:00, Narigo, 2018-05-25 08:45:34",
+            "ASSIGN Narigo, 2018-05-25 08:56:23",
+            "TRACK 01:30:30, Narigo, 2018-05-25 08:45:34"
           ]
         },
         {
-          tags: ["TRACK 00:30:00, Narigo, 25.05.2018 08:45:34"]
+          tags: ["TRACK 00:30:00, Narigo, 2018-05-25 08:45:34"]
         }
       ]);
       expect(result).toEqual(30 * 60 + 1 * 60 * 60 + 30 * 60 + 30 + 30 * 60);
@@ -59,10 +59,10 @@ describe("Dashboard", () => {
       const todoList = [
         {
           tags: [
-            "TRACK 00:10:00, Narigo, 25.05.2018 08:45:34",
-            "TRACK 00:20:00, Narigo, 25.05.2018 08:45:35",
-            "TRACK 00:30:00, Narigo, 26.05.2018 06:05:32",
-            "TRACK 00:40:00, Narigo, 28.05.2018 18:15:14"
+            "TRACK 00:10:00, Narigo, 2018-05-25 08:45:34",
+            "TRACK 00:20:00, Narigo, 2018-05-25 08:45:35",
+            "TRACK 00:30:00, Narigo, 2018-05-26 06:05:32",
+            "TRACK 00:40:00, Narigo, 2018-05-28 18:15:14"
           ]
         }
       ];
@@ -72,10 +72,10 @@ describe("Dashboard", () => {
       });
 
       describe("wrong times", () => {
-        testTime("10.13.2010 10:10:10");
-        testTime("32.10.2010 25:10:10");
-        testTime("10.10.2010 10:61:10");
-        testTime("10.10.2010 10:10:61");
+        testTime("2010-13-10 10:10:10");
+        testTime("2010-10-32 25:10:10");
+        testTime("2010-10-10 10:61:10");
+        testTime("2010-10-10 10:10:61");
 
         function testTime(minTime) {
           it(`will complain if minTime filter is set to wrong time ${minTime}`, () => {
@@ -85,7 +85,7 @@ describe("Dashboard", () => {
       });
 
       it("can filter tracked times by time", () => {
-        const result = dashboard.trackedTime(todoList, { minTime: "25.05.2018 08:45:35" });
+        const result = dashboard.trackedTime(todoList, { minTime: "2018-05-25 08:45:35" });
         expect(result).toEqual((20 + 30 + 40) * 60);
       });
     });

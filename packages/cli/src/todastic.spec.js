@@ -7,19 +7,41 @@ describe("command line interface", () => {
 
   it("can filter by a specific status", async () => {
     await expect(
-      todastic(`${__dirname}/__tests__/filter-sample.todo`).tracked({ filter: { status: ["done"] } })
-    ).resolves.toMatchSnapshot();
-  });
-
-  it("does not filter if no filter is set", async () => {
-    await expect(
-      todastic(`${__dirname}/__tests__/filter-sample.todo`).tracked({ filter: {} })
+      todastic(`${__dirname}/__tests__/filter-sample.todo`)
+        .filter({ status: ["done"] })
+        .tracked()
     ).resolves.toMatchSnapshot();
   });
 
   it("returns an empty result when filtering for an unused status", async () => {
     await expect(
-      todastic(`${__dirname}/__tests__/filter-sample.todo`).tracked({ filter: { status: ["n/a"] } })
+      todastic(`${__dirname}/__tests__/filter-sample.todo`)
+        .filter({ status: ["n/a"] })
+        .tracked()
+    ).resolves.toMatchSnapshot();
+  });
+
+  it("does not filter if no filters are set", async () => {
+    await expect(
+      todastic(`${__dirname}/__tests__/filter-sample2.todo`)
+        .filter({})
+        .tracked()
+    ).resolves.toMatchSnapshot();
+  });
+
+  it("does not filter if no filter config is passed", async () => {
+    await expect(
+      todastic(`${__dirname}/__tests__/filter-sample2.todo`)
+        .filter()
+        .tracked()
+    ).resolves.toMatchSnapshot();
+  });
+
+  it("can filter by a multiple status", async () => {
+    await expect(
+      todastic(`${__dirname}/__tests__/filter-sample2.todo`)
+        .filter({ status: ["done", "n/a"] })
+        .tracked()
     ).resolves.toMatchSnapshot();
   });
 });

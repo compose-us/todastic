@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`command line interface can filter by a specific status 1`] = `"02:10:00"`;
+
+exports[`command line interface returns an empty result when filtering for an unused status 1`] = `"00:00:00"`;

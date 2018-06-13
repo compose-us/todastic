@@ -5,9 +5,10 @@ function todastic(file) {
   const storePromise = storage.load(file);
 
   return {
-    async tracked({ minTime } = {}) {
+    async tracked({ minTime, filter } = {}) {
       const store = await storePromise;
-      const inSeconds = dashboard.trackedTime(store.todos, { minTime });
+      const filteredTodos = getFilteredTodos(filter, store.todos);
+      const inSeconds = dashboard.trackedTime(filteredTodos, { minTime });
       const h = nf(Math.floor(inSeconds / 60 / 60));
       const m = nf(Math.floor((inSeconds / 60) % 60));
       const s = nf(Math.floor(inSeconds % 60));
@@ -21,3 +22,12 @@ function todastic(file) {
 }
 
 module.exports = todastic;
+
+function getFilteredTodos(filter, todos) {
+  if (!filter) {
+    return todos;
+  }
+
+  const { status } = filter;
+  return dashboard.groupByStatus(todos)[status] || [];
+}

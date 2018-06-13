@@ -2,4 +2,6 @@
 
 exports[`command line interface can filter by a specific status 1`] = `"02:10:00"`;
 
+exports[`command line interface does not filter if no filter is set 1`] = `"03:30:00"`;
+
 exports[`command line interface returns an empty result when filtering for an unused status 1`] = `"00:00:00"`;

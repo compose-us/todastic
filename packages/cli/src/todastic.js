@@ -29,5 +29,9 @@ function getFilteredTodos(filter, todos) {
   }
 
   const { status } = filter;
+  if (!status) {
+    return todos;
+  }
+
   return dashboard.groupByStatus(todos)[status] || [];
 }

@@ -1,24 +1,32 @@
 function replay(events) {
-  const addedTodoEvents = events.filter(event => event.event === "ADDED_TODO");
-  const removedTodoEvents = events.filter(event => event.event === "REMOVED_TODO");
-  const todos = removeTodos(addTodos(addedTodoEvents), removedTodoEvents);
+  const todos = events.reduce((todos, event) => {
+    if (event.event === "ADDED_TODO") {
+      return addTodo(todos, event.data);
+    } else if (event.event === "REMOVED_TODO") {
+      return removeTodo(todos, event.data);
+    }
+    return todos;
+  }, []);
   return { todos };
 }
 
-function addTodos(events) {
-  const parents = events.map(event => event.data).filter(event => event.parentId === undefined);
-  const children = events.map(event => event.data).filter(event => event.parentId !== undefined);
-  const todos = parents;
-  children.forEach(todo => {
-    const foundParent = todos.find(parent => parent.id === todo.parentId);
-    foundParent.children = foundParent.children || [];
-    foundParent.children.push(todo);
-  });
-  return todos;
+function addTodo(todos, data) {
+  if (data.parentId) {
+    return todos.map(todo => {
+      if (data.parentId === todo.id) {
+        return {
+          ...todo,
+          children: [...(todo.children || []), data]
+        };
+      }
+      return todo;
+    });
+  }
+  return [...todos, data];
 }
 
-function removeTodos(todos, events) {
-  return todos.filter(todo => events.every(event => event.data.id !== todo.id));
+function removeTodo(todos, data) {
+  return todos.filter(todo => todo.id !== data.id);
 }
 
 module.exports = {

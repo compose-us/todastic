@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`storage-events ADDED_TODO event can add todos in a pretty complex example 1`] = `
+Array [
+  Object {
+    "id": 1,
+    "title": "Create a parent todo",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "id": 3,
+        "parentId": 2,
+        "title": "Create a child in another parent todo",
+      },
+      Object {
+        "id": 5,
+        "parentId": 2,
+        "title": "Create another child todo in parent 2",
+      },
+    ],
+    "id": 2,
+    "title": "Create another parent todo",
+  },
+  Object {
+    "id": 4,
+    "title": "Create a third parent todo",
+  },
+]
+`;

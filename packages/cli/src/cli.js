@@ -9,7 +9,7 @@ yargs
     "track [from] [status] <file>",
     "Tracks time from todos",
     yargs => {
-      return yargs.option("from").option("status");
+      return yargs.option("from").array("status");
     },
     track
   )
@@ -29,5 +29,9 @@ yargs
 
 async function track(argv) {
   const { file, from, status } = argv;
-  console.log(`Tracked time for ${file}: ${await todastic(file).tracked({ minTime: from, filter: { status } })}`);
+  console.log(
+    `Tracked time for ${file}: ${await todastic(file)
+      .filter({ status })
+      .tracked({ minTime: from })}`
+  );
 }

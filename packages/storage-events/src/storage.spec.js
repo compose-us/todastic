@@ -86,5 +86,27 @@ describe("storage-events", () => {
       expect(state.todos.length).toEqual(1);
       expect(state.todos[0].title).toEqual("Create a second parent todo");
     });
+
+    it("can remove a todo and re-add it afterwards", () => {
+      const events = [
+        { event: "ADDED_TODO", data: { id: 1, title: "Create a parent todo" } },
+        { event: "REMOVED_TODO", data: { id: 1 } },
+        { event: "ADDED_TODO", data: { id: 1, title: "Create a parent todo" } },
+      ];
+      const state = storage.replay(events);
+      expect(state.todos.length).toEqual(1);
+      expect(state.todos[0].title).toEqual("Create a parent todo");
+    });
+
+    it("removing a parent todo makes its children disappear", () => {
+      const events = [
+        { event: "ADDED_TODO", data: { id: 1, title: "Create a parent todo" } },
+        { event: "ADDED_TODO", data: { id: 2, title: "Create a child for the parent todo", parentId: 1 } },
+        { event: "REMOVED_TODO", data: { id: 1 } }
+      ];
+      const state = storage.replay(events);
+      expect(state.todos.length).toEqual(0);
+    });
+
   });
 });

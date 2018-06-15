@@ -10,20 +10,33 @@ function replay(events) {
   return { todos };
 }
 
-function addTodo(todos, data) {
-  if (data.parentId) {
+function addTodo(todos, todoToAdd) {
+  if (todoToAdd.parentId) {
     return todos.map(todo => {
-      if (data.parentId === todo.id) {
-        return {
-          ...todo,
-          children: [...(todo.children || []), data]
-        };
-      }
-      return todo;
+      return appendChild(todo, todoToAdd);
     });
   }
-  return [...todos, data];
+  return [...todos, todoToAdd];
 }
+
+function appendChild(todo, todoToAdd) {
+  if (todoToAdd.parentId === todo.id) {
+    return {
+      ...todo,
+      children: [...(todo.children || []), todoToAdd]
+    };
+  } else if (todo.children && todo.children.length) {
+    let mappedChildren = todo.children.map( child => {
+      return appendChild(child, todoToAdd);
+    });
+    return {
+      ...todo,
+      children: [...mappedChildren]
+    };
+  }
+  return todo;
+}
+
 
 function removeTodo(todos, data) {
   return todos.filter(todo => todo.id !== data.id);

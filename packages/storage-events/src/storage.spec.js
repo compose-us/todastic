@@ -85,7 +85,7 @@ describe("storage-events", () => {
       expect(state.todos.length).toEqual(3);
       expect(state.todos[1].children.length).toEqual(1);
       expect(state.todos[1].children[0].children.length).toEqual(2);
-      expect(state.todos[1].children[0].children[1].length).toEqual(1);
+      expect(state.todos[1].children[0].children[1].children.length).toEqual(1);
       expect(state.todos).toMatchSnapshot();
     });
   });

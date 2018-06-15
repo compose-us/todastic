@@ -11,15 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Narigo/todastic.git"
+    "url": "git+https://github.com/compose-us/todastic.git"
   },
   "keywords": [],
   "author": "Joern Bernhardt <joern.bernhardt@googlemail.com> (http://www.unreleased.de)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Narigo/todastic/issues"
+    "url": "https://github.com/compose-us/todastic/issues"
   },
-  "homepage": "https://github.com/Narigo/todastic#readme",
+  "homepage": "https://github.com/compose-us/todastic#readme",
   "dependencies": {
     "@todastic/cli": "^0.1.1"
   },

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storage-events ADDED_TODO event can add todos in a pretty complex example 1`] = `
+exports[`storage-events ADDED_TODO event can add todos in a more complex example 1`] = `
 Array [
   Object {
     "id": 1,

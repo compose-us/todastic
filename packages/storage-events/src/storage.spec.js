@@ -51,7 +51,7 @@ describe("storage-events", () => {
       expect(state.todos[0].children[1].title).toEqual("Create another child todo in parent");
     });
 
-    it("can add todos in a pretty complex example", () => {
+    it("can add todos in a more complex example", () => {
       const events = [
         { event: "ADDED_TODO", data: { id: 1, title: "Create a parent todo" } },
         { event: "ADDED_TODO", data: { id: 2, title: "Create another parent todo" } },
@@ -61,6 +61,30 @@ describe("storage-events", () => {
       ];
       const state = storage.replay(events);
       expect(state.todos).toMatchSnapshot();
+    });
+  });
+
+  describe("REMOVED_TODO event", () => {
+    it("can remove an added todo", () => {
+      const events = [
+        { event: "ADDED_TODO", data: { id: 1, title: "Create a parent todo" } },
+        { event: "REMOVED_TODO", data: { id: 1 } }
+      ];
+      const state = storage.replay(events);
+      expect(state.todos.length).toEqual(0);
+    });
+
+    it("can remove multiple todos", () => {
+      const events = [
+        { event: "ADDED_TODO", data: { id: 1, title: "Create a parent todo" } },
+        { event: "ADDED_TODO", data: { id: 2, title: "Create a second parent todo" } },
+        { event: "ADDED_TODO", data: { id: 3, title: "Create a third parent todo" } },
+        { event: "REMOVED_TODO", data: { id: 1 } },
+        { event: "REMOVED_TODO", data: { id: 3 } }
+      ];
+      const state = storage.replay(events);
+      expect(state.todos.length).toEqual(1);
+      expect(state.todos[0].title).toEqual("Create a second parent todo");
     });
   });
 });

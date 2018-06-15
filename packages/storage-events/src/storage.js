@@ -4,7 +4,8 @@ function replay(events) {
   const todos = parents;
   children.forEach(todo => {
     const foundParent = parents.find(parent => parent.id === todo.parentId);
-    foundParent.children = [todo];
+    foundParent.children = foundParent.children || [];
+    foundParent.children.push(todo);
   });
   return { todos };
 }

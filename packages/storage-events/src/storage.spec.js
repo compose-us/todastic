@@ -1,6 +1,14 @@
 const storage = require("./storage.js");
 
 describe("storage-events", () => {
+  describe("unknown events", () => {
+    it("should ignore events it does not recognize", () => {
+      const events = [{ event: "UNKNOWN_TODO", data: { id: 1, title: "unknown todo" } }];
+      const state = storage.replay(events);
+      expect(state.todos.length).toEqual(0);
+    });
+  });
+
   describe("ADDED_TODO event", () => {
     it("replays to an empty storage if no events are given", () => {
       const state = storage.replay([]);
@@ -91,7 +99,7 @@ describe("storage-events", () => {
       const events = [
         { event: "ADDED_TODO", data: { id: 1, title: "Create a parent todo" } },
         { event: "REMOVED_TODO", data: { id: 1 } },
-        { event: "ADDED_TODO", data: { id: 1, title: "Create a parent todo" } },
+        { event: "ADDED_TODO", data: { id: 1, title: "Create a parent todo" } }
       ];
       const state = storage.replay(events);
       expect(state.todos.length).toEqual(1);
@@ -107,6 +115,5 @@ describe("storage-events", () => {
       const state = storage.replay(events);
       expect(state.todos.length).toEqual(0);
     });
-
   });
 });

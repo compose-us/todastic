@@ -1,20 +1,14 @@
-const express = require('express');
-var server = express();
-var http = require('http').Server(server);
-var io = require('socket.io')(http);
+const express = require("express");
+const app = express();
+const server = require("http").Server(app);
+const createSocketOnServer = require("@todastic/server-socket");
 
-server.get('/', function (req, res) {
-  res.sendFile(__dirname + '/static/index.html');
+app.get("/", function(req, res) {
+  res.sendFile(__dirname + "/static/index.html");
 });
 
-io.on('connection', function(socket){
-  console.log('a user connected');
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
-  });
-});
+createSocketOnServer(server);
 
-http.listen(3000, function () {
-  console.log('Todastic webserver listening on port 3000, Sire!');
+server.listen(3000, function() {
+  console.log("Todastic webserver listening on port 3000, Sire!");
 });
-

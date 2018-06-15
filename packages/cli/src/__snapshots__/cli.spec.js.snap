@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`command line interface can track time 1`] = `
-"Tracked time for /Users/joern/git/work/todastic/packages/cli/src/__tests__/filter-sample.todo: 03:30:00
+"Tracked time: 03:30:00
 "
 `;

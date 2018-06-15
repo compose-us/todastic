@@ -30,7 +30,7 @@ yargs
 async function track(argv) {
   const { file, from, status } = argv;
   console.log(
-    `Tracked time for ${file}: ${await todastic(file)
+    `Tracked time: ${await todastic(file)
       .filter({ status })
       .tracked({ minTime: from })}`
   );

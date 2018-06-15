@@ -21,5 +21,8 @@
   "devDependencies": {
     "jest": "^22.4.4",
     "prettier": "^1.12.1"
+  },
+  "dependencies": {
+    "express": "^4.16.3"
   }
 }

@@ -2,7 +2,7 @@
   "name": "@todastic/server-socket",
   "version": "0.1.0",
   "description": "Provides a web-socket connection for commands usable in todastic web servers.",
-  "main": "src/server.js",
+  "main": "src/server-socket.js",
   "scripts": {
     "format": "prettier --write 'src/**/*.js'",
     "test": "jest src/"
@@ -21,5 +21,8 @@
   "devDependencies": {
     "jest": "^22.4.4",
     "prettier": "^1.12.1"
+  },
+  "dependencies": {
+    "socket.io": "^2.1.1"
   }
 }

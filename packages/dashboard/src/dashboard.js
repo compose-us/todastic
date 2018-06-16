@@ -34,7 +34,7 @@ function filterByTime(minTime) {
           throw new Error("Incorrect date and time values for 'minTime'.");
         }
 
-        return isBefore(minMatch.groups, groups);
+        return isSameOrLater(minMatch.groups, groups);
       };
     } else {
       throw new Error("'minTime' is not correctly formatted");
@@ -47,18 +47,11 @@ function hasCorrectTimeValues({ month, day, hour, minute, second }) {
   return month <= 12 && day <= 31 && hour <= 24 && minute <= 59 && second <= 59;
 }
 
-function isBefore(a, { year, month, day, hour, minute, second }) {
-  return (
-    a.year < year ||
-    (a.year === year &&
-      (a.month < month ||
-        (a.month === month &&
-          (a.day < day ||
-            (a.day === day &&
-              (a.hour < hour ||
-                (a.hour === hour &&
-                  (a.minute < minute || (a.minute === minute && (a.second < second || a.second === second))))))))))
-  );
+function isSameOrLater(a, { year, month, day, hour, minute, second }) {
+  const timestampA = `${a.year}-${a.month}-${a.day} ${a.hour}:${a.minute}:${a.second}`;
+  const timestampB = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+
+  return timestampA <= timestampB;
 }
 
 function timeFromTrackTag(tag) {

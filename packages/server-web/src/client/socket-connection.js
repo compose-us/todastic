@@ -6,5 +6,9 @@ export default function createSocketConnection(eventProcessor) {
   socket.on("connection", events => events.forEach(eventProcessor));
   socket.on("event", eventProcessor);
 
-  socket.emit("command", { command: "ADD_TODO", data: { title: "create a nice test todo" } });
+  return {
+    addTodo(todo) {
+      socket.emit("command", { command: "ADD_TODO", data: todo });
+    }
+  };
 }

@@ -6,5 +6,5 @@ socket.on("event", processEvent);
 socket.emit("command", { command: "ADD_TODO", data: { title: "create a nice test todo" } });
 
 function processEvent(event) {
-  console.log("processing event", event);
+  console.log(new Date(), "processing event", event);
 }

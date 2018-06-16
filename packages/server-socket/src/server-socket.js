@@ -4,19 +4,22 @@ const createCommandProcessor = require("./command-processor.js");
 function createSocketOnServer(httpServer) {
   const io = socketIo(httpServer);
   const { getAllEvents, processCommand } = createCommandProcessor();
+  let connectedSockets = [];
 
   io.on("connection", function(socket) {
     console.log("a user connected");
+    connectedSockets.push(socket);
 
     getAllEvents().forEach(event => socket.emit("event", event));
 
     socket.on("command", command => {
       console.log("command", command);
-      processCommand(e => socket.emit("event", e))(command);
+      processCommand(e => connectedSockets.forEach(s => s.emit("event", e)))(command);
     });
 
     socket.on("disconnect", function() {
       console.log("user disconnected");
+      connectedSockets = connectedSockets.filter(s => s !== socket);
     });
   });
 }

@@ -29,9 +29,8 @@ function filterByTime(minTime) {
     const minMatch = minTimeRegex.exec(minTime);
     if (minMatch) {
       return tag => {
-        const {
-          groups: { year, month, day, hour, minute, second }
-        } = timeTrackingRegex.exec(tag);
+        const { groups } = timeTrackingRegex.exec(tag);
+        const { year, month, day, hour, minute, second } = groups;
         if (
           12 < minMatch.groups.month ||
           31 < minMatch.groups.day ||

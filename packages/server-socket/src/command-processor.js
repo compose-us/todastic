@@ -1,6 +1,8 @@
+let lastEventId = 0;
+
 const processCommand = eventLog => sendEvent => command => {
   if (command.command === "ADD_TODO") {
-    const event = { event: "ADDED_TODO", data: { id: 0, title: command.data.title } };
+    const event = { event: "ADDED_TODO", data: { id: ++lastEventId, title: command.data.title } };
     eventLog.push(event);
     sendEvent(event);
   }

@@ -3,9 +3,7 @@ const app = express();
 const server = require("http").Server(app);
 const createSocketOnServer = require("@todastic/server-socket");
 
-app.get("/", function(req, res) {
-  res.sendFile(__dirname + "/static/index.html");
-});
+app.use(express.static(`${__dirname}/static`));
 
 createSocketOnServer(server);
 

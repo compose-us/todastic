@@ -8,9 +8,12 @@ function createSocketOnServer(httpServer) {
   io.on("connection", function(socket) {
     console.log("a user connected");
 
-    getAllEvents().forEach(entry => socket.emit(entry.event, entry.data));
+    getAllEvents().forEach(event => socket.emit("event", event));
 
-    socket.on("command", processCommand);
+    socket.on("command", command => {
+      console.log("command", command);
+      processCommand(e => socket.emit("event", e))(command);
+    });
 
     socket.on("disconnect", function() {
       console.log("user disconnected");

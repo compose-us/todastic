@@ -6,7 +6,7 @@ exports[`command-processor processCommand sends an ADDED_TODO event when a corre
     Array [
       Object {
         "data": Object {
-          "id": 0,
+          "id": 1,
           "title": "Create a test todo",
         },
         "event": "ADDED_TODO",

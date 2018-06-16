@@ -9,6 +9,10 @@ export default function createSocketConnection(eventProcessor) {
   return {
     addTodo(todo) {
       socket.emit("command", { command: "ADD_TODO", data: todo });
+    },
+    removeTodo(todo) {
+      console.log("remove todo??", todo);
+      socket.emit("command", { command: "REMOVE_TODO", data: { id: todo.id } });
     }
   };
 }

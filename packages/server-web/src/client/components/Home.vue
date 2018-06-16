@@ -30,12 +30,8 @@ function oneOf(arr) {
 
 <style>
 body {
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fc3279+0,2989d8+50,207cca+51,7db9e8+100 */
-  background: #fc3279; /* Old browsers */
-  background: -moz-linear-gradient(-45deg, #fc3279 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(-45deg, #fc3279 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(135deg, #fc3279 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fc3279', endColorstr='#7db9e8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  background: rgb(2,0,36);
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(121,9,20,1) 35%, rgba(0,212,255,1) 100%);
 
 }
 </style>

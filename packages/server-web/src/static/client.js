@@ -1,3 +1,5 @@
+import io from "./socket.io-bundle.js";
+
 const socket = io();
 
 socket.on("connection", events => events.forEach(processEvent));

@@ -20,3 +20,9 @@ Otherwise, you should install `lerna` globally by doing `npm install -g lerna`.
 ```
 lerna bootstrap
 ```
+
+Running the client
+
+```
+lerna run build-client && npm run start-web
+```

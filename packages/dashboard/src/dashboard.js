@@ -30,24 +30,11 @@ function filterByTime(minTime) {
     if (minMatch) {
       return tag => {
         const { groups } = timeTrackingRegex.exec(tag);
-        const { year, month, day, hour, minute, second } = groups;
         if (!hasCorrectTimeValues(minMatch.groups)) {
           throw new Error("Incorrect date and time values for 'minTime'.");
         }
 
-        return (
-          minMatch.groups.year < year ||
-          (minMatch.groups.year === year &&
-            (minMatch.groups.month < month ||
-              (minMatch.groups.month === month &&
-                (minMatch.groups.day < day ||
-                  (minMatch.groups.day === day &&
-                    (minMatch.groups.hour < hour ||
-                      (minMatch.groups.hour === hour &&
-                        (minMatch.groups.minute < minute ||
-                          (minMatch.groups.minute === minute &&
-                            (minMatch.groups.second < second || minMatch.groups.second === second))))))))))
-        );
+        return isBefore(minMatch.groups, groups);
       };
     } else {
       throw new Error("'minTime' is not correctly formatted");
@@ -58,6 +45,20 @@ function filterByTime(minTime) {
 
 function hasCorrectTimeValues({ month, day, hour, minute, second }) {
   return month <= 12 && day <= 31 && hour <= 24 && minute <= 59 && second <= 59;
+}
+
+function isBefore(a, { year, month, day, hour, minute, second }) {
+  return (
+    a.year < year ||
+    (a.year === year &&
+      (a.month < month ||
+        (a.month === month &&
+          (a.day < day ||
+            (a.day === day &&
+              (a.hour < hour ||
+                (a.hour === hour &&
+                  (a.minute < minute || (a.minute === minute && (a.second < second || a.second === second))))))))))
+  );
 }
 
 function timeFromTrackTag(tag) {

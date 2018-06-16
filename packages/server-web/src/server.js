@@ -3,8 +3,8 @@ const app = express();
 const server = require("http").Server(app);
 const createSocketOnServer = require("@todastic/server-socket");
 
-app.get("/vendor/vue.js", (req, res) => {
-  res.sendFile(`${__dirname}/node_modules/vue/dist/vue.js`);
+app.get("/", (req, res) => {
+  res.sendFile(`${__dirname}/index.html`);
 });
 app.use(express.static(`${__dirname}/dist/`));
 

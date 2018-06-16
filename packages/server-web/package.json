@@ -24,6 +24,8 @@
   },
   "dependencies": {
     "@todastic/server-socket": "^0.1.0",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "socket.io-client": "^2.1.1",
+    "vue": "^2.5.16"
   }
 }

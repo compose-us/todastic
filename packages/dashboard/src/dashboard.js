@@ -29,38 +29,29 @@ function filterByTime(minTime) {
     const minMatch = minTimeRegex.exec(minTime);
     if (minMatch) {
       return tag => {
-        const {
-          groups: { year, month, day, hour, minute, second }
-        } = timeTrackingRegex.exec(tag);
-        if (
-          12 < minMatch.groups.month ||
-          31 < minMatch.groups.day ||
-          24 < minMatch.groups.hour ||
-          59 < minMatch.groups.minute ||
-          59 < minMatch.groups.second
-        ) {
+        const { groups } = timeTrackingRegex.exec(tag);
+        if (!hasCorrectTimeValues(minMatch.groups)) {
           throw new Error("Incorrect date and time values for 'minTime'.");
         }
 
-        return (
-          minMatch.groups.year < year ||
-          (minMatch.groups.year === year &&
-            (minMatch.groups.month < month ||
-              (minMatch.groups.month === month &&
-                (minMatch.groups.day < day ||
-                  (minMatch.groups.day === day &&
-                    (minMatch.groups.hour < hour ||
-                      (minMatch.groups.hour === hour &&
-                        (minMatch.groups.minute < minute ||
-                          (minMatch.groups.minute === minute &&
-                            (minMatch.groups.second < second || minMatch.groups.second === second))))))))))
-        );
+        return isSameOrLater(minMatch.groups, groups);
       };
     } else {
       throw new Error("'minTime' is not correctly formatted");
     }
   }
   return () => true;
+}
+
+function hasCorrectTimeValues({ month, day, hour, minute, second }) {
+  return month <= 12 && day <= 31 && hour <= 24 && minute <= 59 && second <= 59;
+}
+
+function isSameOrLater(a, { year, month, day, hour, minute, second }) {
+  const timestampA = `${a.year}-${a.month}-${a.day} ${a.hour}:${a.minute}:${a.second}`;
+  const timestampB = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+
+  return timestampA <= timestampB;
 }
 
 function timeFromTrackTag(tag) {

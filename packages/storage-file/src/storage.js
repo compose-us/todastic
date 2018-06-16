@@ -11,28 +11,7 @@ async function load(filePath) {
   try {
     const file = await promisify(readFile)(filePath);
     const todos = file.toString().split(/\n/);
-    const result = todos.reduce(
-      (res, line) => {
-        const matches = /^( *)(\[.\]) (.+?)((?!\\)\[.*)?$/.exec(line);
-        if (!matches) {
-          if (/^\s*$/.test(line)) {
-            return res;
-          } else {
-            throw new Error(`Error reading file ${filePath} as todastic format.`);
-          }
-        }
-        if (matches[1].length > res.lastLine + 2) {
-          throw new Error(`Error reading file ${filePath} as todastic format.`);
-        }
-
-        const todo = getTodoFromLineInfo({ status: matches[2], title: matches[3], tags: matches[4] });
-        res.todos.push(todo);
-        res.lastLine = matches[1].length;
-
-        return res;
-      },
-      { todos: [], lastLine: 0 }
-    );
+    const result = toIntermediateResult(todos, filePath);
 
     const { lastLine, ...rest } = result;
     return rest;
@@ -47,6 +26,29 @@ async function load(filePath) {
 module.exports = {
   load
 };
+
+function toIntermediateResult(todos, filePath) {
+  const taskRegex = /^( *)(\[.\]) (.+?)((?!\\)\[.*)?$/;
+  return todos.reduce(
+    (res, line) => {
+      if (/^\s*$/.test(line)) {
+        return res;
+      }
+
+      const matches = taskRegex.exec(line);
+      if (!matches || matches[1].length > res.lastLine + 2) {
+        throw new Error(`Error reading file ${filePath} as todastic format.`);
+      }
+
+      const todo = getTodoFromLineInfo({ status: matches[2], title: matches[3], tags: matches[4] });
+      res.todos.push(todo);
+      res.lastLine = matches[1].length;
+
+      return res;
+    },
+    { todos: [], lastLine: 0 }
+  );
+}
 
 function getTodoFromLineInfo({ status, title, tags }) {
   return {

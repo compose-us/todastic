@@ -30,8 +30,8 @@ function oneOf(arr) {
 
 <style>
 body {
-  background: rgb(2,0,36);
-  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(121,9,20,1) 35%, rgba(0,212,255,1) 100%);
+  background: rgb(255,255,255);
+  background: linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(173,25,87,1) 35%, rgba(0,212,255,1) 100%);
 
 }
 </style>

@@ -1,17 +1,23 @@
 <template>
   <div>
     <h1>Todastic</h1>
-    <p>the musical - of Vue!</p>
+    <p>the musical - of Vue!!!11</p>
+    <todo-list/>
   </div>
 </template>
 
 <script>
-console.log("todastic of vue rendering");
-export default {};
+import todos from "./Todos.vue";
+
+export default {
+  components: {
+    "todo-list": todos
+  }
+};
 </script>
 
 <style>
-div {
+body {
   background-color: red;
 }
 </style>

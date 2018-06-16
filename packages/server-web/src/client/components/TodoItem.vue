@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <h1>this is a todo</h1>
+  <div class="todo">
     <span class="status">{{todo.status}}</span>
     <span class="id">#{{todo.id}}</span>
     <span class="title">{{todo.title}}</span>
+    <span class="remove" @click.prevent="removeTodo(todo)">X</span>
   </div>
 </template>
 
@@ -11,12 +11,16 @@
 import { store } from "../store.js";
 
 export default {
-  props: ["todo"]
+  props: ["todo", "removeTodo"]
 };
 </script>
 
 <style>
-body {
-  background-color: red;
+.remove {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  height: 25px;
+  width: 25px;
 }
 </style>

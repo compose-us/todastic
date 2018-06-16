@@ -31,13 +31,7 @@ function filterByTime(minTime) {
       return tag => {
         const { groups } = timeTrackingRegex.exec(tag);
         const { year, month, day, hour, minute, second } = groups;
-        if (
-          12 < minMatch.groups.month ||
-          31 < minMatch.groups.day ||
-          24 < minMatch.groups.hour ||
-          59 < minMatch.groups.minute ||
-          59 < minMatch.groups.second
-        ) {
+        if (!hasCorrectTimeValues(minMatch.groups)) {
           throw new Error("Incorrect date and time values for 'minTime'.");
         }
 
@@ -60,6 +54,10 @@ function filterByTime(minTime) {
     }
   }
   return () => true;
+}
+
+function hasCorrectTimeValues({ month, day, hour, minute, second }) {
+  return month <= 12 && day <= 31 && hour <= 24 && minute <= 59 && second <= 59;
 }
 
 function timeFromTrackTag(tag) {

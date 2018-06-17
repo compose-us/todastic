@@ -25,5 +25,22 @@ describe("command-processor", () => {
       expect(sendEvent).toHaveBeenCalledTimes(1);
       expect(sendEvent).toMatchSnapshot();
     });
+    
+    it("sends a REMOVED_TODO event when a correct REMOVE_TODO command was received", async () => {
+      const { processCommand } = createCommandProcessor();
+      const addedItemId = await new Promise(resolve => {
+        const sendEvent = jest.fn(event => {
+          sentEvent = event;
+          resolve(event.data.id);
+        });
+        const command = { command: "ADD_TODO", data: { title: "Create a test todo" } };
+        processCommand(sendEvent)(command);
+      });
+      const removeCommand = { command: "REMOVE_TODO", data: { id: addedItemId } };
+      const sendEvent = jest.fn();
+      processCommand(sendEvent)(removeCommand);
+      expect(sendEvent).toHaveBeenCalledTimes(1);
+      expect(sendEvent).toMatchSnapshot();
+    });
   });
 });

@@ -1,14 +1,18 @@
 <template>
-  <div>
+  <div :class="`todo-adder ${visible ? '' : 'hide'}`">
     <input type="text" id="create-todo" @keyup.enter.prevent="submit" v-model="todoTitle" :placeholder="placeholder" />
   </div>
 </template>
 
 <script>
 export default {
-  props: ["addTodo", "parentId"],
+  props: {
+    addTodo: { type: Function, required: true },
+    parentId: Number,
+    visible: { type: Boolean, default: true }
+  },
   data() {
-    return {
+    const data = {
       todoTitle: "",
       placeholder: getPlaceholder(),
       submit(event) {
@@ -18,6 +22,9 @@ export default {
         this.placeholder = getPlaceholder();
       }
     };
+    console.log("showing todo-adder", data);
+
+    return data;
   }
 };
 
@@ -31,7 +38,7 @@ function oneOf(arr) {
 </script>
 
 <style>
-body {
-  background-color: red;
+.hide {
+  display: none;
 }
 </style>

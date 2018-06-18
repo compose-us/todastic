@@ -1,5 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`command-processor processCommand sends a REMOVED_TODO event when a correct REMOVE_TODO command was received 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      Object {
+        "data": Object {
+          "id": 2,
+        },
+        "event": "REMOVED_TODO",
+      },
+    ],
+  ],
+}
+`;
+
 exports[`command-processor processCommand sends an ADDED_TODO event when a correct ADD_TODO command was received 1`] = `
 [MockFunction] {
   "calls": Array [

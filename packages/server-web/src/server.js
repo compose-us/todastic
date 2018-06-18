@@ -6,6 +6,9 @@ const createSocketOnServer = require("@todastic/server-socket");
 app.get("/", (req, res) => {
   res.sendFile(`${__dirname}/index.html`);
 });
+app.get("/main.css", (req, res) => {
+  res.sendFile(`${__dirname}/main.css`);
+});
 app.use(express.static(`${__dirname}/dist/`));
 
 createSocketOnServer(server);

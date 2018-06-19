@@ -30,9 +30,4 @@ function oneOf(arr) {
 
 <style>
   @import "main.css";
-body {
-  background: rgb(255,255,255);
-  background: linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(173,25,87,1) 35%, rgba(0,212,255,1) 100%);
-
-}
 </style>

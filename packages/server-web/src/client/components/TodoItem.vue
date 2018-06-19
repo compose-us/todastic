@@ -32,20 +32,3 @@ export default {
   }
 };
 </script>
-
-<style>
-.todo::after {
-  clear: both;
-}
-.remove,
-.add-child {
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  height: 25px;
-  width: 25px;
-}
-.options {
-  float: right;
-}
-</style>

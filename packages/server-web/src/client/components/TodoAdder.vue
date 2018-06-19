@@ -36,9 +36,3 @@ function oneOf(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 </script>
-
-<style>
-.hide {
-  display: none;
-}
-</style>

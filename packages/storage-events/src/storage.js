@@ -26,7 +26,7 @@ function appendChild(todo, todoToAdd) {
       children: [...(todo.children || []), todoToAdd]
     };
   } else if (todo.children && todo.children.length) {
-    let mappedChildren = todo.children.map( child => {
+    let mappedChildren = todo.children.map(child => {
       return appendChild(child, todoToAdd);
     });
     return {
@@ -37,9 +37,18 @@ function appendChild(todo, todoToAdd) {
   return todo;
 }
 
-
 function removeTodo(todos, data) {
-  return todos.filter(todo => todo.id !== data.id);
+  return todos.reduce(removeTodoInListOrChildren, []);
+
+  function removeTodoInListOrChildren(todos, todo) {
+    if (todo.id === data.id) {
+      return todos;
+    }
+    if (todo.children) {
+      todo.children = todo.children.reduce(removeTodoInListOrChildren, []);
+    }
+    return [...todos, todo];
+  }
 }
 
 module.exports = {

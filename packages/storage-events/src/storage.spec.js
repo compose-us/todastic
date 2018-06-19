@@ -133,5 +133,17 @@ describe("storage-events", () => {
       const state = storage.replay(events);
       expect(state.todos.length).toEqual(0);
     });
+
+    it("can remove a child todo", () => {
+      const events = [
+        { event: "ADDED_TODO", data: { id: 1, title: "Create a parent todo" } },
+        { event: "ADDED_TODO", data: { id: 2, title: "Create a child for the parent todo", parentId: 1 } },
+        { event: "ADDED_TODO", data: { id: 3, title: "Create another child for the parent todo", parentId: 1 } },
+        { event: "REMOVED_TODO", data: { id: 3 } }
+      ];
+      const state = storage.replay(events);
+      expect(state.todos.length).toEqual(1);
+      expect(state.todos[0].children.length).toEqual(1);
+    });
   });
 });

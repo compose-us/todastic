@@ -2,12 +2,19 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+p {
+  color: #3B72F1;
 }
 body {
-  background-color: red;
-  font: 13px Helvetica, Arial;
-  background: rgb(255,255,255);
-  background: linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(173,25,87,1) 35%, rgba(0,212,255,1) 100%);
+  background-color: #f5f5f5;
+  font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+h1 {
+	font-weight: 100;
+	color: #B6D8AA;
+  padding-bottom: 1em;
 }
 form {
   background: #000;
@@ -55,4 +62,9 @@ form button {
 }
 .hide {
   display: none;
+}
+
+#create-todo {
+  width: 30%;
+	padding: 1em 0;
 }

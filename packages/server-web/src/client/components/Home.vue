@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="todasticapp">
     <h1>Todastic</h1>
-    <p>the musical - of Vue!!!11</p>
+    <p>Add new Todo</p>
     <todo-adder :addTodo="commands.addTodo"/>
     <todo-list :commands="commands"/>
   </div>

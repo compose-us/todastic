@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>this is a list of todos</h1>
     <ul>
       <li v-for="todo in store.todos" :key="todo.id">
         <todo-item :removeTodo="commands.removeTodo" :todo="todo"/>

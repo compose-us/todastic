@@ -24,17 +24,20 @@ import TodoAdder from "./TodoAdder.vue";
 import { store } from "../store.js";
 
 export default {
-  props: ["todo", "commands"],
+  props: ["commands", "todo"],
   components: {
     "todo-adder": TodoAdder,
     "todo-list": () => import("./TodoList.vue") // circular dependency -> import dynamically!
   },
   data() {
     return {
+      adderVisible: false,
       toggleAddTodoItem(todo) {
         this.$data.adderVisible = !this.$data.adderVisible;
       },
-      adderVisible: false
+      removeTodo(todo) {
+        return this.$props.commands.removeTodo(todo);
+      }
     };
   }
 };

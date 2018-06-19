@@ -12,7 +12,10 @@
       <span class="id">#{{todo.id}}</span>
       <span class="title">{{todo.title}}</span>
     </div>
-    <todo-adder :parentId="todo.id" :visible="adderVisible" />
+    <div>
+      <todo-list :commands="commands" :todos="todo.children" :parentId="todo.id" />
+    </div>
+    <todo-adder :parentId="todo.id" :visible="adderVisible" :addTodo="commands.addTodo" />
   </div>
 </template>
 
@@ -21,9 +24,10 @@ import TodoAdder from "./TodoAdder.vue";
 import { store } from "../store.js";
 
 export default {
-  props: ["todo", "removeTodo"],
+  props: ["todo", "commands"],
   components: {
-    todoAdder: TodoAdder
+    "todo-adder": TodoAdder,
+    "todo-list": () => import("./TodoList.vue") // circular dependency -> import dynamically!
   },
   data() {
     return {

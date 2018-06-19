@@ -3,20 +3,26 @@
     <h1>Todastic</h1>
     <p>Add new Todo</p>
     <todo-adder :addTodo="commands.addTodo"/>
-    <todo-list :commands="commands"/>
+    <todo-list :commands="commands" :todos="store.todos"/>
   </div>
 </template>
 
 <script>
 import TodoList from "./TodoList.vue";
 import TodoAdder from "./TodoAdder.vue";
+import { store } from "../store.js";
 
 export default {
   components: {
     "todo-list": TodoList,
     "todo-adder": TodoAdder
   },
-  props: ["commands"]
+  props: ["commands"],
+  data() {
+    return {
+      store
+    };
+  }
 };
 
 function getPlaceholder() {

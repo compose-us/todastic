@@ -2,7 +2,7 @@ let lastEventId = 0;
 
 const processCommand = eventLog => sendEvent => command => {
   if (command.command === "ADD_TODO") {
-    const event = { event: "ADDED_TODO", data: { id: ++lastEventId, title: command.data.title } };
+    const event = { event: "ADDED_TODO", data: { ...command.data, id: ++lastEventId } };
     eventLog.push(event);
     return sendEvent(event);
   } else if (command.command === "REMOVE_TODO") {

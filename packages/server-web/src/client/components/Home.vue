@@ -1,22 +1,28 @@
 <template>
-  <div>
+  <div class="todasticapp">
     <h1>Todastic</h1>
-    <p>the musical - of Vue!!!11</p>
+    <p>Add new Todo</p>
     <todo-adder :addTodo="commands.addTodo"/>
-    <todo-list :commands="commands"/>
+    <todo-list :commands="commands" :todos="store.todos"/>
   </div>
 </template>
 
 <script>
 import TodoList from "./TodoList.vue";
 import TodoAdder from "./TodoAdder.vue";
+import { store } from "../store.js";
 
 export default {
   components: {
     "todo-list": TodoList,
     "todo-adder": TodoAdder
   },
-  props: ["commands"]
+  props: ["commands"],
+  data() {
+    return {
+      store
+    };
+  }
 };
 
 function getPlaceholder() {
@@ -29,9 +35,5 @@ function oneOf(arr) {
 </script>
 
 <style>
-body {
-  background: rgb(255,255,255);
-  background: linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(173,25,87,1) 35%, rgba(0,212,255,1) 100%);
-
-}
+  @import "main.css";
 </style>

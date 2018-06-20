@@ -35,9 +35,6 @@ form button {
   border: none;
   padding: 10px;
 }
-ul {
-  padding-left: 25px;
-}
 #messages {
   list-style-type: none;
   margin: 0;
@@ -49,13 +46,24 @@ ul {
 #messages li:nth-child(odd) {
   background: #eee;
 }
+.todo-item {
+  margin: 10px;
+  width: 90%;
+  /* border-left: 1px solid #000; */
+  box-shadow: -5px 0px 5px -5px #000;
+}
 .todo-list {
   clear: both;
+}
+.todo-list ul {
+  list-style-type: none;
+  padding-left: 25px;
 }
 .todo::after {
   clear: both;
 }
 .remove,
+.move,
 .add-child {
   display: flex;
   justify-content: center;
@@ -65,6 +73,9 @@ ul {
 }
 .options {
   float: left;
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
 }
 .hide {
   display: none;

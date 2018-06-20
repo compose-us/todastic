@@ -3,6 +3,7 @@
     <div class="todo">
       <span class="options">
         <span class="remove" @click.prevent="removeTodo(todo)"><i class="fas fa-times"></i></span>
+        <span class="move" @drag.prevent="drag(todo)"><i class="fas fa-arrows-alt"></i></span>
         <span class="add-child" @click.prevent="toggleAddTodoItem(todo)">
             <i v-if=adderVisible class="far fa-minus-square"></i>
             <i v-else class="far fa-plus-square"></i>

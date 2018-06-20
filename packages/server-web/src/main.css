@@ -35,6 +35,9 @@ form button {
   border: none;
   padding: 10px;
 }
+ul {
+  padding-left: 25px;
+}
 #messages {
   list-style-type: none;
   margin: 0;
@@ -45,6 +48,9 @@ form button {
 }
 #messages li:nth-child(odd) {
   background: #eee;
+}
+.todo-list {
+  clear: both;
 }
 .todo::after {
   clear: both;

@@ -12,9 +12,7 @@
       <span class="id">#{{todo.id}}</span>
       <span class="title">{{todo.title}}</span>
     </div>
-    <div>
-      <todo-list :commands="commands" :todos="todo.children" :parentId="todo.id" />
-    </div>
+    <todo-list :commands="commands" :todos="todo.children" :parentId="todo.id" />
     <todo-adder :parentId="todo.id" :visible="adderVisible" :addTodo="commands.addTodo" />
   </div>
 </template>

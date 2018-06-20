@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="todo-list">
     <ul>
       <li v-for="todo in todos" :key="todo.id">
         <todo-item :commands="commands" :todo="todo"/>

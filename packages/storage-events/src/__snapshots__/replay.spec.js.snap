@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storage-events ADDED_TODO event can add todos as children of children 1`] = `
+exports[`replay ADDED_TODO event can add todos as children of children 1`] = `
 Array [
   Object {
     "id": 1,
@@ -43,7 +43,7 @@ Array [
 ]
 `;
 
-exports[`storage-events ADDED_TODO event can add todos in a more complex example 1`] = `
+exports[`replay ADDED_TODO event can add todos in a more complex example 1`] = `
 Array [
   Object {
     "id": 1,

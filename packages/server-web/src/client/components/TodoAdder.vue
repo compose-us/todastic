@@ -1,6 +1,6 @@
 <template>
   <div :class="`todo-adder ${visible ? '' : 'hide'}`">
-    <input ref="input" type="text" id="create-todo" @keyup.enter.prevent="submit" v-model="todoTitle" :placeholder="placeholder" />
+    <input ref="input" type="text" class="create-todo" @keyup.enter.prevent="submit" v-model="todoTitle" :placeholder="placeholder" />
   </div>
 </template>
 

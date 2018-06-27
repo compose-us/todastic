@@ -1,9 +1,8 @@
 <template>
   <div class="todasticapp">
     <h1>Todastic</h1>
-    <p>Add new Todo</p>
-    <todo-adder :addTodo="commands.addTodo"/>
     <todo-list :commands="commands" :todos="store.todos"/>
+    <todo-adder :addTodo="commands.addTodo"/>
   </div>
 </template>
 
@@ -35,5 +34,5 @@ function oneOf(arr) {
 </script>
 
 <style>
-  @import "main.css";
+@import "main.css";
 </style>

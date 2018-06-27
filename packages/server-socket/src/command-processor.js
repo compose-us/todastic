@@ -19,23 +19,23 @@ const processCommand = (logger, maxTodoId) => {
 const createCommandProcessor = filename => {
   const logger = createLogger();
 
-  try {
-    const stringifiedEvents = fs.readFileSync(filename);
-    if (stringifiedEvents) {
-      logger.load(JSON.parse(stringifiedEvents));
-    }
-  } catch (e) {}
+  if (filename) {
+    try {
+      const stringifiedEvents = fs.readFileSync(filename);
+      if (stringifiedEvents) {
+        logger.load(JSON.parse(stringifiedEvents));
+      }
+    } catch (e) {}
 
-  setInterval(() => {
-    const stringifiedEvents = JSON.stringify(logger.getEvents());
-    fs.writeFileSync(filename, stringifiedEvents);
-  }, 5000);
+    setInterval(() => {
+      const stringifiedEvents = JSON.stringify(logger.getEvents());
+      fs.writeFileSync(filename, stringifiedEvents);
+    }, 5000);
+  }
 
   const maxTodoId = replay(logger.getEvents())
     .todos.map(t => t.id)
     .reduce((max, id) => (id > max ? id : max), 0);
-
-  console.log("maxTodoId =", maxTodoId);
 
   return {
     processCommand: processCommand(logger, maxTodoId),

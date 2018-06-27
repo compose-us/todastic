@@ -6,7 +6,7 @@ exports[`command-processor processCommand sends a REMOVED_TODO event when a corr
     Array [
       Object {
         "data": Object {
-          "id": 2,
+          "id": 1,
         },
         "event": "REMOVED_TODO",
       },

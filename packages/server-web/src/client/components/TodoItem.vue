@@ -50,6 +50,10 @@ export default {
 </script>
 
 <style>
+.id {
+	margin-right: 5px;
+}
+
 .status {
   display: inline-flex;
   align-content: center;
@@ -59,7 +63,8 @@ export default {
   height: 15px;
   line-height: 15px;
   border: 2px solid #000;
-  border-radius: 3px;
+	border-radius: 3px;
+	margin: 5px;
 }
 
 .status.status-open {

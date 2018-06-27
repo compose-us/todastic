@@ -56,7 +56,7 @@ input {
   width: 25px;
 }
 .options {
-  float: left;
+  float: right;
   display: flex;
   flex-direction: row;
   align-content: space-between;

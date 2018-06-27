@@ -14,7 +14,7 @@
       <span class="title">{{todo.title}}</span>
     </div>
     <todo-list :commands="commands" :todos="todo.children" :parentId="todo.id" />
-    <todo-adder :parentId="todo.id" :visible="adderVisible" :addTodo="commands.addTodo" />
+    <todo-adder ref="adder" :parentId="todo.id" :visible="adderVisible" :addTodo="commands.addTodo" />
   </div>
 </template>
 
@@ -35,7 +35,11 @@ export default {
         return this.$props.commands.changeTodo(todo, { status: "done" });
       },
       toggleAddTodoItem() {
-        this.$data.adderVisible = !this.$data.adderVisible;
+				this.$data.adderVisible = !this.$data.adderVisible;
+				if (this.$data.adderVisible) {
+					// Set focus on the input field if adder is toggled to visible
+					this.$nextTick(() => this.$refs.adder.$refs.input.focus());
+				}
       },
       removeTodo(todo) {
         return this.$props.commands.removeTodo(todo);

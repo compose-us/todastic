@@ -19,3 +19,13 @@ export default {
   props: ["commands", "todos", "parentId"]
 };
 </script>
+
+<style>
+.todo-list {
+  clear: both;
+}
+.todo-list ul {
+  list-style-type: none;
+  padding-left: 25px;
+}
+</style>

@@ -50,10 +50,16 @@ export default {
 </script>
 
 <style>
+.todo-item {
+	box-shadow: -5px 0px 5px -5px #000;
+	margin: 1em 0;
+}
+.todo::after {
+  clear: both;
+}
 .id {
 	margin-right: 5px;
 }
-
 .status {
   display: inline-flex;
   align-content: center;
@@ -66,8 +72,22 @@ export default {
 	border-radius: 3px;
 	margin: 5px;
 }
-
 .status.status-open {
   content: "x";
+}
+.remove,
+.move,
+.add-child {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  height: 25px;
+  width: 25px;
+}
+.options {
+  float: right;
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
 }
 </style>

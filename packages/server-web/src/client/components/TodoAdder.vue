@@ -1,6 +1,6 @@
 <template>
   <div :class="`todo-adder ${visible ? '' : 'hide'}`">
-    <input type="text" id="create-todo" @keyup.enter.prevent="submit" v-model="todoTitle" :placeholder="placeholder" />
+    <input ref="input" type="text" class="create-todo" @keyup.enter.prevent="submit" v-model="todoTitle" :placeholder="placeholder" />
   </div>
 </template>
 
@@ -25,7 +25,7 @@ export default {
     console.log("showing todo-adder", data);
 
     return data;
-  }
+	},
 };
 
 function getPlaceholder() {
@@ -36,3 +36,18 @@ function oneOf(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 </script>
+
+<style>
+input {
+	display: block;
+	border: 0;
+	box-shadow: 0 2px 1px -1px #000;
+	padding: 10px;
+  width: 100%;
+  margin-right: 0.5%;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.hide {
+  display: none;
+}
+</style>

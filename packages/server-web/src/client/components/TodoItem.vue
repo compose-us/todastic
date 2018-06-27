@@ -3,19 +3,18 @@
     <div class="todo">
       <span class="options">
         <span class="remove" @click.prevent="removeTodo(todo)"><i class="fas fa-times"></i></span>
-        <span class="add-child" @click.prevent="toggleAddTodoItem(todo)">
+        <span class="move" @drag.prevent="drag(todo)"><i class="fas fa-arrows-alt"></i></span>
+        <span class="add-child" @click.prevent="toggleAddTodoItem()">
             <i v-if=adderVisible class="far fa-minus-square"></i>
             <i v-else class="far fa-plus-square"></i>
         </span>
       </span>
-      <span class="status">{{todo.status}}</span>
+      <span :class="`status status-${todo.status || 'open'}`" @click.prevent="toggleStatus(todo)"></span>
       <span class="id">#{{todo.id}}</span>
       <span class="title">{{todo.title}}</span>
     </div>
-    <div>
-      <todo-list :commands="commands" :todos="todo.children" :parentId="todo.id" />
-    </div>
-    <todo-adder :parentId="todo.id" :visible="adderVisible" :addTodo="commands.addTodo" />
+    <todo-list :commands="commands" :todos="todo.children" :parentId="todo.id" />
+    <todo-adder ref="adder" :parentId="todo.id" :visible="adderVisible" :addTodo="commands.addTodo" />
   </div>
 </template>
 
@@ -32,8 +31,15 @@ export default {
   data() {
     return {
       adderVisible: false,
-      toggleAddTodoItem(todo) {
-        this.$data.adderVisible = !this.$data.adderVisible;
+      toggleStatus(todo) {
+        return this.$props.commands.changeTodo(todo, { status: "done" });
+      },
+      toggleAddTodoItem() {
+				this.$data.adderVisible = !this.$data.adderVisible;
+				if (this.$data.adderVisible) {
+					// Set focus on the input field if adder is toggled to visible
+					this.$nextTick(() => this.$refs.adder.$refs.input.focus());
+				}
       },
       removeTodo(todo) {
         return this.$props.commands.removeTodo(todo);
@@ -42,3 +48,46 @@ export default {
   }
 };
 </script>
+
+<style>
+.todo-item {
+	box-shadow: -5px 0px 5px -5px #000;
+	margin: 1em 0;
+}
+.todo::after {
+  clear: both;
+}
+.id {
+	margin-right: 5px;
+}
+.status {
+  display: inline-flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  width: 15px;
+  height: 15px;
+  line-height: 15px;
+  border: 2px solid #000;
+	border-radius: 3px;
+	margin: 5px;
+}
+.status.status-open {
+  content: "x";
+}
+.remove,
+.move,
+.add-child {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  height: 25px;
+  width: 25px;
+}
+.options {
+  float: right;
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+}
+</style>

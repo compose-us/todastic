@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="todo-list">
     <ul>
       <li v-for="todo in todos" :key="todo.id">
         <todo-item :commands="commands" :todo="todo"/>
@@ -19,3 +19,13 @@ export default {
   props: ["commands", "todos", "parentId"]
 };
 </script>
+
+<style>
+.todo-list {
+  clear: both;
+}
+.todo-list ul {
+  list-style-type: none;
+  padding-left: 25px;
+}
+</style>

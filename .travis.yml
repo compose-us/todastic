@@ -4,7 +4,7 @@ node_js:
   - "10"
 
 install:
-  - travis_wait npm install
+  - travis_wait npm ci
   - lerna bootstrap
 
 script:

@@ -30,7 +30,6 @@ describe("command-processor", () => {
       const { processCommand } = createCommandProcessor();
       const addedItemId = await new Promise(resolve => {
         const sendEvent = jest.fn(event => {
-          sentEvent = event;
           resolve(event.data.id);
         });
         const command = { command: "ADD_TODO", data: { title: "Create a test todo" } };

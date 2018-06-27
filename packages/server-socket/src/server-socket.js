@@ -1,9 +1,11 @@
 const socketIo = require("socket.io");
 const createCommandProcessor = require("./command-processor.js");
 
+const TODASTIC_FILE = `${process.cwd()}/todastic.events`;
+
 function createSocketOnServer(httpServer) {
   const io = socketIo(httpServer);
-  const { getAllEvents, processCommand } = createCommandProcessor();
+  const { getAllEvents, processCommand } = createCommandProcessor(TODASTIC_FILE);
   let connectedSockets = [];
 
   io.on("connection", function(socket) {

@@ -1,22 +1,45 @@
-let lastEventId = 0;
+const fs = require("fs");
+const { createLogger, replay } = require("@todastic/storage-events");
 
-const processCommand = eventLog => sendEvent => command => {
-  if (command.command === "ADD_TODO") {
-    const event = { event: "ADDED_TODO", data: { ...command.data, id: ++lastEventId } };
-    eventLog.push(event);
-    return sendEvent(event);
-  } else if (command.command === "REMOVE_TODO") {
-    const event = { event: "REMOVED_TODO", data: { id: command.data.id } };
-    eventLog.push(event);
-    return sendEvent(event);
-  }
+const processCommand = (logger, maxTodoId) => {
+  let lastTodoId = maxTodoId;
+  return sendEvent => command => {
+    if (command.command === "ADD_TODO") {
+      const event = { event: "ADDED_TODO", data: { ...command.data, id: ++lastTodoId } };
+      logger.log(event);
+      return sendEvent(event);
+    } else if (command.command === "REMOVE_TODO") {
+      const event = { event: "REMOVED_TODO", data: { id: command.data.id } };
+      logger.log(event);
+      return sendEvent(event);
+    }
+  };
 };
 
-const createCommandProcessor = () => {
-  const eventLog = [];
+const createCommandProcessor = filename => {
+  const logger = createLogger();
+
+  try {
+    const stringifiedEvents = fs.readFileSync(filename);
+    if (stringifiedEvents) {
+      logger.load(JSON.parse(stringifiedEvents));
+    }
+  } catch (e) {}
+
+  setInterval(() => {
+    const stringifiedEvents = JSON.stringify(logger.getEvents());
+    fs.writeFileSync(filename, stringifiedEvents);
+  }, 5000);
+
+  const maxTodoId = replay(logger.getEvents())
+    .todos.map(t => t.id)
+    .reduce((max, id) => (id > max ? id : max), 0);
+
+  console.log("maxTodoId =", maxTodoId);
+
   return {
-    processCommand: processCommand(eventLog),
-    getAllEvents: () => eventLog
+    processCommand: processCommand(logger, maxTodoId),
+    getAllEvents: () => logger.getEvents()
   };
 };
 

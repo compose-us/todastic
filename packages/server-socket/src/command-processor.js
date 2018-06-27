@@ -19,11 +19,11 @@ const processCommand = (logger, maxTodoId) => {
 const createCommandProcessor = filename => {
   const logger = createLogger();
 
-  const maxTodoId = replay(logger.getEvents())
-    .todos.map(t => t.id)
-    .reduce((max, id) => (id > max ? id : max), 0);
-
   setupLoggerFileSync(logger, filename);
+
+  const maxOfTodos = (currentMax, todo) =>
+    Math.max(currentMax, todo.id, todo.children ? todos.children.reduce(maxOfTodos, currentMax) : 0);
+  const maxTodoId = replay(logger.getEvents()).todos.reduce(maxOfTodos, 0);
 
   return {
     processCommand: processCommand(logger, maxTodoId),

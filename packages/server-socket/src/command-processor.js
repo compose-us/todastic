@@ -19,6 +19,21 @@ const processCommand = (logger, maxTodoId) => {
 const createCommandProcessor = filename => {
   const logger = createLogger();
 
+  const maxTodoId = replay(logger.getEvents())
+    .todos.map(t => t.id)
+    .reduce((max, id) => (id > max ? id : max), 0);
+
+  setupLoggerFileSync(logger, filename);
+
+  return {
+    processCommand: processCommand(logger, maxTodoId),
+    getAllEvents: () => logger.getEvents()
+  };
+};
+
+module.exports = createCommandProcessor;
+
+function setupLoggerFileSync(logger, filename) {
   if (filename) {
     try {
       const stringifiedEvents = fs.readFileSync(filename);
@@ -32,15 +47,4 @@ const createCommandProcessor = filename => {
       fs.writeFileSync(filename, stringifiedEvents);
     }, 5000);
   }
-
-  const maxTodoId = replay(logger.getEvents())
-    .todos.map(t => t.id)
-    .reduce((max, id) => (id > max ? id : max), 0);
-
-  return {
-    processCommand: processCommand(logger, maxTodoId),
-    getAllEvents: () => logger.getEvents()
-  };
-};
-
-module.exports = createCommandProcessor;
+}

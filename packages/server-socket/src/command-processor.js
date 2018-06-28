@@ -22,7 +22,7 @@ const createCommandProcessor = filename => {
   setupLoggerFileSync(logger, filename);
 
   const maxOfTodos = (currentMax, todo) =>
-    Math.max(currentMax, todo.id, todo.children ? todos.children.reduce(maxOfTodos, currentMax) : 0);
+    Math.max(currentMax, todo.id, todo.children ? todo.children.reduce(maxOfTodos, currentMax) : 0);
   const maxTodoId = replay(logger.getEvents()).todos.reduce(maxOfTodos, 0);
 
   return {

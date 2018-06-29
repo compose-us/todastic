@@ -57,10 +57,17 @@ export default {
 
 <style>
 .todo-item {
-  box-shadow: -5px 0px 5px -5px #000;
+  box-shadow: -3px 0px 3px -3px #000;
   margin: 1em 0;
 }
 
+.todo {
+	display: grid;
+	grid-template-columns: 25px 25px 40px 1fr;
+}
+.todo > * {
+	padding: 5px;
+}
 .todo::after {
   clear: both;
 }
@@ -84,20 +91,5 @@ export default {
 }
 .status.status-open {
   content: "x";
-}
-.remove,
-.move,
-.add-child {
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  height: 25px;
-  width: 25px;
-}
-.options {
-  float: right;
-  display: flex;
-  flex-direction: row;
-  align-content: space-between;
 }
 </style>

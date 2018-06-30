@@ -14,18 +14,20 @@ export default {
   data() {
     const data = {
       todoTitle: "",
-      placeholder: getPlaceholder(),
-      submit(event) {
-        console.log("this.props", this.$props);
-        this.$props.addTodo({ title: this.todoTitle, parentId: this.$props.parentId });
-        this.todoTitle = "";
-        this.placeholder = getPlaceholder();
-      }
+      placeholder: getPlaceholder()
     };
     console.log("showing todo-adder", data);
 
     return data;
-	},
+  },
+  methods: {
+    submit(event) {
+      console.log("this.props", this.$props);
+      this.$props.addTodo({ title: this.$data.todoTitle, parentId: this.$props.parentId });
+      this.$data.todoTitle = "";
+      this.$data.placeholder = getPlaceholder();
+    }
+  }
 };
 
 function getPlaceholder() {
@@ -39,10 +41,10 @@ function oneOf(arr) {
 
 <style>
 input {
-	display: block;
-	border: 0;
-	box-shadow: 0 2px 1px -1px #000;
-	padding: 10px;
+  display: block;
+  border: 0;
+  box-shadow: 0 2px 1px -1px #000;
+  padding: 10px;
   width: 100%;
   margin-right: 0.5%;
   background-color: rgba(0, 0, 0, 0.05);

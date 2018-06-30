@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@todastic/storage-events": "^0.1.0",
+    "node-uuid": "^1.4.8",
     "socket.io": "^2.1.1"
   }
 }

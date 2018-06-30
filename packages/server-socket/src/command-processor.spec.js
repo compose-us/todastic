@@ -1,4 +1,5 @@
 const createCommandProcessor = require("./command-processor.js");
+let uuidv1 = require("uuid/v1");
 
 let dateNowSpy;
 let mockClock = new Date("2018-06-30T16:54:59.218Z");
@@ -11,6 +12,9 @@ afterAll(() => {
     // Unlock Time
     dateNowSpy.mockReset();
     dateNowSpy.mockRestore();
+    // Unmock uuid
+    // The mock comes from __mock__/uuid.js and is loaded automatically
+    jest.unmock("uuid");
 });
 
 describe("command-processor", () => {

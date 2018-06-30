@@ -8,7 +8,7 @@
         :toggleAddTodoItem="toggleAddTodoItem"
 			/>
       <span :class="`status status-${todo.status || 'open'}`" @click.prevent="toggleStatus(todo)"></span>
-      <span class="id">#{{todo.id}}</span>
+      <span class="id">#{{todo.id.substring(1, 4)}}</span>
       <span class="title">{{todo.title}}</span>
     </div>
     <todo-list :commands="commands" :todos="todo.children" :parentId="todo.id" />

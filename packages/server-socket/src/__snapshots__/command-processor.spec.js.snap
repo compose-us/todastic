@@ -6,6 +6,7 @@ exports[`command-processor processCommand sends a REMOVED_TODO event when a corr
     Array [
       Object {
         "data": Object {
+          "createdAt": 2018-06-30T16:54:59.221Z,
           "id": 1,
         },
         "event": "REMOVED_TODO",
@@ -21,6 +22,7 @@ exports[`command-processor processCommand sends an ADDED_TODO event when a corre
     Array [
       Object {
         "data": Object {
+          "createdAt": 2018-06-30T16:54:59.219Z,
           "id": 1,
           "title": "Create a test todo",
         },

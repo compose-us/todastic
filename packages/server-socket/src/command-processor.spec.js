@@ -1,5 +1,18 @@
 const createCommandProcessor = require("./command-processor.js");
 
+let dateNowSpy;
+let mockClock = new Date("2018-06-30T16:54:59.218Z");
+beforeAll(() => {
+    // Lock Time
+    dateNowSpy = jest.spyOn(Date, "now").mockImplementation(() => new Date(++mockClock));
+});
+
+afterAll(() => {
+    // Unlock Time
+    dateNowSpy.mockReset();
+    dateNowSpy.mockRestore();
+});
+
 describe("command-processor", () => {
   describe("getAllEvents", () => {
     it("returns an empty list initially", () => {
@@ -25,7 +38,7 @@ describe("command-processor", () => {
       expect(sendEvent).toHaveBeenCalledTimes(1);
       expect(sendEvent).toMatchSnapshot();
     });
-    
+
     it("sends a REMOVED_TODO event when a correct REMOVE_TODO command was received", async () => {
       const { processCommand } = createCommandProcessor();
       const addedItemId = await new Promise(resolve => {

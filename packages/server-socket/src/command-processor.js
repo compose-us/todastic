@@ -5,11 +5,11 @@ const processCommand = (logger, maxTodoId) => {
   let lastTodoId = maxTodoId;
   return sendEvent => command => {
     if (command.command === "ADD_TODO") {
-      const event = { event: "ADDED_TODO", data: { ...command.data, id: ++lastTodoId } };
+      const event = { event: "ADDED_TODO", data: { ...command.data, id: ++lastTodoId, createdAt: Date.now() } };
       logger.log(event);
       return sendEvent(event);
     } else if (command.command === "REMOVE_TODO") {
-      const event = { event: "REMOVED_TODO", data: { id: command.data.id } };
+      const event = { event: "REMOVED_TODO", data: { id: command.data.id, createdAt: Date.now() } };
       logger.log(event);
       return sendEvent(event);
     }

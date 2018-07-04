@@ -23,9 +23,13 @@ describe("command-processor", () => {
       const { processCommand } = createCommandProcessor();
       processCommand(sendEvent)(command);
       expect(sendEvent).toHaveBeenCalledTimes(1);
-      expect(sendEvent).toMatchSnapshot();
+      expect(sendEvent.mock.calls[0][0]["data"]).toMatchSnapshot({
+        id: expect.any(String),
+        createdAt: expect.any(Number)
+      });
+      expect(sendEvent.mock.calls[0][0]["event"]).toEqual("ADDED_TODO");
     });
-    
+
     it("sends a REMOVED_TODO event when a correct REMOVE_TODO command was received", async () => {
       const { processCommand } = createCommandProcessor();
       const addedItemId = await new Promise(resolve => {
@@ -39,7 +43,11 @@ describe("command-processor", () => {
       const sendEvent = jest.fn();
       processCommand(sendEvent)(removeCommand);
       expect(sendEvent).toHaveBeenCalledTimes(1);
-      expect(sendEvent).toMatchSnapshot();
+      expect(sendEvent.mock.calls[0][0]["data"]).toMatchSnapshot({
+        id: expect.any(String),
+        createdAt: expect.any(Number)
+      });
+      expect(sendEvent.mock.calls[0][0]["event"]).toEqual("REMOVED_TODO");
     });
   });
 });

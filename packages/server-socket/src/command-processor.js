@@ -1,15 +1,19 @@
 const fs = require("fs");
+// v1 is timestamp based, so we can still order by ID when it's the same createdAt
+// and have some sort of consistent behaviour
+// TODO we should require uuid/v1 here, because requiring uuid is deprecated
+//      however, i couldn't mock that require because of lacking javascript skills
+const uuidv1 = require("uuid/v1");
 const { createLogger, replay } = require("@todastic/storage-events");
 
-const processCommand = (logger, maxTodoId) => {
-  let lastTodoId = maxTodoId;
+const processCommand = (logger) => {
   return sendEvent => command => {
     if (command.command === "ADD_TODO") {
-      const event = { event: "ADDED_TODO", data: { ...command.data, id: ++lastTodoId } };
+      const event = { event: "ADDED_TODO", data: { ...command.data, id: uuidv1(), createdAt: Date.now() } };
       logger.log(event);
       return sendEvent(event);
     } else if (command.command === "REMOVE_TODO") {
-      const event = { event: "REMOVED_TODO", data: { id: command.data.id } };
+      const event = { event: "REMOVED_TODO", data: { id: command.data.id, createdAt: Date.now() } };
       logger.log(event);
       return sendEvent(event);
     }
@@ -21,12 +25,8 @@ const createCommandProcessor = filename => {
 
   setupLoggerFileSync(logger, filename);
 
-  const maxOfTodos = (currentMax, todo) =>
-    Math.max(currentMax, todo.id, todo.children ? todo.children.reduce(maxOfTodos, currentMax) : 0);
-  const maxTodoId = replay(logger.getEvents()).todos.reduce(maxOfTodos, 0);
-
   return {
-    processCommand: processCommand(logger, maxTodoId),
+    processCommand: processCommand(logger),
     getAllEvents: () => logger.getEvents()
   };
 };

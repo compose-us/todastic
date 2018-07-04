@@ -1,32 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`command-processor processCommand sends a REMOVED_TODO event when a correct REMOVE_TODO command was received 1`] = `
-[MockFunction] {
-  "calls": Array [
-    Array [
-      Object {
-        "data": Object {
-          "id": 1,
-        },
-        "event": "REMOVED_TODO",
-      },
-    ],
-  ],
+Object {
+  "createdAt": Any<Number>,
+  "id": Any<String>,
 }
 `;
 
 exports[`command-processor processCommand sends an ADDED_TODO event when a correct ADD_TODO command was received 1`] = `
-[MockFunction] {
-  "calls": Array [
-    Array [
-      Object {
-        "data": Object {
-          "id": 1,
-          "title": "Create a test todo",
-        },
-        "event": "ADDED_TODO",
-      },
-    ],
-  ],
+Object {
+  "createdAt": Any<Number>,
+  "id": Any<String>,
+  "title": "Create a test todo",
 }
 `;

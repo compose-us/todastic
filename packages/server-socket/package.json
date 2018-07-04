@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/compose-us/todastic#readme",
   "devDependencies": {
-    "jest": "^22.4.4",
+    "jest": "^23.2.0",
     "prettier": "^1.12.1"
   },
   "dependencies": {

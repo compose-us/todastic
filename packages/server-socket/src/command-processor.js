@@ -3,13 +3,13 @@ const fs = require("fs");
 // and have some sort of consistent behaviour
 // TODO we should require uuid/v1 here, because requiring uuid is deprecated
 //      however, i couldn't mock that require because of lacking javascript skills
-const uuid = require("uuid");
+const uuidv1 = require("uuid/v1");
 const { createLogger, replay } = require("@todastic/storage-events");
 
 const processCommand = (logger) => {
   return sendEvent => command => {
     if (command.command === "ADD_TODO") {
-      const event = { event: "ADDED_TODO", data: { ...command.data, id: uuid.v1(), createdAt: Date.now() } };
+      const event = { event: "ADDED_TODO", data: { ...command.data, id: uuidv1(), createdAt: Date.now() } };
       logger.log(event);
       return sendEvent(event);
     } else if (command.command === "REMOVE_TODO") {

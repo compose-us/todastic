@@ -1,21 +1,4 @@
 const createCommandProcessor = require("./command-processor.js");
-let uuidv1 = require("uuid/v1");
-
-let dateNowSpy;
-let mockClock = new Date("2018-06-30T16:54:59.218Z");
-beforeAll(() => {
-    // Lock Time
-    dateNowSpy = jest.spyOn(Date, "now").mockImplementation(() => new Date(++mockClock));
-});
-
-afterAll(() => {
-    // Unlock Time
-    dateNowSpy.mockReset();
-    dateNowSpy.mockRestore();
-    // Unmock uuid
-    // The mock comes from __mock__/uuid.js and is loaded automatically
-    jest.unmock("uuid");
-});
 
 describe("command-processor", () => {
   describe("getAllEvents", () => {
@@ -40,7 +23,11 @@ describe("command-processor", () => {
       const { processCommand } = createCommandProcessor();
       processCommand(sendEvent)(command);
       expect(sendEvent).toHaveBeenCalledTimes(1);
-      expect(sendEvent).toMatchSnapshot();
+      expect(sendEvent.mock.calls[0][0]["data"]).toMatchSnapshot({
+        id: expect.any(String),
+        createdAt: expect.any(Number)
+      });
+      expect(sendEvent.mock.calls[0][0]["event"]).toEqual("ADDED_TODO");
     });
 
     it("sends a REMOVED_TODO event when a correct REMOVE_TODO command was received", async () => {
@@ -56,7 +43,11 @@ describe("command-processor", () => {
       const sendEvent = jest.fn();
       processCommand(sendEvent)(removeCommand);
       expect(sendEvent).toHaveBeenCalledTimes(1);
-      expect(sendEvent).toMatchSnapshot();
+      expect(sendEvent.mock.calls[0][0]["data"]).toMatchSnapshot({
+        id: expect.any(String),
+        createdAt: expect.any(Number)
+      });
+      expect(sendEvent.mock.calls[0][0]["event"]).toEqual("REMOVED_TODO");
     });
   });
 });

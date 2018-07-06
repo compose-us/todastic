@@ -7,3 +7,5 @@ docker-compose
 **/__tests__
 **/__test__
 **/*.spec.js
+**/coverage
+tests

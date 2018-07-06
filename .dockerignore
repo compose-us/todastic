@@ -3,3 +3,7 @@
 Dockerfile
 docker-compose
 **/npm-debug.log
+**/__snapshots__
+**/__tests__
+**/__test__
+**/*.spec.js

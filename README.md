@@ -26,3 +26,19 @@ Running the client
 ```
 lerna run build-client && npm run start-web
 ```
+
+### Docker
+
+Build the docker container
+
+```
+docker build -t todastic .
+```
+
+And run it as you're used to:
+
+```
+docker run -p 3000:3000 -d todastic
+```
+
+

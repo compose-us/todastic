@@ -1,6 +1,6 @@
 {
   "name": "@todastic/server-web",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Provides a web server / client for todastic.",
   "main": "src/server.js",
   "scripts": {
@@ -30,8 +30,8 @@
     "vue-template-compiler": "^2.5.16"
   },
   "dependencies": {
-    "@todastic/server-socket": "^0.2.0",
-    "@todastic/storage-events": "^0.2.0",
+    "@todastic/server-socket": "^0.2.1",
+    "@todastic/storage-events": "^0.2.1",
     "express": "^4.16.3",
     "vue": "^2.5.16"
   }

@@ -1,6 +1,6 @@
 {
   "name": "@todastic/server-socket",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Provides a web-socket connection for commands usable in todastic web servers.",
   "main": "src/server-socket.js",
   "scripts": {
@@ -23,7 +23,7 @@
     "prettier": "^1.13.7"
   },
   "dependencies": {
-    "@todastic/storage-events": "^0.2.0",
+    "@todastic/storage-events": "^0.2.1",
     "socket.io": "^2.1.1",
     "uuid": "^3.3.2"
   }

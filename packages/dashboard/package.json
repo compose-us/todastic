@@ -1,6 +1,6 @@
 {
   "name": "@todastic/dashboard",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Dashboard utility functions for todastic.",
   "main": "src/dashboard.js",
   "scripts": {

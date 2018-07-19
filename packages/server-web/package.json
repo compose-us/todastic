@@ -1,6 +1,6 @@
 {
   "name": "@todastic/server-web",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Provides a web server / client for todastic.",
   "main": "src/server.js",
   "scripts": {
@@ -20,8 +20,8 @@
   },
   "homepage": "https://github.com/compose-us/todastic#readme",
   "devDependencies": {
-    "jest": "^23.2.0",
-    "prettier": "^1.12.1",
+    "jest": "^23.4.1",
+    "prettier": "^1.13.7",
     "rollup": "^0.60.7",
     "rollup-plugin-commonjs": "^9.1.3",
     "rollup-plugin-node-resolve": "^3.3.0",
@@ -30,8 +30,8 @@
     "vue-template-compiler": "^2.5.16"
   },
   "dependencies": {
-    "@todastic/server-socket": "^0.1.0",
-    "@todastic/storage-events": "^0.1.0",
+    "@todastic/server-socket": "^0.2.0",
+    "@todastic/storage-events": "^0.2.0",
     "express": "^4.16.3",
     "vue": "^2.5.16"
   }

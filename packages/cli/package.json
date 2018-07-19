@@ -1,6 +1,6 @@
 {
   "name": "@todastic/cli",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Command-line interface for todastic.",
   "bin": {
     "todastic": "./src/cli.js"
@@ -19,13 +19,13 @@
     "url": "https://github.com/compose-us/todastic/issues"
   },
   "homepage": "https://github.com/compose-us/todastic#readme",
-  "dependencies": {
-    "@todastic/dashboard": "^0.1.0",
-    "@todastic/storage-file": "^0.1.0",
-    "yargs": "^11.0.0"
-  },
   "devDependencies": {
-    "jest": "^23.2.0",
-    "prettier": "^1.12.1"
+    "jest": "^23.4.1",
+    "prettier": "^1.13.7"
+  },
+  "dependencies": {
+    "@todastic/dashboard": "^0.2.0",
+    "@todastic/storage-file": "^0.2.0",
+    "yargs": "^12.0.1"
   }
 }

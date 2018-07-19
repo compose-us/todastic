@@ -34,5 +34,5 @@ function oneOf(arr) {
 </script>
 
 <style>
-@import "main.css";
+@import "../../main.css";
 </style>

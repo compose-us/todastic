@@ -1,7 +1,16 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=b6f1e4ba793f8cf7c401c3c45259080dffd1e77e6c6f98342cd4d4b29cc3df16
+
 language: node_js
 
 node_js:
   - "10"
+
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 
 install:
   - travis_wait npm ci
@@ -10,5 +19,8 @@ install:
 script:
   - npm run test-ci
 
-# Send coverage data to Coveralls
-after_script: "cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js"
+after_script:
+  # Send coverage data to Coveralls
+  - "cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js"
+  # Send coverage data to code climate
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT

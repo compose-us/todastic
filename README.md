@@ -41,4 +41,6 @@ And run it as you're used to:
 docker run -p 3000:3000 -d todastic
 ```
 
+## Development
 
+You can automatically build frontend changes with `npm run watch-web`.

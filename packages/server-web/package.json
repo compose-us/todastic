@@ -33,6 +33,8 @@
     "@todastic/server-socket": "^0.2.1",
     "@todastic/storage-events": "^0.2.1",
     "express": "^4.16.3",
-    "vue": "^2.5.16"
+    "morgan": "^1.9.0",
+    "vue": "^2.5.16",
+    "winston": "^3.0.0"
   }
 }

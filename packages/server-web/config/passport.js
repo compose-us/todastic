@@ -16,29 +16,45 @@ function loggedIn(req, res, next) {
         next();
     }
 }
-
 function init() {
-    passport.use(new LocalStrategy(
-        function(username, password, done) {
-            return done(null, {
-                id: 1
+  passport.use(
+    new LocalStrategy(
+      User.findOne(
+        {
+          username: username
+        },
+        function(err, user) {
+          if (err) {
+            return done(err);
+          }
+          if (!user) {
+            return done(null, false, {
+              message: "Incorrect username."
             });
+          }
+          if (!user.validPassword(password)) {
+            return done(null, false, {
+              message: "Incorrect password."
+            });
+          }
+          return done(null, user);
         }
-    ));
+      )
+    )
+  );
 
-    passport.serializeUser(function(user, cb) {
-        logger.debug("Serializing session user");
-        logger.debug(user);
-        cb(null, user.id);
-    });
+  passport.serializeUser(function(user, cb) {
+    logger.debug("Serializing session user");
+    logger.debug(user);
+    cb(null, user.id);
+  });
 
-    passport.deserializeUser(function(id, cb) {
-        logger.debug("Deserializing session user");
-        cb(null, {
-            id: 1
-        });
-    });
-};
+  passport.deserializeUser(function(id, cb) {
+    logger.debug("Deserializing session user");
+    let user = User.findById(id);
+    cb(null, user);
+  });
+}
 
 module.exports = {
     init: init,

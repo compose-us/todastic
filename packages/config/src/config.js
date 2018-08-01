@@ -33,15 +33,15 @@ var config = convict({
     },
     user: {
       doc: "Database username",
-      format: String,
-      default: 'user',
+      format: "*",
+      default: null,
       env: "DB_USER",
       arg: "db-user"
     },
     password: {
       doc: "Database password",
-      format: String,
-      default: 'password',
+      format: "*",
+      default: null,
       env: "DB_PASSWORD",
       arg: "db-password"
     },
@@ -72,6 +72,6 @@ try {
 }
 
 // Perform validation
-config.validate({allowed: 'strict'});
+config.validate({allowed: 'warn'});
 
 module.exports = config;

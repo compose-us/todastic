@@ -3,10 +3,13 @@ const mongoose = require("mongoose");
 const config = require("@todastic/config");
 
 mongoose.set('debug', true);
-mongoose.connect(
-  `mongodb://${config.get("db.user")}:${config.get("db.password")}@${config.get("db.host")}:${config.get(
-    "db.port"
-  )}/${config.get("db.database")}`, { useNewUrlParser: true }).catch(err => {
+let connectionString = "mongodb://"
+if(config.get("db.user")) {
+  connectionString += `${config.get("db.user")}:${config.get("db.password")}@`;
+}
+connectionString += `${config.get("db.host")}:${config.get("db.port")}/${config.get("db.database")}`;
+console.log(connectionString);
+mongoose.connect(connectionString, { useNewUrlParser: true }).catch(err => {
   console.log("Connecting to mongodb failed", err);
 });
 

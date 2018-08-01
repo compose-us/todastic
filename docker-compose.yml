@@ -1,0 +1,19 @@
+version: "3"
+services:
+  mongo:
+    image: mongo
+    command: --smallfiles
+    environment:
+      - MONGO_INITDB_DATABASE=todastic
+
+  todastic:
+    build: .
+    image: todastic:latest
+    links:
+      - mongo:mongo
+    ports:
+      - 3000
+    environment:
+      - DB_PORT=27017
+      - DB_DATABASE=todastic
+      - DB_HOST=mongo

@@ -1,6 +1,7 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const logger = require('./winston');
+const User = require("@todastic/storage-users");
 
 function loggedIn(req, res, next) {
     logger.debug("Checking wether user is authenticated");
@@ -19,10 +20,11 @@ function loggedIn(req, res, next) {
 function init() {
   passport.use(
     new LocalStrategy(
+    function(username, password, done) {
       User.findOne(
         {
           username: username
-        },
+        }),
         function(err, user) {
           if (err) {
             return done(err);
@@ -32,14 +34,14 @@ function init() {
               message: "Incorrect username."
             });
           }
-          if (!user.validPassword(password)) {
+          if (!user.verifyPasswordSync(password)) {
             return done(null, false, {
               message: "Incorrect password."
             });
           }
           return done(null, user);
         }
-      )
+      }
     )
   );
 

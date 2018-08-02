@@ -24,7 +24,7 @@ function init() {
       User.findOne(
         {
           username: username
-        }),
+        },
         function(err, user) {
           if (err) {
             return done(err);
@@ -40,7 +40,7 @@ function init() {
             });
           }
           return done(null, user);
-        }
+        })
       }
     )
   );

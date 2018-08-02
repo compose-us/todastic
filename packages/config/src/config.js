@@ -74,4 +74,14 @@ try {
 // Perform validation
 config.validate({allowed: 'warn'});
 
+// mongo connection string
+let connectionString = "mongodb://"
+if(config.get("db.user")) {
+  connectionString += `${config.get("db.user")}:${config.get("db.password")}@`;
+}
+connectionString += `${config.get("db.host")}:${config.get("db.port")}/${config.get("db.database")}`;
+console.log(connectionString);
+
+config.set("db.connectionString", connectionString);
+
 module.exports = config;

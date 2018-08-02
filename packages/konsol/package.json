@@ -1,0 +1,21 @@
+{
+  "name": "@todastic/konsol",
+  "version": "0.2.1",
+  "description": "A helper console for todastic (like rails console)",
+  "main": "src/konsol.js",
+  "scripts": {
+    "format": "prettier --write 'src/**/*.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/compose-us/todastic"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "^1.13.7"
+  },
+"dependencies": {
+    "@todastic/storage-users": "^0.2.1"
+  }
+}

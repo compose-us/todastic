@@ -4,7 +4,6 @@ describe("config", () => {
 
   let fields = [
     { name: "application environment", field: "env" },
-    { name: "service IP address", field: "ip" },
     { name: "service port", field: "port" },
     { name: "database username", field: "db.user" },
     { name: "database password", field: "db.password" },

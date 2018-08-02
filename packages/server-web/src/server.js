@@ -72,6 +72,6 @@ app.use(
 
 createSocketOnServer(server);
 
-server.listen(3000, function() {
-    logger.info("Todastic webserver listening on port 3000, Sire!");
+server.listen(config.get('port'), function() {
+    logger.info(`Todastic webserver listening on port ${config.get('port')}, Sire!`);
 });

@@ -9,13 +9,6 @@ var config = convict({
     env: "NODE_ENV",
     arg: "node-env"
   },
-  ip: {
-    doc: "The IP address to bind.",
-    format: "ipaddress",
-    default: "127.0.0.1",
-    env: "IP_ADDRESS",
-    arg: "ip-address"
-  },
   port: {
     doc: "The port to bind.",
     format: "port",

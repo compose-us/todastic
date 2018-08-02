@@ -1,6 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const logger = require('./winston');
+const logger = require('@todastic/logging');
 const User = require("@todastic/storage-users");
 
 function loggedIn(req, res, next) {

@@ -34,6 +34,7 @@
     "@todastic/storage-events": "^0.2.1",
     "@todastic/storage-users": "^0.2.1",
     "@todastic/config": "^0.2.1",
+    "@todastic/logging": "^0.2.1",
     "body-parser": "^1.18.3",
     "connect-mongo": "^2.0.1",
     "express": "^4.16.3",
@@ -42,7 +43,6 @@
     "npm": "^6.2.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "vue": "^2.5.16",
-    "winston": "^3.0.0"
+    "vue": "^2.5.16"
   }
 }

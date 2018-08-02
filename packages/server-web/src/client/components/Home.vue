@@ -1,6 +1,7 @@
 <template>
   <div class="todasticapp">
     <h1>Todastic</h1>
+    <user-profile />
     <todo-list :commands="commands" :todos="store.todos"/>
     <todo-adder :addTodo="commands.addTodo"/>
   </div>
@@ -10,11 +11,13 @@
 import TodoList from "./TodoList.vue";
 import TodoAdder from "./TodoAdder.vue";
 import { store } from "../store.js";
+import UserProfile from "./UserProfile.vue";
 
 export default {
   components: {
     "todo-list": TodoList,
-    "todo-adder": TodoAdder
+    "todo-adder": TodoAdder,
+    "user-profile": UserProfile
   },
   props: ["commands"],
   data() {

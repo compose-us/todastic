@@ -37,9 +37,6 @@ app.get("/login", (req, res) => {
 });
 
 app.post("/login",
-    function(re, r, next) {
-      next();
-    },
     passport.p.authenticate('local', {
         successRedirect: '/',
         failureRedirect: '/login'
@@ -47,6 +44,11 @@ app.post("/login",
       res.redirect("/");
     }
 );
+
+app.post("/logout", (req, res) => {
+  req.session.destroy();
+  res.redirect("/");
+});
 
 app.get("/",
     passport.loggedIn,

@@ -23,6 +23,13 @@ var config = convict({
     env: "PORT",
     arg: "port"
   },
+  secret: {
+    doc: "The session secret.",
+    format: String,
+    default: "coffeeK33psMeW4ke@n!ght",
+    env: "SESSION_SECRET",
+    arg: "session-secret"
+  },
   db: {
     host: {
       doc: "Database host name/IP",

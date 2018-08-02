@@ -7,6 +7,8 @@ const passport = require('../config/passport');
 const createSocketOnServer = require("@todastic/server-socket");
 const logger = require('../config/winston');
 const morgan = require('morgan');
+const config = require("@todastic/config");
+const MongoSession = require("connect-mongo")(session);
 
 app.use(morgan('combined', {
     stream: logger.stream
@@ -19,11 +21,11 @@ app.use(bodyParser.urlencoded({
 // TODO https://www.npmjs.com/package/express-session#cookiesecure
 // TODO http://expressjs.com/de/advanced/best-practice-security.html
 //app.set('trust proxy', 1);
-// TODO use a proper store (like redis)
 app.use(session({
-    secret: 'keyboard cat',
+    secret: config.get('secret'),
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    store: new MongoSession({ url: config.get('db.connectionString') })
 }));
 
 passport.init();
@@ -35,10 +37,15 @@ app.get("/login", (req, res) => {
 });
 
 app.post("/login",
+    function(re, r, next) {
+      next();
+    },
     passport.p.authenticate('local', {
         successRedirect: '/',
         failureRedirect: '/login'
-    })
+    }), (req, res) => {
+      res.redirect("/");
+    }
 );
 
 app.get("/",

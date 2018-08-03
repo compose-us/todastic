@@ -64,3 +64,6 @@ DB_DATABASE
 
 You can also set the environment variable `PORT` to bind to a
 different port than the standard 3000.
+
+`SESSION_STORE` is also configurable. Currently supported options are
+`in-memory` (default, **not** suited for production) and `mongo`.

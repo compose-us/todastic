@@ -23,6 +23,13 @@ var config = convict({
     env: "SESSION_SECRET",
     arg: "session-secret"
   },
+  sessionStore: {
+    doc: "The session store. Defaults to in-memory (NOT suited for production).",
+    format: String,
+    default: "in-memory",
+    env: "SESSION_STORE",
+    arg: "session-store"
+  },
   db: {
     host: {
       doc: "Database host name/IP",

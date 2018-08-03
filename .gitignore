@@ -5,3 +5,4 @@ coverage
 dist/
 .vscode/
 lerna-debug.log
+*.events

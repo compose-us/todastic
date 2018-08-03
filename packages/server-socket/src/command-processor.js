@@ -6,7 +6,7 @@ const fs = require("fs");
 const uuidv1 = require("uuid/v1");
 const { createLogger, replay } = require("@todastic/storage-events");
 
-const processCommand = (logger) => {
+const processCommand = logger => {
   return sendEvent => command => {
     if (command.command === "ADD_TODO") {
       const event = { event: "ADDED_TODO", data: { ...command.data, id: uuidv1(), createdAt: Date.now() } };

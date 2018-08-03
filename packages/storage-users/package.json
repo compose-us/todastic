@@ -1,0 +1,29 @@
+{
+  "name": "@todastic/storage-users",
+  "version": "0.2.1",
+  "description": "provides user database layer for todastic",
+  "main": "src/user.js",
+  "scripts": {
+    "format": "prettier --write 'src/**/*.js'",
+    "test": "jest src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/compose-us/todastic"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^23.4.1",
+    "prettier": "^1.13.7"
+  },
+  "//": "bcrypt can be updated, once https://github.com/kelektiv/node.bcrypt.js/issues/632 is solved",
+  "dependencies": {
+    "@todastic/config": "^0.2.1",
+    "ajv": "^6.5.2",
+    "bcrypt": "^2.0.1",
+    "dotenv": "^6.0.0",
+    "mongoose": "^5.2.6",
+    "mongoose-bcrypt": "^1.5.1"
+  }
+}

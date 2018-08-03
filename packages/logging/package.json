@@ -1,0 +1,27 @@
+{
+  "name": "@todastic/logging",
+  "version": "0.2.1",
+  "description": "Todastic app logger",
+  "main": "src/index.js",
+  "scripts": {
+    "format": "prettier --write 'src/**/*.js'",
+    "test": "jest src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/compose-us/todastic.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/compose-us/todastic/issues"
+  },
+  "devDependencies": {
+    "jest": "^23.4.1",
+    "prettier": "^1.13.7"
+  },
+  "homepage": "https://github.com/compose-us/todastic#readme",
+  "dependencies": {
+    "winston": "^3.0.0"
+  }
+}

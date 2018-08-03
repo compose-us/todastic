@@ -41,4 +41,29 @@ And run it as you're used to:
 docker run -p 3000:3000 -d todastic
 ```
 
+## Development
 
+You can automatically build frontend changes with `npm run watch-web`.
+
+## Database
+
+From v0.2.1 on, todastic uses [mongoDB](https://www.mongodb.com/) for
+user and session management. Easiest configuration option is to follow
+the [12 factor](https://12factor.net/) pattern and configure todastic
+via the following environment variables:
+
+```yaml
+DB_HOST
+DB_USER
+DB_PASSWORD
+DB_PORT
+DB_DATABASE
+```
+> User and password can be left empty if your mongodb instance doesn't
+> require authentication.
+
+You can also set the environment variable `PORT` to bind to a
+different port than the standard 3000.
+
+`SESSION_STORE` is also configurable. Currently supported options are
+`in-memory` (default, **not** suited for production) and `mongo`.

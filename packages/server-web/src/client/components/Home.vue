@@ -35,7 +35,3 @@ function oneOf(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 </script>
-
-<style>
-@import "../../main.css";
-</style>

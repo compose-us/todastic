@@ -1,6 +1,6 @@
-const winston = require('winston');
+const winston = require("winston");
 var options = {
- /* file: {
+  /* file: {
     level: 'info',
     filename: `${appRoot}/logs/app.log`,
     handleExceptions: true,
@@ -10,24 +10,24 @@ var options = {
     colorize: false,
   },*/
   console: {
-    level: 'debug',
+    level: "debug",
     handleExceptions: true,
     json: false,
     format: winston.format.simple(),
-    colorize: true,
-  },
+    colorize: true
+  }
 };
 var logger = winston.createLogger({
   transports: [
-//    new winston.transports.File(options.file),
+    //    new winston.transports.File(options.file),
     new winston.transports.Console(options.console)
   ],
-  exitOnError: false, // do not exit on handled exceptions
+  exitOnError: false // do not exit on handled exceptions
 });
 logger.stream = {
   write: function(message, encoding) {
     logger.info(message);
-  },
+  }
 };
 
 module.exports = logger;

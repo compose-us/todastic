@@ -1,13 +1,12 @@
 const config = require("./config.js");
 
 describe("config", () => {
-
   let fields = [
     { name: "application environment", field: "env" },
     { name: "service port", field: "port" },
     { name: "database username", field: "db.user" },
     { name: "database password", field: "db.password" },
-    { name: "database host", field: "db.host" },
+    { name: "database host", field: "db.host" }
   ];
 
   for (var i = 0, len = fields.length; i < len; i++) {
@@ -16,5 +15,4 @@ describe("config", () => {
       expect(config.get(toTest.field)).toBeDefined();
     });
   }
-
 });

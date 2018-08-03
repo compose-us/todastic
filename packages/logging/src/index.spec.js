@@ -1,6 +1,6 @@
-const logger = require('./index.js');
+const logger = require("./index.js");
 
-describe('logger', () => {
+describe("logger", () => {
   it("doesn't throw an error when we log something", () => {
     expect(() => logger.info("test, obviously")).not.toThrow();
   });

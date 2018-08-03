@@ -1,26 +1,25 @@
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const logger = require('@todastic/logging');
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const logger = require("@todastic/logging");
 const User = require("@todastic/storage-users");
 
 function loggedIn(req, res, next) {
-    logger.debug("Checking wether user is authenticated");
-    logger.debug("req.user:", req.user);
-    logger.debug("req.session:", req.session);
-    if (req.session) {
-        logger.debug("req.session.id:", req.session.id);
-    }
-    if (!req.isAuthenticated || !req.isAuthenticated()) {
-        logger.debug("User not authenticated!");
-        res.redirect('/login');
-    } else {
-        next();
-    }
+  logger.debug("Checking wether user is authenticated");
+  logger.debug("req.user:", req.user);
+  logger.debug("req.session:", req.session);
+  if (req.session) {
+    logger.debug("req.session.id:", req.session.id);
+  }
+  if (!req.isAuthenticated || !req.isAuthenticated()) {
+    logger.debug("User not authenticated!");
+    res.redirect("/login");
+  } else {
+    next();
+  }
 }
 function init() {
   passport.use(
-    new LocalStrategy(
-    function(username, password, done) {
+    new LocalStrategy(function(username, password, done) {
       User.findOne(
         {
           username: username
@@ -40,9 +39,9 @@ function init() {
             });
           }
           return done(null, user);
-        })
-      }
-    )
+        }
+      );
+    })
   );
 
   passport.serializeUser(function(user, cb) {
@@ -59,7 +58,7 @@ function init() {
 }
 
 module.exports = {
-    init: init,
-    p: passport,
-    loggedIn: loggedIn
+  init: init,
+  p: passport,
+  loggedIn: loggedIn
 };

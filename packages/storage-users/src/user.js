@@ -1,11 +1,16 @@
-const passwordPlugin = require('mongoose-bcrypt');
+const passwordPlugin = require("mongoose-bcrypt");
 const mongoose = require("mongoose");
 const config = require("@todastic/config");
 
-mongoose.set('debug', true);
-mongoose.connect(config.get('db.connectionString'), { useNewUrlParser: true }).catch(err => {
-  console.log("Connecting to mongodb failed", err);
-});
+mongoose.set("debug", true);
+mongoose
+  .connect(
+    config.get("db.connectionString"),
+    { useNewUrlParser: true }
+  )
+  .catch(err => {
+    console.log("Connecting to mongodb failed", err);
+  });
 
 const userSchema = mongoose.Schema({
   username: { type: String, required: true, index: { unique: true } },

@@ -96,9 +96,16 @@ describe("Storage", () => {
       const fp = `${__dirname}/__test__/multiple-tags-sample.todo`;
       const store = await storage.load(fp);
       expect(store.todos.length).toBe(3);
-      expect(store.todos[0].tags).toEqual(["TRACK 00:30:00, Narigo, 2018-05-25 08:45:34", "TRACK 00:30:15, Narigo, 2018-05-25 09:15:49"]);
+      expect(store.todos[0].tags).toEqual([
+        "TRACK 00:30:00, Narigo, 2018-05-25 08:45:34",
+        "TRACK 00:30:15, Narigo, 2018-05-25 09:15:49"
+      ]);
       expect(store.todos[1].tags).toEqual(["ASSIGN Narigo, 2018-05-25 08:56:23"]);
-      expect(store.todos[2].tags).toEqual(["LABEL Development", "LABEL Business", "ASSIGN Narigo, 2018-05-25 08:56:24"]);
+      expect(store.todos[2].tags).toEqual([
+        "LABEL Development",
+        "LABEL Business",
+        "ASSIGN Narigo, 2018-05-25 08:56:24"
+      ]);
     });
   });
 });

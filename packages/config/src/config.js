@@ -1,5 +1,5 @@
-const convict = require('convict');
-const path = require('path');
+const convict = require("convict");
+const path = require("path");
 // Define a schema
 var config = convict({
   env: {
@@ -26,8 +26,8 @@ var config = convict({
   db: {
     host: {
       doc: "Database host name/IP",
-      format: '*',
-      default: 'localhost',
+      format: "*",
+      default: "localhost",
       env: "DB_HOST",
       arg: "db-host"
     },
@@ -47,7 +47,7 @@ var config = convict({
     },
     port: {
       doc: "Database port",
-      format: 'port',
+      format: "port",
       default: 27017,
       env: "DB_PORT",
       arg: "db-port"
@@ -55,7 +55,7 @@ var config = convict({
     database: {
       doc: "Database name",
       format: String,
-      default: 'users',
+      default: "users",
       env: "DB_DATABASE",
       arg: "db-database"
     }
@@ -63,20 +63,20 @@ var config = convict({
 });
 
 // Load environment dependent configuration
-let env = config.get('env');
+let env = config.get("env");
 let filename = path.resolve(`${__dirname}/../config/${env}.json`);
 try {
   config.loadFile(filename);
-} catch(e) {
+} catch (e) {
   console.log(`Couldn't find config file ${filename}`);
 }
 
 // Perform validation
-config.validate({allowed: 'warn'});
+config.validate({ allowed: "warn" });
 
 // mongo connection string
-let connectionString = "mongodb://"
-if(config.get("db.user")) {
+let connectionString = "mongodb://";
+if (config.get("db.user")) {
   connectionString += `${config.get("db.user")}:${config.get("db.password")}@`;
 }
 connectionString += `${config.get("db.host")}:${config.get("db.port")}/${config.get("db.database")}`;

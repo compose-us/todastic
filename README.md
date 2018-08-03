@@ -47,7 +47,7 @@ You can automatically build frontend changes with `npm run watch-web`.
 
 ## Database
 
-From v0.2.1 on, todastic uses [mongoDB](https://www.mongodb.com/) for
+From v0.2.2 on, todastic uses [mongoDB](https://www.mongodb.com/) for
 user and session management. Easiest configuration option is to follow
 the [12 factor](https://12factor.net/) pattern and configure todastic
 via the following environment variables:

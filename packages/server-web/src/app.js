@@ -1,6 +1,7 @@
 const express = require("express");
 const session = require("express-session");
 const app = express();
+const helmet = require("helmet");
 const bodyParser = require("body-parser");
 const passport = require("@todastic/authentication");
 const logger = require("@todastic/logging");
@@ -19,13 +20,13 @@ app.use(
     extended: true
   })
 );
+app.use(helmet());
 
-// TODO https://www.npmjs.com/package/express-session#cookiesecure
-// TODO http://expressjs.com/de/advanced/best-practice-security.html
 //app.set('trust proxy', 1);
 let sessionInitializationHash = {
   secret: config.get("secret"),
   resave: false,
+  name: "session",
   saveUninitialized: false
 };
 if (config.get("sessionStore") == "mongo") {

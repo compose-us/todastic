@@ -8,7 +8,7 @@
 export default {
   props: {
     addTodo: { type: Function, required: true },
-    parentId: Number,
+    parentId: String,
     visible: { type: Boolean, default: true }
   },
   data() {

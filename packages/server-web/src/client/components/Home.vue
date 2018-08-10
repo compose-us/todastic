@@ -1,7 +1,6 @@
 <template>
   <div class="todasticapp">
     <h1>Todastic</h1>
-    <user-profile />
     <todo-list :commands="commands" :todos="store.todos"/>
     <todo-adder :addTodo="commands.addTodo"/>
   </div>

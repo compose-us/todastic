@@ -3,7 +3,7 @@
 exports[`replay ADDED_TODO event can add todos as children of children 1`] = `
 Array [
   Object {
-    "id": 1,
+    "id": "id-1",
     "title": "Create a parent todo",
   },
   Object {
@@ -11,33 +11,33 @@ Array [
       Object {
         "children": Array [
           Object {
-            "id": 5,
-            "parentId": 3,
+            "id": "id-5",
+            "parentId": "id-3",
             "title": "Create a child todo of child of parent 2",
           },
           Object {
             "children": Array [
               Object {
-                "id": 7,
-                "parentId": 6,
+                "id": "id-7",
+                "parentId": "id-6",
                 "title": "Create a child of 2nd child of child of parent 2",
               },
             ],
-            "id": 6,
-            "parentId": 3,
+            "id": "id-6",
+            "parentId": "id-3",
             "title": "Create a second child todo of child of parent 2",
           },
         ],
-        "id": 3,
-        "parentId": 2,
+        "id": "id-3",
+        "parentId": "id-2",
         "title": "Create a child in another parent todo",
       },
     ],
-    "id": 2,
+    "id": "id-2",
     "title": "Create another parent todo",
   },
   Object {
-    "id": 4,
+    "id": "id-4",
     "title": "Create a third parent todo",
   },
 ]
@@ -46,27 +46,27 @@ Array [
 exports[`replay ADDED_TODO event can add todos in a more complex example 1`] = `
 Array [
   Object {
-    "id": 1,
+    "id": "id-1",
     "title": "Create a parent todo",
   },
   Object {
     "children": Array [
       Object {
-        "id": 3,
-        "parentId": 2,
+        "id": "id-3",
+        "parentId": "id-2",
         "title": "Create a child in another parent todo",
       },
       Object {
-        "id": 5,
-        "parentId": 2,
+        "id": "id-5",
+        "parentId": "id-2",
         "title": "Create another child todo in parent 2",
       },
     ],
-    "id": 2,
+    "id": "id-2",
     "title": "Create another parent todo",
   },
   Object {
-    "id": 4,
+    "id": "id-4",
     "title": "Create a third parent todo",
   },
 ]

@@ -1,8 +1,6 @@
 const fs = require("fs");
 // v1 is timestamp based, so we can still order by ID when it's the same createdAt
 // and have some sort of consistent behaviour
-// TODO we should require uuid/v1 here, because requiring uuid is deprecated
-//      however, i couldn't mock that require because of lacking javascript skills
 const uuidv1 = require("uuid/v1");
 const { createLogger, replay } = require("@todastic/storage-events");
 

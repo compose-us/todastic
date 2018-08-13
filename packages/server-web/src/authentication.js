@@ -1,23 +1,26 @@
-const passport = require("passport");
+const Passport = require("passport").Passport;
 const LocalStrategy = require("passport-local").Strategy;
 const logger = require("@todastic/logging");
 const User = require("@todastic/storage-users");
 
-function loggedIn(req, res, next) {
-  logger.debug("Checking wether user is authenticated");
-  logger.debug("req.user:", req.user);
-  logger.debug("req.session:", req.session);
-  if (req.session) {
-    logger.debug("req.session.id:", req.session.id);
-  }
-  if (!req.isAuthenticated || !req.isAuthenticated()) {
-    logger.debug("User not authenticated!");
-    //res.redirect("/login");
-  } else {
-    next();
-  }
+function register({ app, indexRoute = "/", loginRoute = "/login", logoutRoute = "/logout" }) {
+  const passport = new Passport();
+  init(passport);
+
+  app.use(passport.initialize());
+  app.use(passport.session());
+
+  app.post(loginRoute, passport.authenticate("local"), (req, res) => {
+    res.redirect(indexRoute);
+  });
+
+  app.post(logoutRoute, (req, res) => {
+    req.session.destroy();
+    res.redirect(indexRoute);
+  });
 }
-function init() {
+
+function init(passport) {
   passport.use(
     new LocalStrategy(function(username, password, done) {
       User.findOne(
@@ -58,7 +61,5 @@ function init() {
 }
 
 module.exports = {
-  init: init,
-  p: passport,
-  loggedIn: loggedIn
+  register
 };

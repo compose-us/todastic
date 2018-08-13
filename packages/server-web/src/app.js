@@ -3,7 +3,7 @@ const session = require("express-session");
 const app = express();
 const helmet = require("helmet");
 const bodyParser = require("body-parser");
-const passport = require("@todastic/authentication");
+const authentication = require("./authentication.js");
 const logger = require("@todastic/logging");
 const morgan = require("morgan");
 const config = require("@todastic/config");
@@ -14,22 +14,22 @@ app.use(
     stream: logger.stream
   })
 );
+app.use(helmet());
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(
   bodyParser.urlencoded({
     extended: true
   })
 );
-app.use(helmet());
 
-//app.set('trust proxy', 1);
+// TODO app.set('trust proxy', 1);
 let sessionInitializationHash = {
   secret: config.get("secret"),
   resave: false,
   name: "session",
   saveUninitialized: false
 };
-if (config.get("sessionStore") == "mongo") {
+if (config.get("sessionStore") === "mongo") {
   try {
     let mongoSession = new MongoSession({ url: config.get("db.connectionString") });
     sessionInitializationHash.store = mongoSession;
@@ -40,22 +40,7 @@ if (config.get("sessionStore") == "mongo") {
 
 app.use(session(sessionInitializationHash));
 
-passport.init();
-app.use(passport.p.initialize());
-app.use(passport.p.session());
-
-app.post("/login", passport.p.authenticate("local"), (req, res) => {
-  res.redirect("/");
-});
-
-app.post("/logout", (req, res) => {
-  req.session.destroy();
-  res.redirect("/");
-});
-
-app.get("/login", (req, res) => {
-  res.redirect("/");
-});
+authentication.register({ app });
 
 app.get("/", (req, res) => {
   res.sendFile(`${__dirname}/index.html`);

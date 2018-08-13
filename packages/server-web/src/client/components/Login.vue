@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     login() {
-      if (this.input.username != "" && this.input.password != "") {
+      if (this.input.username !== "" && this.input.password !== "") {
         this.$http
           .post("/login", { username: this.input.username, password: this.input.password })
           .then(function(response) {

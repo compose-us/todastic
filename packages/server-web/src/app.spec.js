@@ -2,22 +2,22 @@ const request = require("supertest");
 const app = require("./app.js");
 
 describe("todastic api", () => {
-  it("redirects to login page", done => {
+  it("#logout redirects to login /", done => {
     request(app)
-      .get("/")
+      .post("/logout")
       .then(response => {
         expect(response.statusCode).toBe(302);
-        expect(response.header.location).toBe("/login");
+        expect(response.headers.location).toBe("/");
         done();
       });
   });
 
-  it("responds with the login page without being logged in", done => {
+  it("redirects to /", done => {
     request(app)
       .get("/login")
       .then(response => {
-        expect(response.statusCode).toBe(200);
-        expect(response.body).toBeDefined();
+        expect(response.statusCode).toBe(302);
+        expect(response.headers.location).toBe("/");
         done();
       });
   });

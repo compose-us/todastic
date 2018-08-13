@@ -12,7 +12,7 @@ function loggedIn(req, res, next) {
   }
   if (!req.isAuthenticated || !req.isAuthenticated()) {
     logger.debug("User not authenticated!");
-    res.redirect("/login");
+    //res.redirect("/login");
   } else {
     next();
   }

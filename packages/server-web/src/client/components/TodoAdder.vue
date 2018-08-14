@@ -8,7 +8,7 @@
 export default {
   props: {
     addTodo: { type: Function, required: true },
-    parentId: Number,
+    parentId: String,
     visible: { type: Boolean, default: true }
   },
   data() {
@@ -39,7 +39,7 @@ function oneOf(arr) {
 }
 </script>
 
-<style>
+<style scoped>
 input {
   display: block;
   border: 0;

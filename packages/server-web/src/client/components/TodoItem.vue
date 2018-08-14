@@ -11,7 +11,6 @@
       <span class="id">#{{todo.id.substring(1, 4)}}</span>
       <span class="title">{{todo.title}}</span>
     </div>
-    <todo-list :commands="commands" :todos="todo.children" :parentId="todo.id" />
     <todo-adder ref="adder" :parentId="todo.id" :visible="adderVisible" :addTodo="commands.addTodo" />
   </div>
 </template>
@@ -25,8 +24,7 @@ export default {
   props: ["commands", "todo"],
   components: {
     "todo-adder": TodoAdder,
-    "todo-options": TodoOptions,
-    "todo-list": () => import("./TodoList.vue") // circular dependency -> import dynamically!
+    "todo-options": TodoOptions
   },
   data() {
     return {

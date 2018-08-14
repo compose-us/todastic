@@ -1,8 +1,7 @@
 <template>
     <div id="app">
         <div id="nav">
-            <router-link v-if="isAuthenticated" to="/login" v-on:click.native="logout()" replace>Logout</router-link>
-            <router-link v-if="isAuthenticated" to="/home">Go to Home</router-link>
+            <router-link tag="button" v-if="isAuthenticated" to="/login" v-on:click.native="logout()" replace>Logout</router-link>
         </div>
         <Loading v-if="isLoading" />
         <router-view v-if="!isLoading"  @isAuthenticated="setAuthenticated" />

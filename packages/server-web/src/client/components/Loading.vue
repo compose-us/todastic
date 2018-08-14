@@ -1,3 +1,3 @@
 <template>
-  <p>I'm loading, boygirlmanwoman!</p>
+  <div class="loader">Loading...</div>
 </template>

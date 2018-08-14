@@ -2,7 +2,7 @@
   <div class="todasticapp">
     <h1>Todastic</h1>
     <input type="text" name="username" v-model="input.username" placeholder="Username" />
-    <input type="password" name="password" v-model="input.password" placeholder="Password" />
+    <input type="password" name="password" v-model="input.password" v-on:keydown.enter="login()" placeholder="Password" />
     <button type="button" v-on:click="login()">Login</button>
   </div>
 </template>
@@ -39,3 +39,15 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+input {
+  display: block;
+  border: 0;
+  box-shadow: 0 2px 1px -1px #000;
+  padding: 10px;
+  width: 30%;
+  margin-right: 0.5%;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+</style>

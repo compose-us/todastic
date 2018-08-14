@@ -8,8 +8,8 @@ import VueResource from "vue-resource";
 Vue.use(Router);
 Vue.use(VueResource);
 
-export default function createApp(commands) {
-  const router = new Router({
+function createRouter(commands) {
+  return new Router({
     mode: "history",
     routes: [
       {
@@ -31,7 +31,10 @@ export default function createApp(commands) {
       }
     ]
   });
+}
 
+export default function createApp(commands) {
+  const router = createRouter(commands);
   new Vue({
     el: "#app",
     render: h => h(AppComponent),

@@ -12,12 +12,11 @@ describe("todastic api", () => {
       });
   });
 
-  it("redirects to /", done => {
+  it("responds with 401 if not logged in", done => {
     request(app)
-      .get("/login")
+      .get("/login-status")
       .then(response => {
-        expect(response.statusCode).toBe(302);
-        expect(response.headers.location).toBe("/");
+        expect(response.statusCode).toBe(401);
         done();
       });
   });

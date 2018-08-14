@@ -22,15 +22,15 @@ export default {
       isLoading: true
     };
   },
+  props: ["commands"],
   mounted() {
     this.$http
       .get("/login-status") // check server if logged in
       .then(() => {
-        this.isAuthenticated = true;
-        this.isLoading = false;
+        this.setAuthenticated(true);
       })
       .catch(() => {
-        this.isLoading = false;
+        this.setAuthenticated(false);
         this.$router.replace({ name: "login" });
       });
   },
@@ -51,6 +51,9 @@ export default {
     setAuthenticated(status) {
       this.isAuthenticated = status;
       this.isLoading = false;
+      if (status) {
+        this.commands.connect();
+      }
     }
   }
 };

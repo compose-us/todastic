@@ -31,7 +31,7 @@ function register({
 }
 
 function loggedIn(req, res, next) {
-  logger.debug("Checking wether user is authenticated");
+  logger.debug("Checking whether user is authenticated");
   logger.debug("req.user:", req.user);
   logger.debug("req.session:", req.session);
   if (req.session) {

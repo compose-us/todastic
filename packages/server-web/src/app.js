@@ -5,7 +5,7 @@ const morgan = require("morgan");
 const config = require("@todastic/config");
 const logger = require("@todastic/logging");
 const authentication = require("./authentication.js");
-const session = require("./session.js");
+const todasticSession = require("./session.js");
 
 const app = express();
 
@@ -23,8 +23,7 @@ app.use(
 );
 
 // TODO app.set('trust proxy', 1);
-
-app.use(session);
+app.use(todasticSession);
 
 authentication.register({ app });
 

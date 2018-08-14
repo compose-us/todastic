@@ -37,7 +37,7 @@ export default function createApp(commands) {
   const router = createRouter(commands);
   new Vue({
     el: "#app",
-    render: h => h(AppComponent),
+    render: h => h(AppComponent, { props: { commands } }),
     router
   });
 }

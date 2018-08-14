@@ -3,7 +3,7 @@ const MongoSession = require("connect-mongo")(session);
 const config = require("@todastic/config");
 const logger = require("@todastic/logging");
 
-let sessionInitializationHash = {
+const sessionInitializationHash = {
   secret: config.get("secret"),
   resave: false,
   name: "session",
@@ -12,12 +12,11 @@ let sessionInitializationHash = {
 
 if (config.get("sessionStore") === "mongo") {
   try {
-    let mongoSession = new MongoSession({ url: config.get("db.connectionString") });
+    const mongoSession = new MongoSession({ url: config.get("db.connectionString") });
     sessionInitializationHash.store = mongoSession;
   } catch (err) {
     logger.error(err);
   }
 }
 const todasticSession = session(sessionInitializationHash);
-
 module.exports = todasticSession;

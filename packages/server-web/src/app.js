@@ -1,13 +1,13 @@
-const express = require("express");
-const session = require("express-session");
-const app = express();
-const helmet = require("helmet");
 const bodyParser = require("body-parser");
-const authentication = require("./authentication.js");
-const logger = require("@todastic/logging");
+const express = require("express");
+const helmet = require("helmet");
 const morgan = require("morgan");
 const config = require("@todastic/config");
-const MongoSession = require("connect-mongo")(session);
+const logger = require("@todastic/logging");
+const authentication = require("./authentication.js");
+const session = require("./session.js");
+
+const app = express();
 
 app.use(
   morgan("combined", {
@@ -23,22 +23,8 @@ app.use(
 );
 
 // TODO app.set('trust proxy', 1);
-let sessionInitializationHash = {
-  secret: config.get("secret"),
-  resave: false,
-  name: "session",
-  saveUninitialized: false
-};
-if (config.get("sessionStore") === "mongo") {
-  try {
-    let mongoSession = new MongoSession({ url: config.get("db.connectionString") });
-    sessionInitializationHash.store = mongoSession;
-  } catch (err) {
-    logger.error(err);
-  }
-}
 
-app.use(session(sessionInitializationHash));
+app.use(session);
 
 authentication.register({ app });
 

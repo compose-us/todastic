@@ -24,7 +24,7 @@ export default {
         this.$http
           .post("/login", { username: this.input.username, password: this.input.password })
           .then(function(response) {
-            this.$emit("authenticated", true);
+            this.$emit("isAuthenticated", true);
             this.$router.replace({ name: "home" });
           })
           .catch(function(err) {

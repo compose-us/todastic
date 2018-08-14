@@ -3,7 +3,13 @@ const LocalStrategy = require("passport-local").Strategy;
 const logger = require("@todastic/logging");
 const User = require("@todastic/storage-users");
 
-function register({ app, indexRoute = "/", loginRoute = "/login", logoutRoute = "/logout" }) {
+function register({
+  app,
+  indexRoute = "/",
+  loginRoute = "/login",
+  logoutRoute = "/logout",
+  loginStatusRoute = "/login-status"
+}) {
   const passport = new Passport();
   init(passport);
 
@@ -14,10 +20,29 @@ function register({ app, indexRoute = "/", loginRoute = "/login", logoutRoute = 
     res.redirect(indexRoute);
   });
 
+  app.get(loginStatusRoute, loggedIn, (req, res) => {
+    res.send("ok");
+  });
+
   app.post(logoutRoute, (req, res) => {
     req.session.destroy();
     res.redirect(indexRoute);
   });
+}
+
+function loggedIn(req, res, next) {
+  logger.debug("Checking wether user is authenticated");
+  logger.debug("req.user:", req.user);
+  logger.debug("req.session:", req.session);
+  if (req.session) {
+    logger.debug("req.session.id:", req.session.id);
+  }
+  if (!req.isAuthenticated || !req.isAuthenticated()) {
+    logger.debug("User not authenticated!");
+    res.sendStatus(401);
+  } else {
+    next();
+  }
 }
 
 function init(passport) {
@@ -55,8 +80,10 @@ function init(passport) {
 
   passport.deserializeUser(function(id, cb) {
     logger.debug("Deserializing session user");
-    let user = User.findById(id);
-    cb(null, user);
+    User.findById(id, (err, user) => {
+      console.log({ err, user });
+      cb(err, user);
+    });
   });
 }
 

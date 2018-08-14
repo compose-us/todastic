@@ -15,7 +15,7 @@ export default function createApp(commands) {
       {
         path: "/",
         redirect: {
-          name: "login"
+          name: "home"
         }
       },
       {

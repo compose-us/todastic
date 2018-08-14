@@ -10,13 +10,11 @@
 import TodoList from "./TodoList.vue";
 import TodoAdder from "./TodoAdder.vue";
 import { store } from "../store.js";
-import UserProfile from "./UserProfile.vue";
 
 export default {
   components: {
     "todo-list": TodoList,
-    "todo-adder": TodoAdder,
-    "user-profile": UserProfile
+    "todo-adder": TodoAdder
   },
   props: ["commands"],
   data() {

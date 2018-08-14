@@ -39,7 +39,7 @@ function oneOf(arr) {
 }
 </script>
 
-<style>
+<style scoped>
 input {
   display: block;
   border: 0;

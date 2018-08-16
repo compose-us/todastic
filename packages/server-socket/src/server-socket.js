@@ -3,6 +3,7 @@ const createCommandProcessor = require("./command-processor.js");
 const passportSocketIo = require("passport.socketio");
 const todasticSession = require("@todastic/server-web/src/session.js");
 const User = require("@todastic/storage-users");
+const logger = require("@todastic/logging");
 
 const TODASTIC_FILE = `${process.cwd()}/todastic.events`;
 
@@ -13,12 +14,12 @@ function createSocketOnServer(httpServer) {
   });
 
   io.use((socket, next) => {
-    console.log("let's check");
+    logger.debug("checking websocket authorization");
     const sess = socket.request.session;
-    console.log(sess);
+    logger.debug(sess);
     if (sess.passport && sess.passport.user) {
       User.findById(sess.passport.user, (err, user) => {
-        console.log({ err, user });
+        logger.debug({ err, user });
         if (err) {
           return next(err);
         } else {
@@ -26,6 +27,7 @@ function createSocketOnServer(httpServer) {
         }
       });
     } else {
+      logger.debug("WS Authentication error");
       next(new Error("Authentication error"));
     }
   });
@@ -33,18 +35,18 @@ function createSocketOnServer(httpServer) {
   let connectedSockets = [];
 
   io.on("connection", function(socket) {
-    console.log("a user connected");
+    logger.debug("a user connected");
     connectedSockets.push(socket);
 
     getAllEvents().forEach(event => socket.emit("event", event));
 
     socket.on("command", command => {
-      console.log("command", command);
+      logger.debug("command", command);
       processCommand(e => connectedSockets.forEach(s => s.emit("event", e)))(command);
     });
 
     socket.on("disconnect", function() {
-      console.log("user disconnected");
+      logger.debug("user disconnected");
       connectedSockets = connectedSockets.filter(s => s !== socket);
     });
   });

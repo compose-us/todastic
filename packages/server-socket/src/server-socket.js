@@ -1,17 +1,15 @@
 const socketIo = require("socket.io");
 const createCommandProcessor = require("./command-processor.js");
 const passportSocketIo = require("passport.socketio");
-const User = require("@todastic/storage-users");
-const todasticSession = require("@todastic/server-web/src/session.js");
 const logger = require("@todastic/logging");
 const socketAuthentication = require("./socket-authentication.js");
 
 const TODASTIC_FILE = `${process.cwd()}/todastic.events`;
 
-function createSocketOnServer(httpServer) {
+function createSocketOnServer({ httpServer, session, User }) {
   const io = socketIo(httpServer);
   io.use((socket, next) => {
-    todasticSession(socket.request, {}, next);
+    session(socket.request, {}, next);
   });
 
   io.use(socketAuthentication({ User, logger }));

@@ -16,7 +16,9 @@
   "devDependencies": {
     "prettier": "^1.13.7"
   },
-"dependencies": {
+  "dependencies": {
+    "@todastic/config": "^0.2.1",
+    "@todastic/server-web": "^0.2.1",
     "@todastic/storage-users": "^0.2.1"
   }
 }

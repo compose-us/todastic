@@ -1,19 +1,17 @@
 FROM node:10.7.0
 
 RUN mkdir /app
-RUN chown node /app
-USER node
 WORKDIR /app
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
-COPY --chown=node:node package*.json ./
+COPY package*.json ./
 
-RUN npm install
+RUN npm install --quiet
 ENV PATH ./node_modules/.bin:$PATH
 
 # Bundle app source
-COPY --chown=node:node . .
+COPY . .
 
 RUN lerna bootstrap
 RUN lerna run build-client

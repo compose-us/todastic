@@ -1,17 +1,19 @@
 const Passport = require("passport").Passport;
 const LocalStrategy = require("passport-local").Strategy;
 const logger = require("@todastic/logging");
-const User = require("@todastic/storage-users");
+
+module.exports = { register };
 
 function register({
   app,
   indexRoute = "/",
   loginRoute = "/login",
   logoutRoute = "/logout",
-  loginStatusRoute = "/login-status"
+  loginStatusRoute = "/login-status",
+  User
 }) {
   const passport = new Passport();
-  init(passport);
+  init({ passport, User });
 
   app.use(passport.initialize());
   app.use(passport.session());
@@ -45,31 +47,32 @@ function loggedIn(req, res, next) {
   }
 }
 
-const localStrategy = new LocalStrategy(function(username, password, done) {
-  User.findOne(
-    {
-      username: username
-    },
-    function(err, user) {
-      if (err) {
-        return done(err);
+function init({ passport, User }) {
+  const localStrategy = new LocalStrategy(function(username, password, done) {
+    User.findOne(
+      {
+        username: username
+      },
+      function(err, user) {
+        logger.debug("Found user: %v", user);
+        if (err) {
+          return done(err);
+        }
+        if (!user) {
+          return done(null, false, {
+            message: "Incorrect username."
+          });
+        }
+        if (!user.verifyPasswordSync(password)) {
+          return done(null, false, {
+            message: "Incorrect password."
+          });
+        }
+        return done(null, user);
       }
-      if (!user) {
-        return done(null, false, {
-          message: "Incorrect username."
-        });
-      }
-      if (!user.verifyPasswordSync(password)) {
-        return done(null, false, {
-          message: "Incorrect password."
-        });
-      }
-      return done(null, user);
-    }
-  );
-});
+    );
+  });
 
-function init(passport) {
   passport.use(localStrategy);
 
   passport.serializeUser(function(user, cb) {
@@ -84,7 +87,3 @@ function init(passport) {
     });
   });
 }
-
-module.exports = {
-  register
-};

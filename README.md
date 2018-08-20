@@ -31,15 +31,34 @@ lerna run build-client && npm run start-web
 
 Build the docker container
 
-```
+```bash
 docker build -t todastic .
 ```
 
 And run it as you're used to:
 
-```
+```bash
 docker run -p 3000:3000 -d todastic
 ```
+
+If you only want to start a **mongodb** and connect from your local dev environment to it:
+
+```bash
+docker run -e MONGO_INITDB_DATABASE=todastic -d --name todastic_mongo_standalone -p 27017:27017 mongo --smallfiles
+```
+
+Then start todastic with
+
+```bash
+DB_PORT=27017 DB_DATABASE=todastic SESSION_STORE=mongo npm run start-web
+```
+
+## Tests
+
+The tests are run via [travis-ci](https://travis-ci.com/compose-us/todastic).
+
+Run the following command in order to see results:
+`docker-compose -p tests run -p 3000 --rm todastic npm run test`
 
 ## Development
 

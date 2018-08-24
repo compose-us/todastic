@@ -173,12 +173,12 @@ describe("replay", () => {
       });
       it("can change a todo description", () => {});
     });
-    describe("EDIT_TODO", () => {
+    describe("CHANGED_TODO", () => {
       it("will change the todos when the edit is done", () => {
         const events = [
           { event: "ADDED_TODO", data: { id: "id-1", title: "Create a todo" } },
           { event: "EDITING_TODO", data: { id: "id-1", title: "Changing the todo" } },
-          { event: "EDIT_TODO", data: { id: "id-1", title: "Changed the todo" } }
+          { event: "CHANGED_TODO", data: { id: "id-1", title: "Changed the todo" } }
         ];
         const state = replay(events);
         expect(state.todos.length).toEqual(1);
@@ -189,7 +189,7 @@ describe("replay", () => {
         const events = [
           { event: "ADDED_TODO", data: { id: "id-1", title: "Create a todo" } },
           { event: "ADDED_TODO", data: { id: "id-2", title: "Added a child", parentId: "id-1" } },
-          { event: "EDIT_TODO", data: { id: "id-2", title: "Changed title of child", parentId: "id-1" } }
+          { event: "CHANGED_TODO", data: { id: "id-2", title: "Changed title of child", parentId: "id-1" } }
         ];
         const state = replay(events);
         expect(state.todos.length).toEqual(1);
@@ -200,7 +200,7 @@ describe("replay", () => {
         const events = [
           { event: "ADDED_TODO", data: { id: "id-1", title: "Create a todo" } },
           { event: "ADDED_TODO", data: { id: "id-2", title: "Added a child", parentId: "id-1" } },
-          { event: "EDIT_TODO", data: { id: "id-2", title: "Changed title of child but did not change parentId" } }
+          { event: "CHANGED_TODO", data: { id: "id-2", title: "Changed title of child but did not change parentId" } }
         ];
         const state = replay(events);
         expect(state.todos.length).toEqual(1);

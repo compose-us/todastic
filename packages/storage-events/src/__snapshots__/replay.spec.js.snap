@@ -72,7 +72,7 @@ Array [
 ]
 `;
 
-exports[`replay editing todos EDIT_TODO can edit child todos 1`] = `
+exports[`replay editing todos CHANGED_TODO can edit child todos 1`] = `
 Array [
   Object {
     "children": Array [
@@ -88,7 +88,7 @@ Array [
 ]
 `;
 
-exports[`replay editing todos EDIT_TODO only edits the things provided in data and does not touch other fields 1`] = `
+exports[`replay editing todos CHANGED_TODO only edits the things provided in data and does not touch other fields 1`] = `
 Array [
   Object {
     "children": Array [
@@ -104,7 +104,7 @@ Array [
 ]
 `;
 
-exports[`replay editing todos EDIT_TODO will change the todos when the edit is done 1`] = `
+exports[`replay editing todos CHANGED_TODO will change the todos when the edit is done 1`] = `
 Object {
   "id": "id-1",
   "title": "Changed the todo",

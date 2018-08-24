@@ -4,8 +4,8 @@ function replay(events) {
       return addTodo(todos, event.data);
     } else if (event.event === "REMOVED_TODO") {
       return removeTodo(todos, event.data);
-    } else if (event.event === "EDIT_TODO") {
-      return editTodo(todos, event.data);
+    } else if (event.event === "CHANGED_TODO") {
+      return changedTodo(todos, event.data);
     }
     return todos;
   }, []);
@@ -35,20 +35,20 @@ function appendChild(todo, todoToAdd) {
   return todo;
 }
 
-function editTodo(todos, data) {
+function changedTodo(todos, data) {
   return todos.map(todo => {
     if (data.id === todo.id) {
-      return editSingleTodo(todo, data);
+      return editTodo(todo, data);
     } else {
       return {
         ...todo,
-        children: editTodo(todo.children, data)
+        children: changedTodo(todo.children, data)
       };
     }
   });
 }
 
-function editSingleTodo(todo, data) {
+function editTodo(todo, data) {
   return {
     ...todo,
     ...data

@@ -158,4 +158,54 @@ describe("replay", () => {
       expect(state.todos[0].children.length).toEqual(1);
     });
   });
+
+  describe("editing todos", () => {
+    describe("EDITING_TODO", () => {
+      it("does not care in the store about intermediate edits", () => {
+        const events = [
+          { event: "ADDED_TODO", data: { id: "id-1", title: "Create a todo" } },
+          { event: "EDITING_TODO", data: { id: "id-1", title: "Changing the todo" } },
+          { event: "EDITING_TODO", data: { id: "id-1", title: "Still changing the todo" } }
+        ];
+        const state = replay(events);
+        expect(state.todos.length).toEqual(1);
+        expect(state.todos[0]).toMatchSnapshot();
+      });
+      it("can change a todo description", () => {});
+    });
+    describe("EDIT_TODO", () => {
+      it("will change the todos when the edit is done", () => {
+        const events = [
+          { event: "ADDED_TODO", data: { id: "id-1", title: "Create a todo" } },
+          { event: "EDITING_TODO", data: { id: "id-1", title: "Changing the todo" } },
+          { event: "EDIT_TODO", data: { id: "id-1", title: "Changed the todo" } }
+        ];
+        const state = replay(events);
+        expect(state.todos.length).toEqual(1);
+        expect(state.todos[0]).toMatchSnapshot();
+      });
+
+      it("can edit child todos", () => {
+        const events = [
+          { event: "ADDED_TODO", data: { id: "id-1", title: "Create a todo" } },
+          { event: "ADDED_TODO", data: { id: "id-2", title: "Added a child", parentId: "id-1" } },
+          { event: "EDIT_TODO", data: { id: "id-2", title: "Changed title of child", parentId: "id-1" } }
+        ];
+        const state = replay(events);
+        expect(state.todos.length).toEqual(1);
+        expect(state.todos).toMatchSnapshot();
+      });
+
+      it("only edits the things provided in data and does not touch other fields", () => {
+        const events = [
+          { event: "ADDED_TODO", data: { id: "id-1", title: "Create a todo" } },
+          { event: "ADDED_TODO", data: { id: "id-2", title: "Added a child", parentId: "id-1" } },
+          { event: "EDIT_TODO", data: { id: "id-2", title: "Changed title of child but did not change parentId" } }
+        ];
+        const state = replay(events);
+        expect(state.todos.length).toEqual(1);
+        expect(state.todos).toMatchSnapshot();
+      });
+    });
+  });
 });

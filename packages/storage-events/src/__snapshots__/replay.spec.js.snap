@@ -71,3 +71,49 @@ Array [
   },
 ]
 `;
+
+exports[`replay editing todos EDIT_TODO can edit child todos 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "id": "id-2",
+        "parentId": "id-1",
+        "title": "Changed title of child",
+      },
+    ],
+    "id": "id-1",
+    "title": "Create a todo",
+  },
+]
+`;
+
+exports[`replay editing todos EDIT_TODO only edits the things provided in data and does not touch other fields 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "id": "id-2",
+        "parentId": "id-1",
+        "title": "Changed title of child but did not change parentId",
+      },
+    ],
+    "id": "id-1",
+    "title": "Create a todo",
+  },
+]
+`;
+
+exports[`replay editing todos EDIT_TODO will change the todos when the edit is done 1`] = `
+Object {
+  "id": "id-1",
+  "title": "Changed the todo",
+}
+`;
+
+exports[`replay editing todos EDITING_TODO does not care in the store about intermediate edits 1`] = `
+Object {
+  "id": "id-1",
+  "title": "Create a todo",
+}
+`;

@@ -4,6 +4,8 @@ function replay(events) {
       return addTodo(todos, event.data);
     } else if (event.event === "REMOVED_TODO") {
       return removeTodo(todos, event.data);
+    } else if (event.event === "EDIT_TODO") {
+      return editTodo(todos, event.data);
     }
     return todos;
   }, []);
@@ -12,9 +14,7 @@ function replay(events) {
 
 function addTodo(todos, todoToAdd) {
   if (todoToAdd.parentId) {
-    return todos.map(todo => {
-      return appendChild(todo, todoToAdd);
-    });
+    return todos.map(todo => appendChild(todo, todoToAdd));
   }
   return [...todos, todoToAdd];
 }
@@ -26,15 +26,33 @@ function appendChild(todo, todoToAdd) {
       children: [...(todo.children || []), todoToAdd]
     };
   } else if (todo.children && todo.children.length) {
-    let mappedChildren = todo.children.map(child => {
-      return appendChild(child, todoToAdd);
-    });
+    const mappedChildren = todo.children.map(child => appendChild(child, todoToAdd));
     return {
       ...todo,
       children: [...mappedChildren]
     };
   }
   return todo;
+}
+
+function editTodo(todos, data) {
+  return todos.map(todo => {
+    if (data.id === todo.id) {
+      return editSingleTodo(todo, data);
+    } else {
+      return {
+        ...todo,
+        children: editTodo(todo.children, data)
+      };
+    }
+  });
+}
+
+function editSingleTodo(todo, data) {
+  return {
+    ...todo,
+    ...data
+  };
 }
 
 function removeTodo(todos, data) {

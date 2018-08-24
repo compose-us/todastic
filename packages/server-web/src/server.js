@@ -1,11 +1,26 @@
-const app = require("./app.js");
+const http = require("http");
 const logger = require("@todastic/logging");
-const config = require("@todastic/config");
 const createSocketOnServer = require("@todastic/server-socket");
+const startApp = require("./app.js");
+const { initSession } = require("./session.js");
 
-const server = require("http").Server(app);
-createSocketOnServer(server);
+module.exports = { startServer };
 
-server.listen(config.get("port"), function() {
-  logger.info(`Todastic webserver listening on port ${config.get("port")}, Sire!`);
-});
+async function startServer({ config, database, User }) {
+  const { middleware: session } = await initSession({ config, database });
+
+  // pass database
+  const app = startApp({ session, logger, User });
+  const httpServer = http.Server(app);
+  createSocketOnServer({ httpServer, session, User });
+
+  return new Promise((resolve, reject) => {
+    httpServer.listen(config.get("port"), err => {
+      if (err) {
+        return reject(err);
+      }
+      logger.info(`Todastic webserver listening on port ${config.get("port")}, Sire!`);
+      resolve(httpServer);
+    });
+  });
+}

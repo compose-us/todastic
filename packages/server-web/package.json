@@ -21,6 +21,8 @@
   "homepage": "https://github.com/compose-us/todastic#readme",
   "devDependencies": {
     "jest": "^23.4.1",
+    "jest-when": "^1.1.0",
+    "mongoose": "^5.2.9",
     "prettier": "^1.13.7",
     "rollup": "^0.63.2",
     "rollup-plugin-commonjs": "^9.1.3",

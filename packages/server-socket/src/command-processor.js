@@ -7,11 +7,11 @@ const { createLogger, replay } = require("@todastic/storage-events");
 const processCommand = logger => {
   return sendEvent => command => {
     if (command.command === "ADD_TODO") {
-      const event = { event: "ADDED_TODO", data: { ...command.data, id: uuidv1(), createdAt: Date.now() } };
+      const event = { eventType: "ADDED_TODO", data: { ...command.data }, eventId: uuidv1(), createdAt: Date.now() };
       logger.log(event);
       return sendEvent(event);
     } else if (command.command === "REMOVE_TODO") {
-      const event = { event: "REMOVED_TODO", data: { id: command.data.id, createdAt: Date.now() } };
+      const event = { eventType: "REMOVED_TODO", data: { eventId: command.data.eventId }, createdAt: Date.now() };
       logger.log(event);
       return sendEvent(event);
     }

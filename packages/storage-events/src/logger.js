@@ -6,8 +6,8 @@ function createLogger() {
       eventLog = log;
     },
     log(event) {
-      if (!event.event) {
-        throw new Error(`Unknown event: ${event.event}`);
+      if (!event.eventType) {
+        throw new Error(`Unknown event: ${event.eventType}`);
       }
       eventLog.push(event);
     },

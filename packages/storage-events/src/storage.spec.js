@@ -2,8 +2,8 @@ const fs = require("fs");
 const storage = require("./storage.js");
 
 describe("storage-events", () => {
-  const event1 = { event: "ADDED_TODO", data: { id: 1, title: "Implement event logging" } };
-  const event2 = { event: "ADDED_TODO", data: { id: 2, title: "Another event added" } };
+  const event1 = { eventType: "ADDED_TODO", eventId: "1", data: { title: "Implement event logging" } };
+  const event2 = { eventType: "ADDED_TODO", eventId: "2", data: { title: "Another event added" } };
 
   it("can save to and load from a file", () => {
     const logger = storage.createLogger();

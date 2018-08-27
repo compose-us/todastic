@@ -23,7 +23,6 @@
     "prettier": "^1.13.7"
   },
   "dependencies": {
-    "@todastic/logging": "^0.2.1",
     "@todastic/server-web": "^0.2.1",
     "@todastic/storage-events": "^0.2.1",
     "@todastic/storage-users": "^0.2.1",

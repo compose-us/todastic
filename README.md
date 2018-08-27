@@ -44,7 +44,7 @@ docker run -p 3000:3000 -d todastic
 If you only want to start a **mongodb** and connect from your local dev environment to it:
 
 ```bash
-docker run -e MONGO_INITDB_DATABASE=todastic -d --name todastic_mongo_standalone -p 27017:27017 mongo --smallfiles
+docker run -e MONGO_INITDB_DATABASE=todastic -d --name todastic_mongo_standalone -p 127.0.0.1:27017:27017 mongo --smallfiles
 ```
 
 Then start todastic with

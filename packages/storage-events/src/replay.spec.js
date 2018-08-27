@@ -171,9 +171,9 @@ describe("replay", () => {
         expect(state.todos.length).toEqual(1);
         expect(state.todos[0]).toMatchSnapshot();
       });
-      it("can change a todo description", () => {});
     });
-    describe("CHANGED_TODO", () => {
+
+		describe("CHANGED_TODO", () => {
       it("will change the todos when the edit is done", () => {
         const events = [
           { event: "ADDED_TODO", data: { id: "id-1", title: "Create a todo" } },

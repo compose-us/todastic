@@ -1,6 +1,5 @@
 const request = require("supertest");
 const startApp = require("./app.js");
-const logger = require("@todastic/logging");
 const { when } = require("jest-when");
 
 describe("todastic api", () => {
@@ -15,7 +14,7 @@ describe("todastic api", () => {
     when(config.get)
       .calledWith("secret")
       .mockReturnValue("foo");
-    app = startApp({ session, logger, User });
+    app = startApp({ session, logger: console, User });
   });
 
   describe("not logged in", () => {

@@ -1,12 +1,11 @@
 const http = require("http");
-const logger = require("@todastic/logging");
 const createSocketOnServer = require("@todastic/server-socket");
 const startApp = require("./app.js");
 const { initSession } = require("./session.js");
 
 module.exports = { startServer };
 
-async function startServer({ config, database, User }) {
+async function startServer({ config, database, User, logger }) {
   const { middleware: session } = await initSession({ config, database });
 
   // pass database

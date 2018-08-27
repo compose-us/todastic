@@ -1,5 +1,6 @@
 const convict = require("convict");
 const path = require("path");
+
 // Define a schema
 var config = convict({
   env: {

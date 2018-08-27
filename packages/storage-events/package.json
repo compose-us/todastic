@@ -23,6 +23,8 @@
     "prettier": "^1.13.7"
   },
   "dependencies": {
+    "@todastic/config": "^0.2.1",
+    "@todastic/server-web": "^0.2.1",
     "mongoose-timestamp": "^0.6.0",
     "uuid": "^3.3.2"
   }

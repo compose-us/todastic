@@ -1,19 +1,34 @@
-// v1 is timestamp based, so we can still order by ID when it's the same createdAt
-// and have some sort of consistent behaviour
-const uuidv1 = require("uuid/v1");
+const timestamps = require("mongoose-timestamp");
+const { createSequenceSchema, getNextSequenceValue } = require("@todastic/server-web/src/mongo-autoincrement.js");
 
 module.exports = { createEventModel };
 
 function createEventModel({ mongoose }) {
+  const sequenceModel = createSequenceSchema({ mongoose });
+
   const eventSchema = new mongoose.Schema({
     eventType: { type: String, required: true, enum: ["ADDED_TODO", "REMOVED_TODO", "CHANGED_TODO"] },
     schemaVersion: { type: Number, required: true, default: currentSchemaVersion },
-    position: { type: Number, required: true },
-    issuer: { type: String, required: true },
-    parentId: { type: String },
-    data: { type: String },
-    createdAt: { type: Date, required: true, default: Date.now },
-    eventId: { type: String, required: true, unique: true, default: uuidv1() } // maybe we only need the mongo object id
+    position: { type: Number },
+    data: {
+      parentId: { type: String },
+      title: { type: String }
+    }
+  });
+
+  eventSchema.plugin(timestamps);
+
+  eventSchema.pre("save", function(next) {
+    if (this.position === undefined) {
+      getNextSequenceValue({ model: sequenceModel, sequenceName: "eventPosition" })
+        .then(x => {
+          this.position = x;
+          next();
+        })
+        .catch(err => {
+          next(err);
+        });
+    }
   });
 
   return mongoose.model("Event", eventSchema);

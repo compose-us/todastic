@@ -1,11 +1,18 @@
 const { createUserModel } = require("./user.js");
-const mongoose = require("mongoose");
+const { initDatabase } = require("@todastic/server-web/src/database-mongo.js");
+const config = require("@todastic/config");
 
-const User = createUserModel({ mongoose });
+let User;
+let mongoose;
 
 describe("User", () => {
-  afterAll(() => {
-    mongoose.disconnect();
+  beforeAll(async () => {
+    let { mongoose } = await initDatabase({ config, logger: console });
+    User = createUserModel({ mongoose });
+  });
+
+  afterAll(async () => {
+    await mongoose.disconnect();
   });
 
   it("is invalid without 'username'", testWithout("username"));
@@ -14,7 +21,7 @@ describe("User", () => {
 
   it("is able to detect bad email addresses", done => {
     let user = new User({ username: "berti", password: "asWell", email: "not@fancy" });
-    user.validate(function(err) {
+    user.validate(err => {
       expect(err.errors.email).toBeDefined();
       done();
     });
@@ -26,7 +33,7 @@ function testWithout(field) {
     let hash = { username: "berti", password: "soSecre7" };
     delete hash[field];
     let user = new User(hash);
-    user.validate(function(err) {
+    user.validate(err => {
       expect(err.errors[field]).toBeDefined();
       done();
     });

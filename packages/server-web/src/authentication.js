@@ -79,7 +79,7 @@ function init({ passport, User, logger }) {
   passport.use(localStrategy);
 
   passport.serializeUser(function(user, cb) {
-    logger.debug("Serializing session user", user);
+    logger.debug("Serializing session user");
     cb(null, user.id);
   });
 

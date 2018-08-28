@@ -6,7 +6,6 @@ Object {
   "data": Object {
     "title": "Create a test todo",
   },
-  "eventId": Any<String>,
   "eventType": "ADDED_TODO",
 }
 `;

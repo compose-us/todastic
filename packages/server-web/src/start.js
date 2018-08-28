@@ -1,5 +1,6 @@
 const config = require("@todastic/config");
 const { createUserModel } = require("@todastic/storage-users");
+const { createEventModel } = require("@todastic/storage-events");
 const { startServer } = require("./server.js");
 const { initDatabase } = require("./database-mongo.js");
 const { initLogger } = require("@todastic/logging");
@@ -20,6 +21,7 @@ async function start() {
   const database = await initDatabase({ config, logger });
   logger.info("Database connection set up");
   const User = createUserModel({ mongoose: database.mongoose });
+  const Event = createEventModel({ mongoose: database.mongoose });
   const httpServer = await startServer({ config, database, User, Event, logger });
   registerShutdownHooks({ logger, httpServer, database });
 

@@ -31,6 +31,10 @@ function createEventModel({ mongoose }) {
     }
   });
 
+  eventSchema.statics.getEvents = () => {
+    return this.find({}).sort("position");
+  };
+
   return mongoose.model("Event", eventSchema);
 }
 

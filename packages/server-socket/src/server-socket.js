@@ -1,24 +1,22 @@
 const socketIo = require("socket.io");
-const createCommandProcessor = require("./command-processor.js");
+const { createCommandProcessor } = require("./command-processor.js");
 const socketAuthentication = require("./socket-authentication.js");
 
-const TODASTIC_FILE = `${process.cwd()}/todastic.events`;
-
-function createSocketOnServer({ httpServer, session, User, logger }) {
+function createSocketOnServer({ httpServer, session, User, Event, logger }) {
   const io = socketIo(httpServer);
   io.use((socket, next) => {
     session(socket.request, {}, next);
   });
 
   io.use(socketAuthentication({ User, logger }));
-  const { getAllEvents, processCommand } = createCommandProcessor(TODASTIC_FILE);
+  const { processCommand } = createCommandProcessor({ Event, logger });
   let connectedSockets = [];
 
   io.on("connection", function(socket) {
     logger.debug("a user connected");
     connectedSockets.push(socket);
 
-    getAllEvents().forEach(event => socket.emit("event", event));
+    Event.getEvents().forEach(event => socket.emit("event", event));
 
     socket.on("command", command => {
       logger.debug("command", command);

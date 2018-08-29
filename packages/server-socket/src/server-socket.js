@@ -3,6 +3,7 @@ const { createCommandProcessor } = require("./command-processor.js");
 const socketAuthentication = require("./socket-authentication.js");
 
 function createSocketOnServer({ httpServer, session, User, Event, logger }) {
+  logger.info("Creating websocket server.");
   const io = socketIo(httpServer);
   io.use((socket, next) => {
     session(socket.request, {}, next);

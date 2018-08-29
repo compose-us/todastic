@@ -1,6 +1,5 @@
 import { replay } from "@todastic/storage-events";
 
-// TODO get Todos and not expose whole store!!
 export const store = { todos: [], isAuthenticated: false };
 
 const allEvents = [];

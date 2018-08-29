@@ -13,7 +13,7 @@ async function initDatabase({ config, logger }) {
   return {
     mongoose,
     async setupMiddlewareForExpressSession(sessionOptions) {
-      logger.info("setting up middleware for express session");
+      logger.info("Setting up middleware for express session");
       const MongoStore = connectMongo(session);
       const mongoStore = await new Promise((resolve, reject) => {
         const mongoStore = new MongoStore({ mongooseConnection: mongoose.connection });

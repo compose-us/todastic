@@ -35,6 +35,13 @@ describe("Event", () => {
     });
   });
 
+  it("creates a todoId", done => {
+    Event.create({ eventType: "ADDED_TODO" }).then(event => {
+      expect(event.data.todoId).toBeDefined();
+      done();
+    });
+  });
+
   it("doesn't overwrite the position", () => {
     Event.create({ eventType: "ADDED_TODO", position: 1234 }).then(event1 => {
       event1.update({ eventType: "CHANGED_TODO" });

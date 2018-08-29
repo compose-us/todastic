@@ -36,13 +36,8 @@ function register({
 function loggedIn(logger) {
   return (req, res, next) => {
     logger.debug("Checking whether user is authenticated");
-    logger.debug("req.user:", req.user);
-    logger.debug("req.session:", req.session);
-    if (req.session) {
-      logger.debug("req.session.id:", req.session.id);
-    }
     if (!req.isAuthenticated || !req.isAuthenticated()) {
-      logger.debug("User not authenticated!");
+      logger.info("User not authenticated!");
       res.sendStatus(401);
     } else {
       next();
@@ -57,18 +52,18 @@ function init({ passport, User, logger }) {
         username: username
       },
       function(err, user) {
-        logger.debug("Found user: %v", user);
+        logger.debug("Authentication: Found user.");
         if (err) {
           return done(err);
         }
         if (!user) {
           return done(null, false, {
-            message: "Incorrect username."
+            message: "Authentication: Incorrect username."
           });
         }
         if (!user.verifyPasswordSync(password)) {
           return done(null, false, {
-            message: "Incorrect password."
+            message: "Authentication: Incorrect password."
           });
         }
         return done(null, user);
@@ -79,12 +74,12 @@ function init({ passport, User, logger }) {
   passport.use(localStrategy);
 
   passport.serializeUser(function(user, cb) {
-    logger.debug("Serializing session user");
+    logger.debug("Serializing session user.");
     cb(null, user.id);
   });
 
   passport.deserializeUser(function(id, cb) {
-    logger.debug("Deserializing session user");
+    logger.debug("Deserializing session user.");
     User.findById(id, (err, user) => {
       cb(err, user);
     });

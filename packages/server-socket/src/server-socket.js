@@ -17,7 +17,11 @@ function createSocketOnServer({ httpServer, session, User, Event, logger }) {
     logger.debug("a user connected");
     connectedSockets.push(socket);
 
-    Event.getEvents().forEach(event => socket.emit("event", event));
+    Event.getEvents().then(events => {
+      events.forEach(event => {
+        socket.emit("event", event);
+      });
+    });
 
     socket.on("command", command => {
       logger.debug("command", command);

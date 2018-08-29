@@ -11,6 +11,7 @@ function createEventModel({ mongoose }) {
     schemaVersion: { type: Number, required: true, default: currentSchemaVersion },
     position: { type: Number },
     data: {
+      todoId: { type: String, required: true, default: uuidv4 },
       parentId: { type: String },
       title: { type: String }
     }
@@ -31,7 +32,10 @@ function createEventModel({ mongoose }) {
     }
   });
 
-  eventSchema.statics.getEvents = () => {
+  // NOTE
+  // Do not declare statics using ES6 arrow functions (=>).
+  // Arrow functions explicitly prevent binding this correctly.
+  eventSchema.statics.getEvents = function() {
     return this.find({}).sort("position");
   };
 
@@ -40,4 +44,12 @@ function createEventModel({ mongoose }) {
 
 function currentSchemaVersion() {
   return 1;
+}
+// see https://stackoverflow.com/a/2117523/526426
+function uuidv4() {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
+    var r = (Math.random() * 16) | 0,
+      v = c == "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
 }

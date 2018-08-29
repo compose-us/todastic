@@ -14,7 +14,7 @@ export default function createSocketConnection(eventProcessor) {
       socket.emit("command", { command: "ADD_TODO", data: todo });
     },
     removeTodo(todo) {
-      socket.emit("command", { command: "REMOVE_TODO", data: { eventId: todo.eventId } });
+      socket.emit("command", { command: "REMOVE_TODO", data: { id: todo.todoId } });
     },
     connect() {
       socket.open();

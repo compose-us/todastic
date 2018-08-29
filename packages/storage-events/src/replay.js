@@ -1,10 +1,10 @@
 function replay(events) {
   const todos = events.reduce((todos, event) => {
-    if (event.event === "ADDED_TODO") {
+    if (event.eventType === "ADDED_TODO") {
       return addTodo(todos, event.data);
-    } else if (event.event === "REMOVED_TODO") {
+    } else if (event.eventType === "REMOVED_TODO") {
       return removeTodo(todos, event.data);
-    } else if (event.event === "CHANGED_TODO") {
+    } else if (event.eventType === "CHANGED_TODO") {
       return changedTodo(todos, event.data);
     }
     return todos;
@@ -20,7 +20,7 @@ function addTodo(todos, todoToAdd) {
 }
 
 function appendChild(todo, todoToAdd) {
-  if (todoToAdd.parentId === todo.id) {
+  if (todoToAdd.parentId === todo.todoId) {
     return {
       ...todo,
       children: [...(todo.children || []), todoToAdd]
@@ -37,7 +37,7 @@ function appendChild(todo, todoToAdd) {
 
 function changedTodo(todos, data) {
   return todos.map(todo => {
-    if (data.id === todo.id) {
+    if (data.todoId === todo.todoId) {
       return editTodo(todo, data);
     } else {
       return {
@@ -59,7 +59,7 @@ function removeTodo(todos, data) {
   return todos.reduce(removeTodoInListOrChildren, []);
 
   function removeTodoInListOrChildren(todos, todo) {
-    if (todo.id === data.id) {
+    if (todo.todoId === data.todoId) {
       return todos;
     }
     if (todo.children) {

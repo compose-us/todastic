@@ -2,20 +2,18 @@ const connectMongo = require("connect-mongo");
 const { Mongoose } = require("mongoose");
 const session = require("express-session");
 
-const logger = require("@todastic/logging");
-
 // https://mongoosejs.com/docs/api.html#mongoose_Mongoose
 // https://mongoosejs.com/docs/connections.html#callback
 
 module.exports = { initDatabase };
 
-async function initDatabase({ config }) {
-  const mongoose = await createMongooseInstance({ connectionString: config.get("db.connectionString") });
+async function initDatabase({ config, logger }) {
+  const mongoose = await createMongooseInstance({ connectionString: config.get("db.connectionString"), logger });
   logger.debug("mongooseInstance created");
   return {
-		mongoose,
+    mongoose,
     async setupMiddlewareForExpressSession(sessionOptions) {
-      logger.info("setting up middleware for express session");
+      logger.info("Setting up middleware for express session");
       const MongoStore = connectMongo(session);
       const mongoStore = await new Promise((resolve, reject) => {
         const mongoStore = new MongoStore({ mongooseConnection: mongoose.connection });
@@ -41,7 +39,7 @@ async function initDatabase({ config }) {
   };
 }
 
-async function createMongooseInstance({ connectionString }) {
+async function createMongooseInstance({ connectionString, logger }) {
   logger.debug("Starting createMongooseInstance");
   const mongooseInstance = new Mongoose();
   return mongooseInstance.connect(

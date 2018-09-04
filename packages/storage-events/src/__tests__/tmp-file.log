@@ -1,1 +1,1 @@
-[{"event":"ADDED_TODO","data":{"id":1,"title":"Implement event logging"}},{"event":"ADDED_TODO","data":{"id":2,"title":"Another event added"}}]
+[{"eventType":"ADDED_TODO","eventId":"1","data":{"title":"Implement event logging"}},{"eventType":"ADDED_TODO","eventId":"2","data":{"title":"Another event added"}}]

@@ -1,6 +1,10 @@
 const winston = require("winston");
-var options = {
-  /* file: {
+
+module.exports = { initLogger };
+
+function initLogger() {
+  const options = {
+    /* file: {
     level: 'info',
     filename: `${appRoot}/logs/app.log`,
     handleExceptions: true,
@@ -9,25 +13,26 @@ var options = {
     maxFiles: 5,
     colorize: false,
   },*/
-  console: {
-    level: "debug",
-    handleExceptions: true,
-    json: false,
-    format: winston.format.simple(),
-    colorize: true
-  }
-};
-var logger = winston.createLogger({
-  transports: [
-    //    new winston.transports.File(options.file),
-    new winston.transports.Console(options.console)
-  ],
-  exitOnError: false // do not exit on handled exceptions
-});
-logger.stream = {
-  write: function(message, encoding) {
-    logger.info(message);
-  }
-};
+    console: {
+      level: "debug",
+      handleExceptions: true,
+      json: false,
+      format: winston.format.simple(),
+      colorize: true
+    }
+  };
+  const logger = winston.createLogger({
+    transports: [
+      //    new winston.transports.File(options.file),
+      new winston.transports.Console(options.console)
+    ],
+    exitOnError: false // do not exit on handled exceptions
+  });
+  logger.stream = {
+    write: function(message, encoding) {
+      logger.info(message);
+    }
+  };
 
-module.exports = logger;
+  return logger;
+}

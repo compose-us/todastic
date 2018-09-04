@@ -1,16 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`command-processor processCommand sends a REMOVED_TODO event when a correct REMOVE_TODO command was received 1`] = `
-Object {
-  "createdAt": Any<Number>,
-  "id": Any<String>,
-}
-`;
-
 exports[`command-processor processCommand sends an ADDED_TODO event when a correct ADD_TODO command was received 1`] = `
 Object {
   "createdAt": Any<Number>,
-  "id": Any<String>,
-  "title": "Create a test todo",
+  "data": Object {
+    "title": "Create a test todo",
+  },
+  "eventType": "ADDED_TODO",
 }
 `;

@@ -23,7 +23,7 @@ function startApp({ session, logger, User }) {
   // TODO app.set('trust proxy', 1);
   app.use(session);
 
-  authentication.register({ app, User });
+  authentication.register({ app, User, logger });
 
   app.get("/", (req, res) => {
     res.sendFile(`${__dirname}/index.html`);

@@ -1,7 +1,7 @@
-const createLogger = require("./logger.js");
+const { createEventModel } = require("./event.js");
 const replay = require("./replay.js");
 
 module.exports = {
-  createLogger,
+  createEventModel,
   replay
 };

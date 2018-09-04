@@ -8,10 +8,10 @@
         :toggleAddTodoItem="toggleAddTodoItem"
 			/>
       <span :class="`status status-${todo.status || 'open'}`" @click.prevent="toggleStatus(todo)"></span>
-      <span class="id">#{{todo.id.substring(1, 4)}}</span>
+      <span class="id">#{{todo.todoId.substring(1, 4)}}</span>
       <span class="title">{{todo.title}}</span>
     </div>
-    <todo-adder ref="adder" :parentId="todo.id" :visible="adderVisible" :addTodo="commands.addTodo" />
+    <todo-adder ref="adder" :parentId="todo.todoId" :visible="adderVisible" :addTodo="commands.addTodo" />
   </div>
 </template>
 
@@ -60,11 +60,11 @@ export default {
 }
 
 .todo {
-	display: grid;
-	grid-template-columns: 25px 25px 40px 1fr;
+  display: grid;
+  grid-template-columns: 25px 25px 40px 1fr;
 }
 .todo > * {
-	padding: 5px;
+  padding: 5px;
 }
 .todo::after {
   clear: both;

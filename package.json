@@ -8,6 +8,7 @@
     "format": "prettier --write 'tests/**/*.js' && lerna run format",
     "start": "node ./packages/cli/src/cli.js",
     "start-web": "node ./packages/server-web/src/start.js",
+    "local": "npm run watch-web | npm run start-web",
     "konsol": "node ./packages/konsol/src/konsol.js",
     "test": "jest",
     "test-ci": "jest --ci --detectOpenHandles",

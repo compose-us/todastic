@@ -6,8 +6,9 @@
 
 <script>
 export default {
+  name: "TodoAdder",
   props: {
-    addTodo: { type: Function, required: true },
+    storageFunc: { type: Function, required: true },
     parentId: String,
     visible: { type: Boolean, default: true }
   },
@@ -23,7 +24,7 @@ export default {
   methods: {
     submit(event) {
       console.log("this.props", this.$props);
-      this.$props.addTodo({ title: this.$data.todoTitle, parentId: this.$props.parentId });
+      this.$props.storageFunc({ title: this.$data.todoTitle, parentId: this.$props.parentId });
       this.$data.todoTitle = "";
       this.$data.placeholder = getPlaceholder();
     }

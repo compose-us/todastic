@@ -11,7 +11,7 @@
       <span class="id">#{{todo.todoId.substring(1, 4)}}</span>
       <span class="title">{{todo.title}}</span>
     </div>
-    <todo-adder ref="adder" :parentId="todo.todoId" :visible="adderVisible" :addTodo="commands.addTodo" />
+    <todo-adder ref="adder" :parentId="todo.todoId" :visible="adderVisible" :storageFunc="commands.addTodo" />
   </div>
 </template>
 

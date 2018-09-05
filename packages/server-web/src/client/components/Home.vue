@@ -2,7 +2,7 @@
   <div class="todasticapp">
     <h1>Todastic</h1>
     <todo-list :commands="commands" :todos="store.todos"/>
-    <todo-adder :addTodo="commands.addTodo"/>
+    <todo-adder :storageFunc="commands.addTodo"/>
   </div>
 </template>
 

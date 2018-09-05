@@ -217,6 +217,38 @@ describe("replay", () => {
         expect(state.todos).toMatchSnapshot();
       });
 
+      xit("works happily", () => {
+        const events = [
+          {
+            data: { title: "do it", todoId: "a0ca6051-43f9-410e-86c9-75ae37a1c682" },
+            eventType: "ADDED_TODO",
+            position: 1
+          },
+          {
+            data: {
+              title: "really",
+              parentId: "a0ca6051-43f9-410e-86c9-75ae37a1c682",
+              todoId: "6505d361-adc2-427f-ad45-a4e57b630830"
+            },
+            eventType: "ADDED_TODO",
+            position: 2
+          },
+          {
+            data: { title: "some other", todoId: "536540b4-6602-4242-ad2c-f199f49b7862" },
+            eventType: "ADDED_TODO",
+            position: 3
+          },
+          {
+            data: { title: "really really real", todoId: "6505d361-adc2-427f-ad45-a4e57b630830" },
+            eventType: "CHANGED_TODO",
+            position: 4
+          }
+        ];
+        const state = replay(events);
+        expect(state.todos.length).toEqual(1);
+        expect(state.todos[0]).toMatchSnapshot();
+      });
+
       it("only edits the things provided in data and does not touch other fields", () => {
         const events = [
           { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo" } },

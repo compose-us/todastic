@@ -9,7 +9,8 @@
 			/>
       <span :class="`status status-${todo.status || 'open'}`" @click.prevent="toggleStatus(todo)"></span>
       <span class="id">#{{todo.todoId.substring(1, 4)}}</span>
-      <span class="title">{{todo.title}}</span>
+      <span v-if="!updating" v-on:click="updating=true" class="title">{{todo.title}}</span>
+      <todo-adder ref="updater" :visible="updating" :storageFunc="updateTitle" v-bind:initialTodoTitle="todo.title" />
     </div>
     <todo-adder ref="adder" :parentId="todo.todoId" :visible="adderVisible" :storageFunc="commands.addTodo" />
   </div>
@@ -28,10 +29,16 @@ export default {
   },
   data() {
     return {
-      adderVisible: false
+      adderVisible: false,
+      updating: false,
+      todoTitle: ""
     };
   },
   methods: {
+    updateTitle(changedTodo) {
+      this.$props.commands.changeTodo(this.todo, { title: changedTodo.title });
+      this.updating = false;
+    },
     drag(todo) {
       // FIXME not implemented yet
       return () => {};

@@ -23,7 +23,19 @@ function processCommand({ Event, logger }) {
     } else if (command.command === "REMOVE_TODO") {
       return Event.create({
         eventType: "REMOVED_TODO",
-        data: { id: command.data.id },
+        data: { todoId: command.data.id },
+        createdAt: Date.now()
+      }).then(
+        event => {
+          logger.debug(event);
+          return sendEvent(event);
+        },
+        err => logger.error(err)
+      );
+    } else if (command.command === "CHANGE_TODO") {
+      return Event.create({
+        eventType: "CHANGED_TODO",
+        data: { ...command.data },
         createdAt: Date.now()
       }).then(
         event => {

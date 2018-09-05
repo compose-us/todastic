@@ -10,11 +10,13 @@ export default {
   props: {
     storageFunc: { type: Function, required: true },
     parentId: String,
+    initialTodoTitle: String,
     visible: { type: Boolean, default: true }
   },
   data() {
     const data = {
-      todoTitle: "",
+      // we don't want to change the parents title directly
+      todoTitle: this.initialTodoTitle,
       placeholder: getPlaceholder()
     };
     console.log("showing todo-adder", data);

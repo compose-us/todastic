@@ -42,7 +42,7 @@ function changedTodo(todos, data) {
     } else {
       return {
         ...todo,
-        children: changedTodo(todo.children, data)
+        children: changedTodo(todo.children || [], data)
       };
     }
   });

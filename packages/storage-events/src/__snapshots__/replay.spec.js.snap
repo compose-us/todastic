@@ -111,6 +111,20 @@ Object {
 }
 `;
 
+exports[`replay editing todos CHANGED_TODO works happily 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "parentId": "a0ca6051-43f9-410e-86c9-75ae37a1c682",
+      "title": "really really real",
+      "todoId": "6505d361-adc2-427f-ad45-a4e57b630830",
+    },
+  ],
+  "title": "do it",
+  "todoId": "a0ca6051-43f9-410e-86c9-75ae37a1c682",
+}
+`;
+
 exports[`replay editing todos EDITING_TODO does not care in the store about intermediate edits 1`] = `
 Object {
   "title": "Create a todo",

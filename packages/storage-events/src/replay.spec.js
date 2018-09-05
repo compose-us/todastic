@@ -217,7 +217,7 @@ describe("replay", () => {
         expect(state.todos).toMatchSnapshot();
       });
 
-      xit("works happily", () => {
+      it("works happily", () => {
         const events = [
           {
             data: { title: "do it", todoId: "a0ca6051-43f9-410e-86c9-75ae37a1c682" },
@@ -245,7 +245,7 @@ describe("replay", () => {
           }
         ];
         const state = replay(events);
-        expect(state.todos.length).toEqual(1);
+        expect(state.todos.length).toEqual(2);
         expect(state.todos[0]).toMatchSnapshot();
       });
 

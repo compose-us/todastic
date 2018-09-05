@@ -28,6 +28,9 @@ function startApp({ session, logger, User }) {
   app.get("/", (req, res) => {
     res.sendFile(`${__dirname}/index.html`);
   });
+  app.get("/home", (req, res) => {
+    res.redirect("/");
+  });
 
   app.get("/main.css", (req, res) => {
     res.sendFile(`${__dirname}/main.css`);

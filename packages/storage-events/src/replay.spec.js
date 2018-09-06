@@ -22,6 +22,13 @@ describe("replay", () => {
       expect(state.todos[0].title).toEqual("Implement event sourcing");
     });
 
+    it("initializes an added todo with an empty children array", () => {
+      const event = { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Implement event sourcing" } };
+      const state = replay([event]);
+      expect(state.todos.length).toBe(1);
+      expect(state.todos[0].children).toBeDefined();
+    });
+
     it("can add a task as a child of another task", () => {
       const events = [
         { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a parent todo" } },

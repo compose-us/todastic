@@ -6,14 +6,17 @@
 
 <script>
 export default {
+  name: "TodoAdder",
   props: {
-    addTodo: { type: Function, required: true },
+    storageFunc: { type: Function, required: true },
     parentId: String,
+    initialTodoTitle: String,
     visible: { type: Boolean, default: true }
   },
   data() {
     const data = {
-      todoTitle: "",
+      // we don't want to change the parents title directly
+      todoTitle: this.initialTodoTitle,
       placeholder: getPlaceholder()
     };
     console.log("showing todo-adder", data);
@@ -23,7 +26,7 @@ export default {
   methods: {
     submit(event) {
       console.log("this.props", this.$props);
-      this.$props.addTodo({ title: this.$data.todoTitle, parentId: this.$props.parentId });
+      this.$props.storageFunc({ title: this.$data.todoTitle, parentId: this.$props.parentId });
       this.$data.todoTitle = "";
       this.$data.placeholder = getPlaceholder();
     }

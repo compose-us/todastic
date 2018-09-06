@@ -3,6 +3,7 @@
 exports[`replay ADDED_TODO event can add todos as children of children 1`] = `
 Array [
   Object {
+    "children": Array [],
     "title": "Create a parent todo",
     "todoId": "id-1",
   },
@@ -11,6 +12,7 @@ Array [
       Object {
         "children": Array [
           Object {
+            "children": Array [],
             "parentId": "id-3",
             "title": "Create a child todo of child of parent 2",
             "todoId": "id-5",
@@ -18,6 +20,7 @@ Array [
           Object {
             "children": Array [
               Object {
+                "children": Array [],
                 "parentId": "id-6",
                 "title": "Create a child of 2nd child of child of parent 2",
                 "todoId": "id-7",
@@ -37,6 +40,7 @@ Array [
     "todoId": "id-2",
   },
   Object {
+    "children": Array [],
     "title": "Create a third parent todo",
     "todoId": "id-4",
   },
@@ -46,17 +50,20 @@ Array [
 exports[`replay ADDED_TODO event can add todos in a more complex example 1`] = `
 Array [
   Object {
+    "children": Array [],
     "title": "Create a parent todo",
     "todoId": "id-1",
   },
   Object {
     "children": Array [
       Object {
+        "children": Array [],
         "parentId": "id-2",
         "title": "Create a child in another parent todo",
         "todoId": "id-3",
       },
       Object {
+        "children": Array [],
         "parentId": "id-2",
         "title": "Create another child todo in parent 2",
         "todoId": "id-5",
@@ -66,6 +73,7 @@ Array [
     "todoId": "id-2",
   },
   Object {
+    "children": Array [],
     "title": "Create a third parent todo",
     "todoId": "id-4",
   },
@@ -77,6 +85,7 @@ Array [
   Object {
     "children": Array [
       Object {
+        "children": Array [],
         "parentId": "id-1",
         "title": "Changed title of child",
         "todoId": "id-2",
@@ -88,11 +97,27 @@ Array [
 ]
 `;
 
+exports[`replay editing todos CHANGED_TODO can replay changes in a child 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [],
+      "parentId": "a0ca6051-43f9-410e-86c9-75ae37a1c682",
+      "title": "really really real",
+      "todoId": "6505d361-adc2-427f-ad45-a4e57b630830",
+    },
+  ],
+  "title": "do it",
+  "todoId": "a0ca6051-43f9-410e-86c9-75ae37a1c682",
+}
+`;
+
 exports[`replay editing todos CHANGED_TODO only edits the things provided in data and does not touch other fields 1`] = `
 Array [
   Object {
     "children": Array [
       Object {
+        "children": Array [],
         "parentId": "id-1",
         "title": "Changed title of child but did not change parentId",
         "todoId": "id-2",
@@ -106,6 +131,7 @@ Array [
 
 exports[`replay editing todos CHANGED_TODO will change the todos when the edit is done 1`] = `
 Object {
+  "children": Array [],
   "title": "Changed the todo",
   "todoId": "id-1",
 }
@@ -113,6 +139,7 @@ Object {
 
 exports[`replay editing todos EDITING_TODO does not care in the store about intermediate edits 1`] = `
 Object {
+  "children": Array [],
   "title": "Create a todo",
   "todoId": "id-1",
 }

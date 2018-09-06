@@ -1,5 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`command-processor processCommand sends a CHANGED_TODO event when a correct CHANGE_TODO command was received 1`] = `
+Object {
+  "createdAt": Any<Number>,
+  "data": Object {
+    "title": "Change a title",
+    "todoId": "id-1",
+  },
+  "eventType": "CHANGED_TODO",
+}
+`;
+
 exports[`command-processor processCommand sends an ADDED_TODO event when a correct ADD_TODO command was received 1`] = `
 Object {
   "createdAt": Any<Number>,

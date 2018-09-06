@@ -13,6 +13,7 @@ function replay(events) {
 }
 
 function addTodo(todos, todoToAdd) {
+  todoToAdd.children = todoToAdd.children || [];
   if (todoToAdd.parentId) {
     return todos.map(todo => appendChild(todo, todoToAdd));
   }
@@ -42,7 +43,7 @@ function changedTodo(todos, data) {
     } else {
       return {
         ...todo,
-        children: changedTodo(todo.children, data)
+        children: changedTodo(todo.children || [], data)
       };
     }
   });

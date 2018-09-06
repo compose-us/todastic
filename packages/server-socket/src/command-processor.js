@@ -8,30 +8,27 @@ function createCommandProcessor({ Event, logger }) {
 
 function processCommand({ Event, logger }) {
   return sendEvent => command => {
+    const helpers = { Event, logger, sendEvent };
     if (command.command === "ADD_TODO") {
-      return Event.create({
-        eventType: "ADDED_TODO",
-        data: { ...command.data },
-        createdAt: Date.now()
-      }).then(
-        event => {
-          logger.debug(event);
-          return sendEvent(event);
-        },
-        err => logger.error(err)
-      );
+      return createEvent({ ...helpers, eventType: "ADDED_TODO", data: { ...command.data } });
     } else if (command.command === "REMOVE_TODO") {
-      return Event.create({
-        eventType: "REMOVED_TODO",
-        data: { id: command.data.id },
-        createdAt: Date.now()
-      }).then(
-        event => {
-          logger.debug(event);
-          return sendEvent(event);
-        },
-        err => logger.error(err)
-      );
+      return createEvent({ ...helpers, eventType: "REMOVED_TODO", data: { ...command.data } });
+    } else if (command.command === "CHANGE_TODO") {
+      return createEvent({ ...helpers, eventType: "CHANGED_TODO", data: { ...command.data } });
     }
   };
+}
+
+function createEvent({ Event, sendEvent, eventType, data, logger }) {
+  return Event.create({
+    eventType: eventType,
+    data,
+    createdAt: Date.now()
+  }).then(
+    event => {
+      logger.debug(event);
+      return sendEvent(event);
+    },
+    err => logger.error(err)
+  );
 }

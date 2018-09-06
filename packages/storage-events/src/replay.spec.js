@@ -217,7 +217,7 @@ describe("replay", () => {
         expect(state.todos).toMatchSnapshot();
       });
 
-      it("works happily", () => {
+      it("can replay changes in a child", () => {
         const events = [
           {
             data: { title: "do it", todoId: "a0ca6051-43f9-410e-86c9-75ae37a1c682" },

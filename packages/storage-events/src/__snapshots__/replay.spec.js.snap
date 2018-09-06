@@ -88,6 +88,20 @@ Array [
 ]
 `;
 
+exports[`replay editing todos CHANGED_TODO can replay changes in a child 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "parentId": "a0ca6051-43f9-410e-86c9-75ae37a1c682",
+      "title": "really really real",
+      "todoId": "6505d361-adc2-427f-ad45-a4e57b630830",
+    },
+  ],
+  "title": "do it",
+  "todoId": "a0ca6051-43f9-410e-86c9-75ae37a1c682",
+}
+`;
+
 exports[`replay editing todos CHANGED_TODO only edits the things provided in data and does not touch other fields 1`] = `
 Array [
   Object {
@@ -108,20 +122,6 @@ exports[`replay editing todos CHANGED_TODO will change the todos when the edit i
 Object {
   "title": "Changed the todo",
   "todoId": "id-1",
-}
-`;
-
-exports[`replay editing todos CHANGED_TODO works happily 1`] = `
-Object {
-  "children": Array [
-    Object {
-      "parentId": "a0ca6051-43f9-410e-86c9-75ae37a1c682",
-      "title": "really really real",
-      "todoId": "6505d361-adc2-427f-ad45-a4e57b630830",
-    },
-  ],
-  "title": "do it",
-  "todoId": "a0ca6051-43f9-410e-86c9-75ae37a1c682",
 }
 `;
 

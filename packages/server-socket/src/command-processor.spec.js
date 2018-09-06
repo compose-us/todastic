@@ -45,7 +45,6 @@ describe("command-processor", () => {
         expect(createMock.mock.calls[0][0]).toMatchSnapshot({
           createdAt: expect.any(Number)
         });
-        expect(createMock.mock.calls[0][0]["eventType"]).toEqual("CHANGED_TODO");
       });
     });
 

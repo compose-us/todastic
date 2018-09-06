@@ -7,7 +7,7 @@
 			  :removeTodo="removeTodo(todo)"
         :toggleAddTodoItem="toggleAddTodoItem"
 			/>
-      <span :class="`status status-${todo.status || 'open'}`" @click.prevent="toggleStatus(todo)"></span>
+      <span :class="`status status-${todo.status || 'open'}`" v-on:click="toggleStatus(todo)"></span>
       <span class="id">#{{todo.todoId.substring(1, 4)}}</span>
       <span v-if="!updating" v-on:click="updating=true" class="title">{{todo.title}}</span>
       <todo-adder ref="updater" :visible="updating" :storageFunc="updateTitle" v-bind:initialTodoTitle="todo.title" />
@@ -44,7 +44,8 @@ export default {
       return () => {};
     },
     toggleStatus(todo) {
-      return () => this.$props.commands.changeTodo(todo, { status: "done" });
+      const newStatus = todo.status == "open" ? "done" : "open";
+      this.$props.commands.changeTodo(todo, { status: newStatus });
     },
     toggleAddTodoItem() {
       this.$data.adderVisible = !this.$data.adderVisible;
@@ -94,7 +95,11 @@ export default {
   border-radius: 3px;
   margin: 5px;
 }
-.status.status-open {
-  content: "x";
+.status.status-done::after {
+  content: "⨯";
+}
+.status.status-done {
+  border: 2px solid grey;
+  color: #77b55a;
 }
 </style>

@@ -13,7 +13,8 @@ function createEventModel({ mongoose }) {
     data: {
       todoId: { type: String, required: true, default: uuidv4 },
       parentId: { type: String },
-      title: { type: String }
+      title: { type: String },
+      status: { type: String, enum: ["open", "done"], default: "open" }
     }
   });
 

@@ -36,6 +36,19 @@ describe("command-processor", () => {
       });
     });
 
+    it("sends a CHANGED_TODO event when a correct CHANGE_TODO command was received", () => {
+      const { processCommand } = createCommandProcessor({ Event, logger: console });
+      const command = { command: "CHANGE_TODO", data: { title: "Change a title", todoId: "id-1" } };
+      processCommand(sendEvent)(command).then(x => {
+        expect(createMock).toHaveBeenCalled();
+        expect(sendEvent).toHaveBeenCalledTimes(1);
+        expect(createMock.mock.calls[0][0]).toMatchSnapshot({
+          createdAt: expect.any(Number)
+        });
+        expect(createMock.mock.calls[0][0]["eventType"]).toEqual("CHANGED_TODO");
+      });
+    });
+
     it("sends a REMOVED_TODO event when a correct REMOVE_TODO command was received", async () => {
       const { processCommand } = createCommandProcessor({ Event, logger: console });
       const addedItemId = await new Promise(resolve => {
@@ -45,12 +58,12 @@ describe("command-processor", () => {
         const command = { command: "ADD_TODO", data: { title: "Create a test todo" } };
         processCommand(sendEvent)(command);
       });
-      const removeCommand = { command: "REMOVE_TODO", data: { eventId: addedItemId } };
+      const removeCommand = { command: "REMOVE_TODO", data: { todoId: addedItemId } };
       const sendEvent = jest.fn();
       processCommand(sendEvent)(removeCommand).then(x => {
         expect(sendEvent).toHaveBeenCalledTimes(1);
         expect(sendEvent.mock.calls[0][0]["data"]).toEqual({
-          id: expect.any(String)
+          todoId: expect.any(String)
         });
         expect(sendEvent.mock.calls[0][0]["eventType"]).toEqual("REMOVED_TODO");
       });

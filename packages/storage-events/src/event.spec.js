@@ -42,6 +42,13 @@ describe("Event", () => {
     });
   });
 
+  it("can set a status without crashing", done => {
+    Event.create({ eventType: "ADDED_TODO", data: { status: "done" } }).then(event => {
+      expect(event.data.status).toBe("done");
+      done();
+    });
+  });
+
   it("doesn't overwrite the position", () => {
     Event.create({ eventType: "ADDED_TODO", position: 1234 }).then(event1 => {
       event1.update({ eventType: "CHANGED_TODO" });

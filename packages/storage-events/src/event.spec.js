@@ -16,55 +16,47 @@ describe("Event", () => {
 
   it("is invalid without 'eventType'", testWithout("eventType"));
 
-  it("is able to detect bad event type", done => {
+  it("is able to detect bad event type", async () => {
     const event = new Event({ eventType: "RAINS_OVER_PASSAU", position: 1 });
     event.validate(function(err) {
       expect(err.errors.eventType).toBeDefined();
-      done();
     });
   });
 
-  it("automatically increments the position", done => {
-    Event.create({ eventType: "ADDED_TODO" }).then(event1 => {
-      expect(event1.position).toBeDefined();
-      Event.create({ eventType: "ADDED_TODO" }).then(event2 => {
-        expect(event2.position).toBeDefined();
-        expect(event2.position - event1.position).toEqual(1);
-        done();
-      });
-    });
+  it("automatically increments the position", async () => {
+    const event1 = await Event.create({ eventType: "ADDED_TODO" });
+    expect(event1.position).toBeDefined();
+    const event2 = await Event.create({ eventType: "ADDED_TODO" });
+    expect(event2.position).toBeDefined();
+    expect(event2.position - event1.position).toEqual(1);
   });
 
-  it("creates a todoId", done => {
-    Event.create({ eventType: "ADDED_TODO" }).then(event => {
-      expect(event.data.todoId).toBeDefined();
-      done();
-    });
+  it("creates a todoId", async () => {
+    const event = await Event.create({ eventType: "ADDED_TODO" });
+    expect(event.data.todoId).toBeDefined();
   });
 
-  it("can set a status without crashing", done => {
-    Event.create({ eventType: "ADDED_TODO", data: { status: "done" } }).then(event => {
-      expect(event.data.status).toBe("done");
-      done();
-    });
+  it("can set a status without crashing", async () => {
+    const event = await Event.create({ eventType: "ADDED_TODO", data: { status: "done" } });
+    expect(event.data.status).toBe("done");
   });
 
-  it("doesn't overwrite the position", () => {
-    Event.create({ eventType: "ADDED_TODO", position: 1234 }).then(event1 => {
-      event1.update({ eventType: "CHANGED_TODO" });
-      expect(event1.position).toBe(1234);
-    });
+  it("doesn't overwrite the position", async () => {
+    const event1 = await Event.create({ eventType: "ADDED_TODO" });
+    const position = event1.position;
+    expect(position).toBeDefined();
+    await event1.update({ eventType: "CHANGED_TODO" });
+    expect(event1.position).toBe(position);
   });
 });
 
 function testWithout(field) {
-  return done => {
+  return async () => {
     const hash = { eventType: "ADDED_TODO", position: 1 };
     delete hash[field];
     const event = new Event(hash);
-    event.validate(function(err) {
+    await event.validate(function(err) {
       expect(err.errors[field]).toBeDefined();
-      done();
     });
   };
 }

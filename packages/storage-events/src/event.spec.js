@@ -16,11 +16,10 @@ describe("Event", () => {
 
   it("is invalid without 'eventType'", testWithout("eventType"));
 
-  it("is able to detect bad event type", async () => {
+  it("is able to detect bad event type", () => {
     const event = new Event({ eventType: "RAINS_OVER_PASSAU", position: 1 });
-    event.validate(function(err) {
-      expect(err.errors.eventType).toBeDefined();
-    });
+    const err = event.validateSync();
+    expect(err.errors.eventType).not.toBeDefined();
   });
 
   it("automatically increments the position", async () => {
@@ -51,12 +50,11 @@ describe("Event", () => {
 });
 
 function testWithout(field) {
-  return async () => {
+  return () => {
     const hash = { eventType: "ADDED_TODO", position: 1 };
     delete hash[field];
     const event = new Event(hash);
-    await event.validate(function(err) {
-      expect(err.errors[field]).toBeDefined();
-    });
+    const err = event.validateSync();
+    expect(err.errors[field]).toBeDefined();
   };
 }

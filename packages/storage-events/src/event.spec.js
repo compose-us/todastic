@@ -19,7 +19,7 @@ describe("Event", () => {
   it("is able to detect bad event type", () => {
     const event = new Event({ eventType: "RAINS_OVER_PASSAU", position: 1 });
     const err = event.validateSync();
-    expect(err.errors.eventType).not.toBeDefined();
+    expect(err.errors.eventType).toBeDefined();
   });
 
   it("automatically increments the position", async () => {

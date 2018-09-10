@@ -10,21 +10,21 @@
       <span :class="`status status-${todo.status || 'open'}`" v-on:click="toggleStatus(todo)"></span>
       <span class="id">#{{todo.todoId.substring(1, 4)}}</span>
       <span v-if="!updating" v-on:click="updating=true" class="title">{{todo.title}}</span>
-      <todo-adder ref="updater" :visible="updating" :storageFunc="updateTitle" v-bind:initialTodoTitle="todo.title" />
+      <todo-text ref="updater" :visible="updating" :storageFunc="updateTitle" v-bind:initialTodoTitle="todo.title" />
     </div>
-    <todo-adder ref="adder" :parentId="todo.todoId" :visible="adderVisible" :storageFunc="commands.addTodo" />
+    <todo-text ref="adder" :parentId="todo.todoId" :visible="adderVisible" :storageFunc="commands.addTodo" />
   </div>
 </template>
 
 <script>
-import TodoAdder from "./TodoAdder.vue";
+import TodoText from "./TodoText.vue";
 import TodoOptions from "./TodoOptions.vue";
 import { store } from "../store.js";
 
 export default {
   props: ["commands", "todo"],
   components: {
-    "todo-adder": TodoAdder,
+    "todo-text": TodoText,
     "todo-options": TodoOptions
   },
   data() {

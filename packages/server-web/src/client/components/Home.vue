@@ -2,19 +2,19 @@
   <div class="todasticapp">
     <h1>Todastic</h1>
     <todo-list :commands="commands" :todos="store.todos"/>
-    <todo-adder :storageFunc="commands.addTodo"/>
+    <todo-text :storageFunc="commands.addTodo"/>
   </div>
 </template>
 
 <script>
 import TodoList from "./TodoList.vue";
-import TodoAdder from "./TodoAdder.vue";
+import TodoText from "./TodoText.vue";
 import { store } from "../store.js";
 
 export default {
   components: {
     "todo-list": TodoList,
-    "todo-adder": TodoAdder
+    "todo-text": TodoText
   },
   props: ["commands"],
   data() {

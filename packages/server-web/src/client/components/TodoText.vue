@@ -1,12 +1,12 @@
 <template>
-  <div :class="`todo-adder ${visible ? '' : 'hide'}`">
+  <div :class="`todo-text ${visible ? '' : 'hide'}`">
     <input ref="input" type="text" class="create-todo" @keyup.enter.prevent="submit" v-model="todoTitle" :placeholder="placeholder" />
   </div>
 </template>
 
 <script>
 export default {
-  name: "TodoAdder",
+  name: "TodoText",
   props: {
     storageFunc: { type: Function, required: true },
     parentId: String,
@@ -19,13 +19,11 @@ export default {
       todoTitle: this.initialTodoTitle,
       placeholder: getPlaceholder()
     };
-    console.log("showing todo-adder", data);
 
     return data;
   },
   methods: {
     submit(event) {
-      console.log("this.props", this.$props);
       this.$props.storageFunc({ title: this.$data.todoTitle, parentId: this.$props.parentId });
       this.$data.todoTitle = "";
       this.$data.placeholder = getPlaceholder();

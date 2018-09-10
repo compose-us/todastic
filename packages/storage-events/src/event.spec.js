@@ -10,6 +10,11 @@ describe("Event", () => {
     Event = createEventModel({ mongoose });
   });
 
+  beforeEach(async () => {
+    // clear all events
+    await Event.remove({});
+  });
+
   afterAll(() => {
     mongoose.disconnect();
   });
@@ -47,7 +52,28 @@ describe("Event", () => {
     await event1.update({ eventType: "CHANGED_TODO" });
     expect(event1.position).toBe(position);
   });
+  describe("distinguishing users in getEvents", () => {
+    const userId = "5b969b2490d222197f71109e";
+    const otherUserId = "5b8ee36b68d1975c7c3d1682";
+    beforeEach(async () => {
+      await Event.create({ eventType: "ADDED_TODO", userId });
+      await Event.create({ eventType: "ADDED_TODO", userId });
+      await Event.create({ eventType: "ADDED_TODO", userId: otherUserId });
+    });
+
+    it("returns only User1's data", testForUser(userId, 2));
+    it("returns only User2's data", testForUser(otherUserId, 1));
+    it("returns nothing for an undefined user", testForUser(undefined, 0));
+    it("returns nothing for a null user", testForUser(null, 0));
+  });
 });
+
+function testForUser(userId, expectedNumber) {
+  return async () => {
+    const events = await Event.getEvents(userId);
+    expect(events.length).toBe(expectedNumber);
+  };
+}
 
 function testWithout(field) {
   return () => {

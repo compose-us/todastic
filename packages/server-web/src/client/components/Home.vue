@@ -14,6 +14,7 @@ import { store } from "../store.js";
 export default {
   components: {
     "todo-list": TodoList,
+    "repl": Repl,
     "todo-text": TodoText
   },
   props: ["commands"],

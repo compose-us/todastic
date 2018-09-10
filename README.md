@@ -50,7 +50,7 @@ docker run -e MONGO_INITDB_DATABASE=todastic -d --name todastic_mongo_standalone
 Then start todastic with
 
 ```bash
-DB_PORT=27017 DB_DATABASE=todastic SESSION_STORE=mongo npm run start-web
+DB_PORT=27017 DB_DATABASE=todastic SESSION_STORE=mongo npm run local
 ```
 
 ## Tests

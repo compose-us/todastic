@@ -25,6 +25,7 @@ function createSocketOnServer({ httpServer, session, User, Event, logger }) {
 
     socket.on("command", command => {
       logger.debug("command", command);
+      command.userId = socket.user._id;
       processCommand(e => connectedSockets.forEach(s => s.emit("event", e)))(command);
     });
 

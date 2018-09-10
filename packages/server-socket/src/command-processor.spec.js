@@ -25,7 +25,7 @@ describe("command-processor", () => {
 
     it("sends an ADDED_TODO event when a correct ADD_TODO command was received", () => {
       const { processCommand } = createCommandProcessor({ Event, logger: console });
-      const command = { command: "ADD_TODO", data: { title: "Create a test todo" } };
+      const command = { command: "ADD_TODO", data: { title: "Create a test todo" }, userId: "uu" };
       processCommand(sendEvent)(command).then(x => {
         expect(createMock).toHaveBeenCalled();
         expect(sendEvent).toHaveBeenCalledTimes(1);
@@ -38,7 +38,7 @@ describe("command-processor", () => {
 
     it("sends a CHANGED_TODO event when a correct CHANGE_TODO command was received", () => {
       const { processCommand } = createCommandProcessor({ Event, logger: console });
-      const command = { command: "CHANGE_TODO", data: { title: "Change a title", todoId: "id-1" } };
+      const command = { command: "CHANGE_TODO", data: { title: "Change a title", todoId: "id-1" }, userId: "uu" };
       processCommand(sendEvent)(command).then(x => {
         expect(createMock).toHaveBeenCalled();
         expect(sendEvent).toHaveBeenCalledTimes(1);
@@ -54,10 +54,10 @@ describe("command-processor", () => {
         const sendEvent = jest.fn(event => {
           resolve(event.id);
         });
-        const command = { command: "ADD_TODO", data: { title: "Create a test todo" } };
+        const command = { command: "ADD_TODO", data: { title: "Create a test todo" }, userId: "uu" };
         processCommand(sendEvent)(command);
       });
-      const removeCommand = { command: "REMOVE_TODO", data: { todoId: addedItemId } };
+      const removeCommand = { command: "REMOVE_TODO", data: { todoId: addedItemId }, userId: "uu" };
       const sendEvent = jest.fn();
       processCommand(sendEvent)(removeCommand).then(x => {
         expect(sendEvent).toHaveBeenCalledTimes(1);

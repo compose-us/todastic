@@ -10,6 +10,7 @@ function createEventModel({ mongoose }) {
     eventType: { type: String, required: true, enum: ["ADDED_TODO", "REMOVED_TODO", "CHANGED_TODO"] },
     schemaVersion: { type: Number, required: true, default: currentSchemaVersion },
     position: { type: Number },
+    userId: { type: String },
     data: {
       todoId: { type: String, required: true, default: uuidv4 },
       parentId: { type: String },

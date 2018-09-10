@@ -15,7 +15,7 @@ export default {
   },
   data() {
     const data = {
-      // we don't want to change the parents title directly
+      // we don't want to change the parent element's title directly
       todoTitle: this.initialTodoTitle,
       placeholder: getPlaceholder()
     };

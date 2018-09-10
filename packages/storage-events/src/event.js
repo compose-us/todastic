@@ -10,7 +10,7 @@ function createEventModel({ mongoose }) {
     eventType: { type: String, required: true, enum: ["ADDED_TODO", "REMOVED_TODO", "CHANGED_TODO"] },
     schemaVersion: { type: Number, required: true, default: currentSchemaVersion },
     position: { type: Number },
-    userId: { type: String },
+    userId: { type: mongoose.Schema.Types.ObjectId },
     data: {
       todoId: { type: String, required: true, default: uuidv4 },
       parentId: { type: String },
@@ -37,8 +37,8 @@ function createEventModel({ mongoose }) {
   // NOTE
   // Do not declare statics using ES6 arrow functions (=>).
   // Arrow functions explicitly prevent binding this correctly.
-  eventSchema.statics.getEvents = function() {
-    return this.find({}).sort("position");
+  eventSchema.statics.getEvents = function(userId) {
+    return this.find({ userId }).sort("position");
   };
 
   return mongoose.model("Event", eventSchema);

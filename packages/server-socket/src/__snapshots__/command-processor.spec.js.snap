@@ -8,6 +8,7 @@ Object {
     "todoId": "id-1",
   },
   "eventType": "CHANGED_TODO",
+  "userId": "uu",
 }
 `;
 
@@ -18,5 +19,6 @@ Object {
     "title": "Create a test todo",
   },
   "eventType": "ADDED_TODO",
+  "userId": "uu",
 }
 `;

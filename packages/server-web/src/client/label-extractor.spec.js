@@ -11,24 +11,33 @@ describe("LabelExtractor", () => {
     testExtraction("wait for it. #label", ["#label"], "wait for it.")
   );
 
-  xit(
+  it(
     "extracts and removes several labels when they're at the end",
     testExtraction("wait for it. #label #nice", ["#label", "#nice"], "wait for it.")
   );
 
-  xit(
+  it(
     "extracts a label when it's in-between",
-    testExtraction("wait for this nice #label do you?", ["#label"], "wait for this nice label do you?.")
+    testExtraction("wait for this nice #label do you?", ["#label"], "wait for this nice label do you?")
   );
 
-  xit(
+  it(
     "extracts multiple labels when they're in-between",
-    testExtraction("wait for this #nice #label do you?", ["#nice", "#label"], "wait for this nice label do you?.")
+    testExtraction("wait for this #nice #label do you?", ["#nice", "#label"], "wait for this nice label do you?")
   );
 
-  xit(
+  it(
     "extracts and removes several labels within and at the end",
     testExtraction("#fancy wait #for it. #label #nice", ["#fancy", "#for", "#label", "#nice"], "fancy wait for it.")
+  );
+
+  xit(
+    "extracts and removes several unicode labels within and at the end",
+    testExtraction(
+      "#fancy wait #fôr it #☃︎. #läbel #niçe",
+      ["#fancy", "#fôr", "#☃︎", "#läbel", "#niçe"],
+      "fancy wait for it."
+    )
   );
 });
 

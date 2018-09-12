@@ -25,8 +25,11 @@ export default {
   methods: {
     submit(event) {
       this.$props.storageFunc({ title: this.$data.todoTitle, parentId: this.$props.parentId });
-      this.$data.todoTitle = "";
-      this.$data.placeholder = getPlaceholder();
+      // means, we are in "add new" mode
+      if(!this.$props.initialTodoTitle) {
+        this.$data.todoTitle = "";
+        this.$data.placeholder = getPlaceholder();
+      }
     }
   }
 };

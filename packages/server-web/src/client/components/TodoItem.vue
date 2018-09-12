@@ -11,13 +11,13 @@
       <span class="id">#{{todo.todoId.substring(1, 4)}}</span>
       <div>
         <span v-if="!updating" v-on:click="updating=true" :class="`title title-${todo.status || 'open'}`">{{todo.title}}</span>
-        <span class="label" v-for="label in todo.labels" :key="label">
+        <span v-if="!updating" class="label" v-for="label in todo.labels" :key="label">
           {{label}}
         </span>
       </div>
-      <todo-text ref="updater" :visible="updating" :storageFunc="updateTitle" v-bind:initialTodoTitle="todo.title" />
+      <todo-text ref="updater" :visible="updating" :storageFunc="updateTitle" v-bind:initialTodoTitle="titleWithLabels" />
     </div>
-    <todo-text ref="adder" :parentId="todo.todoId" :visible="adderVisible" :storageFunc="commands.addTodo" />
+    <todo-text ref="adder" :parentId="todo.todoId" :visible="adderVisible" :storageFunc="addTodo" />
   </div>
 </template>
 
@@ -33,6 +33,11 @@ export default {
     "todo-text": TodoText,
     "todo-options": TodoOptions
   },
+  computed: {
+    titleWithLabels: function() {
+      return this.$props.todo.title + " " + this.$props.todo.labels.join(" ");
+    }
+  },
   data() {
     return {
       adderVisible: false,
@@ -42,10 +47,13 @@ export default {
   },
   methods: {
     updateTitle(changedTodo) {
-      let { labels, text } = extractLabels(changedTodo.title)
-      labels = labels.concat(this.todo.labels);
+      const { labels, text } = extractLabels(changedTodo.title)
       this.$props.commands.changeTodo(this.todo, { title: text, labels });
       this.updating = false;
+    },
+    addTodo(todo) {
+      const { labels, text } = extractLabels(todo.title)
+      this.$props.commands.addTodo({...todo, labels, title: text});
     },
     drag(todo) {
       // FIXME not implemented yet

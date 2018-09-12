@@ -9,7 +9,12 @@
 			/>
       <span :class="`status status-${todo.status || 'open'}`" v-on:click="toggleStatus(todo)"></span>
       <span class="id">#{{todo.todoId.substring(1, 4)}}</span>
-      <span v-if="!updating" v-on:click="updating=true" class="title">{{todo.title}}</span>
+      <div>
+        <span v-if="!updating" v-on:click="updating=true" :class="`title title-${todo.status || 'open'}`">{{todo.title}}</span>
+        <span class="label" v-for="label in todo.labels" :key="label">
+          {{label}}
+        </span>
+      </div>
       <todo-text ref="updater" :visible="updating" :storageFunc="updateTitle" v-bind:initialTodoTitle="todo.title" />
     </div>
     <todo-text ref="adder" :parentId="todo.todoId" :visible="adderVisible" :storageFunc="commands.addTodo" />
@@ -20,6 +25,7 @@
 import TodoText from "./TodoText.vue";
 import TodoOptions from "./TodoOptions.vue";
 import { store } from "../store.js";
+import { extractLabels } from "../label-extractor.js";
 
 export default {
   props: ["commands", "todo"],
@@ -36,7 +42,9 @@ export default {
   },
   methods: {
     updateTitle(changedTodo) {
-      this.$props.commands.changeTodo(this.todo, { title: changedTodo.title });
+      let { labels, text } = extractLabels(changedTodo.title)
+      labels = labels.concat(this.todo.labels);
+      this.$props.commands.changeTodo(this.todo, { title: text, labels });
       this.updating = false;
     },
     drag(todo) {
@@ -69,10 +77,22 @@ export default {
 
 .todo {
   display: grid;
-  grid-template-columns: 25px 25px 40px 1fr;
+  grid-template-columns: 25px 25px 40px max-content 1fr;
 }
 .todo > * {
   padding: 5px;
+}
+.title-done {
+  color: grey;
+  text-decoration: line-through;
+}
+.label {
+  float: right;
+  margin-left: 5px;
+  padding: 2px;
+  color: white;
+  background-color: #29989F;
+  border-radius: 3px;
 }
 .todo::after {
   clear: both;

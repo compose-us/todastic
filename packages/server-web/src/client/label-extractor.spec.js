@@ -17,8 +17,8 @@ describe("LabelExtractor", () => {
   );
 
   it(
-    "extracts and removes a label with a hyphen at the end",
-    testExtraction("wait for it. #nice-label", ["#nice-label"], "wait for it.")
+    "extracts labels with a hyphen",
+    testExtraction("wait #for-this cool thing. #nice-label", ["#for-this", "#nice-label"], "wait for-this cool thing.")
   );
 
   it(
@@ -36,12 +36,12 @@ describe("LabelExtractor", () => {
     testExtraction("#fancy wait #for it. #label #nice", ["#fancy", "#for", "#label", "#nice"], "fancy wait for it.")
   );
 
-  xit(
+  it(
     "extracts and removes several unicode labels within and at the end",
     testExtraction(
-      "#fancy wait #fôr it #☃︎. #läbel #niçe",
-      ["#fancy", "#fôr", "#☃︎", "#läbel", "#niçe"],
-      "fancy wait for it."
+      "#fancy wait #fôr it laís. #läbel #niçe",
+      ["#fancy", "#fôr", "#läbel", "#niçe"],
+      "fancy wait fôr it laís."
     )
   );
 });

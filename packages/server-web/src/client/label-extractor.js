@@ -7,7 +7,8 @@ function extractLabels(inputString) {
 }
 
 function extractLabelsInBetween(inputString) {
-  const labelsRegex = /(\#\S*)\w(?!\#)/g;
+  // see https://www.regular-expressions.info/unicode.html
+  const labelsRegex = /#(\p{L}+\p{M}*\p{Pd}*\p{L}+\p{M}*)/gsu;
   const matches = inputString.match(labelsRegex);
   const labels = [];
   let text = inputString;
@@ -23,20 +24,18 @@ function extractLabelsInBetween(inputString) {
 function extractLabelsAtTheEnd(inputString) {
   // I'm pretty sure, there's a regex that captures all
   // ending labels at once.
-  // I'm just to dumb to find it.
-  const labelsRegex = /(\#\S*)\w$/g;
+  // I'm just too dumb to find it.
+  const labelsRegex = /#(\p{L}+\p{M}*\p{Pd}*\p{L}+\p{M}*)$/gsu;
   const labels = [];
   let text = inputString;
-  let matches;
+  let match;
   do {
-    matches = text.match(labelsRegex);
-    if (matches) {
-      for (const match of matches) {
-        labels.unshift(match);
-        text = text.replace(match, "").trim();
-      }
+    match = text.match(labelsRegex);
+    if (match) {
+      labels.unshift(match[0]);
+      text = text.replace(match[0], "").trim();
     }
-  } while (matches);
+  } while (match);
   return { labels, text };
 }
 

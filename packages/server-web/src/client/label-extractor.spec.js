@@ -1,4 +1,4 @@
-const { extract } = require("./label-extractor");
+const { extractLabels } = require("./label-extractor");
 
 describe("LabelExtractor", () => {
   it(
@@ -14,6 +14,11 @@ describe("LabelExtractor", () => {
   it(
     "extracts and removes several labels when they're at the end",
     testExtraction("wait for it. #label #nice", ["#label", "#nice"], "wait for it.")
+  );
+
+  it(
+    "extracts and removes a label with a hyphen at the end",
+    testExtraction("wait for it. #nice-label", ["#nice-label"], "wait for it.")
   );
 
   it(
@@ -43,7 +48,7 @@ describe("LabelExtractor", () => {
 
 function testExtraction(inputString, expectedLabels, expectedResultString) {
   return () => {
-    const result = extract(inputString);
+    const result = extractLabels(inputString);
     expect(result.labels).toEqual(expectedLabels);
     expect(result.text).toBe(expectedResultString);
   };

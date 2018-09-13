@@ -11,6 +11,7 @@ function socketAuthentication({ User, logger = console }) {
           logger.debug("No user found");
           next(new Error("No user found"));
         } else {
+          socket.user = user;
           return next();
         }
       });

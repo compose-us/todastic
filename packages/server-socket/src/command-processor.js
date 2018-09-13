@@ -8,7 +8,7 @@ function createCommandProcessor({ Event, logger }) {
 
 function processCommand({ Event, logger }) {
   return sendEvent => command => {
-    const helpers = { Event, logger, sendEvent };
+    const helpers = { Event, logger, sendEvent, userId: command.userId };
     if (command.command === "ADD_TODO") {
       return createEvent({ ...helpers, eventType: "ADDED_TODO", data: { ...command.data } });
     } else if (command.command === "REMOVE_TODO") {
@@ -19,10 +19,11 @@ function processCommand({ Event, logger }) {
   };
 }
 
-function createEvent({ Event, sendEvent, eventType, data, logger }) {
+function createEvent({ Event, sendEvent, userId, eventType, data, logger }) {
   return Event.create({
     eventType: eventType,
     data,
+    userId,
     createdAt: Date.now()
   }).then(
     event => {

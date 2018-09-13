@@ -38,7 +38,7 @@ function createEventModel({ mongoose }) {
   // NOTE
   // Do not declare statics using ES6 arrow functions (=>).
   // Arrow functions explicitly prevent binding this correctly.
-  eventSchema.statics.getEvents = function(userId) {
+  eventSchema.statics.getEventsByUserId = function(userId) {
     return this.find({ userId }).sort("position");
   };
 

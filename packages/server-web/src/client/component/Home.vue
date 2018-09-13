@@ -1,6 +1,7 @@
 <template>
   <div class="todasticapp">
     <h1>Todastic</h1>
+    <repl />
     <todo-list :commands="commands" :todos="store.todos"/>
     <todo-text :storageFunc="commands.addTodo"/>
   </div>
@@ -10,6 +11,7 @@
 import TodoList from "./TodoList.vue";
 import TodoText from "./TodoText.vue";
 import { store } from "../store.js";
+import Repl from "./Repl.vue";
 
 export default {
   components: {

@@ -11,7 +11,7 @@
       <span class="id">#{{todo.todoId.substring(1, 4)}}</span>
       <div>
         <span v-if="!updating" v-on:click="updating=true" :class="`title title-${todo.status || 'open'}`">{{todo.title}}</span>
-        <todo-label v-if="!updating" v-for="label in todo.labels" :todoLabel="`${label}`" />
+        <todo-label v-if="!updating" v-for="label in todo.labels" :todoLabel="`${label}`" :key="label" />
       </div>
       <todo-text ref="updater" :visible="updating" :storageFunc="updateTitle" v-bind:initialTodoTitle="titleWithLabels" />
     </div>
@@ -23,7 +23,7 @@
 import TodoText from "./TodoText.vue";
 import TodoOptions from "./TodoOptions.vue";
 import { store } from "../store.js";
-import { extractLabels } from "../label-extractor.js";
+import { extractLabels } from "../lib/label-extractor.js";
 import TodoLabel from "./TodoLabel.vue";
 
 export default {

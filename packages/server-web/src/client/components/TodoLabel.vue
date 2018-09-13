@@ -5,12 +5,12 @@
 </template>
 
 <script>
-import { stringToColor } from "../string-to-color.js";
+import { stringToColor } from "../lib/string-to-color.js";
 
 export default {
   props: ["todoLabel"],
   computed: {
-    backgroundColor: function() {
+    backgroundColor() {
       return stringToColor(this.$props.todoLabel);
     }
   }

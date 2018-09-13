@@ -11,9 +11,7 @@
       <span class="id">#{{todo.todoId.substring(1, 4)}}</span>
       <div>
         <span v-if="!updating" v-on:click="updating=true" :class="`title title-${todo.status || 'open'}`">{{todo.title}}</span>
-        <span v-if="!updating" class="label" v-for="label in todo.labels" :key="label">
-          {{label}}
-        </span>
+        <todo-label v-if="!updating" v-for="label in todo.labels" :todoLabel="`${label}`" />
       </div>
       <todo-text ref="updater" :visible="updating" :storageFunc="updateTitle" v-bind:initialTodoTitle="titleWithLabels" />
     </div>
@@ -26,12 +24,14 @@ import TodoText from "./TodoText.vue";
 import TodoOptions from "./TodoOptions.vue";
 import { store } from "../store.js";
 import { extractLabels } from "../label-extractor.js";
+import TodoLabel from "./TodoLabel.vue";
 
 export default {
   props: ["commands", "todo"],
   components: {
     "todo-text": TodoText,
-    "todo-options": TodoOptions
+    "todo-options": TodoOptions,
+    "todo-label": TodoLabel
   },
   computed: {
     titleWithLabels: function() {
@@ -93,14 +93,6 @@ export default {
 .title-done {
   color: grey;
   text-decoration: line-through;
-}
-.label {
-  float: right;
-  margin-left: 5px;
-  padding: 2px;
-  color: white;
-  background-color: #29989F;
-  border-radius: 3px;
 }
 .todo::after {
   clear: both;

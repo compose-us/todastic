@@ -52,7 +52,8 @@ describe("Event", () => {
     await event1.update({ eventType: "CHANGED_TODO" });
     expect(event1.position).toBe(position);
   });
-  describe("distinguishing users in getEvents", () => {
+
+  describe("distinguishing users in getEventsByUserId", () => {
     const userId = "5b969b2490d222197f71109e";
     const otherUserId = "5b8ee36b68d1975c7c3d1682";
     beforeEach(async () => {
@@ -66,14 +67,14 @@ describe("Event", () => {
     it("returns nothing for an undefined user", testForUser(undefined, 0));
     it("returns nothing for a null user", testForUser(null, 0));
   });
-});
 
-function testForUser(userId, expectedNumber) {
-  return async () => {
-    const events = await Event.getEvents(userId);
-    expect(events.length).toBe(expectedNumber);
-  };
-}
+  function testForUser(userId, expectedNumber) {
+    return async () => {
+      const events = await Event.getEventsByUserId(userId);
+      expect(events.length).toBe(expectedNumber);
+    };
+  }
+});
 
 function testWithout(field) {
   return () => {

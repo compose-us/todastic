@@ -2,7 +2,8 @@ const bodyParser = require("body-parser");
 const express = require("express");
 const helmet = require("helmet");
 const morgan = require("morgan");
-const authentication = require("./authentication.js");
+const path = require("path");
+const authentication = require("./service/authentication.js");
 
 function startApp({ session, logger, User }) {
   const app = express();
@@ -26,17 +27,17 @@ function startApp({ session, logger, User }) {
   authentication.register({ app, User, logger });
 
   app.get("/", (req, res) => {
-    res.sendFile(`${__dirname}/index.html`);
+    res.sendFile(path.normalize(`${__dirname}/../client/index.html`));
   });
   app.get("/home", (req, res) => {
     res.redirect("/");
   });
 
   app.get("/main.css", (req, res) => {
-    res.sendFile(`${__dirname}/main.css`);
+    res.sendFile(path.normalize(`${__dirname}/../client/main.css`));
   });
 
-  app.use(express.static(`${__dirname}/dist/`));
+  app.use(express.static(path.normalize(`${__dirname}/../../dist/`)));
 
   return app;
 }

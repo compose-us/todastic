@@ -1,7 +1,7 @@
 const http = require("http");
 const createSocketOnServer = require("@todastic/server-socket");
 const startApp = require("./app.js");
-const { initSession } = require("./session.js");
+const { initSession } = require("./service/session.js");
 
 module.exports = { startServer };
 

@@ -1,8 +1,8 @@
 const config = require("@todastic/config");
 const { createUserModel } = require("@todastic/storage-users");
 const { createEventModel } = require("@todastic/storage-events");
-const { startServer } = require("./server.js");
-const { initDatabase } = require("./database-mongo.js");
+const { startServer } = require("./server/server.js");
+const { initDatabase } = require("./server/lib/database-mongo.js");
 const { initLogger } = require("@todastic/logging");
 
 const logger = initLogger();

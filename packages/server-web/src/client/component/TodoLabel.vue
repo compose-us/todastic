@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { stringToColor } from "../lib/string-to-color.js";
+import { stringToColor } from "../../lib/string-to-color.js";
 
 export default {
   props: ["todoLabel"],

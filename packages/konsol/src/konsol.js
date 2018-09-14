@@ -1,6 +1,6 @@
 const repl = require("repl");
 const config = require("@todastic/config");
-const { initDatabase } = require("@todastic/server-web/src/database-mongo.js");
+const { initDatabase } = require("@todastic/server-web/src/server/lib/database-mongo.js");
 const { createUserModel } = require("@todastic/storage-users");
 const { createEventModel } = require("@todastic/storage-events");
 

@@ -23,28 +23,26 @@ describe("command-processor", () => {
       expect(sendEvent).not.toBeCalled();
     });
 
-    it("sends an ADDED_TODO event when a correct ADD_TODO command was received", () => {
+    it("sends an ADDED_TODO event when a correct ADD_TODO command was received", async () => {
       const { processCommand } = createCommandProcessor({ Event, logger: console });
       const command = { command: "ADD_TODO", data: { title: "Create a test todo" }, userId: "uu" };
-      processCommand(sendEvent)(command).then(x => {
-        expect(createMock).toHaveBeenCalled();
-        expect(sendEvent).toHaveBeenCalledTimes(1);
-        expect(createMock.mock.calls[0][0]).toMatchSnapshot({
-          createdAt: expect.any(Number)
-        });
-        expect(createMock.mock.calls[0][0]["eventType"]).toEqual("ADDED_TODO");
+      await processCommand(sendEvent)(command);
+      expect(createMock).toHaveBeenCalled();
+      expect(sendEvent).toHaveBeenCalledTimes(1);
+      expect(createMock.mock.calls[0][0]).toMatchSnapshot({
+        createdAt: expect.any(Number)
       });
+      expect(createMock.mock.calls[0][0]["eventType"]).toEqual("ADDED_TODO");
     });
 
-    it("sends a CHANGED_TODO event when a correct CHANGE_TODO command was received", () => {
+    it("sends a CHANGED_TODO event when a correct CHANGE_TODO command was received", async () => {
       const { processCommand } = createCommandProcessor({ Event, logger: console });
       const command = { command: "CHANGE_TODO", data: { title: "Change a title", todoId: "id-1" }, userId: "uu" };
-      processCommand(sendEvent)(command).then(x => {
-        expect(createMock).toHaveBeenCalled();
-        expect(sendEvent).toHaveBeenCalledTimes(1);
-        expect(createMock.mock.calls[0][0]).toMatchSnapshot({
-          createdAt: expect.any(Number)
-        });
+      await processCommand(sendEvent)(command);
+      expect(createMock).toHaveBeenCalled();
+      expect(sendEvent).toHaveBeenCalledTimes(1);
+      expect(createMock.mock.calls[0][0]).toMatchSnapshot({
+        createdAt: expect.any(Number)
       });
     });
 

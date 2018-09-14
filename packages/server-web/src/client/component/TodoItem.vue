@@ -13,7 +13,7 @@
         <span v-if="!updating" v-on:click="updating=true" :class="`title title-${todo.status || 'open'}`">{{todo.title}}</span>
         <todo-label v-if="!updating" v-for="label in todo.labels" :todoLabel="`${label}`" :key="label" />
       </div>
-      <todo-text ref="updater" :visible="updating" :storageFunc="updateTitle" v-bind:initialTodoTitle="titleWithLabels" />
+      <todo-text ref="updater" :visible="updating" :storageFunc="updateTitle" v-bind.sync="{ initialTodoTitle: titleWithLabels }" />
     </div>
     <todo-text ref="adder" :parentId="todo.todoId" :visible="adderVisible" :storageFunc="addTodo" />
   </div>
@@ -34,14 +34,15 @@ export default {
   },
   computed: {
     titleWithLabels: function() {
-      return this.$props.todo.title + " " + this.$props.todo.labels.join(" ");
+      return this.todoTitle + " " + this.todoLabels.join(" ");
     }
   },
   data() {
     return {
       adderVisible: false,
       updating: false,
-      todoTitle: ""
+      todoTitle: this.$props.todo.title,
+      todoLabels: this.$props.todo.labels || []
     };
   },
   methods: {

@@ -23,7 +23,7 @@
 import TodoText from "./TodoText.vue";
 import TodoOptions from "./TodoOptions.vue";
 import { store } from "../store.js";
-import { extractLabels } from "../lib/label-extractor.js";
+import { extractLabels } from "../../lib/label-extractor.js";
 import TodoLabel from "./TodoLabel.vue";
 
 export default {

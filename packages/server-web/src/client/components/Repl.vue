@@ -8,6 +8,9 @@
 <script>
   export default {
     name: "Repl",
+    props: {
+      list: Array
+    },
     data: () => {
       return {
         isVisible: false,
@@ -19,7 +22,9 @@
         this.isVisible = !this.isVisible;
       },
       submit(event) {
-        eval(this.scriptingText);
+        const functionBody = "import { trackedTime, groupByStatus } from ('@todastic/dashboard');" + this.scriptingText;
+        const scriptingFunction = new Function('list', functionBody);
+        console.log(scriptingFunction(this.$props.list));
         this.scriptingText = "";
       }
     }

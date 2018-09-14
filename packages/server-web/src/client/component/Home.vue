@@ -1,7 +1,7 @@
 <template>
   <div class="todasticapp">
     <h1>Todastic</h1>
-    <repl />
+    <repl :list="store.todos" />
     <todo-list :commands="commands" :todos="store.todos"/>
     <todo-text :storageFunc="commands.addTodo"/>
   </div>

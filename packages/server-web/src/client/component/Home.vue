@@ -1,9 +1,11 @@
 <template>
   <div class="todasticapp">
-    <h1>Todastic</h1>
+    <div>
+      <h1>Todastic</h1>
+      <todo-list :commands="commands" :todos="store.todos"/>
+      <todo-text :storageFunc="commands.addTodo"/>
+    </div>
     <repl :list="store.todos" />
-    <todo-list :commands="commands" :todos="store.todos"/>
-    <todo-text :storageFunc="commands.addTodo"/>
   </div>
 </template>
 
@@ -35,3 +37,10 @@ function oneOf(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 </script>
+
+<style>
+.todasticapp {
+  display: grid;
+  grid-template-columns: auto 30%;
+}
+</style>

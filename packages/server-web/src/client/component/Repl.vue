@@ -1,7 +1,18 @@
 <template>
   <div class="repl">
-    <button v-on:click="toggleVisibility">&#x25B6;</button>
-    <input ref="input" type="text" @keyup.enter.prevent="submit" :class="`repl-input ${isVisible ? '' : 'hide'}`" v-model="scriptingText" placeholder="Place your script here" />
+    <textarea rows=10 ref="input" type="text" @keyup.enter.prevent="submit" class="repl-input" v-model="scriptingText" :placeholder="placeholder" />
+    <div style="clear: both;"></div>
+    <button class="repl-button" v-on:click="submit">&#x25B6;</button>
+    <div style="clear: both;"></div>
+    <div class="repl-help">
+      The scripting section executes arbitrary JavaScript.<br />
+      You can use the complete ToDo tree as <b>list</b> variable.<br /><br />
+      There's also <b>dashboard</b> with the two functions:
+      <ul>
+        <li><b>groupByStatus(list)</b></li>
+        <li><b>trackedTime(list)</b></li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -15,13 +26,11 @@ import * as dashboard from "@todastic/dashboard";
     data: () => {
       return {
         isVisible: false,
-        scriptingText: ""
+        scriptingText: "",
+        placeholder: "Place your script here\nFor example 'console.log(dashboard.groupByStatus(list))'"
       }
     },
     methods: {
-      toggleVisibility() {
-        this.isVisible = !this.isVisible;
-      },
       submit(event) {
         const scriptingFunction = new Function('list', 'dashboard', this.scriptingText);
         scriptingFunction(this.$props.list, dashboard);
@@ -33,10 +42,18 @@ import * as dashboard from "@todastic/dashboard";
 
 <style>
 .repl {
+  margin-top: 50px;
+  float: right;
   margin-left: 5px;
   padding: 2px;
-  border-radius: 3px;
+  height: 100%;
+}
+.repl-button {
   color: white;
+  border-radius: 3px;
+  margin-top: 5px;
+  margin-right: 50px;
+  float: right;
 }
 .repl-input {
   border: 0;
@@ -44,9 +61,15 @@ import * as dashboard from "@todastic/dashboard";
   margin-left: 5px;
   box-sizing: border-box;
   padding: 5px;
-  width: 80%;
+  width: 90%;
+  height: auto;
 }
-.hide {
-  display: none;
+.repl-help {
+  margin-top: 20px;
+  margin-right: 50px;
+  text-align: right;
+}
+.repl-help ul {
+  list-style-type: none;
 }
 </style>

@@ -9,7 +9,7 @@ export default {
   input: "src/client/client.js",
   output: {
     format: "esm",
-    file: "src/dist/client.dist.js"
+    file: "./dist/client.dist.js"
   },
   plugins: [
     resolve(),

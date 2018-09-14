@@ -1,5 +1,5 @@
 const { createUserModel } = require("./user.js");
-const { initDatabase } = require("@todastic/server-web/src/database-mongo.js");
+const { initDatabase } = require("@todastic/server-web/src/server/lib/database-mongo.js");
 const config = require("@todastic/config");
 
 let User;

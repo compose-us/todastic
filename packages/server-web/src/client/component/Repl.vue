@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import * as dashboard from "@todastic/dashboard";
   export default {
     name: "Repl",
     props: {
@@ -22,9 +23,8 @@
         this.isVisible = !this.isVisible;
       },
       submit(event) {
-        const functionBody = "import { trackedTime, groupByStatus } from ('@todastic/dashboard');" + this.scriptingText;
-        const scriptingFunction = new Function('list', functionBody);
-        console.log(scriptingFunction(this.$props.list));
+        const scriptingFunction = new Function('list', 'dashboard', this.scriptingText);
+        scriptingFunction(this.$props.list, dashboard);
         this.scriptingText = "";
       }
     }

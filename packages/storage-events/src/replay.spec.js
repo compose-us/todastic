@@ -224,6 +224,17 @@ describe("replay", () => {
         expect(state.todos).toMatchSnapshot();
       });
 
+      it("preserves labels", () => {
+        const events = [
+          { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo", labels: ["#all", "#there"] } },
+          { eventType: "CHANGED_TODO", data: { todoId: "id-1", status: "done" } },
+          { eventType: "CHANGED_TODO", data: { todoId: "id-1", status: "open" } }
+        ];
+        const state = replay(events);
+        expect(state.todos.length).toEqual(1);
+        expect(state.todos[0].labels).toEqual(["#all", "#there"]);
+      });
+
       it("can replay changes in a child", () => {
         const events = [
           {

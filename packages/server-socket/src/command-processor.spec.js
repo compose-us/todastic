@@ -46,6 +46,14 @@ describe("command-processor", () => {
       });
     });
 
+    it("doesn't create an empty label array for a CHANGED_TODO event out of the blue", async () => {
+      const { processCommand } = createCommandProcessor({ Event, logger: console });
+      const command = { command: "CHANGE_TODO", data: { status: "done", todoId: "id-1" }, userId: "uu" };
+      await processCommand(sendEvent)(command);
+      console.log(createMock.mock.calls[0][0]);
+      expect(createMock.mock.calls[0][0].data.labels).toBe(undefined);
+    });
+
     it("sends a REMOVED_TODO event when a correct REMOVE_TODO command was received", async () => {
       const { processCommand } = createCommandProcessor({ Event, logger: console });
       const addedItemId = await new Promise(resolve => {

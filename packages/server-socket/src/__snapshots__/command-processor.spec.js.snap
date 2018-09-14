@@ -4,6 +4,7 @@ exports[`command-processor processCommand sends a CHANGED_TODO event when a corr
 Object {
   "createdAt": Any<Number>,
   "data": Object {
+    "labels": undefined,
     "title": "Change a title",
     "todoId": "id-1",
   },
@@ -16,6 +17,7 @@ exports[`command-processor processCommand sends an ADDED_TODO event when a corre
 Object {
   "createdAt": Any<Number>,
   "data": Object {
+    "labels": undefined,
     "title": "Create a test todo",
   },
   "eventType": "ADDED_TODO",

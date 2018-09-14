@@ -23,7 +23,6 @@
 import TodoText from "./TodoText.vue";
 import TodoOptions from "./TodoOptions.vue";
 import { store } from "../store.js";
-import { extractLabels } from "../../lib/label-extractor.js";
 import TodoLabel from "./TodoLabel.vue";
 
 export default {
@@ -47,13 +46,11 @@ export default {
   },
   methods: {
     updateTitle(changedTodo) {
-      const { labels, text } = extractLabels(changedTodo.title)
-      this.$props.commands.changeTodo(this.todo, { title: text, labels });
+      this.$props.commands.changeTodo(this.todo, changedTodo);
       this.updating = false;
     },
     addTodo(todo) {
-      const { labels, text } = extractLabels(todo.title)
-      this.$props.commands.addTodo({...todo, labels, title: text});
+      this.$props.commands.addTodo({...todo});
     },
     drag(todo) {
       // FIXME not implemented yet

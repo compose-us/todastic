@@ -23,29 +23,35 @@ describe("command-processor", () => {
       expect(sendEvent).not.toBeCalled();
     });
 
-    it("sends an ADDED_TODO event when a correct ADD_TODO command was received", () => {
+    it("sends an ADDED_TODO event when a correct ADD_TODO command was received", async () => {
       const { processCommand } = createCommandProcessor({ Event, logger: console });
       const command = { command: "ADD_TODO", data: { title: "Create a test todo" }, userId: "uu" };
-      processCommand(sendEvent)(command).then(x => {
-        expect(createMock).toHaveBeenCalled();
-        expect(sendEvent).toHaveBeenCalledTimes(1);
-        expect(createMock.mock.calls[0][0]).toMatchSnapshot({
-          createdAt: expect.any(Number)
-        });
-        expect(createMock.mock.calls[0][0]["eventType"]).toEqual("ADDED_TODO");
+      await processCommand(sendEvent)(command);
+      expect(createMock).toHaveBeenCalled();
+      expect(sendEvent).toHaveBeenCalledTimes(1);
+      expect(createMock.mock.calls[0][0]).toMatchSnapshot({
+        createdAt: expect.any(Number)
+      });
+      expect(createMock.mock.calls[0][0]["eventType"]).toEqual("ADDED_TODO");
+    });
+
+    it("sends a CHANGED_TODO event when a correct CHANGE_TODO command was received", async () => {
+      const { processCommand } = createCommandProcessor({ Event, logger: console });
+      const command = { command: "CHANGE_TODO", data: { title: "Change a title", todoId: "id-1" }, userId: "uu" };
+      await processCommand(sendEvent)(command);
+      expect(createMock).toHaveBeenCalled();
+      expect(sendEvent).toHaveBeenCalledTimes(1);
+      expect(createMock.mock.calls[0][0]).toMatchSnapshot({
+        createdAt: expect.any(Number)
       });
     });
 
-    it("sends a CHANGED_TODO event when a correct CHANGE_TODO command was received", () => {
+    it("doesn't create an empty label array for a CHANGED_TODO event out of the blue", async () => {
       const { processCommand } = createCommandProcessor({ Event, logger: console });
-      const command = { command: "CHANGE_TODO", data: { title: "Change a title", todoId: "id-1" }, userId: "uu" };
-      processCommand(sendEvent)(command).then(x => {
-        expect(createMock).toHaveBeenCalled();
-        expect(sendEvent).toHaveBeenCalledTimes(1);
-        expect(createMock.mock.calls[0][0]).toMatchSnapshot({
-          createdAt: expect.any(Number)
-        });
-      });
+      const command = { command: "CHANGE_TODO", data: { status: "done", todoId: "id-1" }, userId: "uu" };
+      await processCommand(sendEvent)(command);
+      console.log(createMock.mock.calls[0][0]);
+      expect(createMock.mock.calls[0][0].data.labels).toBe(undefined);
     });
 
     it("sends a REMOVED_TODO event when a correct REMOVE_TODO command was received", async () => {

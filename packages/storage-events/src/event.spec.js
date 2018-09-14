@@ -53,6 +53,12 @@ describe("Event", () => {
     expect(event1.position).toBe(position);
   });
 
+  it("doesn't return an empty array for labels", async () => {
+    // to make sure https://stackoverflow.com/a/20714461/526426 really works
+    const event = await Event.create({ eventType: "CHANGED_TODO", data: { todoId: "bla", labels: undefined } });
+    expect(event.data.labels).toBeUndefined();
+  });
+
   describe("distinguishing users in getEventsByUserId", () => {
     const userId = "5b969b2490d222197f71109e";
     const otherUserId = "5b8ee36b68d1975c7c3d1682";

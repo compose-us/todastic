@@ -14,7 +14,6 @@ function extractLabelsInBetween(inputString) {
   const matches = inputString.match(labelsRegex);
   const labels = [];
   let text = inputString;
-  console.log(matches);
   if (matches) {
     for (const match of matches) {
       labels.push(match);
@@ -33,7 +32,6 @@ function extractLabelsAtTheEnd(inputString) {
   let match;
   do {
     match = text.match(labelsRegex);
-    console.log(match);
     if (match) {
       labels.unshift(match[0]);
       text = text.replace(match[0], "").trim();

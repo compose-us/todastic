@@ -1,8 +1,11 @@
 <template>
   <div class="todasticapp">
-    <h1>Todastic</h1>
-    <todo-list :commands="commands" :todos="store.todos"/>
-    <todo-text :storageFunc="commands.addTodo"/>
+    <div>
+      <h1>Todastic</h1>
+      <todo-list :commands="commands" :todos="store.todos"/>
+      <todo-text :storageFunc="commands.addTodo"/>
+    </div>
+    <repl :list="store.todos" />
   </div>
 </template>
 
@@ -10,6 +13,7 @@
 import TodoList from "./TodoList.vue";
 import TodoText from "./TodoText.vue";
 import { store } from "../store.js";
+import Repl from "./Repl.vue";
 
 export default {
   components: {
@@ -32,3 +36,10 @@ function oneOf(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 </script>
+
+<style>
+.todasticapp {
+  display: grid;
+  grid-template-columns: auto 30%;
+}
+</style>

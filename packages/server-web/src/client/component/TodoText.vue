@@ -14,8 +14,12 @@ export default {
   data() {
     return {
       // we don't want to change the parent element's title directly
-      todoTitle: this.$props.initialTodoTitle,
       placeholder: getPlaceholder()
+    }
+  },
+  computed: {
+    todoTitle() {
+      return this.$props.initialTodoTitle;
     }
   },
   methods: {

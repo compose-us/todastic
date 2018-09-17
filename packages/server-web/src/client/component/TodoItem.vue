@@ -13,9 +13,9 @@
         <span v-if="!updating" v-on:click="updating=true" :class="`title title-${todo.status || 'open'}`">{{todo.title}}</span>
         <todo-label v-if="!updating" v-for="label in todo.labels" :todoLabel="`${label}`" :key="label" />
       </div>
-      <todo-text ref="updater" :visible="updating" :storageFunc="updateTitle" v-bind.sync="{ initialTodoTitle: titleWithLabels }" />
+      <todo-text ref="updater" :visible="true" v-on:submit="updateTitle" v-bind.sync="{ initialTodoTitle: titleWithLabels }" />
     </div>
-    <todo-text ref="adder" :parentId="todo.todoId" :visible="adderVisible" :storageFunc="addTodo" />
+    <todo-text ref="adder" v-on:submit="addTodo" :visible="adderVisible" />
   </div>
 </template>
 
@@ -46,12 +46,12 @@ export default {
     };
   },
   methods: {
-    updateTitle(changedTodo) {
-      this.$props.commands.changeTodo(this.todo, changedTodo);
+    updateTitle(newTitle) {
+      this.$props.commands.changeTodo(this.todo, { title: newTitle });
       this.updating = false;
     },
-    addTodo(todo) {
-      this.$props.commands.addTodo({...todo});
+    addTodo(newTitle) {
+      this.$props.commands.addTodo({ title: newTitle, parentId: this.todo.todoId });
     },
     drag(todo) {
       // FIXME not implemented yet

@@ -1,6 +1,6 @@
 <template>
   <div :class="`todo-text ${visible ? '' : 'hide'}`">
-    <input ref="input" type="text" class="create-todo" @keyup.enter.prevent="submit" v-model="todoTitle" :placeholder="placeholder" />
+    <input ref="input" type="text" class="create-todo" @keyup.enter.prevent="submit" :value="todoTitle" :placeholder="placeholder" />
   </div>
 </template>
 
@@ -8,23 +8,19 @@
 export default {
   name: "TodoText",
   props: {
-    storageFunc: { type: Function, required: true },
-    parentId: String,
     initialTodoTitle: String,
     visible: { type: Boolean, default: true }
   },
   data() {
-    const data = {
+    return {
       // we don't want to change the parent element's title directly
-      todoTitle: this.initialTodoTitle,
+      todoTitle: this.$props.initialTodoTitle,
       placeholder: getPlaceholder()
-    };
-
-    return data;
+    }
   },
   methods: {
     submit(event) {
-      this.$props.storageFunc({ title: this.$data.todoTitle, parentId: this.$props.parentId });
+      this.$emit('submit', event.target.value);
       // means, we are in "add new" mode
       if(!this.$props.initialTodoTitle) {
         this.$data.todoTitle = "";

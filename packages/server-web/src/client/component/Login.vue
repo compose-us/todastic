@@ -1,9 +1,12 @@
 <template>
   <div class="todasticapp">
     <h1>Todastic</h1>
-    <input type="text" name="username" v-model="input.username" placeholder="Username" />
-    <input type="password" name="password" v-model="input.password" v-on:keydown.enter="login()" placeholder="Password" />
-    <button type="button" v-on:click="login()">Login</button>
+    <span></span> <!-- quickfix for grid layout -->
+    <div>
+      <input type="text" name="username" v-model="input.username" placeholder="Username" />
+      <input type="password" name="password" v-model="input.password" v-on:keydown.enter="login()" placeholder="Password" />
+      <button type="button" v-on:click="login()">Login</button>
+    </div>
   </div>
 </template>
 

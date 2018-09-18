@@ -13,9 +13,9 @@
         <span v-if="!updating" v-on:click="updating=true" :class="`title title-${todo.status || 'open'}`">{{todo.title}}</span>
         <todo-label v-if="!updating" v-for="label in todo.labels" :todoLabel="`${label}`" :key="label" />
       </div>
-      <todo-text ref="updater" :visible="updating" v-on:submit="updateTitle" v-bind.sync="{ initialTodoTitle: titleWithLabels }" />
+      <todo-text ref="updater" :visible="updating" v-on:submit="updateTitle" v-bind.sync="{ initialTodoTitle: completeText }" :key="`updateTodo-${todo.todoId}`" />
     </div>
-    <todo-text ref="adder" v-on:submit="addTodo" :visible="adderVisible" />
+    <todo-text ref="adder" v-on:submit="addTodo" :visible="adderVisible" :key="`addTodo-${todo.todoId}`" />
   </div>
 </template>
 
@@ -33,8 +33,11 @@ export default {
     "todo-label": TodoLabel
   },
   computed: {
-    titleWithLabels() {
-      return this.todoTitle + " " + this.todoLabels.join(" ");
+    completeText() {
+      return (this.todoTitle + " " + this.todoLabels.join(" ") + " " + this.todoTrackedTimes.join(" ")).trim();
+    },
+    todoTrackedTimes() {
+      return this.$props.todo.trackedTimes.map(tracked => "#TRACK(" + JSON.stringify(tracked) + ")");
     },
     todoTitle() {
       return this.$props.todo.title;

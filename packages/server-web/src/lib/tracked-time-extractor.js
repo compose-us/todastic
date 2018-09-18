@@ -1,17 +1,20 @@
 module.exports = { extractTrackedTime };
 
 function extractTrackedTime(inputString) {
-  const regex = /#TRACK\((\{.*\:.*\})\)/s;
+  const regex = /#TRACK\((\{.*?\:.*?\})\)/gi;
   const matches = inputString.match(regex);
-  const timeEntries = [];
   let text = inputString;
+  let timeEntries = [];
   if (matches) {
-    match = matches[1];
-    text = text.replace(match, "");
-    console.log(match);
-    timeEntries.unshift(JSON.parse(match));
+    timeEntries = matches.map(match => {
+      text = text.replace(match, "");
+      // in theory, this should be provided as capture group by the regex engine.
+      // not sure why it doesn't work
+      const matchGroup = match.replace("#TRACK(", "").replace(/\)$/, "");
+      return JSON.parse(matchGroup);
+    });
+    text = text.replace(/\s+/g, " ").trim();
   }
-  text = text.replace("#TRACK()", "").trim();
 
   return { timeEntries, text };
 }

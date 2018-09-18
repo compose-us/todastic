@@ -59,6 +59,21 @@ describe("Event", () => {
     expect(event.data.labels).toBeUndefined();
   });
 
+  it("doesn't return an empty array for trackedTimes", async () => {
+    // to make sure https://stackoverflow.com/a/20714461/526426 really works
+    const event = await Event.create({ eventType: "CHANGED_TODO", data: { todoId: "bla", trackedTimes: undefined } });
+    expect(event.data.trackedTimes).toBeUndefined();
+  });
+
+  it("can store trackedTimes", async () => {
+    const trackedTimes = [
+      { trackedTime: "00:10:00", tracker: "Udo", date: "2018-09-15 18:20:15" },
+      { trackedTime: "01:00:00", tracker: "Jörn", date: "2018-09-13 17:27:00" }
+    ];
+    const event = await Event.create({ eventType: "CHANGED_TODO", data: { todoId: "bla", trackedTimes } });
+    expect(JSON.stringify(event.data.trackedTimes)).toBe(JSON.stringify(trackedTimes));
+  });
+
   describe("distinguishing users in getEventsByUserId", () => {
     const userId = "5b969b2490d222197f71109e";
     const otherUserId = "5b8ee36b68d1975c7c3d1682";

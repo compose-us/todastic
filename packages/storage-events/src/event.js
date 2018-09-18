@@ -19,7 +19,8 @@ function createEventModel({ mongoose }) {
       parentId: { type: String },
       title: { type: String },
       status: { type: String, enum: ["open", "done"], default: "open" },
-      labels: { type: [String] }
+      labels: { type: [String] },
+      trackedTimes: { type: Array }
     }
   });
 

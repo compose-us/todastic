@@ -1,12 +1,12 @@
-module.exports = { extractTrackedTime };
+module.exports = { extractTrackedTimes };
 
-function extractTrackedTime(inputString) {
+function extractTrackedTimes(inputString) {
   const regex = /#TRACK\((\{.*?\:.*?\})\)/gi;
   const matches = inputString.match(regex);
   let text = inputString;
-  let timeEntries = [];
+  let trackedTimes = [];
   if (matches) {
-    timeEntries = matches.map(match => {
+    trackedTimes = matches.map(match => {
       text = text.replace(match, "");
       // in theory, this should be provided as capture group by the regex engine.
       // not sure why it doesn't work
@@ -16,5 +16,5 @@ function extractTrackedTime(inputString) {
     text = text.replace(/\s+/g, " ").trim();
   }
 
-  return { timeEntries, text };
+  return { trackedTimes, text };
 }

@@ -1,4 +1,4 @@
-const { extractTrackedTime } = require("./tracked-time-extractor");
+const { extractTrackedTimes } = require("./tracked-time-extractor");
 
 describe("TrackedTimeExtractor", () => {
   it(
@@ -28,8 +28,8 @@ describe("TrackedTimeExtractor", () => {
 
 function testExtraction(inputString, expectedEntries, expectedResultString) {
   return () => {
-    const result = extractTrackedTime(inputString);
-    expect(result.timeEntries).toEqual(expectedEntries);
+    const result = extractTrackedTimes(inputString);
+    expect(result.trackedTimes).toEqual(expectedEntries);
     expect(result.text).toBe(expectedResultString);
   };
 }

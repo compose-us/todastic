@@ -18,4 +18,7 @@ describe("TrackedTimeExtractor", () => {
       )
     ).toMatchSnapshot();
   });
+  it("discards broken entries", () => {
+    expect(extractTrackedTimes('worked on #TRACK({"trackedTime"}) #great')).toMatchSnapshot();
+  });
 });

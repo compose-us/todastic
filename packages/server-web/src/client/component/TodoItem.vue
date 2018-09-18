@@ -34,7 +34,7 @@ export default {
   },
   computed: {
     completeText() {
-      return this.todoTitle + " " + this.todoLabels.join(" ") + " " + this.todoTrackedTimes.join(" ");
+      return (this.todoTitle + " " + this.todoLabels.join(" ") + " " + this.todoTrackedTimes.join(" ")).trim();
     },
     todoTrackedTimes() {
       return this.$props.todo.trackedTimes.map(tracked => "#TRACK(" + JSON.stringify(tracked) + ")");

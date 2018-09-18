@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LabelExtractor extracts a label when it's in-between 1`] = `
+Object {
+  "labels": Array [
+    "#label",
+  ],
+  "text": "wait for this nice label do you?",
+}
+`;
+
+exports[`LabelExtractor extracts and removes a label when it's at the end 1`] = `
+Object {
+  "labels": Array [
+    "#label",
+  ],
+  "text": "wait for it.",
+}
+`;
+
+exports[`LabelExtractor extracts and removes several labels when they're at the end 1`] = `
+Object {
+  "labels": Array [
+    "#label",
+    "#nice",
+  ],
+  "text": "wait for it.",
+}
+`;
+
+exports[`LabelExtractor extracts and removes several labels within and at the end 1`] = `
+Object {
+  "labels": Array [
+    "#fancy",
+    "#for",
+    "#label",
+    "#nice",
+  ],
+  "text": "fancy wait for it.",
+}
+`;
+
+exports[`LabelExtractor extracts and removes several unicode labels within and at the end 1`] = `
+Object {
+  "labels": Array [
+    "#fancy",
+    "#fôr",
+    "#läbel",
+    "#niçe",
+  ],
+  "text": "fancy wait fôr it laís.",
+}
+`;
+
+exports[`LabelExtractor extracts labels with a hyphen 1`] = `
+Object {
+  "labels": Array [
+    "#for-this",
+    "#nice-label",
+  ],
+  "text": "wait for-this cool thing.",
+}
+`;
+
+exports[`LabelExtractor extracts multiple labels when they're in-between 1`] = `
+Object {
+  "labels": Array [
+    "#nice",
+    "#label",
+  ],
+  "text": "wait for this nice label do you?",
+}
+`;
+
+exports[`LabelExtractor simply returns the plain string when there's no label 1`] = `
+Object {
+  "labels": Array [],
+  "text": "no label, really",
+}
+`;

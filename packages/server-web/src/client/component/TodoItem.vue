@@ -1,21 +1,17 @@
 <template>
-  <div :class="`todo-item todo-item-${todo.id}`">
+  <div :class="`todo-item todo-item-${todo.todoId}`" :ref="`todo-item-${todo.todoId}`">
     <div class="todo">
-			<todo-options
-				:adderVisible="adderVisible"
-				:drag="drag(todo)"
-			  :removeTodo="removeTodo(todo)"
-        :toggleAddTodoItem="toggleAddTodoItem"
-			/>
+			<todo-options @click.prevent="toggleAddTodoItem()" />
       <span :class="`status status-${todo.status || 'open'}`" v-on:click="toggleStatus(todo)"></span>
-      <span class="id">#{{todo.todoId.substring(1, 4)}}</span>
+      <span class="id">#{{todo.todoId.substring(0, 4)}}</span>
       <div>
         <span v-if="!updating" v-on:click="updating=true" :class="`title title-${todo.status || 'open'}`">{{todo.title}}</span>
         <todo-label v-if="!updating" v-for="label in todo.labels" :todoLabel="`${label}`" :key="label" />
       </div>
       <todo-text ref="updater" :visible="updating" v-on:submit="updateTitle" v-bind.sync="{ initialTodoTitle: completeText }" :key="`updateTodo-${todo.todoId}`" />
     </div>
-    <todo-text ref="adder" v-on:submit="addTodo" :visible="adderVisible" :key="`addTodo-${todo.todoId}`" />
+    <todo-text ref="adder" v-on:submit="addTodo" :visible="adderVisible" :key="`addTodo-${todo.todoId}`" :parentId="todo.todoId" />
+    <div class="dropzone-sub" ref="dropzoneSub">sub level</div>
   </div>
 </template>
 
@@ -32,6 +28,24 @@ export default {
     "todo-options": TodoOptions,
     "todo-label": TodoLabel
   },
+  mounted() {
+    const { dropzoneSub } = this.$refs;
+    if (dropzoneSub) {
+      dropzoneSub.addEventListener("dragenter", this.handleDropzoneEnter, false);
+      dropzoneSub.addEventListener("dragover", this.handleDropzoneOver, false);
+      dropzoneSub.addEventListener("dragleave", this.handleDropzoneLeave, false);
+      dropzoneSub.addEventListener("drop", this.handleDrop, false);
+    }
+  },
+  beforeDestroy() {
+    const { dropzoneSub } = this.$refs;
+    if (dropzoneSub) {
+      dropzoneSub.removeEventListener("dragenter", this.handleDropzoneEnter);
+      dropzoneSub.removeEventListener("dragover", this.handleDropzoneOver);
+      dropzoneSub.removeEventListener("dragleave", this.handleDropzoneLeave);
+      dropzoneSub.removeEventListener("drop", this.handleDrop);
+    }
+  },
   computed: {
     completeText() {
       return (this.todoTitle + " " + this.todoLabels.join(" ") + " " + this.todoTrackedTimes.join(" ")).trim();
@@ -44,6 +58,10 @@ export default {
     },
     todoLabels() {
       return this.$props.todo.labels || [];
+    },
+    titleWithLabels: function() {
+      const { todo } = this.$props;
+      return `${todo.title} ${todo.labels.join(" ")}`;
     }
   },
   data() {
@@ -53,16 +71,28 @@ export default {
     };
   },
   methods: {
+    handleDropzoneEnter(event) {
+      event.target.classList.add("active");
+    },
+    handleDropzoneOver(event) {
+      event.preventDefault();
+      event.dataTransfer.dropEffect = "move";
+      return false;
+    },
+    handleDropzoneLeave(event) {
+      event.target.classList.remove("active");
+    },
+    handleDrop(event) {
+      const { todo } = this.$props;
+      console.log("dropped into sub scope", event, todo);
+      event.target.classList.remove("active");
+    },
     updateTitle(newTitle) {
       this.$props.commands.changeTodo(this.todo, { title: newTitle });
       this.updating = false;
     },
     addTodo(newTitle) {
       this.$props.commands.addTodo({ title: newTitle, parentId: this.todo.todoId });
-    },
-    drag(todo) {
-      // FIXME not implemented yet
-      return () => {};
     },
     toggleStatus(todo) {
       const newStatus = todo.status == "open" ? "done" : "open";
@@ -126,5 +156,18 @@ export default {
 .status.status-done {
   border: 2px solid grey;
   color: #77b55a;
+}
+.dropzones {
+  display: grid;
+  grid-template-columns: 50px 1fr;
+}
+.dropzone-sub {
+  background-color: lightcyan;
+  height: 10px;
+  margin-left: 25px;
+  overflow: hidden;
+}
+.dropzone-sub.active {
+  background-color: lightgreen;
 }
 </style>

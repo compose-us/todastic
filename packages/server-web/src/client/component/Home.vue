@@ -2,7 +2,7 @@
   <div class="todasticapp">
     <div>
       <h1>Todastic</h1>
-      <todo-list :commands="commands" :todos="store.todos"/>
+      <todo-list :commands="commands" :parentId="`blubb`" :todos="store.todos"/>
       <todo-text v-on:submit="addTodo" :key="addTodo" />
     </div>
     <repl :list="store.todos" />
@@ -19,7 +19,7 @@ export default {
   components: {
     "todo-list": TodoList,
     "todo-text": TodoText,
-    "repl": Repl
+    repl: Repl
   },
   props: ["commands"],
   methods: {
@@ -28,6 +28,7 @@ export default {
     }
   },
   data() {
+    console.log({ store });
     return {
       store
     };

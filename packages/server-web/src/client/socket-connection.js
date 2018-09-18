@@ -1,5 +1,5 @@
 import io from "./socket.io-bundle.js";
-import { extractLabels } from "../lib/label-extractor.js";
+import { extractDetails } from "../lib/details-extractor.js";
 
 export default function createSocketConnection(eventProcessor) {
   const socket = io({
@@ -12,17 +12,17 @@ export default function createSocketConnection(eventProcessor) {
 
   return {
     addTodo(todo) {
-      const { labels, text } = extractLabels(todo.title);
-      socket.emit("command", { command: "ADD_TODO", data: { ...todo, labels, title: text } });
+      const { text, labels, trackedTimes } = extractDetails(todo.title);
+      socket.emit("command", { command: "ADD_TODO", data: { ...todo, labels, trackedTimes, title: text } });
     },
     removeTodo(todo) {
       socket.emit("command", { command: "REMOVE_TODO", data: { todoId: todo.todoId } });
     },
     changeTodo(todo, changeset) {
-      const { labels, text } = extractLabels(changeset.title);
+      const { text, labels, trackedTimes } = extractDetails(changeset.title);
       socket.emit("command", {
         command: "CHANGE_TODO",
-        data: { ...changeset, labels, title: text, todoId: todo.todoId }
+        data: { ...changeset, labels, title: text, trackedTimes, todoId: todo.todoId }
       });
     },
     connect() {

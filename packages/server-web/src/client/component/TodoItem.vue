@@ -13,9 +13,9 @@
         <span v-if="!updating" v-on:click="updating=true" :class="`title title-${todo.status || 'open'}`">{{todo.title}}</span>
         <todo-label v-if="!updating" v-for="label in todo.labels" :todoLabel="`${label}`" :key="label" />
       </div>
-      <todo-text ref="updater" :visible="updating" :storageFunc="updateTitle" v-bind:initialTodoTitle="titleWithLabels" />
+      <todo-text ref="updater" :visible="updating" v-on:submit="updateTitle" v-bind.sync="{ initialTodoTitle: titleWithLabels }" />
     </div>
-    <todo-text ref="adder" :parentId="todo.todoId" :visible="adderVisible" :storageFunc="addTodo" />
+    <todo-text ref="adder" v-on:submit="addTodo" :visible="adderVisible" />
   </div>
 </template>
 
@@ -23,7 +23,6 @@
 import TodoText from "./TodoText.vue";
 import TodoOptions from "./TodoOptions.vue";
 import { store } from "../store.js";
-import { extractLabels } from "../../lib/label-extractor.js";
 import TodoLabel from "./TodoLabel.vue";
 
 export default {
@@ -34,26 +33,29 @@ export default {
     "todo-label": TodoLabel
   },
   computed: {
-    titleWithLabels: function() {
-      return this.$props.todo.title + " " + this.$props.todo.labels.join(" ");
+    titleWithLabels() {
+      return this.todoTitle + " " + this.todoLabels.join(" ");
+    },
+    todoTitle() {
+      return this.$props.todo.title;
+    },
+    todoLabels() {
+      return this.$props.todo.labels || [];
     }
   },
   data() {
     return {
       adderVisible: false,
-      updating: false,
-      todoTitle: ""
+      updating: false
     };
   },
   methods: {
-    updateTitle(changedTodo) {
-      const { labels, text } = extractLabels(changedTodo.title)
-      this.$props.commands.changeTodo(this.todo, { title: text, labels });
+    updateTitle(newTitle) {
+      this.$props.commands.changeTodo(this.todo, { title: newTitle });
       this.updating = false;
     },
-    addTodo(todo) {
-      const { labels, text } = extractLabels(todo.title)
-      this.$props.commands.addTodo({...todo, labels, title: text});
+    addTodo(newTitle) {
+      this.$props.commands.addTodo({ title: newTitle, parentId: this.todo.todoId });
     },
     drag(todo) {
       // FIXME not implemented yet

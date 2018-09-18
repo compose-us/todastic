@@ -3,7 +3,7 @@
     <div>
       <h1>Todastic</h1>
       <todo-list :commands="commands" :todos="store.todos"/>
-      <todo-text :storageFunc="commands.addTodo"/>
+      <todo-text v-on:submit="addTodo" />
     </div>
     <repl :list="store.todos" />
   </div>
@@ -18,9 +18,15 @@ import Repl from "./Repl.vue";
 export default {
   components: {
     "todo-list": TodoList,
-    "todo-text": TodoText
+    "todo-text": TodoText,
+    "repl": Repl
   },
   props: ["commands"],
+  methods: {
+    addTodo(newTitle) {
+      this.$props.commands.addTodo({ title: newTitle });
+    }
+  },
   data() {
     return {
       store

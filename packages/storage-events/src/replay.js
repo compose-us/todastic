@@ -6,21 +6,9 @@ function replay(events) {
       return removeTodo(todos, event.data);
     } else if (event.eventType === "CHANGED_TODO") {
       if (event.data.parentId !== undefined) {
-        const todoInOldTree = findTodo(todos, event.data.todoId);
-        if (event.data.parentId === null) {
-          const todoInOldTreeWithoutParentId = { ...todoInOldTree };
-          delete todoInOldTreeWithoutParentId["parentId"];
-          return [...removeTodo(todos, event.data), todoInOldTreeWithoutParentId];
-        }
-        const newParentIsChild = isIdInTodos([todoInOldTree], event.data.parentId);
-        if (newParentIsChild) {
-          return todos;
-        }
-        if (!todoInOldTree.parentId) {
-          return [...movedTodo(todos, todoInOldTree, event.data)].filter(t => t.todoId !== todoInOldTree.todoId);
-        }
-        if (event.data.parentId !== todoInOldTree.parentId) {
-          return movedTodo(todos, todoInOldTree, event.data);
+        const result = moveTodo(todos, event);
+        if (result.moved) {
+          return result.result;
         }
       }
       return changedTodo(todos, event.data);
@@ -28,6 +16,32 @@ function replay(events) {
     return todos;
   }, []);
   return { todos };
+}
+
+function moveTodo(todos, event) {
+  const todoInOldTree = findTodo(todos, event.data.todoId);
+  if (event.data.parentId === null) {
+    const result = moveTodoToFirstLevel(todos, todoInOldTree, event);
+    return { moved: true, result };
+  }
+  const newParentIsChild = isIdInTodos([todoInOldTree], event.data.parentId);
+  if (newParentIsChild) {
+    return { moved: true, result: todos };
+  }
+  if (!todoInOldTree.parentId) {
+    const result = [...movedTodo(todos, todoInOldTree, event.data)].filter(t => t.todoId !== todoInOldTree.todoId);
+    return { moved: true, result };
+  }
+  if (event.data.parentId !== todoInOldTree.parentId) {
+    return { moved: true, result: movedTodo(todos, todoInOldTree, event.data) };
+  }
+  return { moved: false };
+}
+
+function moveTodoToFirstLevel(todos, todoInOldTree, event) {
+  const todoInOldTreeWithoutParentId = { ...todoInOldTree };
+  delete todoInOldTreeWithoutParentId["parentId"];
+  return [...removeTodo(todos, event.data), todoInOldTreeWithoutParentId];
 }
 
 function addTodo(todos, todoToAdd) {

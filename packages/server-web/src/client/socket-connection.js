@@ -22,7 +22,7 @@ export default function createSocketConnection(eventProcessor) {
       let data = { ...changeset, todoId: todo.todoId };
       if (changeset.title) {
         const { text, labels, trackedTimes } = extractDetails(changeset.title);
-        data = { ...changes, labels, title: text, trackedTimes };
+        data = { ...changeset, labels, title: text, trackedTimes };
       }
       socket.emit("command", {
         command: "CHANGE_TODO",

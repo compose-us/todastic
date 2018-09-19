@@ -90,15 +90,18 @@ export default {
       commands.changeTodo(myTodo, { parentId: todo.todoId });
     },
     updateTitle(newTitle) {
-      this.$props.commands.changeTodo(this.todo, { title: newTitle });
+      const { commands } = this.$props;
+      commands.changeTodo(this.todo, { title: newTitle });
       this.updating = false;
     },
     addTodo(newTitle) {
-      this.$props.commands.addTodo({ title: newTitle, parentId: this.todo.todoId });
+      const { commands } = this.$props;
+      commands.addTodo({ title: newTitle, parentId: this.todo.todoId });
     },
     toggleStatus(todo) {
+      const { commands } = this.$props;
       const newStatus = todo.status == "open" ? "done" : "open";
-      this.$props.commands.changeTodo(todo, { status: newStatus });
+      commands.changeTodo(todo, { status: newStatus });
     },
     toggleAddTodoItem() {
       this.$data.adderVisible = !this.$data.adderVisible;

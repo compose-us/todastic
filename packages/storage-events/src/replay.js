@@ -12,6 +12,10 @@ function replay(events) {
           delete todoInOldTreeWithoutParentId["parentId"];
           return [...removeTodo(todos, event.data), todoInOldTreeWithoutParentId];
         }
+        const newParentIsChild = isIdInTodos([todoInOldTree], event.data.parentId);
+        if (newParentIsChild) {
+          return todos;
+        }
         if (!todoInOldTree.parentId) {
           return [...movedTodo(todos, todoInOldTree, event.data)].filter(t => t.todoId !== todoInOldTree.todoId);
         }
@@ -61,6 +65,10 @@ function changedTodo(todos, data) {
       };
     }
   });
+}
+
+function isIdInTodos(todos, parentId) {
+  return todos.some(todo => todo.todoId === parentId || isIdInTodos(todo.children || [], parentId));
 }
 
 function movedTodo(todos, todoInOldTree, data) {

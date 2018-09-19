@@ -407,6 +407,60 @@ describe("replay", () => {
         expect(state.todos.length).toEqual(3);
         expect(state.todos).toMatchSnapshot();
       });
+
+      it("will not move itself into itself", () => {
+        const events = [
+          { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo" } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1" } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-1-1", title: "Added a child", parentId: "id-1-1" } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-1-2", title: "Added a child", parentId: "id-1-1" } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1" } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child" } },
+          {
+            eventType: "CHANGED_TODO",
+            data: { todoId: "id-1-1", parentId: "id-1-1" }
+          }
+        ];
+        const state = replay(events);
+        expect(state.todos.length).toEqual(2);
+        expect(state.todos).toMatchSnapshot();
+      });
+
+      it("will not move itself into a child of itself", () => {
+        const events = [
+          { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo" } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1" } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-1-1", title: "Added a child", parentId: "id-1-1" } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-1-2", title: "Added a child", parentId: "id-1-1" } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1" } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child" } },
+          {
+            eventType: "CHANGED_TODO",
+            data: { todoId: "id-1-1", parentId: "id-1-1-1" }
+          }
+        ];
+        const state = replay(events);
+        expect(state.todos.length).toEqual(2);
+        expect(state.todos).toMatchSnapshot();
+      });
+
+      it("will not move itself into a grandchild of itself", () => {
+        const events = [
+          { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo" } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1" } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-1-1", title: "Added a child", parentId: "id-1-1" } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-1-2", title: "Added a child", parentId: "id-1-1" } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1" } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child" } },
+          {
+            eventType: "CHANGED_TODO",
+            data: { todoId: "id-1", parentId: "id-1-1-1" }
+          }
+        ];
+        const state = replay(events);
+        expect(state.todos.length).toEqual(2);
+        expect(state.todos).toMatchSnapshot();
+      });
     });
   });
 });

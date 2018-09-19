@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import { store } from "../store.js";
 import TodoItem from "./TodoItem.vue";
 
 export default {
@@ -20,52 +19,64 @@ export default {
   },
   name: "todo-list",
   props: ["commands", "todos", "parentId"],
+  beforeUpdate() {
+    this.removeDragListeners();
+  },
+  updated() {
+    this.addDragListeners();
+  },
   mounted() {
-    const { dragElement, dropzoneSame } = this.$refs;
-    console.log("mounted", this);
-    if (dragElement) {
-      dragElement.forEach(element => {
-        element.addEventListener("dragstart", this.handleDragStart, false);
-        element.addEventListener("dragend", this.handleDragEnd, false);
-      });
-    }
-    if (dropzoneSame) {
-      dropzoneSame.forEach(element => {
-        element.addEventListener("dragenter", this.handleDropzoneEnter, false);
-        element.addEventListener("dragover", this.handleDropzoneOver, false);
-        element.addEventListener("dragleave", this.handleDropzoneLeave, false);
-        element.addEventListener("drop", this.handleDrop, false);
-      });
-    }
+    this.addDragListeners();
   },
   beforeDestroy() {
-    const { dragElement, dropzoneSame } = this.$refs;
-    dragElement.forEach(element => {
-      element.removeEventListener("dragstart", this.handleDragStart);
-      element.removeEventListener("dragend", this.handleDragEnd);
-    });
-    if (dropzoneSame) {
-      dropzoneSame.removeEventListener("dragenter", this.handleDropzoneEnter);
-      dropzoneSame.removeEventListener("dragover", this.handleDropzoneOver);
-      dropzoneSame.removeEventListener("dragleave", this.handleDropzoneLeave);
-      dropzoneSame.removeEventListener("drop", this.droppedIntoSame);
-    }
+    this.removeDragListeners();
   },
   methods: {
+    addDragListeners() {
+      const { dragElement, dropzoneSame } = this.$refs;
+      if (dragElement) {
+        dragElement.forEach(element => {
+          element.addEventListener("dragstart", this.handleDragStart, false);
+          element.addEventListener("dragend", this.handleDragEnd, false);
+        });
+      }
+      if (dropzoneSame) {
+        dropzoneSame.forEach(element => {
+          element.addEventListener("dragenter", this.handleDropzoneEnter, false);
+          element.addEventListener("dragover", this.handleDropzoneOver, false);
+          element.addEventListener("dragleave", this.handleDropzoneLeave, false);
+          element.addEventListener("drop", this.handleDrop, false);
+        });
+      }
+    },
+    removeDragListeners() {
+      const { dragElement, dropzoneSame } = this.$refs;
+      if (dragElement) {
+        dragElement.forEach(element => {
+          element.removeEventListener("dragstart", this.handleDragStart);
+          element.removeEventListener("dragend", this.handleDragEnd);
+        });
+      }
+      if (dropzoneSame) {
+        dropzoneSame.forEach(element => {
+          element.removeEventListener("dragenter", this.handleDropzoneEnter);
+          element.removeEventListener("dragover", this.handleDropzoneOver);
+          element.removeEventListener("dragleave", this.handleDropzoneLeave);
+          element.removeEventListener("drop", this.droppedIntoSame);
+        });
+      }
+    },
     handleDragStart(event) {
-      console.log("handleDragStart");
       event.stopPropagation();
       const { todos } = this.$props;
       const todoId = event.target.getAttribute("todoid");
       event.target.classList.add("dragging");
       event.dataTransfer.effectAllowed = "move";
       const todo = todos.find(t => t.todoId === todoId);
-      console.log({ todo, props: this.$props, target: event.target, todoId });
       event.dataTransfer.setData("json/todo", JSON.stringify(todo));
     },
     handleDragEnd(event) {
       event.target.classList.remove("dragging");
-      console.log("drag end", event);
     },
     handleDropzoneEnter(event) {
       event.stopPropagation();
@@ -91,7 +102,7 @@ export default {
       const myTodo = JSON.parse(event.dataTransfer.getData("json/todo"));
       // TODO set parentId!
       console.log({ parentId, myTodo });
-      // commands.changeTodo(todo, { parentId });
+      commands.changeTodo(myTodo, { parentId });
     }
   }
 };

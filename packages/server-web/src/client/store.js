@@ -8,7 +8,7 @@ export function processEvent(event) {
   console.log(new Date(), "processing event", event);
   allEvents.push(event);
   store.todos = replay(allEvents).todos;
-  console.log("new store.todos.length", store.todos.length);
+  console.log("new store.todos", store.todos);
 }
 
 export function setAuthenticated(status) {

@@ -26,6 +26,7 @@ import { store } from "../store.js";
 import TodoLabel from "./TodoLabel.vue";
 
 export default {
+  name: "TodoItem",
   props: ["commands", "todo"],
   components: {
     "todo-text": TodoText,

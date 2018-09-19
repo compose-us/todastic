@@ -1,25 +1,31 @@
 <template>
     <div id="app">
         <div id="nav">
-            <router-link tag="button" v-if="isAuthenticated" to="/login" v-on:click.native="logout()" replace>Logout</router-link>
+          <button v-on:click="showHelp=true" class="help">?</button>
+					<help v-if="showHelp" @close="showHelp = false" />
+
+          <router-link tag="button" v-if="isAuthenticated" to="/login" v-on:click.native="logout()" replace>Logout</router-link>
         </div>
-        <Loading v-if="isLoading" />
+        <loading v-if="isLoading" />
         <router-view v-if="!isLoading"  @isAuthenticated="setAuthenticated" />
     </div>
 </template>
 
 <script>
 import Loading from "./Loading.vue";
+import Help from "./Help.vue";
 
 export default {
   name: "App",
   components: {
-    Loading
+    "loading": Loading,
+    "help": Help
   },
   data() {
     return {
       isAuthenticated: false,
-      isLoading: true
+      isLoading: true,
+      showHelp: false
     };
   },
   props: ["commands"],
@@ -60,4 +66,13 @@ export default {
 </script>
 <style>
 @import "../main.css";
+.help {
+  color: black;
+  background: #f5f5f5;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.help:hover {
+  color: white;
+}
 </style>

@@ -1,7 +1,7 @@
 <template>
 	<div class="options">
+    <div class="move"><i class="fas fa-ellipsis-v" /></div>
 		<div class="toggle-wrap boxed">
-		  <div class="move"><i class="fas fa-ellipsis-v" /></div>
 			<div class="remove" @click.prevent="removeTodo()"><i class="fas fa-trash" /></div>
 		</div>
 	</div>
@@ -15,14 +15,13 @@ export default {
 
 <style>
 .options {
-  float: left;
   min-height: 25px;
   min-width: 25px;
   padding: 0;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 .options .boxed > div {
   margin: 0 5px;

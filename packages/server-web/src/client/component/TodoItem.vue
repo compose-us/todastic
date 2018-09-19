@@ -1,6 +1,7 @@
 <template>
   <div :class="`todo-item todo-item-${todo.todoId}`" :ref="`todo-item-${todo.todoId}`">
-    <div class="todo">
+    <div :class="`todo ${todo.status === 'done' ? 'todo-done' : ''}`">
+      <div class="dropzone-sub" ref="dropzoneSub"></div>
 			<todo-options @click.prevent="toggleAddTodoItem()" />
       <span :class="`status status-${todo.status || 'open'}`" v-on:click="toggleStatus(todo)"></span>
       <span class="id">#{{todo.todoId.substring(0, 4)}}</span>
@@ -11,7 +12,6 @@
       <todo-text ref="updater" :visible="updating" v-on:change="updateTitle" v-bind.sync="{ initialTodoTitle: completeText }" :key="`updateTodo-${todo.todoId}`" />
     </div>
     <todo-text ref="adder" v-on:change="addTodo" :visible="adderVisible" :key="`addTodo-${todo.todoId}`" :parentId="todo.todoId" />
-    <div class="dropzone-sub" ref="dropzoneSub">sub level</div>
   </div>
 </template>
 
@@ -71,21 +71,29 @@ export default {
     };
   },
   methods: {
-    handleDropzoneEnter(event) {
-      event.target.classList.add("active");
-    },
+    handleDropzoneEnter(event) {},
     handleDropzoneOver(event) {
       event.preventDefault();
       event.dataTransfer.dropEffect = "move";
+      event.target.classList.remove("active-top");
+      event.target.classList.remove("active-bottom");
+      const isTopHalf = /* FIXME calculate if mouse is in upper half or not */ false;
+      if (isTopHalf) {
+        event.target.classList.add("active-top");
+      } else {
+        event.target.classList.add("active-bottom");
+      }
       return false;
     },
     handleDropzoneLeave(event) {
-      event.target.classList.remove("active");
+      event.target.classList.remove("active-top");
+      event.target.classList.remove("active-bottom");
     },
     handleDrop(event) {
       const { commands, todo } = this.$props;
       console.log("dropped into sub scope", event, todo);
-      event.target.classList.remove("active");
+      event.target.classList.remove("active-top");
+      event.target.classList.remove("active-bottom");
       const myTodo = JSON.parse(event.dataTransfer.getData("json/todo"));
       commands.changeTodo(myTodo, { parentId: todo.todoId });
     },
@@ -119,13 +127,17 @@ export default {
 
 <style>
 .todo-item {
-  box-shadow: -3px 0px 3px -3px #000;
   margin: 1em 0;
 }
 
 .todo {
+  position: relative;
   display: grid;
   grid-template-columns: 25px 25px 40px max-content 1fr;
+  align-items: center;
+}
+.todo-done {
+  transform: translateX(-50px) scale(0.8);
 }
 .todo > * {
   padding: 5px;
@@ -156,23 +168,27 @@ export default {
   margin: 5px;
 }
 .status.status-done::after {
-  content: "⨯";
+  content: "x";
 }
 .status.status-done {
   border: 2px solid grey;
-  color: #77b55a;
+  color: grey;
 }
 .dropzones {
   display: grid;
   grid-template-columns: 50px 1fr;
 }
 .dropzone-sub {
-  background-color: lightcyan;
-  height: 10px;
-  margin-left: 25px;
-  overflow: hidden;
+  position: absolute;
+  top: -10px;
+  bottom: -10px;
+  left: 25px;
+  right: 0;
 }
-.dropzone-sub.active {
-  background-color: lightgreen;
+.dropzone-sub.active-top {
+  border-top: 5px solid lightgreen;
+}
+.dropzone-sub.active-bottom {
+  border-bottom: 5px solid lightgreen;
 }
 </style>

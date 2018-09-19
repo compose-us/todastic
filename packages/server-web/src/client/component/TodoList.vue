@@ -81,24 +81,33 @@ export default {
     handleDropzoneEnter(event) {
       event.stopPropagation();
       event.preventDefault();
-      event.target.classList.add("active");
     },
     handleDropzoneOver(event) {
       event.stopPropagation();
       event.preventDefault();
       event.dataTransfer.dropEffect = "move";
+      event.target.classList.remove("active-top");
+      event.target.classList.remove("active-bottom");
+      const isTopHalf = /* FIXME calculate if mouse is in upper half or not */ false;
+      if (isTopHalf) {
+        event.target.classList.add("active-top");
+      } else {
+        event.target.classList.add("active-bottom");
+      }
       return false;
     },
     handleDropzoneLeave(event) {
       event.stopPropagation();
       event.preventDefault();
-      event.target.classList.remove("active");
+      event.target.classList.remove("active-top");
+      event.target.classList.remove("active-bottom");
     },
     handleDrop(event) {
       event.stopPropagation();
       const { commands, parentId, todo } = this.$props;
       console.log("dropped into same scope", event, todo);
-      event.target.classList.remove("active");
+      event.target.classList.remove("active-top");
+      event.target.classList.remove("active-bottom");
       const myTodo = JSON.parse(event.dataTransfer.getData("json/todo"));
       // TODO set parentId!
       console.log({ parentId, myTodo });
@@ -111,6 +120,7 @@ export default {
 <style scoped>
 .todo-list {
   clear: both;
+  margin: 5px 0;
 }
 .todo-list ul {
   list-style-type: none;
@@ -125,13 +135,16 @@ export default {
 }
 .dropzone-same {
   position: absolute;
-  height: 100%;
+  top: -10px;
+  bottom: -10px;
+  left: 0;
+  right: 0;
   width: 25px;
-  background-color: lightblue;
-  opacity: 0.8;
 }
-.dropzone-same.active {
-  background-color: lightgreen;
-  opacity: 0.8;
+.dropzone-same.active-top {
+  border-top: 5px solid lightgreen;
+}
+.dropzone-same.active-bottom {
+  border-bottom: 5px solid lightgreen;
 }
 </style>

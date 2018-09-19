@@ -109,12 +109,9 @@ export default {
     handleDrop(event) {
       event.stopPropagation();
       const { commands, parentId, todo } = this.$props;
-      console.log("dropped into same scope", event, todo);
       event.target.classList.remove("active-top");
       event.target.classList.remove("active-bottom");
       const myTodo = JSON.parse(event.dataTransfer.getData("json/todo"));
-      // TODO set parentId!
-      console.log({ parentId, myTodo });
       commands.changeTodo(myTodo, { parentId });
     }
   }

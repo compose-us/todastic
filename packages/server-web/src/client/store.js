@@ -5,10 +5,10 @@ export const store = { todos: [], isAuthenticated: false };
 const allEvents = [];
 
 export function processEvent(event) {
-  console.log(new Date(), "processing event", event);
+  // console.log(new Date(), "processing event", event);
   allEvents.push(event);
   store.todos = replay(allEvents).todos;
-  console.log("new store.todos", store.todos);
+  // console.log("new store.todos", store.todos);
 }
 
 export function setAuthenticated(status) {

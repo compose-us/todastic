@@ -95,7 +95,6 @@ export default {
     },
     handleDrop(event) {
       const { commands, todo } = this.$props;
-      console.log("dropped into sub scope", event, todo);
       event.target.classList.remove("active-top");
       event.target.classList.remove("active-bottom");
       const myTodo = JSON.parse(event.dataTransfer.getData("json/todo"));

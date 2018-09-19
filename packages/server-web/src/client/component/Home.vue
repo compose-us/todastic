@@ -22,16 +22,12 @@ export default {
     repl: Repl
   },
   props: ["commands"],
-  mounted() {
-    console.log("mounted Home.vue");
-  },
   methods: {
     addTodo(newTitle) {
       this.$props.commands.addTodo({ title: newTitle });
     }
   },
   data() {
-    console.log({ store });
     return {
       store
     };

@@ -88,7 +88,11 @@ export default {
       event.dataTransfer.dropEffect = "move";
       event.target.classList.remove("active-top");
       event.target.classList.remove("active-bottom");
-      const isTopHalf = /* FIXME calculate if mouse is in upper half or not */ false;
+
+      const rect = event.target.getBoundingClientRect();
+      const topHalfY = rect.top + rect.height / 2;
+      const isTopHalf = event.clientY <= topHalfY;
+
       if (isTopHalf) {
         event.target.classList.add("active-top");
       } else {

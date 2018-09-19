@@ -4,15 +4,6 @@
     <div style="clear: both;"></div>
     <button class="repl-button" v-on:click="submit">&#x25B6;</button>
     <div style="clear: both;"></div>
-    <div class="repl-help">
-      The scripting section executes arbitrary JavaScript.<br />
-      You can use the complete ToDo tree as <b>list</b> variable.<br /><br />
-      There's also <b>dashboard</b> with the two functions:
-      <ul>
-        <li><b>groupByStatus(list)</b></li>
-        <li><b>trackedTime(list)</b></li>
-      </ul>
-    </div>
   </div>
 </template>
 
@@ -63,13 +54,5 @@ import * as dashboard from "@todastic/dashboard";
   padding: 5px;
   width: 90%;
   height: auto;
-}
-.repl-help {
-  margin-top: 20px;
-  margin-right: 50px;
-  text-align: right;
-}
-.repl-help ul {
-  list-style-type: none;
 }
 </style>

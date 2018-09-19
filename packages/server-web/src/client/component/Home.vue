@@ -3,7 +3,7 @@
     <div>
       <h1>Todastic</h1>
       <todo-list :commands="commands" :todos="store.todos"/>
-      <todo-text v-on:submit="addTodo" :key="addTodo" />
+      <todo-text v-on:submit="addTodo" key="addTodo" />
     </div>
     <repl :list="store.todos" />
   </div>

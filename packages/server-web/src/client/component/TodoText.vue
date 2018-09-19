@@ -1,6 +1,6 @@
 <template>
   <div :class="`todo-text ${visible ? '' : 'hide'}`">
-    <input ref="input" type="text" class="create-todo" @keyup.enter.prevent="submit" :value="todoTitle" :placeholder="placeholder" />
+    <input ref="input" type="text" class="create-todo" @keyup.enter.prevent="change" :value="todoTitle" :placeholder="placeholder" />
   </div>
 </template>
 
@@ -23,8 +23,8 @@ export default {
     }
   },
   methods: {
-    submit(event) {
-      this.$emit('submit', event.target.value);
+    change(event) {
+      this.$emit('change', event.target.value);
       // means, we are in "add new" mode
       if(!this.$props.initialTodoTitle) {
         this.$data.todoTitle = "";

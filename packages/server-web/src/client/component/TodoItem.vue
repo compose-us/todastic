@@ -8,9 +8,9 @@
         <span v-if="!updating" v-on:click="updating=true" :class="`title title-${todo.status || 'open'}`">{{todo.title}}</span>
         <todo-label v-if="!updating" v-for="label in todo.labels" :todoLabel="`${label}`" :key="label" />
       </div>
-      <todo-text ref="updater" :visible="updating" v-on:submit="updateTitle" v-bind.sync="{ initialTodoTitle: completeText }" :key="`updateTodo-${todo.todoId}`" />
+      <todo-text ref="updater" :visible="updating" v-on:change="updateTitle" v-bind.sync="{ initialTodoTitle: completeText }" :key="`updateTodo-${todo.todoId}`" />
     </div>
-    <todo-text ref="adder" v-on:submit="addTodo" :visible="adderVisible" :key="`addTodo-${todo.todoId}`" :parentId="todo.todoId" />
+    <todo-text ref="adder" v-on:change="addTodo" :visible="adderVisible" :key="`addTodo-${todo.todoId}`" :parentId="todo.todoId" />
     <div class="dropzone-sub" ref="dropzoneSub">sub level</div>
   </div>
 </template>
@@ -90,13 +90,13 @@ export default {
       commands.changeTodo(myTodo, { parentId: todo.todoId });
     },
     updateTitle(newTitle) {
-      const { commands } = this.$props;
-      commands.changeTodo(this.todo, { title: newTitle });
+      const { commands, todo } = this.$props;
+      commands.changeTodo(todo, { title: newTitle });
       this.updating = false;
     },
     addTodo(newTitle) {
-      const { commands } = this.$props;
-      commands.addTodo({ title: newTitle, parentId: this.todo.todoId });
+      const { commands, todo } = this.$props;
+      commands.addTodo({ title: newTitle, parentId: todo.todoId });
     },
     toggleStatus(todo) {
       const { commands } = this.$props;

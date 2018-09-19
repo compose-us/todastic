@@ -1,19 +1,21 @@
 function replay(events) {
   const todos = events.reduce((todos, event) => {
-    if (event.eventType === "ADDED_TODO") {
-      return addTodo(todos, event.data);
-    } else if (event.eventType === "REMOVED_TODO") {
-      return removeTodo(todos, event.data);
-    } else if (event.eventType === "CHANGED_TODO") {
-      if (event.data.parentId !== undefined) {
-        const result = moveTodo(todos, event);
-        if (result.moved) {
-          return result.result;
+    switch (event.eventType) {
+      case "ADDED_TODO":
+        return addTodo(todos, event.data);
+      case "REMOVED_TODO":
+        return removeTodo(todos, event.data);
+      case "CHANGED_TODO":
+        if (event.data.parentId !== undefined) {
+          const result = moveTodo(todos, event);
+          if (result.moved) {
+            return result.result;
+          }
         }
-      }
-      return changedTodo(todos, event.data);
+        return changedTodo(todos, event.data);
+      default:
+        return todos;
     }
-    return todos;
   }, []);
   return { todos };
 }

@@ -97,6 +97,162 @@ Array [
 ]
 `;
 
+exports[`replay editing todos CHANGED_TODO can move from root scope 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "children": Array [
+          Object {
+            "children": Array [],
+            "parentId": "id-1-1",
+            "title": "Added a child",
+            "todoId": "id-1-1-2",
+          },
+          Object {
+            "children": Array [],
+            "parentId": "id-1-1",
+            "title": "Added a child",
+            "todoId": "id-3",
+          },
+        ],
+        "parentId": "id-1",
+        "title": "Added a child",
+        "todoId": "id-1-1",
+      },
+      Object {
+        "children": Array [],
+        "parentId": "id-1",
+        "title": "Added a child",
+        "todoId": "id-1-2",
+      },
+    ],
+    "title": "Create a todo",
+    "todoId": "id-1",
+  },
+  Object {
+    "children": Array [],
+    "title": "Added a child",
+    "todoId": "id-2",
+  },
+]
+`;
+
+exports[`replay editing todos CHANGED_TODO can move from root to root scope 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "children": Array [
+          Object {
+            "children": Array [],
+            "parentId": "id-1-1",
+            "title": "Added a child",
+            "todoId": "id-1-1-2",
+          },
+        ],
+        "parentId": "id-1",
+        "title": "Added a child",
+        "todoId": "id-1-1",
+      },
+      Object {
+        "children": Array [],
+        "parentId": "id-1",
+        "title": "Added a child",
+        "todoId": "id-1-2",
+      },
+    ],
+    "title": "Create a todo",
+    "todoId": "id-1",
+  },
+  Object {
+    "children": Array [],
+    "title": "Added a child",
+    "todoId": "id-2",
+  },
+  Object {
+    "children": Array [],
+    "title": "Created another todo",
+    "todoId": "id-3",
+  },
+]
+`;
+
+exports[`replay editing todos CHANGED_TODO can move into root scope 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "children": Array [
+          Object {
+            "children": Array [],
+            "parentId": "id-1-1",
+            "title": "Added a child",
+            "todoId": "id-1-1-2",
+          },
+        ],
+        "parentId": "id-1",
+        "title": "Added a child",
+        "todoId": "id-1-1",
+      },
+      Object {
+        "children": Array [],
+        "parentId": "id-1",
+        "title": "Added a child",
+        "todoId": "id-1-2",
+      },
+    ],
+    "title": "Create a todo",
+    "todoId": "id-1",
+  },
+  Object {
+    "children": Array [],
+    "title": "Added a child",
+    "todoId": "id-2",
+  },
+  Object {
+    "children": Array [],
+    "title": "Added a child",
+    "todoId": "id-1-1-1",
+  },
+]
+`;
+
+exports[`replay editing todos CHANGED_TODO can move subtasks to other parents 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "children": Array [],
+        "parentId": "id-1",
+        "title": "Added a child",
+        "todoId": "id-1-2",
+      },
+    ],
+    "title": "Create a todo",
+    "todoId": "id-1",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "children": Array [],
+        "parentId": "id-2",
+        "title": "Added a child",
+        "todoId": "id-2-1",
+      },
+      Object {
+        "children": Array [],
+        "parentId": "id-2",
+        "title": "Added a child",
+        "todoId": "id-1-1",
+      },
+    ],
+    "title": "Added a child",
+    "todoId": "id-2",
+  },
+]
+`;
+
 exports[`replay editing todos CHANGED_TODO can replay changes in a child 1`] = `
 Object {
   "children": Array [
@@ -110,6 +266,61 @@ Object {
   "title": "do it",
   "todoId": "a0ca6051-43f9-410e-86c9-75ae37a1c682",
 }
+`;
+
+exports[`replay editing todos CHANGED_TODO moves subtasks from subtasks to different parents in other trees 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "children": Array [],
+        "parentId": "id-1",
+        "title": "Added a child",
+        "todoId": "id-1-1",
+      },
+      Object {
+        "children": Array [
+          Object {
+            "children": Array [],
+            "parentId": "id-1-2",
+            "title": "Added a child",
+            "todoId": "id-1-2-1",
+          },
+        ],
+        "parentId": "id-1",
+        "title": "Added a child",
+        "todoId": "id-1-2",
+      },
+    ],
+    "title": "Create a todo",
+    "todoId": "id-1",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "children": Array [
+          Object {
+            "children": Array [],
+            "parentId": "id-2-1",
+            "title": "Added a child",
+            "todoId": "id-1-2-2",
+          },
+        ],
+        "parentId": "id-2",
+        "title": "Added a child",
+        "todoId": "id-2-1",
+      },
+      Object {
+        "children": Array [],
+        "parentId": "id-2",
+        "title": "Added a child",
+        "todoId": "id-2-2",
+      },
+    ],
+    "title": "Added a child",
+    "todoId": "id-2",
+  },
+]
 `;
 
 exports[`replay editing todos CHANGED_TODO only edits the things provided in data and does not touch other fields 1`] = `
@@ -135,6 +346,211 @@ Object {
   "title": "Changed the todo",
   "todoId": "id-1",
 }
+`;
+
+exports[`replay editing todos CHANGED_TODO will not move itself into a child of itself 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "children": Array [
+          Object {
+            "children": Array [],
+            "parentId": "id-1-1",
+            "title": "Added a child",
+            "todoId": "id-1-1-1",
+          },
+          Object {
+            "children": Array [],
+            "parentId": "id-1-1",
+            "title": "Added a child",
+            "todoId": "id-1-1-2",
+          },
+        ],
+        "parentId": "id-1",
+        "title": "Added a child",
+        "todoId": "id-1-1",
+      },
+      Object {
+        "children": Array [],
+        "parentId": "id-1",
+        "title": "Added a child",
+        "todoId": "id-1-2",
+      },
+    ],
+    "title": "Create a todo",
+    "todoId": "id-1",
+  },
+  Object {
+    "children": Array [],
+    "title": "Added a child",
+    "todoId": "id-2",
+  },
+]
+`;
+
+exports[`replay editing todos CHANGED_TODO will not move itself into a grandchild of itself 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "children": Array [
+          Object {
+            "children": Array [],
+            "parentId": "id-1-1",
+            "title": "Added a child",
+            "todoId": "id-1-1-1",
+          },
+          Object {
+            "children": Array [],
+            "parentId": "id-1-1",
+            "title": "Added a child",
+            "todoId": "id-1-1-2",
+          },
+        ],
+        "parentId": "id-1",
+        "title": "Added a child",
+        "todoId": "id-1-1",
+      },
+      Object {
+        "children": Array [],
+        "parentId": "id-1",
+        "title": "Added a child",
+        "todoId": "id-1-2",
+      },
+    ],
+    "title": "Create a todo",
+    "todoId": "id-1",
+  },
+  Object {
+    "children": Array [],
+    "title": "Added a child",
+    "todoId": "id-2",
+  },
+]
+`;
+
+exports[`replay editing todos CHANGED_TODO will not move itself into itself 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "children": Array [
+          Object {
+            "children": Array [],
+            "parentId": "id-1-1",
+            "title": "Added a child",
+            "todoId": "id-1-1-1",
+          },
+          Object {
+            "children": Array [],
+            "parentId": "id-1-1",
+            "title": "Added a child",
+            "todoId": "id-1-1-2",
+          },
+        ],
+        "parentId": "id-1",
+        "title": "Added a child",
+        "todoId": "id-1-1",
+      },
+      Object {
+        "children": Array [],
+        "parentId": "id-1",
+        "title": "Added a child",
+        "todoId": "id-1-2",
+      },
+    ],
+    "title": "Create a todo",
+    "todoId": "id-1",
+  },
+  Object {
+    "children": Array [],
+    "title": "Added a child",
+    "todoId": "id-2",
+  },
+]
+`;
+
+exports[`replay editing todos CHANGED_TODO works when moving a todo down 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "children": Array [
+          Object {
+            "children": Array [],
+            "parentId": "id-1-1",
+            "title": "Added a child",
+            "todoId": "id-1-1-2",
+          },
+          Object {
+            "children": Array [],
+            "parentId": "id-1-1",
+            "title": "Added a child",
+            "todoId": "id-1-1-1",
+          },
+        ],
+        "parentId": "id-1",
+        "title": "Added a child",
+        "todoId": "id-1-1",
+      },
+      Object {
+        "children": Array [],
+        "parentId": "id-1",
+        "title": "Added a child",
+        "todoId": "id-1-2",
+      },
+    ],
+    "title": "Create a todo",
+    "todoId": "id-1",
+  },
+  Object {
+    "children": Array [],
+    "title": "Added a child",
+    "todoId": "id-2",
+  },
+]
+`;
+
+exports[`replay editing todos CHANGED_TODO works when moving a todo up 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "children": Array [
+          Object {
+            "children": Array [],
+            "parentId": "id-1-1",
+            "title": "Added a child",
+            "todoId": "id-1-1-2",
+          },
+        ],
+        "parentId": "id-1",
+        "title": "Added a child",
+        "todoId": "id-1-1",
+      },
+      Object {
+        "children": Array [],
+        "parentId": "id-1",
+        "title": "Added a child",
+        "todoId": "id-1-2",
+      },
+      Object {
+        "children": Array [],
+        "parentId": "id-1",
+        "title": "Added a child",
+        "todoId": "id-1-1-1",
+      },
+    ],
+    "title": "Create a todo",
+    "todoId": "id-1",
+  },
+  Object {
+    "children": Array [],
+    "title": "Added a child",
+    "todoId": "id-2",
+  },
+]
 `;
 
 exports[`replay editing todos EDITING_TODO does not care in the store about intermediate edits 1`] = `

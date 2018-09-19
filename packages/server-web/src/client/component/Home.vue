@@ -2,8 +2,8 @@
   <div class="todasticapp">
     <div>
       <h1>Todastic</h1>
-      <todo-list :commands="commands" :todos="store.todos"/>
-      <todo-text v-on:submit="addTodo" key="addTodo" />
+      <todo-list :commands="commands" :parentId="null" :todos="store.todos" key="root-list" />
+      <todo-text v-on:change="addTodo" key="root-adder" />
     </div>
     <repl :list="store.todos" />
   </div>
@@ -19,7 +19,7 @@ export default {
   components: {
     "todo-list": TodoList,
     "todo-text": TodoText,
-    "repl": Repl
+    repl: Repl
   },
   props: ["commands"],
   methods: {

@@ -19,14 +19,23 @@ export default function createSocketConnection(eventProcessor) {
       socket.emit("command", { command: "REMOVE_TODO", data: { todoId: todo.todoId } });
     },
     changeTodo(todo, changeset) {
-      const { text, labels, trackedTimes } = extractDetails(changeset.title);
+      const data = prepareChangeData(todo, changeset);
       socket.emit("command", {
         command: "CHANGE_TODO",
-        data: { ...changeset, labels, title: text, trackedTimes, todoId: todo.todoId }
+        data
       });
     },
     connect() {
       socket.open();
     }
   };
+}
+
+function prepareChangeData(todo, changeset) {
+  let data = { ...changeset, todoId: todo.todoId };
+  if (changeset.title) {
+    const { text, labels, trackedTimes } = extractDetails(changeset.title);
+    data = { ...data, labels, title: text, trackedTimes };
+  }
+  return data;
 }

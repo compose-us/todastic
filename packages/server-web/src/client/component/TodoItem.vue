@@ -83,9 +83,11 @@ export default {
       event.target.classList.remove("active");
     },
     handleDrop(event) {
-      const { todo } = this.$props;
+      const { commands, todo } = this.$props;
       console.log("dropped into sub scope", event, todo);
       event.target.classList.remove("active");
+      const myTodo = JSON.parse(event.dataTransfer.getData("json/todo"));
+      commands.changeTodo(myTodo, { parentId: todo.todoId });
     },
     updateTitle(newTitle) {
       this.$props.commands.changeTodo(this.todo, { title: newTitle });

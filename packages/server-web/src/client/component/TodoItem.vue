@@ -1,12 +1,12 @@
 <template>
   <div :class="`todo-item todo-item-${todo.todoId}`" :ref="`todo-item-${todo.todoId}`">
     <div :class="`todo ${todo.status === 'done' ? 'todo-done' : ''}`">
-      <div class="dropzone-sub" ref="dropzoneSub"></div>
+      <div class="dropzone-sub" v-if="!updating" v-on:click="updating=true" ref="dropzoneSub"></div>
 			<todo-options @click.prevent="toggleAddTodoItem()" />
       <span :class="`status status-${todo.status || 'open'}`" v-on:click="toggleStatus(todo)"></span>
       <span class="id">#{{todo.todoId.substring(0, 4)}}</span>
       <div>
-        <span v-if="!updating" v-on:click="updating=true" :class="`title title-${todo.status || 'open'}`">{{todo.title}}</span>
+        <span v-if="!updating" :class="`title title-${todo.status || 'open'}`">{{todo.title}}</span>
         <todo-label v-if="!updating" v-for="label in todo.labels" :todoLabel="`${label}`" :key="label" />
       </div>
       <todo-text ref="updater" :visible="updating" v-on:change="updateTitle" v-bind.sync="{ initialTodoTitle: completeText }" :key="`updateTodo-${todo.todoId}`" />

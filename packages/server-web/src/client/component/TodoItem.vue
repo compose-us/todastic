@@ -141,7 +141,7 @@ export default {
   align-items: center;
 }
 .todo-done {
-  transform: translateX(-57px) scale(0.9);
+  font-size: 0.9em;
 }
 .todo > * {
   padding: 5px;

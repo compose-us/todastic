@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <div id="nav">
-          <button v-on:click="showHelp=true" class="help">?</button>
+          <button v-if="isAuthenticated" v-on:click="showHelp=true" class="help">?</button>
 					<help v-if="showHelp" @close="showHelp = false" />
 
           <router-link tag="button" v-if="isAuthenticated" to="/login" v-on:click.native="logout()" replace>Logout</router-link>
@@ -68,7 +68,7 @@ export default {
 @import "../main.css";
 .help {
   color: black;
-  background: #f5f5f5;
+  background: #ffffff;
   border-radius: 50%;
   margin-right: 10px;
 }

@@ -30,7 +30,7 @@ function createSocketOnServer({ httpServer, session, User, Event, logger }) {
       command.userId = socket.user._id;
       processCommand(e =>
         connectedSockets.forEach(s => {
-          if (s.user._id === e.userId) {
+          if (s.user._id.toString() == e.userId) {
             s.emit("event", e);
           }
         })

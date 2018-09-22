@@ -62,6 +62,9 @@ export default {
     titleWithLabels: function() {
       const { todo } = this.$props;
       return `${todo.title} ${todo.labels.join(" ")}`;
+    },
+    isDragging() {
+      return this.$store.getters.isDragging;
     }
   },
   data() {
@@ -71,9 +74,6 @@ export default {
     };
   },
   methods: {
-    isDragging() {
-       return document.body.classList.contains("dragging");
-    },
     handleDropzoneEnter(event) {},
     handleDropzoneOver(event) {
       event.preventDefault();
@@ -198,7 +198,7 @@ export default {
   border-bottom: 5px solid lightgreen;
 }
 .dropzone-active {
-  z-index: 20;
+  z-index: 200;
 }
 .dropzone-inactive {
   z-index: -1;

@@ -2,17 +2,17 @@
   <div class="todasticapp">
     <div>
       <h1>Todastic</h1>
-      <todo-list :commands="commands" :parentId="null" :todos="store.todos" key="root-list" />
+      <todo-list :commands="commands" :parentId="null" :todos="todoStore.todos" key="root-list" />
       <todo-text v-on:change="addTodo" key="root-adder" />
     </div>
-    <repl :list="store.todos" />
+    <repl :list="todoStore.todos" />
   </div>
 </template>
 
 <script>
 import TodoList from "./TodoList.vue";
 import TodoText from "./TodoText.vue";
-import { store } from "../store.js";
+import { todoStore } from "../todo-store.js";
 import Repl from "./Repl.vue";
 
 export default {
@@ -29,7 +29,7 @@ export default {
   },
   data() {
     return {
-      store
+      todoStore
     };
   }
 };

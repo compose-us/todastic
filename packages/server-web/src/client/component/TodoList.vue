@@ -31,10 +31,12 @@ export default {
   beforeDestroy() {
     this.removeDragListeners();
   },
-  methods: {
+  computed: {
     isDragging() {
-       return document.body.classList.contains("dragging");
-    },
+      return this.$store.getters.isDragging;
+    }
+  },
+  methods: {
     addDragListeners() {
       const { dragElement, dropzoneSame } = this.$refs;
       if (dragElement) {
@@ -77,11 +79,11 @@ export default {
       event.dataTransfer.effectAllowed = "move";
       const todo = todos.find(t => t.todoId === todoId);
       event.dataTransfer.setData("json/todo", JSON.stringify(todo));
-      document.body.classList.add("dragging");
+      this.$store.commit('isDragging', true);
     },
     handleDragEnd(event) {
       event.target.classList.remove("dragging");
-      document.body.classList.remove("dragging");
+      this.$store.commit('isDragging', false);
     },
     handleDropzoneEnter(event) {
       event.stopPropagation();
@@ -154,7 +156,7 @@ export default {
   border-bottom: 5px solid lightgreen;
 }
 .dropzone-active {
-  z-index: 20;
+  z-index: 200;
 }
 .dropzone-inactive {
   z-index: -1;

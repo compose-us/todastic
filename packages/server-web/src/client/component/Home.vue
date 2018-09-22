@@ -5,7 +5,7 @@
       <todo-list :commands="commands" :parentId="null" :todos="store.todos" key="root-list" />
       <todo-text v-on:change="addTodo" key="root-adder" />
     </div>
-    <repl :list="store.todos" />
+    <script-editor :list="store.todos" />
   </div>
 </template>
 
@@ -13,13 +13,13 @@
 import TodoList from "./TodoList.vue";
 import TodoText from "./TodoText.vue";
 import { store } from "../store.js";
-import Repl from "./Repl.vue";
+import ScriptEditor from "./ScriptEditor.vue";
 
 export default {
   components: {
+    "script-editor": ScriptEditor,
     "todo-list": TodoList,
-    "todo-text": TodoText,
-    repl: Repl
+    "todo-text": TodoText
   },
   props: ["commands"],
   methods: {

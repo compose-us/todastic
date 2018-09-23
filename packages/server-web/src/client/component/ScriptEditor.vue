@@ -1,6 +1,6 @@
 <template>
   <div class="script-editor">
-    <textarea rows=10 ref="input" type="text" @keyup.enter.prevent="submit" class="script-editor-input" v-model="scriptingText" :placeholder="placeholder" />
+    <textarea rows=10 ref="input" type="text" class="script-editor-input" v-model="scriptingText" :placeholder="placeholder" />
     <div style="clear: both;"></div>
     <button class="script-editor-button" v-on:click="submit">&#x25B6;</button>
     <div style="clear: both;"></div>

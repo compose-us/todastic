@@ -1,12 +1,12 @@
 <template>
   <div :class="`todo-item todo-item-${todo.todoId}`" :ref="`todo-item-${todo.todoId}`">
     <div :class="`todo ${todo.status === 'done' ? 'todo-done' : ''}`">
-      <div class="dropzone-sub" v-if="!updating" v-on:click="updating=true" ref="dropzoneSub"></div>
+      <div :class="`dropzone-sub dropzone-${ isDragging ? 'active' : 'inactive' }`" v-if="!updating" ref="dropzoneSub"></div>
 			<todo-options @click.prevent="toggleAddTodoItem()" />
       <span :class="`status status-${todo.status || 'open'}`" v-on:click="toggleStatus(todo)"></span>
       <span class="id">#{{todo.todoId.substring(0, 4)}}</span>
       <div>
-        <span v-if="!updating" :class="`title title-${todo.status || 'open'}`">{{todo.title}}</span>
+        <span v-if="!updating" v-on:click="updating=true" :class="`title title-${todo.status || 'open'}`">{{todo.title}}</span>
         <todo-label v-if="!updating" v-for="label in todo.labels" :todoLabel="`${label}`" :key="label" />
       </div>
       <todo-text ref="updater" :visible="updating" v-on:change="updateTitle" v-bind.sync="{ initialTodoTitle: completeText }" :key="`updateTodo-${todo.todoId}`" />
@@ -18,7 +18,6 @@
 <script>
 import TodoText from "./TodoText.vue";
 import TodoOptions from "./TodoOptions.vue";
-import { store } from "../store.js";
 import TodoLabel from "./TodoLabel.vue";
 
 export default {
@@ -63,6 +62,9 @@ export default {
     titleWithLabels: function() {
       const { todo } = this.$props;
       return `${todo.title} ${todo.labels.join(" ")}`;
+    },
+    isDragging() {
+      return this.$store.getters.isDragging;
     }
   },
   data() {
@@ -194,5 +196,11 @@ export default {
 }
 .dropzone-sub.active-bottom {
   border-bottom: 5px solid lightgreen;
+}
+.dropzone-active {
+  z-index: 200;
+}
+.dropzone-inactive {
+  z-index: -1;
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="todo-list">
     <ul>
       <li v-for="todo in todos" :key="todo.todoId" :todoId="todo.todoId" draggable="true" ref="dragElement">
-        <div class="dropzone-same" ref="dropzoneSame"></div>
+        <div :class="`dropzone-same dropzone-${ isDragging ? 'active' : 'inactive' }`" ref="dropzoneSame"></div>
         <todo-item :commands="commands" :todo="todo"/>
         <todo-list :commands="commands" :parentId="todo.todoId" :todos="todo.children"/>
       </li>
@@ -30,6 +30,11 @@ export default {
   },
   beforeDestroy() {
     this.removeDragListeners();
+  },
+  computed: {
+    isDragging() {
+      return this.$store.getters.isDragging;
+    }
   },
   methods: {
     addDragListeners() {
@@ -74,9 +79,11 @@ export default {
       event.dataTransfer.effectAllowed = "move";
       const todo = todos.find(t => t.todoId === todoId);
       event.dataTransfer.setData("json/todo", JSON.stringify(todo));
+      this.$store.commit('isDragging', true);
     },
     handleDragEnd(event) {
       event.target.classList.remove("dragging");
+      this.$store.commit('isDragging', false);
     },
     handleDropzoneEnter(event) {
       event.stopPropagation();
@@ -147,5 +154,11 @@ export default {
 }
 .dropzone-same.active-bottom {
   border-bottom: 5px solid lightgreen;
+}
+.dropzone-active {
+  z-index: 200;
+}
+.dropzone-inactive {
+  z-index: -1;
 }
 </style>

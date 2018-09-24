@@ -1,28 +1,36 @@
+import Vue from "vue";
+import Vuex from "vuex";
 import { replay } from "@todastic/storage-events";
 
-export const store = { todos: [], isAuthenticated: false };
+Vue.use(Vuex);
 
-const allEvents = [];
-let currentEventPositon = -1;
-
-export function processEvent(event) {
-  // console.log(new Date(), "processing event", event);
-  if (event.position > currentEventPositon) {
-    allEvents.push(event);
-    currentEventPositon = event.position;
-    store.todos = replay(allEvents).todos;
+export const store = new Vuex.Store({
+  state: {
+    isDragging: false,
+    allEvents: [],
+    currentEventPositon: -1,
+    todos: []
+  },
+  getters: {
+    isDragging(state) {
+      return state.isDragging;
+    },
+    todos(state) {
+      return state.todos;
+    }
+  },
+  mutations: {
+    isDragging(state, val) {
+      if (val === true || val === false) {
+        state.isDragging = val;
+      }
+    },
+    processEvent(state, event) {
+      if (event.position > state.currentEventPositon) {
+        state.allEvents.push(event);
+        state.currentEventPositon = event.position;
+        state.todos = replay(state.allEvents).todos;
+      }
+    }
   }
-  // console.log("new store.todos", store.todos);
-}
-
-export function setAuthenticated(status) {
-  if (status === false || status === true) {
-    store.isAuthenticated = status;
-  }
-}
-export function logout() {
-  store.isAuthenticated = false;
-}
-export function isAuthenticated() {
-  return store.isAuthenticated;
-}
+});

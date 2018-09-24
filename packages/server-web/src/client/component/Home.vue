@@ -2,7 +2,7 @@
   <div class="todasticapp">
     <div>
       <h1>Todastic</h1>
-      <todo-list :commands="commands" :parentId="null" :todos="store.todos" key="root-list" />
+      <todo-list :commands="commands" :parentId="null" :todos="todos" key="root-list" />
       <todo-text v-on:change="addTodo" key="root-adder" />
     </div>
     <script-editor :list="store.todos" />
@@ -12,7 +12,6 @@
 <script>
 import TodoList from "./TodoList.vue";
 import TodoText from "./TodoText.vue";
-import { store } from "../store.js";
 import ScriptEditor from "./ScriptEditor.vue";
 
 export default {
@@ -27,10 +26,10 @@ export default {
       this.$props.commands.addTodo({ title: newTitle });
     }
   },
-  data() {
-    return {
-      store
-    };
+  computed: {
+    todos() {
+      return this.$store.getters.todos;
+    }
   }
 };
 

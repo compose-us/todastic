@@ -4,22 +4,24 @@
           <button v-if="isAuthenticated" v-on:click="showHelp=true" class="help">?</button>
 					<help v-if="showHelp" @close="showHelp = false" />
 
-          <router-link tag="button" v-if="isAuthenticated" to="/login" v-on:click.native="logout()" replace>Logout</router-link>
+          <profile />
         </div>
         <loading v-if="isLoading" />
-        <router-view v-if="!isLoading"  @isAuthenticated="setAuthenticated" />
+        <router-view v-if="!isLoading" />
     </div>
 </template>
 
 <script>
 import Loading from "./Loading.vue";
 import Help from "./Help.vue";
+import Profile from "./Profile.vue";
 
 export default {
   name: "App",
   components: {
     "loading": Loading,
-    "help": Help
+    "help": Help,
+    "profile": Profile
   },
   data() {
     return {
@@ -36,21 +38,6 @@ export default {
         this.$store.commit('isAuthenticated', false);
         this.$router.replace({ name: "login" });
       });
-  },
-  methods: {
-    logout() {
-      this.$http
-        .post("/logout", {})
-        .then(function(response) {
-          this.$store.commit('isAuthenticated', false);
-          this.$store.commit('isLoading', false);
-          this.$router.replace({ name: "login" });
-        })
-        .catch(function(err) {
-          console.log(err);
-          // TODO proper error handling
-        });
-    }
   },
   computed: {
     isLoading() {

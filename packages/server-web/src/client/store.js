@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { replay } from "@todastic/storage-events";
+import { mapGetters } from "vuex";
 
 Vue.use(Vuex);
 
@@ -56,6 +57,9 @@ export const store = new Vuex.Store({
         state.currentEventPositon = event.position;
         state.todos = replay(state.allEvents).todos;
       }
+    },
+    changePassword(state, val) {
+      console.log("will change password", val);
     }
   }
 });

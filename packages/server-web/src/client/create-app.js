@@ -35,11 +35,12 @@ function createRouter(commands) {
 }
 
 export default function createApp(commands) {
+  store.commit("commands", commands);
   const router = createRouter(commands);
   new Vue({
     el: "#app",
     store,
-    render: h => h(AppComponent, { props: { commands } }),
+    render: h => h(AppComponent),
     router
   });
 }

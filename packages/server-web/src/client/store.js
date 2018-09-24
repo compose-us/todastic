@@ -9,9 +9,18 @@ export const store = new Vuex.Store({
     isDragging: false,
     allEvents: [],
     currentEventPositon: -1,
-    todos: []
+    todos: [],
+    commands: [],
+    isAuthenticated: false,
+    isLoading: false
   },
   getters: {
+    isLoading(state) {
+      return state.isLoading;
+    },
+    isAuthenticated(state) {
+      return state.isAuthenticated;
+    },
     isDragging(state) {
       return state.isDragging;
     },
@@ -20,10 +29,26 @@ export const store = new Vuex.Store({
     }
   },
   mutations: {
+    isLoading(state, val) {
+      if (val === true || val === false) {
+        state.isLoading = val;
+      }
+    },
+    isAuthenticated(state, val) {
+      if (val === true || val === false) {
+        state.isAuthenticated = val;
+        if (val) {
+          state.commands.connect();
+        }
+      }
+    },
     isDragging(state, val) {
       if (val === true || val === false) {
         state.isDragging = val;
       }
+    },
+    commands(state, commands) {
+      state.commands = commands;
     },
     processEvent(state, event) {
       if (event.position > state.currentEventPositon) {

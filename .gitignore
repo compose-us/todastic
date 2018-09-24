@@ -2,7 +2,7 @@
 node_modules
 .DS_Store
 coverage
-dist/
+**/dist/client.dist.js
 .vscode/
 lerna-debug.log
 *.events

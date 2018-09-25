@@ -85,27 +85,15 @@ export default {
     handleDropzoneOver(event) {
       event.preventDefault();
       event.dataTransfer.dropEffect = "move";
-      event.target.classList.remove("active-top");
       event.target.classList.remove("active-bottom");
-
-      const rect = event.target.getBoundingClientRect();
-      const topHalfY = rect.top + rect.height / 2;
-      const isTopHalf = event.clientY <= topHalfY;
-
-      if (isTopHalf) {
-        event.target.classList.add("active-top");
-      } else {
-        event.target.classList.add("active-bottom");
-      }
+      event.target.classList.add("active-bottom");
       return false;
     },
     handleDropzoneLeave(event) {
-      event.target.classList.remove("active-top");
       event.target.classList.remove("active-bottom");
     },
     handleDrop(event) {
       const { commands, todo } = this.$props;
-      event.target.classList.remove("active-top");
       event.target.classList.remove("active-bottom");
       const myTodo = JSON.parse(event.dataTransfer.getData("json/todo"));
       commands.changeTodo(myTodo, { parentId: todo.todoId });
@@ -205,13 +193,10 @@ export default {
 }
 .dropzone-sub {
   position: absolute;
-  top: -10px;
+  top: 0px;
   bottom: -10px;
   left: 25px;
   right: 0;
-}
-.dropzone-sub.active-top {
-  border-top: 5px solid lightgreen;
 }
 .dropzone-sub.active-bottom {
   border-bottom: 5px solid lightgreen;

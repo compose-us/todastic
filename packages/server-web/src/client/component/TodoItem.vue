@@ -2,7 +2,7 @@
   <div :class="`todo-item todo-item-${todo.todoId}`" :ref="`todo-item-${todo.todoId}`">
     <div :class="`todo ${todo.status === 'done' ? 'todo-done' : ''}`">
       <div :class="`dropzone-sub dropzone-${ isDragging ? 'active' : 'inactive' }`" v-if="!updating" ref="dropzoneSub"></div>
-			<todo-options @click.prevent="toggleAddTodoItem()" />
+			<todo-options @click.prevent="toggleAddTodoItem" :removeTodo="removeTodo" />
       <span :class="`status status-${todo.status || 'open'}`" v-on:click="toggleStatus(todo)"></span>
       <span class="id">#{{todo.todoId.substring(0, 4)}}</span>
       <div>
@@ -124,8 +124,9 @@ export default {
         this.$nextTick(() => this.$refs.adder.$refs.input.focus());
       }
     },
-    removeTodo(todo) {
-      return () => this.$props.commands.removeTodo(todo);
+    removeTodo() {
+      const { commands, todo } = this.$props;
+      return commands.removeTodo(todo);
     }
   }
 };

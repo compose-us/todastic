@@ -5,7 +5,7 @@
       <todo-list :commands="commands" :parentId="null" :todos="todos" key="root-list" />
       <todo-text v-on:change="addTodo" key="root-adder" />
     </div>
-    <script-editor :list="store.todos" />
+    <script-editor :list="todos" />
   </div>
 </template>
 

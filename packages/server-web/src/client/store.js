@@ -1,7 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { replay } from "@todastic/storage-events";
-import { mapGetters } from "vuex";
 
 Vue.use(Vuex);
 

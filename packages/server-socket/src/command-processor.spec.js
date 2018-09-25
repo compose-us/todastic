@@ -46,6 +46,23 @@ describe("command-processor", () => {
       });
     });
 
+    it("sends a CHANGED_PASSWORD event when a correct CHANGE_PASSWORD command was received", async () => {
+      const User = {
+        findOneAndUpdate: () =>
+          new Promise((resolve, reject) => {
+            resolve({ _id: "uu" });
+          })
+      };
+      const { processCommand } = createCommandProcessor({ Event, User, logger: console });
+      const command = { command: "CHANGE_PASSWORD", data: { newPassword: "verySecret" }, userId: "uu" };
+      await processCommand(sendEvent)(command);
+      expect(createMock).toHaveBeenCalled();
+      expect(sendEvent).toHaveBeenCalledTimes(1);
+      expect(createMock.mock.calls[0][0]).toMatchSnapshot({
+        createdAt: expect.any(Number)
+      });
+    });
+
     it("doesn't create an empty label array for a CHANGED_TODO event out of the blue", async () => {
       const { processCommand } = createCommandProcessor({ Event, logger: console });
       const command = { command: "CHANGE_TODO", data: { status: "done", todoId: "id-1" }, userId: "uu" };

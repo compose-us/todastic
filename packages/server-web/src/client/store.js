@@ -59,7 +59,7 @@ export const store = new Vuex.Store({
       }
     },
     changePassword(state, val) {
-      console.log("will change password", val);
+      state.commands.changePassword(val);
     }
   }
 });

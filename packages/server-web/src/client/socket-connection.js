@@ -27,6 +27,12 @@ export default function createSocketConnection(eventProcessor) {
     },
     connect() {
       socket.open();
+    },
+    changePassword(newPassword) {
+      socket.emit("command", {
+        command: "CHANGE_PASSWORD",
+        newPassword
+      });
     }
   };
 }

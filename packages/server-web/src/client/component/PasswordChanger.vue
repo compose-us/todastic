@@ -13,9 +13,15 @@
           <div class="modal-body">
             <slot name="body">
               <div class="entry">
-                New password: <input v-model="pass1" type="password"></input>
-                Retype new password: <input v-model="pass2" type="password"></input>
-                <button @click.prevent="changePassword">Submit</button>
+                <div class="form">
+                  New password: <input v-model="pass1" type="password"></input>
+                </div><div class="form">
+                  Retype new password: <input v-model="pass2" type="password"></input>
+                  <span class="indicator" v-if="notsame" style="color: red">≠</span>
+                  <span class="indicator" v-if="same" style="color: green">✓</span>
+                </div><div class="form">
+                  <button id="change-password" @click.prevent="changePassword" :disabled="notsame || empty">Submit</button>
+                </div>
               </div>
             </slot>
           </div>
@@ -48,11 +54,32 @@ export default {
       this.$store.commit("changePassword", this.$data.pass1);
       this.$emit('close');
     }
+  },
+  computed: {
+    empty() {
+      return this.$data.pass1.length == 0;
+    },
+    notsame() {
+      return !this.empty && this.$data.pass1 != this.$data.pass2;
+    },
+    same() {
+      return !this.empty && this.$data.pass1 == this.$data.pass2;
+    }
   }
 }
 </script>
 
 <style>
+#change-password:disabled {
+  background: #C8C8C8;
+}
+.form {
+  margin: 10px;
+}
+.indicator {
+  margin-left: 10px;
+  font-size: x-large;
+}
 .entry {
   padding-bottom: 20px;
   font-size: medium;

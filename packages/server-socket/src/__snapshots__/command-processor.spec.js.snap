@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`command-processor processCommand sends a CHANGED_PASSWORD event when a correct CHANGE_PASSWORD command was received 1`] = `
+Object {
+  "createdAt": Any<Number>,
+  "data": Object {},
+  "eventType": "CHANGED_PASSWORD",
+  "userId": "uu",
+}
+`;
+
 exports[`command-processor processCommand sends a CHANGED_TODO event when a correct CHANGE_TODO command was received 1`] = `
 Object {
   "createdAt": Any<Number>,

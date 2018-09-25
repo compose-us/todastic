@@ -174,7 +174,7 @@ export default {
 }
 .dropzone-sub {
   position: absolute;
-  top: 10px;
+  top: 0px;
   bottom: -10px;
   left: 25px;
   right: 0;

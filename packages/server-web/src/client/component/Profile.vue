@@ -27,20 +27,16 @@ export default {
     }
   },
   methods: {
-    showPasswordPopup() {
-      alert("CHANGE THE PASSWORDZ");
-    },
     logout() {
       this.$http
         .post("/logout", {})
-        .then(function(response) {
+        .catch( err => {
+          console.log(err);
+          // TODO proper error handling
+        }).finally( () => {
           this.$store.commit('isAuthenticated', false);
           this.$store.commit('isLoading', false);
           this.$router.replace({ name: "login" });
-        })
-        .catch(function(err) {
-          console.log(err);
-          // TODO proper error handling
         });
     }
   },

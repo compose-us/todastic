@@ -17,10 +17,10 @@
                   New password: <input v-model="pass1" type="password"></input>
                 </div><div class="form">
                   Retype new password: <input v-model="pass2" type="password"></input>
-                  <span class="indicator" v-if="notsame" style="color: red">≠</span>
-                  <span class="indicator" v-if="same" style="color: green">✓</span>
+                  <span class="indicator" v-if="!empty && !same" style="color: red">≠</span>
+                  <span class="indicator" v-if="!empty && same" style="color: green">✓</span>
                 </div><div class="form">
-                  <button id="change-password" @click.prevent="changePassword" :disabled="notsame || empty">Submit</button>
+                  <button id="change-password" @click.prevent="changePassword" :disabled="empty || !same">Submit</button>
                 </div>
               </div>
             </slot>
@@ -59,11 +59,8 @@ export default {
     empty() {
       return this.$data.pass1.length == 0;
     },
-    notsame() {
-      return !this.empty && this.$data.pass1 != this.$data.pass2;
-    },
     same() {
-      return !this.empty && this.$data.pass1 == this.$data.pass2;
+      return this.$data.pass1 == this.$data.pass2;
     }
   }
 }
@@ -118,15 +115,6 @@ export default {
 .modal-default-button {
   float: right;
 }
-
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
 
 .modal-enter {
   opacity: 0;

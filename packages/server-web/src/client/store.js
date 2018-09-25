@@ -31,9 +31,7 @@ export const store = new Vuex.Store({
   },
   mutations: {
     isLoading(state, val) {
-      if (val === true || val === false) {
-        state.isLoading = val;
-      }
+      state.isLoading = !!val;
     },
     isAuthenticated(state, val) {
       if (val === true || val === false) {
@@ -44,9 +42,7 @@ export const store = new Vuex.Store({
       }
     },
     isDragging(state, val) {
-      if (val === true || val === false) {
-        state.isDragging = val;
-      }
+      state.isDragging = !!val;
     },
     commands(state, commands) {
       state.commands = commands;

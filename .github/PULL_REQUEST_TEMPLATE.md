@@ -3,6 +3,7 @@ This pull-request
 - [ ] resolves #<issue-id>
 - [ ] has a meaningful title
 - [ ] complies to the [code of conduct](../blob/master/CODE_OF_CONDUCT.md)
+- [ ] has a Changelog entry
 - [ ] installs new dependencies through `npm run bootstrap`
 - [ ] contains a breaking change
 

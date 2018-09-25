@@ -1,10 +1,16 @@
 <template>
   <div :class="`todo-item todo-item-${todo.todoId}`" :ref="`todo-item-${todo.todoId}`">
-    <div :class="`todo ${todo.status === 'done' ? 'todo-done' : ''}`">
+    <div :class="`todo ${todo.status === 'done' ? 'todo-done' : ''} ${expanded && 'expanded'}`">
       <div :class="`dropzone-sub dropzone-${ isDragging ? 'active' : 'inactive' }`" v-if="!updating" ref="dropzoneSub"></div>
-			<todo-options @click.prevent="toggleAddTodoItem()" />
-      <span :class="`status status-${todo.status || 'open'}`" v-on:click="toggleStatus(todo)"></span>
-      <span class="id">#{{todo.todoId.substring(0, 4)}}</span>
+			<todo-options
+        :adderVisible="adderVisible"
+        :expanded="expanded"
+        :removeTodo="removeTodo"
+        :toggleTodoOptions="toggleTodoOptions"
+        :toggleAddTodoItem="toggleAddTodoItem"
+      />
+      <div :class="`status status-${todo.status || 'open'}`" v-on:click="toggleStatus(todo)"></div>
+      <div class="id">#{{todo.todoId.substring(0, 4)}}</div>
       <div>
         <span v-if="!updating" v-on:click="updating=true" :class="`title title-${todo.status || 'open'}`">{{todo.title}}</span>
         <todo-label v-if="!updating" v-for="label in todo.labels" :todoLabel="`${label}`" :key="label" />
@@ -70,6 +76,7 @@ export default {
   data() {
     return {
       adderVisible: false,
+      expanded: false,
       updating: false
     };
   },
@@ -117,15 +124,22 @@ export default {
       const newStatus = todo.status == "open" ? "done" : "open";
       commands.changeTodo(todo, { status: newStatus });
     },
+    toggleTodoOptions() {
+      if (this.expanded && this.adderVisible) {
+        this.toggleAddTodoItem();
+      }
+      this.expanded = !this.expanded;
+    },
     toggleAddTodoItem() {
-      this.$data.adderVisible = !this.$data.adderVisible;
-      if (this.$data.adderVisible) {
+      this.adderVisible = !this.adderVisible;
+      if (this.adderVisible) {
         // Set focus on the input field if adder is toggled to visible
         this.$nextTick(() => this.$refs.adder.$refs.input.focus());
       }
     },
-    removeTodo(todo) {
-      return () => this.$props.commands.removeTodo(todo);
+    removeTodo() {
+      const { commands, todo } = this.$props;
+      return commands.removeTodo(todo);
     }
   }
 };
@@ -139,8 +153,14 @@ export default {
 .todo {
   position: relative;
   display: grid;
-  grid-template-columns: 25px 25px 40px max-content 1fr;
+  grid-template-columns: 25px 25px max-content max-content 1fr;
+  justify-items: center;
   align-items: center;
+}
+.todo.expanded {
+  margin-left: -25px;
+  grid-template-columns: 50px 25px max-content max-content 1fr;
+  justify-items: left;
 }
 .todo-done {
   font-size: 0.9em;
@@ -157,7 +177,6 @@ export default {
 }
 
 .id {
-  margin-right: 5px;
   color: var(--notice-small-color);
 }
 

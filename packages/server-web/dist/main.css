@@ -13,18 +13,19 @@
   box-sizing: border-box;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-p {
-  color: #3b72f1;
-}
 body {
   background-color: var(--main-background);
   font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
   padding: 25px;
 }
+
 h1 {
   font-weight: 100;
   color: var(--main-highlight);
   padding-bottom: 1em;
+}
+p {
+  margin-bottom: 25px;
 }
 
 #nav {

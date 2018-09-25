@@ -5,20 +5,20 @@
       <todo-list :commands="commands" :parentId="null" :todos="todos" key="root-list" />
       <todo-text v-on:change="addTodo" key="root-adder" />
     </div>
-    <repl :list="todos" />
+    <script-editor :list="store.todos" />
   </div>
 </template>
 
 <script>
 import TodoList from "./TodoList.vue";
 import TodoText from "./TodoText.vue";
-import Repl from "./Repl.vue";
+import ScriptEditor from "./ScriptEditor.vue";
 
 export default {
   components: {
+    "script-editor": ScriptEditor,
     "todo-list": TodoList,
-    "todo-text": TodoText,
-    repl: Repl
+    "todo-text": TodoText
   },
   props: ["commands"],
   methods: {

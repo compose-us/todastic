@@ -13,20 +13,19 @@
           <div class="modal-body">
             <slot name="body">
               <div class="help-entry">
-                <h3>Labels</h3>
-                <span>You can add and remove labels by editing the ToDo text.
+                <h2>Labels</h2>
+                <p>You can add and remove labels by editing the ToDo text.
                   Adding a label is as simple as adding <q>#label</q> somewhere in the text.
                   Labels within your text will be extracted in order to keep your ToDo text readable.
-                  Labels at the end will be removed from the text and just live as labels.
-                  <br /><br />
-                  <u>Example:</u><br />
+                  Labels at the end will be removed from the text and just live as labels.</p>
+                  <h3>Example:</h3>
                   <q>Build a #zoo with lots of #animals in it #life-goals</q><br /> will result
                   in the ToDo text <q>Build a zoo with lots of animals in it</q> and the labels
                   <q>#zoo, #animals, #life-goals</q>.
-                </span>
+                </p>
               </div>
               <div class="help-entry">
-                <h3>Tracking time</h3>
+                <h2>Tracking time</h2>
                 <span>You can add and remove time tracking entries by editing the ToDo text.
                   <br />Time tracking entries follow the pattern
                   <q>#TRACK({"trackedTime": "01:00:00", "tracker": "Mary", "date": "2018-09-13 17:27:00"}})</q>
@@ -36,12 +35,14 @@
                 </span>
               </div>
               <div class="help-entry">
-                <h3>Scripting</h3>
-                <span>The ability to run arbitrary scripts is one of Todastics most powerful features.
-                Scripts are plain <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript">JavaScript</a>.
-                The following variables are defined:
+                <h2>Scripting</h2>
+                <p>The ability to run arbitrary scripts is one of Todastics most powerful features. Scripts are plain 
+                  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript">JavaScript</a>.
+                  You can drag a part of your ToDo tree here to let it run on that part only or press the "Run" button to run it
+                  on all of your ToDos.</p>
+                  <p>The following variables are defined:</p>
                 <ul>
-                  <li><q>list</q></li> incorporating the complete ToDo tree
+                  <li><q>list</q></li> incorporating the either the complete ToDo tree or the tree you have dragged onto the editor.
                   <li><q>dashboard</q></li> providing the two functions
                   <ul>
                     <li><q>groupByStatus(list)</q></li>
@@ -49,10 +50,10 @@
                   </ul>
                 </ul>
                 <br />
-                <u>Example:</u><br />
-                <q>console.log(dashboard.groupByStatus(list))</q> will show the ToDos grouped by status in your
-                Browser console. (We don't have a good way to display the results yet, sorry!)
-                </span>
+                <p>
+                <h3>Example:</h3>
+                <p><q>console.log(dashboard.groupByStatus(list))</q> will show the ToDos grouped by status in your
+                Browser console. (We don't have a good way to display the results yet, sorry!)</p>
               </div>
             </slot>
           </div>
@@ -74,7 +75,7 @@
 <script>
 export default {
   name: "Help"
-}
+};
 </script>
 
 <style>
@@ -85,10 +86,10 @@ export default {
 .help-entry q {
   background-color: rgba(0, 0, 0, 0.05);
   quotes: none;
-  font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New;
-
+  font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono,
+    Courier New;
 }
-.help-entry h3 {
+.help-entry h2 {
   padding-bottom: 5px;
 }
 .help-entry ul {
@@ -104,9 +105,9 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, .3);
+  background-color: rgba(0, 0, 0, 0.3);
   display: table;
-  transition: opacity .3s ease;
+  transition: opacity 0.3s ease;
 }
 
 .modal-wrapper {
@@ -120,8 +121,8 @@ export default {
   padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-  transition: all .3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  transition: all 0.3s ease;
 }
 
 .modal-body {
@@ -154,5 +155,4 @@ export default {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
-
 </style>

@@ -10,7 +10,7 @@ function createSocketOnServer({ httpServer, session, User, Event, logger }) {
   });
 
   io.use(socketAuthentication({ User, logger }));
-  const { processCommand } = createCommandProcessor({ Event, logger });
+  const { processCommand } = createCommandProcessor({ Event, User, logger });
   let connectedSockets = [];
 
   io.on("connection", function(socket) {

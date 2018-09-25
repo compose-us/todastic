@@ -2,13 +2,7 @@ import io from "./socket.io-bundle.js";
 import { extractDetails } from "../lib/details-extractor.js";
 
 export default function createSocketConnection(eventProcessor) {
-  const socket = io({
-    autoConnect: false
-  });
-
-  socket.on("connection", events => events.forEach(eventProcessor));
-  socket.on("event", eventProcessor);
-  socket.on("error", err => console.log(err));
+  const socket = prepareSocket(eventProcessor);
 
   return {
     addTodo(todo) {
@@ -27,8 +21,26 @@ export default function createSocketConnection(eventProcessor) {
     },
     connect() {
       socket.open();
+    },
+    changePassword(newPassword) {
+      socket.emit("command", {
+        command: "CHANGE_PASSWORD",
+        newPassword
+      });
     }
   };
+}
+
+function prepareSocket(eventProcessor) {
+  const socket = io({
+    autoConnect: false
+  });
+
+  socket.on("connection", events => events.forEach(eventProcessor));
+  socket.on("event", eventProcessor);
+  socket.on("error", err => console.log(err));
+
+  return socket;
 }
 
 function prepareChangeData(todo, changeset) {

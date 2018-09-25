@@ -21,23 +21,15 @@ function startApp({ session, logger, User }) {
     })
   );
 
-  // TODO app.set('trust proxy', 1);
   app.use(session);
 
   authentication.register({ app, User, logger });
 
-  app.get("/", (req, res) => {
-    res.sendFile(path.normalize(`${__dirname}/../client/index.html`));
-  });
   app.get("/home", (req, res) => {
     res.redirect("/");
   });
 
-  app.get("/main.css", (req, res) => {
-    res.sendFile(path.normalize(`${__dirname}/../client/main.css`));
-  });
-
-  app.use(express.static(path.normalize(`${__dirname}/../../dist/`)));
+  app.use("/", express.static(path.normalize(`${__dirname}/../../dist/`)));
 
   return app;
 }

@@ -4,62 +4,47 @@
           <button v-if="isAuthenticated" v-on:click="showHelp=true" class="help">?</button>
 					<help v-if="showHelp" @close="showHelp = false" />
 
-          <router-link tag="button" v-if="isAuthenticated" to="/login" v-on:click.native="logout()" replace>Logout</router-link>
+          <profile />
         </div>
         <loading v-if="isLoading" />
-        <router-view v-if="!isLoading"  @isAuthenticated="setAuthenticated" />
+        <router-view v-if="!isLoading" />
     </div>
 </template>
 
 <script>
 import Loading from "./Loading.vue";
 import Help from "./Help.vue";
+import Profile from "./Profile.vue";
 
 export default {
   name: "App",
   components: {
     "loading": Loading,
-    "help": Help
+    "help": Help,
+    "profile": Profile
   },
   data() {
     return {
-      isAuthenticated: false,
-      isLoading: true,
       showHelp: false
     };
   },
-  props: ["commands"],
   mounted() {
     this.$http
       .get("/login-status") // check server if logged in
       .then(() => {
-        this.setAuthenticated(true);
+        this.$store.commit('isAuthenticated', true);
       })
       .catch(() => {
-        this.setAuthenticated(false);
+        this.$store.commit('isAuthenticated', false);
         this.$router.replace({ name: "login" });
       });
   },
-  methods: {
-    logout() {
-      this.$http
-        .post("/logout", {})
-        .then(function(response) {
-          this.isAuthenticated = false;
-          this.isLoading = false;
-          this.$router.replace({ name: "login" });
-        })
-        .catch(function(err) {
-          console.log(err);
-          // TODO proper error handling
-        });
+  computed: {
+    isLoading() {
+      return this.$store.getters.isLoading;
     },
-    setAuthenticated(status) {
-      this.isAuthenticated = status;
-      this.isLoading = false;
-      if (status) {
-        this.commands.connect();
-      }
+    isAuthenticated() {
+      return this.$store.getters.isAuthenticated;
     }
   }
 };

@@ -1,12 +1,12 @@
 module.exports = { createCommandProcessor };
 
-function createCommandProcessor({ Event, logger }) {
+function createCommandProcessor({ Event, User, logger }) {
   return {
-    processCommand: processCommand({ Event, logger })
+    processCommand: processCommand({ Event, User, logger })
   };
 }
 
-function processCommand({ Event, logger }) {
+function processCommand({ Event, User, logger }) {
   return sendEvent => command => {
     const helpers = { Event, logger, sendEvent, userId: command.userId };
     const labels = setLabels(command);
@@ -16,6 +16,12 @@ function processCommand({ Event, logger }) {
       return createEvent({ ...helpers, eventType: "REMOVED_TODO", data: { ...command.data, labels } });
     } else if (command.command === "CHANGE_TODO") {
       return createEvent({ ...helpers, eventType: "CHANGED_TODO", data: { ...command.data, labels } });
+    } else if (command.command === "CHANGE_PASSWORD") {
+      return User.findOneAndUpdate({ _id: command.userId }, { password: command.newPassword }).then(res => {
+        if (res && res._id == command.userId) {
+          return createEvent({ ...helpers, eventType: "CHANGED_PASSWORD", data: {} });
+        }
+      });
     }
   };
 }

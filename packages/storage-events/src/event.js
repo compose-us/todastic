@@ -12,7 +12,7 @@ function createEventModel({ mongoose }) {
   const eventSchema = new mongoose.Schema({
     eventType: { type: String, required: true, enum: ["ADDED_TODO", "REMOVED_TODO", "CHANGED_TODO"] },
     schemaVersion: { type: Number, required: true, default: currentSchemaVersion },
-    position: { type: Number },
+    position: { type: Number }, // position in event stream
     userId: { type: mongoose.Schema.Types.ObjectId },
     data: {
       todoId: { type: String, required: true, default: uuidv4 },
@@ -20,6 +20,7 @@ function createEventModel({ mongoose }) {
       title: { type: String },
       status: { type: String, enum: ["open", "done"], default: "open" },
       labels: { type: [String] },
+      position: { type: Number }, // position of ToDo
       trackedTimes: { type: Array }
     }
   });

@@ -96,11 +96,7 @@ export default {
       event.target.classList.remove("active-top");
       event.target.classList.remove("active-bottom");
 
-      const rect = event.target.getBoundingClientRect();
-      const topHalfY = rect.top + rect.height / 2;
-      const isTopHalf = event.clientY <= topHalfY;
-
-      if (isTopHalf) {
+      if (this.isTopHalf(event)) {
         event.target.classList.add("active-top");
       } else {
         event.target.classList.add("active-bottom");
@@ -119,7 +115,13 @@ export default {
       event.target.classList.remove("active-top");
       event.target.classList.remove("active-bottom");
       const myTodo = JSON.parse(event.dataTransfer.getData("json/todo"));
-      commands.changeTodo(myTodo, { parentId });
+      const position = this.isTopHalf(event) ? 0 : this.todos.length - 1;
+      commands.changeTodo(myTodo, { parentId, position });
+    },
+    isTopHalf(event){
+      const rect = event.target.getBoundingClientRect();
+      const topHalfY = rect.top + rect.height / 2;
+      return event.clientY <= topHalfY;
     }
   }
 };

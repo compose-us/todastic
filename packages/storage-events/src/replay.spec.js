@@ -215,9 +215,9 @@ describe("replay", () => {
 
       it("can edit child todos", () => {
         const events = [
-          { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child", parentId: "id-1" } },
-          { eventType: "CHANGED_TODO", data: { todoId: "id-2", title: "Changed title of child", parentId: "id-1" } }
+          { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo", position: 0 } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child", parentId: "id-1", position: 0 } },
+          { eventType: "CHANGED_TODO", data: { todoId: "id-2", title: "Changed title of child" } }
         ];
         const state = replay(events);
         expect(state.todos.length).toEqual(1);
@@ -283,14 +283,23 @@ describe("replay", () => {
 
       it("can move subtasks to other parents", () => {
         const events = [
-          { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-2-1", title: "Added a child", parentId: "id-2" } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo", position: 0 } },
+          {
+            eventType: "ADDED_TODO",
+            data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1", position: 0 }
+          },
+          {
+            eventType: "ADDED_TODO",
+            data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1", position: 1 }
+          },
+          { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child", position: 1 } },
+          {
+            eventType: "ADDED_TODO",
+            data: { todoId: "id-2-1", title: "Added a child", parentId: "id-2", position: 0 }
+          },
           {
             eventType: "CHANGED_TODO",
-            data: { todoId: "id-1-1", parentId: "id-2" }
+            data: { todoId: "id-1-1", parentId: "id-2", position: 1 }
           }
         ];
         const state = replay(events);
@@ -300,17 +309,35 @@ describe("replay", () => {
 
       it("moves subtasks from subtasks to different parents in other trees", () => {
         const events = [
-          { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-1-2-1", title: "Added a child", parentId: "id-1-2" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-1-2-2", title: "Added a child", parentId: "id-1-2" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-2-1", title: "Added a child", parentId: "id-2" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-2-2", title: "Added a child", parentId: "id-2" } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo", position: 0 } },
+          {
+            eventType: "ADDED_TODO",
+            data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1", position: 0 }
+          },
+          {
+            eventType: "ADDED_TODO",
+            data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1", position: 1 }
+          },
+          {
+            eventType: "ADDED_TODO",
+            data: { todoId: "id-1-2-1", title: "Added a child", parentId: "id-1-2", position: 0 }
+          },
+          {
+            eventType: "ADDED_TODO",
+            data: { todoId: "id-1-2-2", title: "Added a child", parentId: "id-1-2", position: 1 }
+          },
+          { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child", position: 1 } },
+          {
+            eventType: "ADDED_TODO",
+            data: { todoId: "id-2-1", title: "Added a child", parentId: "id-2", position: 0 }
+          },
+          {
+            eventType: "ADDED_TODO",
+            data: { todoId: "id-2-2", title: "Added a child", parentId: "id-2", position: 1 }
+          },
           {
             eventType: "CHANGED_TODO",
-            data: { todoId: "id-1-2-2", parentId: "id-2-1" }
+            data: { todoId: "id-1-2-2", parentId: "id-2-1", position: 0 }
           }
         ];
         const state = replay(events);
@@ -320,15 +347,27 @@ describe("replay", () => {
 
       it("works when moving a todo up", () => {
         const events = [
-          { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-1-1-1", title: "Added a child", parentId: "id-1-1" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-1-1-2", title: "Added a child", parentId: "id-1-1" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child" } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo", position: 0 } },
+          {
+            eventType: "ADDED_TODO",
+            data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1", position: 0 }
+          },
+          {
+            eventType: "ADDED_TODO",
+            data: { todoId: "id-1-1-1", title: "Added a child", parentId: "id-1-1", position: 0 }
+          },
+          {
+            eventType: "ADDED_TODO",
+            data: { todoId: "id-1-1-2", title: "Added a child", parentId: "id-1-1", position: 1 }
+          },
+          {
+            eventType: "ADDED_TODO",
+            data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1", position: 1 }
+          },
+          { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child", position: 1 } },
           {
             eventType: "CHANGED_TODO",
-            data: { todoId: "id-1-1-1", parentId: "id-1" }
+            data: { todoId: "id-1-1-1", parentId: "id-1", position: 1 }
           }
         ];
         const state = replay(events);
@@ -338,15 +377,27 @@ describe("replay", () => {
 
       it("works when moving a todo down", () => {
         const events = [
-          { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-1-1-2", title: "Added a child", parentId: "id-1-1" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-1-1-1", title: "Added a child", parentId: "id-1" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child" } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo", position: 0 } },
+          {
+            eventType: "ADDED_TODO",
+            data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1", position: 0 }
+          },
+          {
+            eventType: "ADDED_TODO",
+            data: { todoId: "id-1-1-2", title: "Added a child", parentId: "id-1-1", position: 0 }
+          },
+          {
+            eventType: "ADDED_TODO",
+            data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1", position: 1 }
+          },
+          {
+            eventType: "ADDED_TODO",
+            data: { todoId: "id-1-1-1", title: "Added a child", parentId: "id-1", position: 2 }
+          },
+          { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child", position: 1 } },
           {
             eventType: "CHANGED_TODO",
-            data: { todoId: "id-1-1-1", parentId: "id-1-1" }
+            data: { todoId: "id-1-1-1", parentId: "id-1-1", position: 1 }
           }
         ];
         const state = replay(events);
@@ -356,15 +407,27 @@ describe("replay", () => {
 
       it("can move into root scope", () => {
         const events = [
-          { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-1-1-1", title: "Added a child", parentId: "id-1-1" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-1-1-2", title: "Added a child", parentId: "id-1-1" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child" } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo", position: 0 } },
+          {
+            eventType: "ADDED_TODO",
+            data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1", position: 0 }
+          },
+          {
+            eventType: "ADDED_TODO",
+            data: { todoId: "id-1-1-1", title: "Added a child", parentId: "id-1-1", position: 0 }
+          },
+          {
+            eventType: "ADDED_TODO",
+            data: { todoId: "id-1-1-2", title: "Added a child", parentId: "id-1-1", position: 1 }
+          },
+          {
+            eventType: "ADDED_TODO",
+            data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1", position: 1 }
+          },
+          { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child", position: 1 } },
           {
             eventType: "CHANGED_TODO",
-            data: { todoId: "id-1-1-1", parentId: null }
+            data: { todoId: "id-1-1-1", parentId: null, position: 2 }
           }
         ];
         const state = replay(events);
@@ -374,15 +437,24 @@ describe("replay", () => {
 
       it("can move from root scope", () => {
         const events = [
-          { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-1-1-2", title: "Added a child", parentId: "id-1-1" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-3", title: "Added a child" } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo", position: 0 } },
+          {
+            eventType: "ADDED_TODO",
+            data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1", position: 0 }
+          },
+          {
+            eventType: "ADDED_TODO",
+            data: { todoId: "id-1-1-2", title: "Added a child", parentId: "id-1-1", position: 0 }
+          },
+          {
+            eventType: "ADDED_TODO",
+            data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1", position: 1 }
+          },
+          { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child", position: 1 } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-3", title: "Added a child", position: 2 } },
           {
             eventType: "CHANGED_TODO",
-            data: { todoId: "id-3", parentId: "id-1-1" }
+            data: { todoId: "id-3", parentId: "id-1-1", position: 1 }
           }
         ];
         const state = replay(events);
@@ -392,15 +464,24 @@ describe("replay", () => {
 
       it("can move from root to root scope", () => {
         const events = [
-          { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-3", title: "Created another todo" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-1-1-2", title: "Added a child", parentId: "id-1-1" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1" } },
-          { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child" } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo", position: 0 } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-3", title: "Created another todo", position: 2 } },
+          {
+            eventType: "ADDED_TODO",
+            data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1", position: 0 }
+          },
+          {
+            eventType: "ADDED_TODO",
+            data: { todoId: "id-1-1-2", title: "Added a child", parentId: "id-1-1", position: 0 }
+          },
+          {
+            eventType: "ADDED_TODO",
+            data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1", position: 1 }
+          },
+          { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child", position: 1 } },
           {
             eventType: "CHANGED_TODO",
-            data: { todoId: "id-3", parentId: null }
+            data: { todoId: "id-3", parentId: null, position: 1 }
           }
         ];
         const state = replay(events);
@@ -460,6 +541,54 @@ describe("replay", () => {
         const state = replay(events);
         expect(state.todos.length).toEqual(2);
         expect(state.todos).toMatchSnapshot();
+      });
+
+      describe("position sorting", () => {
+        it("respects the position attribute on root level", () => {
+          const events = [
+            { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Another todo", position: 1 } },
+            { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo", position: 0 } }
+          ];
+          const state = replay(events);
+          expect(state.todos.length).toEqual(2);
+          expect(state.todos).toMatchSnapshot();
+        });
+        it("respects the position attribute on child level", () => {
+          const events = [
+            { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo", position: 0 } },
+            {
+              eventType: "ADDED_TODO",
+              data: { todoId: "id-1-2", title: "Create a sub todo", position: 1, parentId: "id-1" }
+            },
+            {
+              eventType: "ADDED_TODO",
+              data: { todoId: "id-1-1", title: "Create another sub todo", position: 0, parentId: "id-1" }
+            }
+          ];
+          const state = replay(events);
+          expect(state.todos.length).toEqual(1);
+          expect(state.todos).toMatchSnapshot();
+        });
+        it("can move the position attribute on child level", () => {
+          const events = [
+            { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo", position: 0 } },
+            {
+              eventType: "ADDED_TODO",
+              data: { todoId: "id-1-1", title: "Create a sub todo", position: 0, parentId: "id-1" }
+            },
+            {
+              eventType: "ADDED_TODO",
+              data: { todoId: "id-1-2", title: "Create another sub todo", position: 1, parentId: "id-1" }
+            },
+            {
+              eventType: "CHANGED_TODO",
+              data: { todoId: "id-1-2", position: 0, parentId: "id-1" }
+            }
+          ];
+          const state = replay(events);
+          expect(state.todos.length).toEqual(1);
+          expect(state.todos).toMatchSnapshot();
+        });
       });
     });
   });

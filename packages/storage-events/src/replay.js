@@ -9,10 +9,9 @@ function replay(events) {
         return addTodo(todos, event.data);
       case "REMOVED_TODO":
         return removeTodo(todos, event.data);
-      case "CHANGED_TODO": // we should probably make this MOVE_TODO and CHANGE_TODO
-        if (event.data.parentId !== undefined || event.data.position !== undefined) {
-          return moveTodo(todos, event);
-        }
+      case "MOVED_TODO":
+        return moveTodo(todos, event);
+      case "CHANGED_TODO":
         return changedTodo(todos, event.data);
       default:
         return todos;

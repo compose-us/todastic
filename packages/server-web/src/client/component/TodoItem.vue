@@ -96,7 +96,7 @@ export default {
       const { commands, todo } = this.$props;
       event.target.classList.remove("active-bottom");
       const myTodo = JSON.parse(event.dataTransfer.getData("json/todo"));
-      commands.changeTodo(myTodo, { parentId: todo.todoId, position: todo.position + 1 });
+      commands.moveTodo(myTodo, { parentId: todo.todoId, position: todo.position + 1 });
     },
     updateTitle(newTitle) {
       const { commands, todo } = this.$props;

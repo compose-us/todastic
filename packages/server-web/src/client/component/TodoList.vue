@@ -116,7 +116,7 @@ export default {
       event.target.classList.remove("active-bottom");
       const myTodo = JSON.parse(event.dataTransfer.getData("json/todo"));
       const position = this.isTopHalf(event) ? 0 : this.todos.length - 1;
-      commands.changeTodo(myTodo, { parentId, position });
+      commands.moveTodo(myTodo, { parentId, position });
     },
     isTopHalf(event){
       const rect = event.target.getBoundingClientRect();

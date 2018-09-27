@@ -16,6 +16,8 @@ function processCommand({ Event, User, logger }) {
       return createEvent({ ...helpers, eventType: "REMOVED_TODO", data: { ...command.data, labels } });
     } else if (command.command === "CHANGE_TODO") {
       return createEvent({ ...helpers, eventType: "CHANGED_TODO", data: { ...command.data, labels } });
+    } else if (command.command === "MOVE_TODO") {
+      return createEvent({ ...helpers, eventType: "MOVED_TODO", data: { ...command.data, labels } });
     } else if (command.command === "CHANGE_PASSWORD") {
       return User.findOneAndUpdate({ _id: command.userId }, { password: command.newPassword }).then(res => {
         if (res && res._id == command.userId) {

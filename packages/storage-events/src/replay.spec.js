@@ -298,7 +298,7 @@ describe("replay", () => {
             data: { todoId: "id-2-1", title: "Added a child", parentId: "id-2", position: 0 }
           },
           {
-            eventType: "CHANGED_TODO",
+            eventType: "MOVED_TODO",
             data: { todoId: "id-1-1", parentId: "id-2", position: 1 }
           }
         ];
@@ -336,7 +336,7 @@ describe("replay", () => {
             data: { todoId: "id-2-2", title: "Added a child", parentId: "id-2", position: 1 }
           },
           {
-            eventType: "CHANGED_TODO",
+            eventType: "MOVED_TODO",
             data: { todoId: "id-1-2-2", parentId: "id-2-1", position: 0 }
           }
         ];
@@ -366,7 +366,7 @@ describe("replay", () => {
           },
           { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child", position: 1 } },
           {
-            eventType: "CHANGED_TODO",
+            eventType: "MOVED_TODO",
             data: { todoId: "id-1-1-1", parentId: "id-1", position: 1 }
           }
         ];
@@ -396,7 +396,7 @@ describe("replay", () => {
           },
           { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child", position: 1 } },
           {
-            eventType: "CHANGED_TODO",
+            eventType: "MOVED_TODO",
             data: { todoId: "id-1-1-1", parentId: "id-1-1", position: 1 }
           }
         ];
@@ -426,7 +426,7 @@ describe("replay", () => {
           },
           { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child", position: 1 } },
           {
-            eventType: "CHANGED_TODO",
+            eventType: "MOVED_TODO",
             data: { todoId: "id-1-1-1", parentId: null, position: 2 }
           }
         ];
@@ -453,7 +453,7 @@ describe("replay", () => {
           { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child", position: 1 } },
           { eventType: "ADDED_TODO", data: { todoId: "id-3", title: "Added a child", position: 2 } },
           {
-            eventType: "CHANGED_TODO",
+            eventType: "MOVED_TODO",
             data: { todoId: "id-3", parentId: "id-1-1", position: 1 }
           }
         ];
@@ -480,7 +480,7 @@ describe("replay", () => {
           },
           { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child", position: 1 } },
           {
-            eventType: "CHANGED_TODO",
+            eventType: "MOVED_TODO",
             data: { todoId: "id-3", parentId: null, position: 1 }
           }
         ];
@@ -498,7 +498,7 @@ describe("replay", () => {
           { eventType: "ADDED_TODO", data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1" } },
           { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child" } },
           {
-            eventType: "CHANGED_TODO",
+            eventType: "MOVED_TODO",
             data: { todoId: "id-1-1", parentId: "id-1-1" }
           }
         ];
@@ -516,7 +516,7 @@ describe("replay", () => {
           { eventType: "ADDED_TODO", data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1" } },
           { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child" } },
           {
-            eventType: "CHANGED_TODO",
+            eventType: "MOVED_TODO",
             data: { todoId: "id-1-1", parentId: "id-1-1-1" }
           }
         ];
@@ -534,7 +534,7 @@ describe("replay", () => {
           { eventType: "ADDED_TODO", data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1" } },
           { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child" } },
           {
-            eventType: "CHANGED_TODO",
+            eventType: "MOVED_TODO",
             data: { todoId: "id-1", parentId: "id-1-1-1" }
           }
         ];
@@ -581,7 +581,7 @@ describe("replay", () => {
               data: { todoId: "id-1-2", title: "Create another sub todo", position: 1, parentId: "id-1" }
             },
             {
-              eventType: "CHANGED_TODO",
+              eventType: "MOVED_TODO",
               data: { todoId: "id-1-2", position: 0, parentId: "id-1" }
             }
           ];

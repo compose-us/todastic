@@ -10,7 +10,7 @@ function createEventModel({ mongoose }) {
   const sequenceModel = createSequenceSchema({ mongoose });
 
   const eventSchema = new mongoose.Schema({
-    eventType: { type: String, required: true, enum: ["ADDED_TODO", "REMOVED_TODO", "CHANGED_TODO"] },
+    eventType: { type: String, required: true, enum: ["ADDED_TODO", "REMOVED_TODO", "CHANGED_TODO", "MOVED_TODO"] },
     schemaVersion: { type: Number, required: true, default: currentSchemaVersion },
     position: { type: Number }, // position in event stream
     userId: { type: mongoose.Schema.Types.ObjectId },

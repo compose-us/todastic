@@ -19,6 +19,9 @@ export default function createSocketConnection(eventProcessor) {
         data
       });
     },
+    moveTodo(todo, changeset) {
+      socket.emit("command", { command: "MOVE_TODO", data: { todoId: todo.todoId, ...changeset } });
+    },
     connect() {
       socket.open();
     },

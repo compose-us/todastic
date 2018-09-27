@@ -10,7 +10,6 @@ function processCommand({ Event, User, logger }) {
   return sendEvent => command => {
     const helpers = { Event, logger, sendEvent, userId: command.userId };
     const labels = setLabels(command);
-    console.log(command.data);
     if (command.command === "ADD_TODO") {
       return createEvent({ ...helpers, eventType: "ADDED_TODO", data: { ...command.data, labels } });
     } else if (command.command === "REMOVE_TODO") {

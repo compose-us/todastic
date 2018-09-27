@@ -1,4 +1,4 @@
-module.exports = { moveTodo };
+module.exports = { moveTodo, positionSortFunction };
 
 function moveTodo(todos, event) {
   const oldNode = findTodo(todos, event.data.todoId);
@@ -9,22 +9,18 @@ function moveTodo(todos, event) {
     return todos;
   }
 
-  todos = detachFromParent(todos, oldNode, newParentId);
-  todos = attachToNewParent(todos, oldNode, position, newParentId);
-
-  return todos;
+  const treeWithoutOldNode = detachFromParent(todos, oldNode, newParentId);
+  return attachToNewParent(treeWithoutOldNode, oldNode, position, newParentId);
 }
 
 function detachFromParent(todos, oldNode, newParentId) {
   // has it been a root node?
   if (oldNode.parentId === null || oldNode.parentId === undefined) {
-    todos = removeFromBranch(todos, oldNode.todoId);
-  } else {
-    const oldParent = findTodo(todos, oldNode.parentId);
-    oldParent.children = removeFromBranch(oldParent.children, oldNode.todoId);
-    todos = replaceNode(todos, oldParent.todoId, oldParent);
+    return removeFromBranch(todos, oldNode.todoId);
   }
-  return todos;
+  const oldParent = findTodo(todos, oldNode.parentId);
+  oldParent.children = removeFromBranch(oldParent.children, oldNode.todoId);
+  return replaceNode(todos, oldParent.todoId, oldParent);
 }
 
 function attachToNewParent(todos, oldNode, position, newParentId) {
@@ -33,33 +29,25 @@ function attachToNewParent(todos, oldNode, position, newParentId) {
   // is it gonna be a root node?
   if (newParentId === null || newParentId === undefined) {
     delete oldNode["parentId"];
-    todos = insertIntoBranch(todos, oldNode, position);
-  } else {
-    oldNode.parentId = newParentId;
-    const newParent = findTodo(todos, newParentId);
-    newParent.children = insertIntoBranch(newParent.children, oldNode, position);
-    todos = replaceNode(todos, newParent);
+    return insertIntoBranch(todos, oldNode, position);
   }
-  return todos;
+  oldNode.parentId = newParentId;
+  const newParent = findTodo(todos, newParentId);
+  newParent.children = insertIntoBranch(newParent.children, oldNode, position);
+  return replaceNode(todos, newParent);
 }
 
 function removeFromBranch(branch, todoId) {
-  branch.sort(positionSortFunction);
-  let result = branch.filter(x => x.todoId != todoId);
-  // adjust position values
-  for (let i = 0; i < result.length; i++) {
-    result[i].position = i;
-  }
-  return result.sort(positionSortFunction);
+  return branch.filter(x => x.todoId !== todoId).map((x, idx) => ({ ...x, position: idx }));
 }
 
 function insertIntoBranch(branch, todo, position) {
   const head = branch.slice(0, position);
   const tail = branch.slice(position, branch.length);
-  const tailWithNewPositions = tail.map(x => {
-    x.position += 1;
-    return x;
-  });
+  const tailWithNewPositions = tail.map(x => ({
+    ...x,
+    position: x.position + 1
+  }));
   return [...head, todo, ...tailWithNewPositions];
 }
 

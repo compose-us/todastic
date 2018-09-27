@@ -1,5 +1,5 @@
 <template>
-  <div :class="`todo-item todo-item-${todo.todoId}`" :ref="`todo-item-${todo.todoId}`">
+  <div :class="`todo-item todo-item-${todo.todoId} ${updating ? 'updating' : ''}`" :ref="`todo-item-${todo.todoId}`">
     <div :class="`todo ${todo.status === 'done' ? 'todo-done' : ''} ${expanded && 'expanded'}`">
       <div :class="`dropzone-sub dropzone-${ isDragging ? 'active' : 'inactive' }`" v-if="!updating" ref="dropzoneSub"></div>
 			<todo-options
@@ -11,11 +11,11 @@
       />
       <div :class="`status status-${todo.status || 'open'}`" v-on:click="toggleStatus(todo)"></div>
       <div class="id">#{{todo.todoId.substring(0, 4)}}</div>
-      <div>
-        <span v-if="!updating" v-on:click="updating=true" :class="`title title-${todo.status || 'open'}`">{{todo.title}}</span>
-        <todo-label v-if="!updating" v-for="label in todo.labels" :todoLabel="`${label}`" :key="label" />
+      <div v-if="!updating">
+        <span v-on:click="updating=true" :class="`title title-${todo.status || 'open'}`">{{todo.title}}</span>
+        <todo-label v-for="label in todo.labels" :todoLabel="`${label}`" :key="label" />
       </div>
-      <todo-text ref="updater" :visible="updating" v-on:change="updateTitle" v-bind.sync="{ initialTodoTitle: completeText }" :key="`updateTodo-${todo.todoId}`" />
+      <todo-text v-if="updating" ref="updater" :visible="updating" v-on:change="updateTitle" v-bind.sync="{ initialTodoTitle: completeText }" :key="`updateTodo-${todo.todoId}`" />
     </div>
     <todo-text ref="adder" v-on:change="addTodo" :visible="adderVisible" :key="`addTodo-${todo.todoId}`" :parentId="todo.todoId" />
   </div>
@@ -136,6 +136,11 @@ export default {
 <style>
 .todo-item {
   margin: 1em 0;
+}
+
+.todo-item.updating .todo {
+  grid-template-columns: 25px 25px max-content 1fr;
+  justify-items: stretch;
 }
 
 .todo {

@@ -1,4 +1,4 @@
-module.exports = { moveTodo, positionSortFunction };
+module.exports = { moveTodo };
 
 function moveTodo(todos, event) {
   const oldNode = findTodo(todos, event.data.todoId);
@@ -51,18 +51,12 @@ function insertIntoBranch(branch, todo, position) {
   return [...head, todo, ...tailWithNewPositions];
 }
 
-function positionSortFunction(a, b) {
-  return a.position - b.position;
-}
-
 function replaceNode(todos, newNode) {
   return todos.map(todo => {
     if (todo.todoId === newNode.todoId) {
       return newNode;
     } else {
-      if (todo.children) {
-        todo.children = replaceNode(todo.children, newNode);
-      }
+      todo.children = replaceNode(todo.children, newNode);
       return todo;
     }
   });
@@ -73,16 +67,14 @@ function findTodo(todos, todoId) {
     if (todo.todoId === todoId) {
       return todo;
     }
-    if (todo.children) {
-      const found = findTodo(todo.children, todoId);
-      if (found) {
-        return found;
-      }
+    const found = findTodo(todo.children, todoId);
+    if (found) {
+      return found;
     }
   }
   return;
 }
 
 function isIdInTodos(todos, parentId) {
-  return todos.some(todo => todo.todoId === parentId || isIdInTodos(todo.children || [], parentId));
+  return todos.some(todo => todo.todoId === parentId || isIdInTodos(todo.children, parentId));
 }

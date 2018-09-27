@@ -1,4 +1,4 @@
-const { moveTodo, positionSortFunction } = require("./move-todo.js");
+const { moveTodo } = require("./move-todo.js");
 
 module.exports = replay;
 
@@ -31,10 +31,9 @@ function addTodo(todos, todoToAdd) {
 
 function appendChild(todo, todoToAdd) {
   if (todoToAdd.parentId === todo.todoId) {
-    let children = todo.children || [];
     return {
       ...todo,
-      children: [...children, { ...todoToAdd, position: children.length }]
+      children: [...todo.children, { ...todoToAdd, position: todo.children.length }]
     };
   } else if (todo.children && todo.children.length) {
     const mappedChildren = todo.children.map(child => appendChild(child, todoToAdd));
@@ -53,7 +52,7 @@ function changedTodo(todos, data) {
     } else {
       return {
         ...todo,
-        children: changedTodo(todo.children || [], data)
+        children: changedTodo(todo.children, data)
       };
     }
   });
@@ -73,9 +72,7 @@ function removeTodo(todos, data) {
     if (todo.todoId === data.todoId) {
       return todos;
     }
-    if (todo.children) {
-      todo.children = todo.children.reduce(removeTodoInListOrChildren, []);
-    }
+    todo.children = todo.children.reduce(removeTodoInListOrChildren, []);
     return [...todos, todo];
   }
 }

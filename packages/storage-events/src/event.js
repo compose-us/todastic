@@ -16,7 +16,7 @@ function createEventModel({ mongoose }) {
     userId: { type: mongoose.Schema.Types.ObjectId },
     data: {
       todoId: { type: String, required: true, default: uuidv4 },
-      parentId: { type: String },
+      parentId: { type: String, default: null },
       title: { type: String },
       status: { type: String, enum: ["open", "done"], default: "open" },
       labels: { type: [String] },

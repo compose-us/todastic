@@ -179,7 +179,6 @@ Array [
   },
   Object {
     "children": Array [],
-    "parentId": null,
     "position": 1,
     "title": "Created another todo",
     "todoId": "id-3",
@@ -232,7 +231,6 @@ Array [
   },
   Object {
     "children": Array [],
-    "parentId": null,
     "position": 2,
     "title": "Added a child",
     "todoId": "id-1-1-1",

@@ -30,11 +30,12 @@ function detachFromParent(todos, oldNode, newParentId) {
 function attachToNewParent(todos, oldNode, position, newParentId) {
   // update the node values to reflect its new place
   oldNode.position = position;
-  oldNode.parentId = newParentId;
   // is it gonna be a root node?
-  if (newParentId === null) {
+  if (newParentId === null || newParentId === undefined) {
+    delete oldNode["parentId"];
     todos = insertIntoBranch(todos, oldNode, position);
   } else {
+    oldNode.parentId = newParentId;
     const newParent = findTodo(todos, newParentId);
     newParent.children = insertIntoBranch(newParent.children, oldNode, position);
     todos = replaceNode(todos, newParent);

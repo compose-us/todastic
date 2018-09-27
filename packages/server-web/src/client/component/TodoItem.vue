@@ -105,7 +105,7 @@ export default {
     },
     addTodo(newTitle) {
       const { commands, todo } = this.$props;
-      commands.addTodo({ title: newTitle, parentId: todo.todoId, position: 0 });
+      commands.addTodo({ title: newTitle, parentId: todo.todoId });
     },
     toggleStatus(todo) {
       const { commands } = this.$props;

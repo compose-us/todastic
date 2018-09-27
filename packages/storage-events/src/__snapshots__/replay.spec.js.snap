@@ -1,9 +1,53 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`replay ADDED_TODO event can add children at the correct position 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "children": Array [],
+        "parentId": "id-1",
+        "position": 0,
+        "title": "Create child 1",
+        "todoId": "id-1-1",
+      },
+      Object {
+        "children": Array [],
+        "parentId": "id-1",
+        "position": 1,
+        "title": "Create child 2",
+        "todoId": "id-1-2",
+      },
+    ],
+    "position": 0,
+    "title": "Create a parent todo",
+    "todoId": "id-1",
+  },
+]
+`;
+
+exports[`replay ADDED_TODO event can add root nodes at the correct position 1`] = `
+Array [
+  Object {
+    "children": Array [],
+    "position": 0,
+    "title": "Create a parent todo",
+    "todoId": "id-1",
+  },
+  Object {
+    "children": Array [],
+    "position": 1,
+    "title": "Create other parent",
+    "todoId": "id-2",
+  },
+]
+`;
+
 exports[`replay ADDED_TODO event can add todos as children of children 1`] = `
 Array [
   Object {
     "children": Array [],
+    "position": 0,
     "title": "Create a parent todo",
     "todoId": "id-1",
   },
@@ -14,6 +58,7 @@ Array [
           Object {
             "children": Array [],
             "parentId": "id-3",
+            "position": 0,
             "title": "Create a child todo of child of parent 2",
             "todoId": "id-5",
           },
@@ -22,25 +67,30 @@ Array [
               Object {
                 "children": Array [],
                 "parentId": "id-6",
+                "position": 0,
                 "title": "Create a child of 2nd child of child of parent 2",
                 "todoId": "id-7",
               },
             ],
             "parentId": "id-3",
+            "position": 1,
             "title": "Create a second child todo of child of parent 2",
             "todoId": "id-6",
           },
         ],
         "parentId": "id-2",
+        "position": 0,
         "title": "Create a child in another parent todo",
         "todoId": "id-3",
       },
     ],
+    "position": 1,
     "title": "Create another parent todo",
     "todoId": "id-2",
   },
   Object {
     "children": Array [],
+    "position": 2,
     "title": "Create a third parent todo",
     "todoId": "id-4",
   },
@@ -51,6 +101,7 @@ exports[`replay ADDED_TODO event can add todos in a more complex example 1`] = `
 Array [
   Object {
     "children": Array [],
+    "position": 0,
     "title": "Create a parent todo",
     "todoId": "id-1",
   },
@@ -59,21 +110,25 @@ Array [
       Object {
         "children": Array [],
         "parentId": "id-2",
+        "position": 0,
         "title": "Create a child in another parent todo",
         "todoId": "id-3",
       },
       Object {
         "children": Array [],
         "parentId": "id-2",
+        "position": 1,
         "title": "Create another child todo in parent 2",
         "todoId": "id-5",
       },
     ],
+    "position": 1,
     "title": "Create another parent todo",
     "todoId": "id-2",
   },
   Object {
     "children": Array [],
+    "position": 2,
     "title": "Create a third parent todo",
     "todoId": "id-4",
   },
@@ -284,10 +339,12 @@ Object {
     Object {
       "children": Array [],
       "parentId": "a0ca6051-43f9-410e-86c9-75ae37a1c682",
+      "position": 0,
       "title": "really really real",
       "todoId": "6505d361-adc2-427f-ad45-a4e57b630830",
     },
   ],
+  "position": 0,
   "title": "do it",
   "todoId": "a0ca6051-43f9-410e-86c9-75ae37a1c682",
 }
@@ -363,10 +420,12 @@ Array [
       Object {
         "children": Array [],
         "parentId": "id-1",
+        "position": 0,
         "title": "Changed title of child but did not change parentId",
         "todoId": "id-2",
       },
     ],
+    "position": 0,
     "title": "Create a todo",
     "todoId": "id-1",
   },
@@ -399,45 +458,19 @@ Array [
 ]
 `;
 
-exports[`replay editing todos CHANGED_TODO position sorting respects the position attribute on child level 1`] = `
-Array [
-  Object {
-    "children": Array [
-      Object {
-        "children": Array [],
-        "parentId": "id-1",
-        "position": 0,
-        "title": "Create another sub todo",
-        "todoId": "id-1-1",
-      },
-      Object {
-        "children": Array [],
-        "parentId": "id-1",
-        "position": 1,
-        "title": "Create a sub todo",
-        "todoId": "id-1-2",
-      },
-    ],
-    "position": 0,
-    "title": "Create a todo",
-    "todoId": "id-1",
-  },
-]
-`;
-
-exports[`replay editing todos CHANGED_TODO position sorting respects the position attribute on root level 1`] = `
+exports[`replay editing todos CHANGED_TODO position sorting can move the position on root level 1`] = `
 Array [
   Object {
     "children": Array [],
     "position": 0,
-    "title": "Create a todo",
-    "todoId": "id-1",
+    "title": "Another todo",
+    "todoId": "id-2",
   },
   Object {
     "children": Array [],
     "position": 1,
-    "title": "Another todo",
-    "todoId": "id-2",
+    "title": "Create a todo",
+    "todoId": "id-1",
   },
 ]
 `;
@@ -445,6 +478,7 @@ Array [
 exports[`replay editing todos CHANGED_TODO will change the todos when the edit is done 1`] = `
 Object {
   "children": Array [],
+  "position": 0,
   "title": "Changed the todo",
   "todoId": "id-1",
 }
@@ -459,32 +493,38 @@ Array [
           Object {
             "children": Array [],
             "parentId": "id-1-1",
+            "position": 0,
             "title": "Added a child",
             "todoId": "id-1-1-1",
           },
           Object {
             "children": Array [],
             "parentId": "id-1-1",
+            "position": 1,
             "title": "Added a child",
             "todoId": "id-1-1-2",
           },
         ],
         "parentId": "id-1",
+        "position": 0,
         "title": "Added a child",
         "todoId": "id-1-1",
       },
       Object {
         "children": Array [],
         "parentId": "id-1",
+        "position": 1,
         "title": "Added a child",
         "todoId": "id-1-2",
       },
     ],
+    "position": 0,
     "title": "Create a todo",
     "todoId": "id-1",
   },
   Object {
     "children": Array [],
+    "position": 1,
     "title": "Added a child",
     "todoId": "id-2",
   },
@@ -500,32 +540,38 @@ Array [
           Object {
             "children": Array [],
             "parentId": "id-1-1",
+            "position": 0,
             "title": "Added a child",
             "todoId": "id-1-1-1",
           },
           Object {
             "children": Array [],
             "parentId": "id-1-1",
+            "position": 1,
             "title": "Added a child",
             "todoId": "id-1-1-2",
           },
         ],
         "parentId": "id-1",
+        "position": 0,
         "title": "Added a child",
         "todoId": "id-1-1",
       },
       Object {
         "children": Array [],
         "parentId": "id-1",
+        "position": 1,
         "title": "Added a child",
         "todoId": "id-1-2",
       },
     ],
+    "position": 0,
     "title": "Create a todo",
     "todoId": "id-1",
   },
   Object {
     "children": Array [],
+    "position": 1,
     "title": "Added a child",
     "todoId": "id-2",
   },
@@ -541,32 +587,38 @@ Array [
           Object {
             "children": Array [],
             "parentId": "id-1-1",
+            "position": 0,
             "title": "Added a child",
             "todoId": "id-1-1-1",
           },
           Object {
             "children": Array [],
             "parentId": "id-1-1",
+            "position": 1,
             "title": "Added a child",
             "todoId": "id-1-1-2",
           },
         ],
         "parentId": "id-1",
+        "position": 0,
         "title": "Added a child",
         "todoId": "id-1-1",
       },
       Object {
         "children": Array [],
         "parentId": "id-1",
+        "position": 1,
         "title": "Added a child",
         "todoId": "id-1-2",
       },
     ],
+    "position": 0,
     "title": "Create a todo",
     "todoId": "id-1",
   },
   Object {
     "children": Array [],
+    "position": 1,
     "title": "Added a child",
     "todoId": "id-2",
   },
@@ -670,6 +722,7 @@ Array [
 exports[`replay editing todos EDITING_TODO does not care in the store about intermediate edits 1`] = `
 Object {
   "children": Array [],
+  "position": 0,
   "title": "Create a todo",
   "todoId": "id-1",
 }

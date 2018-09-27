@@ -23,7 +23,7 @@ export default {
   props: ["commands"],
   methods: {
     addTodo(newTitle) {
-      this.$props.commands.addTodo({ title: newTitle, position: this.todos.length });
+      this.$props.commands.addTodo({ title: newTitle });
     }
   },
   computed: {

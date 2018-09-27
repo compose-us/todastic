@@ -119,6 +119,28 @@ describe("replay", () => {
       expect(state.todos[1].children[0].children[1].children.length).toEqual(1);
       expect(state.todos).toMatchSnapshot();
     });
+
+    it("can add children at the correct position", () => {
+      const events = [
+        { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a parent todo" } },
+        { eventType: "ADDED_TODO", data: { todoId: "id-1-1", title: "Create child 1", parentId: "id-1" } },
+        {
+          eventType: "ADDED_TODO",
+          data: { todoId: "id-1-2", title: "Create child 2", parentId: "id-1" }
+        }
+      ];
+      const state = replay(events);
+      expect(state.todos).toMatchSnapshot();
+    });
+
+    it("can add root nodes at the correct position", () => {
+      const events = [
+        { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a parent todo" } },
+        { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Create other parent" } }
+      ];
+      const state = replay(events);
+      expect(state.todos).toMatchSnapshot();
+    });
   });
 
   describe("REMOVED_TODO event", () => {
@@ -544,29 +566,17 @@ describe("replay", () => {
       });
 
       describe("position sorting", () => {
-        it("respects the position attribute on root level", () => {
+        it("can move the position on root level", () => {
           const events = [
-            { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Another todo", position: 1 } },
-            { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo", position: 0 } }
-          ];
-          const state = replay(events);
-          expect(state.todos.length).toEqual(2);
-          expect(state.todos).toMatchSnapshot();
-        });
-        it("respects the position attribute on child level", () => {
-          const events = [
-            { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo", position: 0 } },
+            { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo" } },
+            { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Another todo" } },
             {
-              eventType: "ADDED_TODO",
-              data: { todoId: "id-1-2", title: "Create a sub todo", position: 1, parentId: "id-1" }
-            },
-            {
-              eventType: "ADDED_TODO",
-              data: { todoId: "id-1-1", title: "Create another sub todo", position: 0, parentId: "id-1" }
+              eventType: "MOVED_TODO",
+              data: { todoId: "id-2", position: 0, parentId: null }
             }
           ];
           const state = replay(events);
-          expect(state.todos.length).toEqual(1);
+          expect(state.todos.length).toEqual(2);
           expect(state.todos).toMatchSnapshot();
         });
         it("can move the position attribute on child level", () => {

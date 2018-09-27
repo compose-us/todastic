@@ -25,14 +25,16 @@ function addTodo(todos, todoToAdd) {
   if (todoToAdd.parentId) {
     return todos.map(todo => appendChild(todo, todoToAdd));
   }
-  return [...todos, todoToAdd].sort(positionSortFunction);
+  todoToAdd.position = todos.length;
+  return [...todos, todoToAdd];
 }
 
 function appendChild(todo, todoToAdd) {
   if (todoToAdd.parentId === todo.todoId) {
+    let children = todo.children || [];
     return {
       ...todo,
-      children: [...(todo.children || []), todoToAdd].sort(positionSortFunction)
+      children: [...children, { ...todoToAdd, position: children.length }]
     };
   } else if (todo.children && todo.children.length) {
     const mappedChildren = todo.children.map(child => appendChild(child, todoToAdd));

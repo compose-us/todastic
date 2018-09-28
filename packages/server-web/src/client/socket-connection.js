@@ -20,7 +20,10 @@ export default function createSocketConnection(eventProcessor) {
       });
     },
     moveTodo(todo, changeset) {
-      socket.emit("command", { command: "MOVE_TODO", data: { todoId: todo.todoId, ...changeset } });
+      socket.emit("command", {
+        command: "MOVE_TODO",
+        data: { todoId: todo.todoId, parentId: changeset.parentId, position: changeset.position }
+      });
     },
     connect() {
       socket.open();

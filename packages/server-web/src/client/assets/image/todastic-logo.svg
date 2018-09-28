@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="151px" height="33px" viewBox="0 0 151 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>todastic-logo</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-12.5%" y="-9.1%" width="137.5%" height="127.3%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="1" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="0.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="Logo" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="todastic-logo" transform="translate(1.000000, 0.000000)">
+            <text id="todastic" font-family="Neucha" font-size="40" font-weight="normal" fill="#48BA1F">
+                <tspan x="33.0429688" y="31">todastic</tspan>
+            </text>
+            <g id="status" stroke-width="1" fill-rule="evenodd" transform="translate(0.000000, 10.000000)" fill="#FFFFFF" stroke="#757575">
+                <path d="M1.07524725,2.24561509 C-0.00785212965,4.05330703 1.54871163,19.2122354 2.59934573,20.0563027 C3.64997983,20.9003699 19.0790449,21.6523489 20.3425127,20.0563027 C21.6059805,18.4602564 22.42522,0.769371094 21.7677308,0.259222493 C21.1102416,-0.250926109 2.15834663,0.437923144 1.07524725,2.24561509 Z" id="Path-2" stroke-width="2" fill-rule="nonzero"></path>
+            </g>
+            <g id="tick" filter="url(#filter-1)" stroke-width="1" fill-rule="evenodd" transform="translate(5.000000, 6.000000)">
+                <path d="M0,15.3834655 C0.725060796,17.3843012 4.82137755,21.2415139 5.78388192,21.2415139 C6.74638629,21.2415139 12.7084893,1.34717403 15.1294174,0" id="Path-3" stroke="#101010" stroke-width="2" fill-rule="nonzero"></path>
+                <path d="M14.4605018,1.01809409 C12.7142004,2.91777617 7.36037835,22.0215802 5.92526554,21.6859133" id="Path-4" stroke="#000000" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -566,6 +566,25 @@ describe("replay", () => {
       });
 
       describe("position sorting", () => {
+        it("can move the position from root level", () => {
+          const events = [
+            { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo" } },
+            { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Another todo" } },
+            { eventType: "ADDED_TODO", data: { todoId: "id-3", title: "Yet another todo" } },
+            { eventType: "ADDED_TODO", data: { todoId: "id-4", title: "Yet another todo 2" } },
+            {
+              eventType: "MOVED_TODO",
+              data: { todoId: "id-3", position: 0, parentId: "id-2" }
+            },
+            {
+              eventType: "MOVED_TODO",
+              data: { todoId: "id-4", position: 1, parentId: "id-2" }
+            }
+          ];
+          const state = replay(events);
+          expect(state.todos.length).toEqual(2);
+          expect(state.todos).toMatchSnapshot();
+        });
         it("can move the position on root level", () => {
           const events = [
             { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo" } },

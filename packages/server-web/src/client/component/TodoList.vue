@@ -2,9 +2,9 @@
   <div class="todo-list">
     <ul>
       <li v-for="todo in todos" :key="todo.todoId" :todoId="todo.todoId" draggable="true" ref="dragElement">
-        <div :class="`dropzone-same dropzone-${ isDragging ? 'active' : 'inactive' }`" ref="dropzoneSame"></div>
+        <div :class="`dropzone-same dropzone-${ isDragging ? 'active' : 'inactive' }`" :position="todo.position" ref="dropzoneSame"></div>
         <todo-item :commands="commands" :todo="todo"/>
-        <todo-list :commands="commands" :parentId="todo.todoId" :position="todo.position" :todos="todo.children"/>
+        <todo-list :commands="commands" :parentId="todo.todoId" :todos="todo.children"/>
       </li>
     </ul>
   </div>
@@ -18,7 +18,7 @@ export default {
     "todo-item": TodoItem
   },
   name: "todo-list",
-  props: ["commands", "todos", "parentId", "position"],
+  props: ["commands", "todos", "parentId"],
   beforeUpdate() {
     this.removeDragListeners();
   },
@@ -111,12 +111,12 @@ export default {
     },
     handleDrop(event) {
       event.stopPropagation();
-      const { commands, parentId, position, todo } = this.$props;
+      const { commands, parentId, todo } = this.$props;
       event.target.classList.remove("active-top");
       event.target.classList.remove("active-bottom");
       const myTodo = JSON.parse(event.dataTransfer.getData("json/todo"));
-      console.log(position);
-      const myPosition = this.isTopHalf(event) ? position : position + 1;
+      const position = parseInt(event.target.getAttribute("position"));
+      const myPosition = position + (this.isTopHalf(event) ? 0 : 1);
       commands.moveTodo(myTodo, { parentId, position: myPosition });
     },
     isTopHalf(event){

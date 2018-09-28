@@ -63,7 +63,6 @@ function replaceNode(todos, newNode) {
 }
 
 function findTodo(todos, todoId) {
-  console.log("finding todoid in todos", todos, todoId);
   for (let todo of todos) {
     if (todo.todoId === todoId) {
       return todo;

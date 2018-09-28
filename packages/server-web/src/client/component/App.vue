@@ -50,7 +50,7 @@ export default {
 };
 </script>
 <style>
-@import "../main.css";
+@import "css/main.css";
 .help {
   color: black;
   background: #ffffff;

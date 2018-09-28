@@ -1,7 +1,7 @@
 <template>
   <div class="todasticapp">
     <div>
-      <h1>Todastic</h1>
+      <img src="image/todastic-logo.svg" />
       <todo-list :commands="commands" :parentId="null" :todos="todos" key="root-list" />
       <todo-text v-on:change="addTodo" key="root-adder" />
     </div>

@@ -19,24 +19,23 @@
                   Labels within your text will be extracted in order to keep your ToDo text readable.
                   Labels at the end will be removed from the text and just live as labels.</p>
                   <h3>Example:</h3>
-                  <q>Build a #zoo with lots of #animals in it #life-goals</q><br /> will result
-                  in the ToDo text <q>Build a zoo with lots of animals in it</q> and the labels
-                  <q>#zoo, #animals, #life-goals</q>.
-                </p>
+                  <p><q>Build a #zoo with lots of #animals in it #life-goals</q></p>
+                  <p> will result in the ToDo text <q>Build a zoo with lots of animals in it</q> and the labels
+                  <q>#zoo, #animals, #life-goals</q>.</p>
               </div>
               <div class="help-entry">
                 <h2>Tracking time</h2>
                 <span>You can add and remove time tracking entries by editing the ToDo text.
-                  <br />Time tracking entries follow the pattern
-                  <q>#TRACK({"trackedTime": "01:00:00", "tracker": "Mary", "date": "2018-09-13 17:27:00"}})</q>
-                  <br />You can add as many of them as you like to your ToDo.
-                  <br />Removing or editing an entry is done via editing the ToDo text.
-                  <br />You can analyze the time entries via scripting.
+                  <p>Time tracking entries follow the pattern
+                  <q>#TRACK({"trackedTime": "01:00:00", "tracker": "Mary", "date": "2018-09-13 17:27:00"}})</q></p>
+                  <p>You can add as many of them as you like to your ToDo.</p>
+                  <p>Removing or editing an entry is done via editing the ToDo text.</p>
+                  <p>You can analyze the time entries via scripting.</p>
                 </span>
               </div>
               <div class="help-entry">
                 <h2>Scripting</h2>
-                <p>The ability to run arbitrary scripts is one of Todastics most powerful features. Scripts are plain 
+                <p>The ability to run arbitrary scripts is one of Todastics most powerful features. Scripts are plain
                   <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript">JavaScript</a>.
                   You can drag a part of your ToDo tree here to let it run on that part only or press the "Run" button to run it
                   on all of your ToDos.</p>
@@ -82,6 +81,9 @@ export default {
 .help-entry {
   padding-bottom: 20px;
   font-size: medium;
+}
+.help-entry p {
+  margin-bottom: 0;
 }
 .help-entry q {
   background-color: rgba(0, 0, 0, 0.05);

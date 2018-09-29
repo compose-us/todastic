@@ -27,7 +27,7 @@
                 <h2>Tracking time</h2>
                 <span>You can add and remove time tracking entries by editing the ToDo text.
                   <p>Time tracking entries follow the pattern
-                  <q>#TRACK({"trackedTime": "01:00:00", "tracker": "Mary", "date": "2018-09-13 17:27:00"}})</q></p>
+                  <q>#TRACK({"trackedTime": "01:00:00", "tracker": "Mary", "date": "2018-09-13 17:27:00"})</q></p>
                   <p>You can add as many of them as you like to your ToDo.</p>
                   <p>Removing or editing an entry is done via editing the ToDo text.</p>
                   <p>You can analyze the time entries via scripting.</p>

@@ -56,7 +56,7 @@ export const store = new Vuex.Store({
       state.commands.changePassword(val);
     },
     addEventToAllEvents(state, event) {
-      state.allEvents = state.allEvents = [...state.allEvents, event];
+      state.allEvents = [...state.allEvents, event];
     }
   },
   actions: {

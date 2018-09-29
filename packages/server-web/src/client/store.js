@@ -8,9 +8,9 @@ export const store = new Vuex.Store({
   state: {
     isDragging: false,
     allEvents: [],
-    currentEventPositon: -1,
+    currentEventPosition: -1,
     todos: [],
-    commands: [],
+    commands: {},
     isAuthenticated: false,
     isLoading: false
   },
@@ -46,15 +46,34 @@ export const store = new Vuex.Store({
     commands(state, commands) {
       state.commands = commands;
     },
-    processEvent(state, event) {
-      if (event.position > state.currentEventPositon) {
-        state.allEvents.push(event);
-        state.currentEventPositon = event.position;
-        state.todos = replay(state.allEvents).todos;
-      }
+    currentEventPosition(state, position) {
+      state.currentEventPosition = position;
+    },
+    todos(state, newTodos) {
+      state.todos = newTodos;
     },
     changePassword(state, val) {
       state.commands.changePassword(val);
+    },
+    addEventToAllEvents(state, event) {
+      state.allEvents = state.allEvents = [...state.allEvents, event];
+    }
+  },
+  actions: {
+    processEvent(context, event) {
+      new Promise((resolve, reject) => {
+        try {
+          if (event.position > context.state.currentEventPosition) {
+            context.commit("addEventToAllEvents", event);
+            context.commit("currentEventPosition", event.position);
+            const todos = replay(context.state.allEvents).todos;
+            context.commit("todos", todos);
+          }
+          resolve();
+        } catch (e) {
+          reject(e);
+        }
+      });
     }
   }
 });

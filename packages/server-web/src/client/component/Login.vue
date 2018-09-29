@@ -1,6 +1,6 @@
 <template>
   <div class="todasticapp">
-    <h1>Todastic</h1>
+    <img src="image/todastic-logo.svg" />
     <span></span> <!-- quickfix for grid layout -->
     <div>
       <input type="text" name="username" v-model="input.username" placeholder="Username" />

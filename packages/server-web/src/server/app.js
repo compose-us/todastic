@@ -29,10 +29,6 @@ function startApp({ session, logger, User }) {
     res.redirect("/");
   });
 
-  app.get("/login", (req, res) => {
-    res.redirect("/");
-  });
-
   app.use("/client.dist.js", express.static(path.normalize(`${__dirname}/../../dist/client.dist.js`)));
   app.use("/", express.static(path.normalize(`${__dirname}/../../src/client/asset/`)));
 

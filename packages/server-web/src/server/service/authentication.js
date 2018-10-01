@@ -19,6 +19,11 @@ function register({
   app.use(passport.initialize());
   app.use(passport.session());
 
+  app.get(loginRoute, passport.authenticate("local"), (req, res) => {
+    console.log("login route GET");
+    res.redirect(indexRoute);
+  });
+
   app.post(loginRoute, passport.authenticate("local"), (req, res) => {
     res.redirect(indexRoute);
   });
@@ -47,6 +52,7 @@ function loggedIn(logger) {
 
 function init({ passport, User, logger }) {
   const localStrategy = new LocalStrategy(function(username, password, done) {
+    console.log("this is here??");
     User.findOne(
       {
         username: username

@@ -1,6 +1,7 @@
 # [Unreleased]
 
-* Adding basic user functionality
+* FEATURE: Adding basic user functionality
+* FEATURE: Add login via GET url parameters
 
 # [0.2.1] - 2018-07-19
 

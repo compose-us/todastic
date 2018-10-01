@@ -19,6 +19,10 @@ function register({
   app.use(passport.initialize());
   app.use(passport.session());
 
+  app.get(loginRoute, passport.authenticate("local"), (req, res) => {
+    res.redirect(indexRoute);
+  });
+
   app.post(loginRoute, passport.authenticate("local"), (req, res) => {
     res.redirect(indexRoute);
   });

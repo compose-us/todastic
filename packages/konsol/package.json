@@ -5,7 +5,8 @@
   "main": "src/konsol.js",
   "scripts": {
     "format": "prettier --write 'src/**/*.js'",
-    "konsol": "node src/konsol.js"
+    "konsol": "node src/konsol.js",
+    "user-add": "node src/user-add.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
     "@todastic/config": "^0.2.1",
     "@todastic/server-web": "^0.2.1",
     "@todastic/storage-events": "^0.2.1",
-    "@todastic/storage-users": "^0.2.1"
+    "@todastic/storage-users": "^0.2.1",
+    "minimist": "^1.2.0"
   }
 }

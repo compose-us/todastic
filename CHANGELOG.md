@@ -1,5 +1,7 @@
 # [Unreleased]
 
+* Adding basic user functionality
+* FEATURE: Adding new user script
 * FEATURE: Adding basic user functionality
 * FEATURE: Add login via GET url parameters
 

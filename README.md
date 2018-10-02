@@ -86,3 +86,17 @@ different port than the standard 3000.
 
 `SESSION_STORE` is also configurable. Currently supported options are
 `in-memory` (default, **not** suited for production) and `mongo`.
+
+## Administration
+
+### Adding users
+
+You can use the node script `add-user.js` in the package `konsol` to add
+a user. For more convenient usage, it is included in the root
+`package.json`:
+```
+npm run add-user -- -u <username> -p <password> -l <language>
+```
+*Note*: You don't have to provide a password or language.
+There will be a password auto-generated and english will be uses as language.
+Known languages are english (en) and german (de).

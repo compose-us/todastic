@@ -15,7 +15,7 @@ export default {
     return {
       // we don't want to change the parent element's title directly
       placeholder: getPlaceholder()
-    }
+    };
   },
   computed: {
     todoTitle() {
@@ -24,9 +24,9 @@ export default {
   },
   methods: {
     change(event) {
-      this.$emit('change', event.target.value);
+      this.$emit("change", event.target.value);
       // means, we are in "add new" mode
-      if(!this.$props.initialTodoTitle) {
+      if (!this.$props.initialTodoTitle) {
         this.$data.todoTitle = "";
         this.$data.placeholder = getPlaceholder();
       }
@@ -35,10 +35,44 @@ export default {
 };
 
 function getPlaceholder() {
-  return oneOf(["Get in shape", "Open a zoo", "Start a business", "Write a letter"]);
+  const randomAdj = oneOf(
+    "a heartwarming",
+    "a really nice",
+    "a regional",
+    "a valuable",
+    "a virtual",
+    "a welcoming",
+    "an embarassing",
+    "an inviting",
+    "the best"
+  );
+  return oneOf(
+    `Get in ${oneOf("better", "great", "nice", "proper", "the best")} shape`,
+    `${oneOf("Create", "Start", "Open", "Set up")} ${randomAdj} ${oneOf(
+      "back yard",
+      "business",
+      "kindergarden",
+      "school",
+      "zoo"
+    )}`,
+    `${oneOf("Buy", "Rent", "Invest in")} ${randomAdj} ${oneOf(
+      "banana",
+      "book",
+      "business",
+      "car",
+      "cat",
+      "cheese cake",
+      "fitness drink",
+      "elephant",
+      "startup",
+      "tiger",
+      "zebra"
+    )}`,
+    `Write ${randomAdj} ${oneOf("book", "invitation", "letter")}`
+  );
 }
 
-function oneOf(arr) {
+function oneOf(...arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 </script>

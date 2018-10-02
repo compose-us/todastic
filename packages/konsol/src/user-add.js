@@ -7,7 +7,7 @@ const parseArgs = require("minimist");
 const args = parseArgs(process.argv.slice(2))
 
 if (args.h) {
-  console.log("USAGE: user-add -u <username> -p password -l en|de");
+  console.log("USAGE: user-add -u <username> -p <password> -l <en|de>");
   console.log("Password and language are optional.");
   console.log("If you don't provide one, a password will be generated for you and displayed on the console.");
   console.log(" If you don't provide a language, we assume english.");

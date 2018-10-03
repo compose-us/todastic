@@ -22,7 +22,8 @@ module.exports = () => {
       rules: [
         {
           test: /\.vue$/,
-          loader: "vue-loader"
+          loader: "vue-loader",
+          options: { transformToRequire: { image: "xlink:href" } }
         },
         // this will apply to both plain `.js` files
         // AND `<script>` blocks in `.vue` files
@@ -36,6 +37,24 @@ module.exports = () => {
         {
           test: /\.css$/,
           use: ["vue-style-loader", "css-loader"]
+        },
+        {
+          test: /\.svg$/,
+          issuer: /\.vue$/, // Prevent usage of icon sprite outside of vue
+          include: [path.resolve(__dirname, "../../src/asset/icon"), path.resolve(__dirname, "../../src/asset/image")],
+          use: [
+            {
+              loader: "svg-sprite-loader"
+            },
+            {
+              loader: "svgo-loader"
+            }
+          ]
+        },
+        {
+          test: /\.(jpe?g|png|gif)$/,
+          include: [path.resolve(__dirname, "../../src/asset/image")],
+          use: "file-loader"
         }
       ]
     },

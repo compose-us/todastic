@@ -1,6 +1,6 @@
 <template>
   <div class="todasticapp">
-    <img src="image/todastic-logo.svg" />
+    <asset-image :source="logo" />
     <span></span> <!-- quickfix for grid layout -->
     <div>
       <input type="text" name="username" v-model="input.username" placeholder="Username" />
@@ -11,10 +11,16 @@
 </template>
 
 <script>
+import AssetImage from "./AssetImage.vue";
+import logo from "../asset/image/todastic-logo.svg";
+
 export default {
   name: "LoginForm",
+  components: { AssetImage },
   data() {
+    console.log({ logo });
     return {
+      logo,
       input: {
         username: "",
         password: ""
@@ -39,9 +45,6 @@ export default {
         console.log("A username and password must be present");
       }
     }
-  },
-  render() {
-    return "hello??";
   }
 };
 </script>

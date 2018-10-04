@@ -60,7 +60,7 @@
           <div :class="$style.modalFooter">
             <slot name="footer">
               <a href="mailto:feedback@todastic.app">Feedback / Contact</a>
-              <button :class="$style.modalDefaultButton" @click="$emit('close')">
+              <button :class="$style.modalDefaultButton" @click="close">
                 Close
               </button>
             </slot>
@@ -73,7 +73,23 @@
 
 <script>
 export default {
-  name: "Help"
+  name: "Help",
+  methods: {
+    close() {
+      this.$emit('close');
+    },
+    escapeKeyListener: function(event) {
+      if (event.keyCode === 27) {
+        this.close();
+      }
+    }
+  },
+  created() {
+    document.addEventListener('keyup', this.escapeKeyListener);
+  },
+  destroyed() {
+    document.removeEventListener('keyup', this.escapeKeyListener);
+  },
 };
 </script>
 

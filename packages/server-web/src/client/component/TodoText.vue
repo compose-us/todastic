@@ -24,11 +24,13 @@ export default {
   },
   methods: {
     change(event) {
-      this.$emit("change", event.target.value);
-      // means, we are in "add new" mode
-      if (!this.$props.initialTodoTitle) {
-        this.$data.todoTitle = "";
-        this.$data.placeholder = getPlaceholder();
+      if(event.target.value !== "") {
+        this.$emit("change", event.target.value);
+        // means, we are in "add new" mode
+        if (!this.$props.initialTodoTitle) {
+          this.$data.todoTitle = "";
+          this.$data.placeholder = getPlaceholder();
+        }
       }
     }
   }

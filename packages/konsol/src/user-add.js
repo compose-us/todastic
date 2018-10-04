@@ -31,8 +31,8 @@ async function createUser(args) {
   }
 
   const db = await initDatabase({ config, logger: console })
-  const User = createUserModel({ mongoose: db.mongoose });
-  const Event = createEventModel({ mongoose: db.mongoose });
+  const User = await createUserModel({ mongoose: db.mongoose });
+  const Event = await createEventModel({ mongoose: db.mongoose });
   const user = await User.create({ username, password })
   const uid = user._id + "-id-";
 
@@ -44,12 +44,12 @@ async function createUser(args) {
   } else {
     throw "Don't know what to do with language entry '" + language + "'";
   }
-  await events.map(event => {
-    e = Event.create(event)
-    process.stdout.write(".")
-    return
+
+  const result = events.map(async event => {
+    return await Event.create(event);
   });
-  console.log("");
+  await Promise.all(result);
+  console.log("Created " + result.length + " events");
 
   await db.mongoose.disconnect();
   return "All done. User " + username + " with password " + password + " successfully created.";

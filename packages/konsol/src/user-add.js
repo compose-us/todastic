@@ -1,7 +1,6 @@
 const config = require("@todastic/config");
-const { initDatabase } = require("@todastic/server-web/src/server/lib/database-mongo.js");
+const { createEventModel,initDatabase } = require("@todastic/storage-mongo");
 const { createUserModel } = require("@todastic/storage-users");
-const { createEventModel } = require("@todastic/storage-events");
 const parseArgs = require("minimist");
 
 const args = parseArgs(process.argv.slice(2))

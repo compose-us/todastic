@@ -5,6 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "bootstrap": "lerna bootstrap",
+    "build": "lerna run build",
     "format": "prettier --write 'tests/**/*.js' && lerna run format",
     "start": "node ./packages/cli/src/cli.js",
     "start-web": "node ./packages/server-web/src/start.js",
@@ -19,7 +20,7 @@
     "test-ci": "run-s test:*",
     "test-ci:integration": "jest --ci --detectOpenHandles",
     "test-ci:packages": "lerna run test-ci",
-    "watch-web": "cd packages/server-web && npm run build-client -- --watch"
+    "watch-web": "cd packages/server-web && npm run build -- --watch"
   },
   "repository": {
     "type": "git",

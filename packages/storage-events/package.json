@@ -2,7 +2,7 @@
   "name": "@todastic/storage-events",
   "version": "0.2.1",
   "description": "Event storage/loading for todastic.",
-  "main": "src/storage.js",
+  "main": "src/index.js",
   "scripts": {
     "format": "prettier --write 'src/**/*.js'",
     "test": "jest src/"
@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@todastic/config": "^0.2.1",
-    "@todastic/server-web": "^0.2.1",
+    "@todastic/storage-mongo": "^0.2.1",
     "mongoose-timestamp": "^0.6.0",
     "uuid": "^3.3.2"
   }

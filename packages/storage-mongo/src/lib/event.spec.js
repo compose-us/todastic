@@ -1,5 +1,5 @@
 const { createEventModel } = require("./event.js");
-const { initDatabase } = require("@todastic/server-web/src/server/lib/database-mongo.js");
+const { initDatabase } = require("@todastic/storage-mongo");
 const config = require("@todastic/config");
 
 let Event;

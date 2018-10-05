@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@todastic/config": "^0.2.1",
-    "@todastic/server-web": "^0.2.1",
+    "@todastic/storage-mongo": "^0.2.1",
     "@todastic/storage-events": "^0.2.1",
     "@todastic/storage-users": "^0.2.1",
     "minimist": "^1.2.0"

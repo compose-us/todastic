@@ -12,8 +12,13 @@
     "local": "npm run watch-web | npm run start-web",
     "konsol": "node ./packages/konsol/src/konsol.js",
     "user-add": "node ./packages/konsol/src/user-add.js",
-    "test": "jest",
-    "test-ci": "jest --ci --detectOpenHandles",
+    "storyshots": "cd packages/server-web && npm run test:storyshots",
+    "test": "run-s test:*",
+    "test:integration": "jest",
+    "test:packages": "lerna run test",
+    "test-ci": "run-s test:*",
+    "test-ci:integration": "jest --ci --detectOpenHandles",
+    "test-ci:packages": "lerna run test-ci",
     "watch-web": "cd packages/server-web && npm run build-client -- --watch"
   },
   "repository": {
@@ -35,6 +40,7 @@
     "jest": "^23.5.0",
     "lerna": "^2.11.0",
     "mongoose": "^5.2.9",
+    "npm-run-all": "^4.1.3",
     "prettier": "^1.13.7"
   }
 }

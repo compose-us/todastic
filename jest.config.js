@@ -8,5 +8,5 @@ module.exports = {
     "!**/server-web/src/client/**/*.js",
     "!**/server-web/src/dist/**"
   ],
-  roots: ["packages/", "tests/"]
+  roots: ["tests/"]
 };

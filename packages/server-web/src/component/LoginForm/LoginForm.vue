@@ -11,14 +11,13 @@
 </template>
 
 <script>
-import AssetImage from "./AssetImage.vue";
-import logo from "../asset/image/todastic-logo.svg";
+import { AssetImage } from "../";
+import logo from "../../asset/image/todastic-logo.svg";
 
 export default {
   name: "LoginForm",
   components: { AssetImage },
   data() {
-    console.log({ logo });
     return {
       logo,
       input: {

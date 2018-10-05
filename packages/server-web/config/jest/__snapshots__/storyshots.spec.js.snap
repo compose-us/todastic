@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots LoginForm default 1`] = `
+<div
+  class="todasticapp"
+>
+  <svg
+    version="1.1"
+    viewBox="0 0 151 33"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+  >
+    <use
+      xlink:href="#todastic-logo.svg"
+    />
+  </svg>
+   
+  <span />
+   
+  <div>
+    <input
+      name="username"
+      placeholder="Username"
+      type="text"
+    />
+     
+    <input
+      name="password"
+      placeholder="Password"
+      type="password"
+    />
+     
+    <button
+      type="button"
+    >
+      Login
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Storyshots TodoItem done 1`] = `
+<div
+  class="todo-item"
+>
+  <span
+    class="status isDone"
+  />
+   
+  <span>
+    This is a todo-text
+  </span>
+</div>
+`;
+
+exports[`Storyshots TodoItem open 1`] = `
+<div
+  class="todo-item"
+>
+  <span
+    class="status isOpen"
+  />
+   
+  <span>
+    This is a todo-text
+  </span>
+</div>
+`;
+
+exports[`Storyshots TodoItemStatus done 1`] = `
+<span
+  class="status isDone"
+/>
+`;
+
+exports[`Storyshots TodoItemStatus open 1`] = `
+<span
+  class="status isOpen"
+/>
+`;

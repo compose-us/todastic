@@ -23,9 +23,6 @@
     "prettier": "^1.13.7"
   },
   "dependencies": {
-    "@todastic/server-web": "^0.2.1",
-    "@todastic/storage-events": "^0.2.1",
-    "@todastic/storage-users": "^0.2.1",
     "connect-mongo": "^2.0.1",
     "cookie-parser": "^1.4.3",
     "passport": "^0.4.0",

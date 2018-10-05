@@ -4,12 +4,16 @@ import { storiesOf } from "@storybook/vue";
 import TodoItemStatus from "./TodoItemStatus.vue";
 Vue.component("TodoItemStatus", TodoItemStatus);
 
-storiesOf("TodoItemStatus", module)
+storiesOf("TodoItem/TodoItemStatus", module)
   .add("open", () => ({
     components: { TodoItemStatus },
-    template: "<TodoItemStatus status='open' />"
+    render() {
+      return <TodoItemStatus status="open" />;
+    }
   }))
   .add("done", () => ({
     components: { TodoItemStatus },
-    template: "<TodoItemStatus status='done' />"
+    render() {
+      return <TodoItemStatus status="done" />;
+    }
   }));

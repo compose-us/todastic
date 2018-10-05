@@ -7,9 +7,15 @@ Vue.component("TodoItem", TodoItem);
 storiesOf("TodoItem", module)
   .add("open", () => ({
     components: { TodoItem },
-    template: `<TodoItem :todo="{status: 'open'}" />`
+    render() {
+      const todo = { status: "open" };
+      return <todo-item todo={todo} />;
+    }
   }))
   .add("done", () => ({
     components: { TodoItem },
-    template: `<TodoItem :todo="{status: 'done'}" />`
+    render() {
+      const todo = { status: "done" };
+      return <todo-item todo={todo} />;
+    }
   }));

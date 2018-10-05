@@ -1,12 +1,14 @@
-const { createEventModel } = require("./event.js");
-const { initDatabase } = require("@todastic/storage-mongo");
-const config = require("@todastic/config");
+import { createEventModel } from "./event.js";
+import { initDatabase } from "../service/database-mongo.js";
+import config from "@todastic/config";
 
-let Event;
-let mongoose;
 describe("Event", () => {
+  let Event;
+  let mongoose;
+
   beforeAll(async () => {
-    let { mongoose } = await initDatabase({ config, logger: console });
+    const db = await initDatabase({ config, logger: console });
+    mongoose = db.mongoose;
     Event = createEventModel({ mongoose });
   });
 
@@ -15,8 +17,8 @@ describe("Event", () => {
     await Event.remove({});
   });
 
-  afterAll(() => {
-    mongoose.disconnect();
+  afterAll(async () => {
+    await mongoose.disconnect();
   });
 
   it("is invalid without 'eventType'", testWithout("eventType"));
@@ -95,14 +97,14 @@ describe("Event", () => {
       expect(events.length).toBe(expectedNumber);
     };
   }
-});
 
-function testWithout(field) {
-  return () => {
-    const hash = { eventType: "ADDED_TODO", position: 1 };
-    delete hash[field];
-    const event = new Event(hash);
-    const err = event.validateSync();
-    expect(err.errors[field]).toBeDefined();
-  };
-}
+  function testWithout(field) {
+    return () => {
+      const hash = { eventType: "ADDED_TODO", position: 1 };
+      delete hash[field];
+      const event = new Event(hash);
+      const err = event.validateSync();
+      expect(err.errors[field]).toBeDefined();
+    };
+  }
+});

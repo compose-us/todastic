@@ -14,7 +14,8 @@ before_script:
 
 install:
   - travis_wait npm ci
-  - lerna bootstrap
+  - npm run bootstrap
+  - npm run build
 
 script:
   - docker-compose -p tests run -p 3000 --rm todastic npm run test-ci

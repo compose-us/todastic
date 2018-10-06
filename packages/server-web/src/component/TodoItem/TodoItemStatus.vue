@@ -1,5 +1,5 @@
 <template>
-  <span :class="{status: 'status', isOpen: status === 'open', isDone: status === 'done'}"></span>
+  <span :class="{[$style.status]: true, [$style.isOpen]: status === 'open', [$style.isDone]: status === 'done'}"></span>
 </template>
 
 <script>
@@ -8,7 +8,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" module>
 .status {
   border: 1px solid #000;
   display: inline-block;

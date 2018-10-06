@@ -40,30 +40,57 @@ exports[`Storyshots LoginForm default 1`] = `
 `;
 
 exports[`Storyshots TodoItem done 1`] = `
-<div
-  class="todo-item"
->
+<div>
   <span
     class="status isDone"
   />
    
   <span>
-    This is a todo-text
+    this is a done todo
   </span>
+   
+  <ul />
 </div>
 `;
 
 exports[`Storyshots TodoItem open 1`] = `
-<div
-  class="todo-item"
->
+<div>
   <span
     class="status isOpen"
   />
    
   <span>
-    This is a todo-text
+    this is an open todo
   </span>
+   
+  <ul />
+</div>
+`;
+
+exports[`Storyshots TodoItem with labels 1`] = `
+<div>
+  <span
+    class="status isOpen"
+  />
+   
+  <span>
+    this is a todo with labels
+  </span>
+   
+  <ul>
+    <li>
+      foo
+    </li>
+    <li>
+      bar
+    </li>
+    <li>
+      baz
+    </li>
+    <li>
+      something
+    </li>
+  </ul>
 </div>
 `;
 

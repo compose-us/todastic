@@ -1,7 +1,9 @@
-const defaultConfig = require("../webpack/config.js");
+const createConfig = require("../webpack/config.js");
 
 module.exports = (baseConfig, _env, _defaultConfig) => {
-  const config = defaultConfig();
+  const config = createConfig({
+    extractStyles: false
+  });
 
   baseConfig.module = {
     ...baseConfig.module,

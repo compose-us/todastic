@@ -1,7 +1,10 @@
 const path = require("path");
+const autoprefixer = require("autoprefixer");
+const webpack = require("webpack");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
 
-module.exports = () => {
+module.exports = ({ extractStyles = true } = {}) => {
   const env = process.env.NODE_ENV || "development";
   const isProduction = env === "production";
   const isDevelopment = !isProduction;
@@ -35,21 +38,50 @@ module.exports = () => {
         // this will apply to both plain `.css` files
         // AND `<style>` blocks in `.vue` files
         {
-          test: /\.css$/,
-          use: ["vue-style-loader", "css-loader"]
+          test: /\.scss$/,
+          use: [
+            extractStyles
+              ? MiniCssExtractPlugin.loader
+              : {
+                  loader: "vue-style-loader",
+                  options: {
+                    sourceMap: isDevelopment
+                  }
+                },
+            {
+              loader: "css-loader",
+              options: {
+                sourceMap: isDevelopment,
+                modules: true,
+                localIdentName: isDevelopment ? "[path][name]__[local]" : "[hash:base64]"
+              }
+            },
+            {
+              loader: "postcss-loader",
+              options: {
+                sourceMap: isDevelopment,
+                plugins: [autoprefixer({ browsers: ["last 2 versions", "ie >= 11"] })]
+              }
+            },
+            {
+              loader: "sass-loader",
+              options: {
+                sourceMap: isDevelopment
+              }
+            },
+            {
+              loader: "sass-resources-loader",
+              options: {
+                resources: [path.resolve(__dirname, "../../src/style/config.scss")]
+              }
+            }
+          ]
         },
         {
           test: /\.svg$/,
           issuer: /\.vue$/, // Prevent usage of icon sprite outside of vue
           include: [path.resolve(__dirname, "../../src/asset/icon"), path.resolve(__dirname, "../../src/asset/image")],
-          use: [
-            {
-              loader: "svg-sprite-loader"
-            },
-            {
-              loader: "svgo-loader"
-            }
-          ]
+          use: [{ loader: "svg-sprite-loader" }, { loader: "svgo-loader" }]
         },
         {
           test: /\.(jpe?g|png|gif)$/,
@@ -58,6 +90,17 @@ module.exports = () => {
         }
       ]
     },
-    plugins: [new VueLoaderPlugin()]
+    plugins: [
+      new MiniCssExtractPlugin({
+        filename: "[name].css",
+        chunkFilename: "[id].css"
+      }),
+      new VueLoaderPlugin(),
+      new webpack.DefinePlugin({
+        "process.env": {
+          NODE_ENV: JSON.stringify(env)
+        }
+      })
+    ]
   };
 };

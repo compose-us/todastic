@@ -6,6 +6,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build",
+    "clean": "lerna run clean",
     "format": "prettier --write 'tests/**/*.js' && lerna run format",
     "start": "node ./packages/cli/src/cli.js",
     "start-web": "node ./packages/server-web/src/start.js",

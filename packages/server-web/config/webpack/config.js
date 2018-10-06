@@ -29,7 +29,7 @@ module.exports = () => {
         // AND `<script>` blocks in `.vue` files
         {
           test: /\.js$/,
-          exclude: /(node_modules|storage-events|storage-mongo)/,
+          exclude: /(node_modules|dashboard|storage-events|storage-mongo)/,
           loader: "babel-loader"
         },
         // this will apply to both plain `.css` files

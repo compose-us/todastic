@@ -13,8 +13,8 @@ ENV PATH ./node_modules/.bin:$PATH
 # Bundle app source
 COPY . .
 
-RUN lerna bootstrap
-RUN lerna run build-client
+RUN npm run bootstrap
+RUN npm run build
 
 EXPOSE 3000
 

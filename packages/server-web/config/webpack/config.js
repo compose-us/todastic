@@ -38,14 +38,41 @@ module.exports = ({ extractStyles = true } = {}) => {
         // this will apply to both plain `.css` files
         // AND `<style>` blocks in `.vue` files
         {
-          test: /\.css$/,
+          test: /\.scss$/,
           use: [
+            extractStyles
+              ? MiniCssExtractPlugin.loader
+              : {
+                  loader: "vue-style-loader",
+                  options: {
+                    sourceMap: isDevelopment
+                  }
+                },
             {
               loader: "css-loader",
               options: {
                 sourceMap: isDevelopment,
                 modules: true,
                 localIdentName: isDevelopment ? "[path][name]__[local]" : "[hash:base64]"
+              }
+            },
+            {
+              loader: "postcss-loader",
+              options: {
+                sourceMap: isDevelopment,
+                plugins: [autoprefixer({ browsers: ["last 2 versions", "ie >= 11"] })]
+              }
+            },
+            {
+              loader: "sass-loader",
+              options: {
+                sourceMap: isDevelopment
+              }
+            },
+            {
+              loader: "sass-resources-loader",
+              options: {
+                resources: [path.resolve(__dirname, "../../src/style/config.scss")]
               }
             }
           ]

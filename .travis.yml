@@ -16,6 +16,9 @@ install:
   - travis_wait npm ci
 
 script:
+  - npm run bootstrap
+  - npm run build
+  - docker-compose build
   - docker-compose -p tests run -p 3000 --rm todastic npm run test-ci
 
 after_script:

@@ -10,8 +10,6 @@ services:
     build: .
     command: npm run start-web
     image: todastic:latest
-    volumes:
-      - .:/app
     links:
       - mongo:mongo
     ports:

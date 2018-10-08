@@ -101,6 +101,7 @@ module.exports = ({ extractStyles = true } = {}) => {
           NODE_ENV: JSON.stringify(env)
         }
       })
-    ]
+    ],
+    stats: "errors-only"
   };
 };

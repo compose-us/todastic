@@ -29,6 +29,7 @@ function startApp({ session, logger, User }) {
     res.redirect("/");
   });
 
+  app.use("/client.css", express.static(path.normalize(`${__dirname}/../../dist/client.css`)));
   app.use("/client.js", express.static(path.normalize(`${__dirname}/../../dist/client.js`)));
   app.use("/", express.static(path.normalize(`${__dirname}/../../src/asset/`)));
 

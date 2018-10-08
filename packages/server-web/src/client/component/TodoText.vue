@@ -1,6 +1,6 @@
 <template>
-  <div :class="`todo-text ${visible ? '' : 'hide'}`">
-    <input ref="input" type="text" class="create-todo" @keyup.enter.prevent="change" :value="todoTitle" :placeholder="placeholder" />
+  <div :class="{[$style.todoText]: true, [$style.hide]: !visible}">
+    <input ref="input" type="text" :class="$style.createTodo" @keyup.enter.prevent="change" :value="todoTitle" :placeholder="placeholder" />
   </div>
 </template>
 
@@ -79,7 +79,7 @@ function oneOf(...arr) {
 }
 </script>
 
-<style scoped>
+<style lang="scss" module>
 input {
   display: block;
   border: 0;

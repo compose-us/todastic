@@ -1,8 +1,8 @@
 <template>
-  <div id="profile" v-if="isAuthenticated">
+  <div :class="$style.profile" v-if="isAuthenticated">
     <button id="profile-button" v-on:click="menuCollapsed=!menuCollapsed"><i class="fas fa-user"></i></button>
     <div style="clear: both;"></div>
-    <div id="menu" v-if="!menuCollapsed">
+    <div :class="$style.menu" v-if="!menuCollapsed">
       <ul>
         <li><button v-on:click="showPasswordChanger=true">Change password</button></li>
         <li><router-link tag="button" v-if="isAuthenticated" to="/login" v-on:click.native="logout()" replace>Logout</router-link></li>
@@ -48,24 +48,24 @@ export default {
 }
 </script>
 
-<style>
-#profile {
+<style lang="scss" module>
+.profile {
   float: right;
 }
-#menu {
+.menu {
   z-index: 2;
   position: absolute;
   right: 10px;
   margin-top: 20px;
 }
-#menu button {
+.menu button {
   float: right;
   border: 1px solid #BBD5ED;
   background: #ffffff;
   color: #919098;
   right: 0px;
 }
-#menu li {
+.menu li {
   list-style: none;
 }
 </style>

@@ -1,18 +1,18 @@
 <template>
 	<transition name="modal">
-    <div class="modal-mask">
-      <div class="modal-wrapper">
-        <div class="modal-container">
+    <div :class="$style.modalMask">
+      <div :class="$style.modalWrapper">
+        <div :class="$style.modalContainer">
 
-          <div class="modal-header">
+          <div :class="$style.modalHeader">
             <slot name="header">
               <h1>Using Todastic</h1>
             </slot>
           </div>
 
-          <div class="modal-body">
+          <div :class="$style.modalBody">
             <slot name="body">
-              <div class="help-entry">
+              <div :class="$style.helpEntry">
                 <h2>Labels</h2>
                 <p>You can add and remove labels by editing the ToDo text.
                   Adding a label is as simple as adding <q>#label</q> somewhere in the text.
@@ -23,7 +23,7 @@
                   <p> will result in the ToDo text <q>Build a zoo with lots of animals in it</q> and the labels
                   <q>#zoo, #animals, #life-goals</q>.</p>
               </div>
-              <div class="help-entry">
+              <div :class="$style.helpEntry">
                 <h2>Tracking time</h2>
                 <span>You can add and remove time tracking entries by editing the ToDo text.
                   <p>Time tracking entries follow the pattern
@@ -33,7 +33,7 @@
                   <p>You can analyze the time entries via scripting.</p>
                 </span>
               </div>
-              <div class="help-entry">
+              <div :class="$style.helpEntry">
                 <h2>Scripting</h2>
                 <p>The ability to run arbitrary scripts is one of Todastics most powerful features. Scripts are plain
                   <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript">JavaScript</a>.
@@ -57,10 +57,10 @@
             </slot>
           </div>
 
-          <div class="modal-footer">
+          <div :class="$style.modalFooter">
             <slot name="footer">
               <a href="mailto:feedback@todastic.app">Feedback / Contact</a>
-              <button class="modal-default-button" @click="$emit('close')">
+              <button :class="$style.modalDefaultButton" @click="$emit('close')">
                 Close
               </button>
             </slot>
@@ -77,30 +77,30 @@ export default {
 };
 </script>
 
-<style>
-.help-entry {
+<style lang="scss" module>
+.helpEntry {
   padding-bottom: 20px;
   font-size: medium;
 }
-.help-entry p {
+.helpEntry p {
   margin-bottom: 0;
 }
-.help-entry q {
+.helpEntry q {
   background-color: rgba(0, 0, 0, 0.05);
   quotes: none;
   font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono,
     Courier New;
 }
-.help-entry h2 {
+.helpEntry h2 {
   padding-bottom: 5px;
 }
-.help-entry ul {
+.helpEntry ul {
   padding-left: 20px;
 }
-.help-entry ul ul {
+.helpEntry ul ul {
   padding-left: 50px;
 }
-.modal-mask {
+.modalMask {
   position: fixed;
   z-index: 9998;
   top: 0;
@@ -112,12 +112,12 @@ export default {
   transition: opacity 0.3s ease;
 }
 
-.modal-wrapper {
+.modalWrapper {
   display: table-cell;
   vertical-align: middle;
 }
 
-.modal-container {
+.modalContainer {
   width: 90%;
   margin: 0px auto;
   padding: 20px 30px;
@@ -127,11 +127,11 @@ export default {
   transition: all 0.3s ease;
 }
 
-.modal-body {
+.modalBody {
   margin: 20px 0;
 }
 
-.modal-default-button {
+.modalDefaultButton {
   float: right;
 }
 
@@ -144,16 +144,16 @@ export default {
  * these styles.
  */
 
-.modal-enter {
+.modalEnter {
   opacity: 0;
 }
 
-.modal-leave-active {
+.modalLeaveActive {
   opacity: 0;
 }
 
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
+.modalEnter .modalContainer,
+.modalLeaveActive .modalContainer {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }

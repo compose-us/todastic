@@ -1,12 +1,12 @@
 <template>
-  <div class="todasticapp">
+  <div :class="$style.loginForm">
     <asset-image :source="logo" />
-    <span></span> <!-- quickfix for grid layout -->
-    <div>
+    <form v-on:submit.prevent="login()">
       <input type="text" name="username" v-model="input.username" placeholder="Username" />
-      <input type="password" name="password" v-model="input.password" v-on:keydown.enter="login()" placeholder="Password" />
-      <button type="button" v-on:click="login()">Login</button>
-    </div>
+      <input type="password" name="password" v-model="input.password" placeholder="Password" />
+      <div v-if="this.errorMessage" :class="$style.errorInfo">{{this.errorMessage}}</div>
+      <button type="submit">Login</button>
+    </form>
   </div>
 </template>
 
@@ -16,9 +16,11 @@ import logo from "../../asset/image/todastic-logo.svg";
 
 export default {
   name: "LoginForm",
+  props: ["verifyLogin"],
   components: { AssetImage },
   data() {
     return {
+      errorMessage: null,
       logo,
       input: {
         username: "",
@@ -27,28 +29,29 @@ export default {
     };
   },
   methods: {
-    login() {
-      if (this.input.username !== "" && this.input.password !== "") {
-        this.$http
-          .post("/login", { username: this.input.username, password: this.input.password })
-          .then(function(response) {
-            this.$store.commit("isAuthenticated", true);
-            this.$router.replace({ name: "home" });
-          })
-          .catch(function(err) {
-            console.log(err);
-            // TODO proper error handling
-            console.log("user not authorized");
-          });
-      } else {
-        console.log("A username and password must be present");
+    async login() {
+      try {
+        await this.verifyLogin(this.username, this.password);
+        this.errorMessage = null;
+      } catch (err) {
+        this.errorMessage = err.message;
       }
     }
   }
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" module>
+.loginForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.errorInfo {
+  color: $error-text;
+  padding: 2em 0;
+}
+
 input {
   display: block;
   border: 0;

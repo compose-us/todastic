@@ -1,5 +1,5 @@
 <template>
-  <div class="todasticapp">
+  <div :class="$style.todasticapp">
     <div>
       <img src="image/todastic-logo.svg" />
       <todo-list :commands="commands" :parentId="null" :todos="todos" key="root-list" />
@@ -42,7 +42,7 @@ function oneOf(arr) {
 }
 </script>
 
-<style>
+<style lang="scss" module>
 .todasticapp {
   display: grid;
   grid-template-columns: auto 30%;

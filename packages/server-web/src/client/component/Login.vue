@@ -1,10 +1,10 @@
 <template>
-  <div class="todasticapp">
+  <div :class="$style.todasticapp">
     <img src="image/todastic-logo.svg" />
     <span></span> <!-- quickfix for grid layout -->
     <div>
-      <input type="text" name="username" v-model="input.username" placeholder="Username" />
-      <input type="password" name="password" v-model="input.password" v-on:keydown.enter="login()" placeholder="Password" />
+      <input :class="$style.loginInputField" type="text" name="username" v-model="input.username" placeholder="Username" />
+      <input :class="$style.loginInputField" type="password" name="password" v-model="input.password" v-on:keydown.enter="login()" placeholder="Password" />
       <button type="button" v-on:click="login()">Login</button>
     </div>
   </div>
@@ -43,8 +43,13 @@ export default {
 };
 </script>
 
-<style scoped>
-input {
+<style lang="scss" module>
+.todasticapp {
+  display: grid;
+  grid-template-columns: auto 30%;
+}
+
+.loginInputField {
   display: block;
   border: 0;
   box-shadow: 0 2px 1px -1px #000;

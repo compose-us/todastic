@@ -1,5 +1,5 @@
 <template>
-  <span class="todo-label" :key="todoLabel" :style="`background-color: ${backgroundColor}`" >
+  <span :class="$style.todoLabel" :key="todoLabel" :style="`background-color: ${backgroundColor}`" >
     {{todoLabel}}
   </span>
 </template>
@@ -17,8 +17,8 @@ export default {
 }
 </script>
 
-<style>
-.todo-label {
+<style lang="scss" module>
+.todoLabel {
   float: right;
   margin-left: 5px;
   padding: 2px;

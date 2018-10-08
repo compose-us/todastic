@@ -1,7 +1,7 @@
 <template>
-  <div :class="`todo-item todo-item-${todo.todoId} ${updating ? 'updating' : ''}`" :ref="`todo-item-${todo.todoId}`">
-    <div :class="`todo ${todo.status === 'done' ? 'todo-done' : ''} ${expanded && 'expanded'}`">
-      <div :class="`dropzone-sub dropzone-${ isDragging ? 'active' : 'inactive' }`" v-if="!updating" ref="dropzoneSub"></div>
+  <div :class="{[$style.todoItem]: true, [$style.updating]: updating}" :ref="`todo-item-${todo.todoId}`">
+    <div :class="{[$style.todo]: true, [$style.todoDone]: todo.status === 'done', [$style.expanded]: expanded }">
+      <div :class="{[$style.dropzoneSub]: true, [$style.dropzoneActive]: isDragging, [$style.dropzoneInactive]: !isDragging}" v-if="!updating" ref="dropzoneSub"></div>
 			<todo-options
         :adderVisible="adderVisible"
         :expanded="expanded"
@@ -9,10 +9,10 @@
         :toggleTodoOptions="toggleTodoOptions"
         :toggleAddTodoItem="toggleAddTodoItem"
       />
-      <div :class="`status status-${todo.status || 'open'}`" v-on:click="toggleStatus(todo)"></div>
-      <div class="id">#{{todo.todoId.substring(0, 4)}}</div>
+      <div :class="{[$style.status]: true, [$style.statusOpen]: todo.status === 'open', [$style.statusDone]: todo.status === 'done'}" v-on:click="toggleStatus(todo)"></div>
+      <div :class="$style.id">#{{todo.todoId.substring(0, 4)}}</div>
       <div v-if="!updating">
-        <span v-on:click="updating=true" :class="`title title-${todo.status || 'open'}`">{{todo.title}}</span>
+        <span v-on:click="updating=true" :class="{[$style.title]: true, [$style.titleOpen]: todo.status === 'open', [$style.titleDone]: todo.status === 'done' }">{{todo.title}}</span>
         <todo-label v-for="label in todo.labels" :todoLabel="`${label}`" :key="label" />
       </div>
       <todo-text v-if="updating" ref="updater" :visible="updating" v-on:change="updateTitle" v-bind.sync="{ initialTodoTitle: completeText }" :key="`updateTodo-${todo.todoId}`" />
@@ -85,16 +85,16 @@ export default {
     handleDropzoneOver(event) {
       event.preventDefault();
       event.dataTransfer.dropEffect = "move";
-      event.target.classList.remove("active-bottom");
-      event.target.classList.add("active-bottom");
+      event.target.classList.remove(this.$style.activeBottom);
+      event.target.classList.add(this.$style.activeBottom);
       return false;
     },
     handleDropzoneLeave(event) {
-      event.target.classList.remove("active-bottom");
+      event.target.classList.remove(this.$style.activeBottom);
     },
     handleDrop(event) {
       const { commands, todo } = this.$props;
-      event.target.classList.remove("active-bottom");
+      event.target.classList.remove(this.$style.activeBottom);
       const myTodo = JSON.parse(event.dataTransfer.getData("json/todo"));
       commands.moveTodo(myTodo, { parentId: todo.todoId, position: todo.position + 1 });
     },
@@ -133,14 +133,15 @@ export default {
 };
 </script>
 
-<style>
-.todo-item {
+<style lang="scss" module>
+.todoItem {
   margin: 1em 0;
-}
-
-.todo-item.updating .todo {
-  grid-template-columns: 25px 25px max-content 1fr;
-  justify-items: stretch;
+  &.updating {
+    .todo {
+      grid-template-columns: 25px 25px max-content 1fr;
+      justify-items: stretch;
+    }
+  }
 }
 
 .todo {
@@ -155,13 +156,13 @@ export default {
   grid-template-columns: 50px 25px max-content max-content 1fr;
   justify-items: left;
 }
-.todo-done {
+.todoDone {
   font-size: 0.9em;
 }
 .todo > * {
   padding: 5px;
 }
-.title-done {
+.titleDone {
   color: grey;
   text-decoration: line-through;
 }
@@ -185,10 +186,10 @@ export default {
   border-radius: 3px;
   margin: 5px;
 }
-.status.status-done::after {
+.status.statusDone::after {
   content: "x";
 }
-.status.status-done {
+.status.statusDone {
   border: 2px solid grey;
   color: grey;
 }
@@ -196,20 +197,20 @@ export default {
   display: grid;
   grid-template-columns: 50px 1fr;
 }
-.dropzone-sub {
+.dropzoneSub {
   position: absolute;
   top: 0px;
   bottom: -10px;
   left: 25px;
   right: 0;
 }
-.dropzone-sub.active-bottom {
+.dropzoneSub.activeBottom {
   border-bottom: 5px solid lightgreen;
 }
-.dropzone-active {
+.dropzoneActive {
   z-index: 200;
 }
-.dropzone-inactive {
+.dropzoneInactive {
   z-index: -1;
 }
 </style>

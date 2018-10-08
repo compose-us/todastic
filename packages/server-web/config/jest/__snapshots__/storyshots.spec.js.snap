@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots LoginForm default 1`] = `
-<div
-  class="todasticapp"
->
+exports[`Storyshots LoginForm failing 1`] = `
+<div>
   <svg
     version="1.1"
     viewBox="0 0 151 33"
@@ -15,9 +13,7 @@ exports[`Storyshots LoginForm default 1`] = `
     />
   </svg>
    
-  <span />
-   
-  <div>
+  <form>
     <input
       name="username"
       placeholder="Username"
@@ -30,12 +26,51 @@ exports[`Storyshots LoginForm default 1`] = `
       type="password"
     />
      
+    <!---->
+     
     <button
-      type="button"
+      type="submit"
     >
       Login
     </button>
-  </div>
+  </form>
+</div>
+`;
+
+exports[`Storyshots LoginForm succeeding 1`] = `
+<div>
+  <svg
+    version="1.1"
+    viewBox="0 0 151 33"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+  >
+    <use
+      xlink:href="#todastic-logo.svg"
+    />
+  </svg>
+   
+  <form>
+    <input
+      name="username"
+      placeholder="Username"
+      type="text"
+    />
+     
+    <input
+      name="password"
+      placeholder="Password"
+      type="password"
+    />
+     
+    <!---->
+     
+    <button
+      type="submit"
+    >
+      Login
+    </button>
+  </form>
 </div>
 `;
 

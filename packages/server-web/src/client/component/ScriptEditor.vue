@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     handleDropzoneEnter(event) {
-      event.target.classList.add("active");
+      event.target.classList.add(this.$style.active);
     },
     handleDropzoneOver(event) {
       event.preventDefault();
@@ -45,11 +45,11 @@ export default {
       return false;
     },
     handleDropzoneLeave(event) {
-      event.target.classList.remove("active");
+      event.target.classList.remove(this.$style.active);
     },
     handleDrop(event) {
       const { commands, todo } = this.$props;
-      event.target.classList.remove("active");
+      event.target.classList.remove(this.$style.active);
       const myTodo = JSON.parse(event.dataTransfer.getData("json/todo"));
       this.startScript([myTodo], dashboard);
     },

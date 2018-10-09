@@ -5,7 +5,7 @@
   "main": "src/storage.js",
   "scripts": {
     "format": "prettier --write 'src/**/*.js'",
-    "test": "echo 'not running tests because they fail on travis'"
+    "test": "jest src/"
   },
   "repository": {
     "type": "git",

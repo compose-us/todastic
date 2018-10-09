@@ -1,0 +1,3 @@
+- name: todastic
+  service: todastic
+  command: npm run test-ci

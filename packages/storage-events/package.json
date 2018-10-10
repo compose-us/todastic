@@ -2,7 +2,7 @@
   "name": "@todastic/storage-events",
   "version": "0.2.1",
   "description": "Event storage/loading for todastic.",
-  "main": "src/storage.js",
+  "main": "src/index.js",
   "scripts": {
     "format": "prettier --write 'src/**/*.js'",
     "test": "jest src/"
@@ -19,12 +19,12 @@
   },
   "homepage": "https://github.com/compose-us/todastic#readme",
   "devDependencies": {
-    "jest": "^23.4.1",
+    "jest": "^23.6.0",
     "prettier": "^1.13.7"
   },
   "dependencies": {
     "@todastic/config": "^0.2.1",
-    "@todastic/server-web": "^0.2.1",
+    "@todastic/storage-mongo": "^0.2.1",
     "mongoose-timestamp": "^0.6.0",
     "uuid": "^3.3.2"
   }

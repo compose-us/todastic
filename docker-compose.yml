@@ -11,7 +11,7 @@ services:
     command: npm run start-web
     image: todastic:latest
     volumes:
-      - .:/app
+      - ./coverage:/app/coverage
     links:
       - mongo:mongo
     ports:

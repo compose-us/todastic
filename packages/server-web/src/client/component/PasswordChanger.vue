@@ -1,35 +1,35 @@
 <template>
 	<transition name="modal">
-    <div class="modal-mask">
-      <div class="modal-wrapper">
-        <div class="modal-container">
+    <div :class="$style.modalMask">
+      <div :class="$style.modalWrapper">
+        <div :class="$style.modalContainer">
 
-          <div class="modal-header">
+          <div :class="$style.modalHeader">
             <slot name="header">
               <h1>Change password</h1>
             </slot>
           </div>
 
-          <div class="modal-body">
+          <div :class="$style.modalBody">
             <slot name="body">
-              <div class="entry">
-                <div class="form">
-                  New password: <input v-model="pass1" type="password"></input>
-                </div><div class="form">
-                  Retype new password: <input v-model="pass2" type="password"></input>
-                  <span class="indicator" v-if="!empty && !same" style="color: red">≠</span>
-                  <span class="indicator" v-if="!empty && same" style="color: green">✓</span>
-                </div><div class="form">
+              <div :class="$style.entry">
+                <div :class="$style.form">
+                  New password: <input v-model="pass1" type="password" />
+                </div><div :class="$style.form">
+                  Retype new password: <input v-model="pass2" type="password" />
+                  <span :class="$style.indicator" v-if="!empty && !same" style="color: red">≠</span>
+                  <span :class="$style.indicator" v-if="!empty && same" style="color: green">✓</span>
+                </div><div :class="$style.form">
                   <button id="change-password" @click.prevent="changePassword" :disabled="empty || !same">Submit</button>
                 </div>
               </div>
             </slot>
           </div>
 
-          <div class="modal-footer">
+          <div :class="$style.modalFooter">
             <slot name="footer">
               <a href="mailto:feedback@todastic.app">Feedback / Contact</a>
-              <button class="modal-default-button" @click="$emit('close')">
+              <button :class="$style.modalDefaultButton" @click="$emit('close')">
                 Close
               </button>
             </slot>
@@ -66,7 +66,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" module>
 #change-password:disabled {
   background: #C8C8C8;
 }
@@ -81,7 +81,7 @@ export default {
   padding-bottom: 20px;
   font-size: medium;
 }
-.modal-mask {
+.modalMask {
   position: fixed;
   z-index: 9998;
   top: 0;
@@ -93,12 +93,12 @@ export default {
   transition: opacity .3s ease;
 }
 
-.modal-wrapper {
+.modalWrapper {
   display: table-cell;
   vertical-align: middle;
 }
 
-.modal-container {
+.modalContainer {
   width: 90%;
   margin: 0px auto;
   padding: 20px 30px;
@@ -108,24 +108,24 @@ export default {
   transition: all .3s ease;
 }
 
-.modal-body {
+.modalBody {
   margin: 20px 0;
 }
 
-.modal-default-button {
+.modalDefaultButton {
   float: right;
 }
 
-.modal-enter {
+.modalEnter {
   opacity: 0;
 }
 
-.modal-leave-active {
+.modalLeaveActive {
   opacity: 0;
 }
 
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
+.modalEnter .modalcontainer,
+.modalLeaveActive .modalContainer {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }

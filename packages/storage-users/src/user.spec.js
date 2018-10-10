@@ -1,13 +1,14 @@
 const { createUserModel } = require("./user.js");
-const { initDatabase } = require("@todastic/server-web/src/server/lib/database-mongo.js");
+const { initDatabase } = require("@todastic/storage-mongo");
 const config = require("@todastic/config");
 
-let User;
-let mongoose;
-
 describe("User", () => {
+  let User;
+  let mongoose;
+
   beforeAll(async () => {
-    let { mongoose } = await initDatabase({ config, logger: console });
+    const db = await initDatabase({ config, logger: console });
+    mongoose = db.mongoose;
     User = createUserModel({ mongoose });
   });
 
@@ -26,16 +27,16 @@ describe("User", () => {
       done();
     });
   });
-});
 
-function testWithout(field) {
-  return done => {
-    let hash = { username: "berti", password: "soSecre7" };
-    delete hash[field];
-    let user = new User(hash);
-    user.validate(err => {
-      expect(err.errors[field]).toBeDefined();
-      done();
-    });
-  };
-}
+  function testWithout(field) {
+    return done => {
+      let hash = { username: "berti", password: "soSecre7" };
+      delete hash[field];
+      let user = new User(hash);
+      user.validate(err => {
+        expect(err.errors[field]).toBeDefined();
+        done();
+      });
+    };
+  }
+});

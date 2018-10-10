@@ -1,3 +1,5 @@
+export { groupByStatus, trackedTime };
+
 function trackedTime(list, { minTime } = {}) {
   return list.reduce(
     (acc, todo) =>
@@ -16,11 +18,6 @@ function groupByStatus(list) {
     return acc;
   }, {});
 }
-
-module.exports = {
-  trackedTime,
-  groupByStatus
-};
 
 function filterByTime(minTime) {
   if (minTime) {

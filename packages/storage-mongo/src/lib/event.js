@@ -1,10 +1,7 @@
-const timestamps = require("mongoose-timestamp");
-const {
-  createSequenceSchema,
-  getNextSequenceValue
-} = require("@todastic/server-web/src/server/lib/mongo-autoincrement.js");
+import timestamps from "mongoose-timestamp";
+import { createSequenceSchema, getNextSequenceValue } from "../service/mongo-autoincrement";
 
-module.exports = { createEventModel };
+export { createEventModel };
 
 function createEventModel({ mongoose }) {
   const sequenceModel = createSequenceSchema({ mongoose });

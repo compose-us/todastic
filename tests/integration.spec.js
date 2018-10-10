@@ -1,5 +1,6 @@
-const storage = require("../packages/storage-file");
-const dashboard = require("../packages/dashboard");
+const path = require("path");
+const storage = require(path.join(__dirname, "../packages/storage-file"));
+const dashboard = require(path.join(__dirname, "../packages/dashboard"));
 
 describe("integration test - saved tasks to relevant information", () => {
   it("tasks can be grouped by status", async () => {

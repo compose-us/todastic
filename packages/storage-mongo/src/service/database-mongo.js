@@ -1,11 +1,11 @@
-const connectMongo = require("connect-mongo");
-const { Mongoose } = require("mongoose");
-const session = require("express-session");
+import connectMongo from "connect-mongo";
+import { Mongoose } from "mongoose";
+import session from "express-session";
 
 // https://mongoosejs.com/docs/api.html#mongoose_Mongoose
 // https://mongoosejs.com/docs/connections.html#callback
 
-module.exports = { initDatabase };
+export { initDatabase };
 
 async function initDatabase({ config, logger }) {
   const mongoose = await createMongooseInstance({ connectionString: config.get("db.connectionString"), logger });
@@ -33,7 +33,7 @@ async function initDatabase({ config, logger }) {
       });
 
       sessionOptions.store = mongoStore;
-      storeName = "mongo";
+      const storeName = "mongo";
       return { middleware: session(sessionOptions), storeName };
     }
   };

@@ -1,4 +1,5 @@
-const dashboard = require("./dashboard");
+import * as dashboard from "./dashboard.js";
+
 describe("Dashboard", () => {
   describe("sums tracked time", () => {
     it("tracks 0 for an empty list", () => {

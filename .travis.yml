@@ -14,9 +14,9 @@ before_script:
 
 install:
   - travis_wait npm ci
-  - lerna bootstrap
 
 script:
+  - docker-compose build
   - docker-compose -p tests run -p 3000 --rm todastic npm run test-ci
 
 after_script:
@@ -24,3 +24,4 @@ after_script:
   - "cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js"
   # Send coverage data to code climate
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+

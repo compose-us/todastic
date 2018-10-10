@@ -1,8 +1,8 @@
 <template>
-  <div class="loader">Loading...</div>
+  <div :class="$style.loader">Loading...</div>
 </template>
 
-<style scoped>
+<style lang="scss" module>
 .loader {
   color: #b6d8aa;
   font-size: 90px;

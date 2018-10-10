@@ -13,9 +13,10 @@ ENV PATH ./node_modules/.bin:$PATH
 # Bundle app source
 COPY . .
 
-RUN lerna bootstrap
-RUN lerna run build-client
+RUN npm run bootstrap
+RUN npm run build
 
+VOLUME /app/coverage
 EXPOSE 3000
 
 CMD [ "npm", "run", "start-web" ]

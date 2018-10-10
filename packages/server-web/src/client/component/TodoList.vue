@@ -1,8 +1,8 @@
 <template>
-  <div class="todo-list">
+  <div :class="$style.todoList">
     <ul>
       <li v-for="todo in todos" :key="todo.todoId" :todoId="todo.todoId" draggable="true" ref="dragElement">
-        <div :class="`dropzone-same dropzone-${ isDragging ? 'active' : 'inactive' }`" :position="todo.position" ref="dropzoneSame"></div>
+        <div :class="{[$style.dropzoneSame]: true, [$style.dropzoneActive]: isDragging, [$style.dropzoneInactive]: !isDragging }" :position="todo.position" ref="dropzoneSame"></div>
         <todo-item :commands="commands" :todo="todo"/>
         <todo-list :commands="commands" :parentId="todo.todoId" :todos="todo.children"/>
       </li>
@@ -75,14 +75,14 @@ export default {
       event.stopPropagation();
       const { todos } = this.$props;
       const todoId = event.target.getAttribute("todoid");
-      event.target.classList.add("dragging");
+      event.target.classList.add(this.$style.dragging);
       event.dataTransfer.effectAllowed = "move";
       const todo = todos.find(t => t.todoId === todoId);
       event.dataTransfer.setData("json/todo", JSON.stringify(todo));
       this.$store.commit('isDragging', true);
     },
     handleDragEnd(event) {
-      event.target.classList.remove("dragging");
+      event.target.classList.remove(this.$style.dragging);
       this.$store.commit('isDragging', false);
     },
     handleDropzoneEnter(event) {
@@ -93,27 +93,27 @@ export default {
       event.stopPropagation();
       event.preventDefault();
       event.dataTransfer.dropEffect = "move";
-      event.target.classList.remove("active-top");
-      event.target.classList.remove("active-bottom");
+      event.target.classList.remove(this.$style.activeTop);
+      event.target.classList.remove(this.$style.activeBottom);
 
       if (this.isTopHalf(event)) {
-        event.target.classList.add("active-top");
+        event.target.classList.add(this.$style.activeTop);
       } else {
-        event.target.classList.add("active-bottom");
+        event.target.classList.add(this.$style.activeBottom);
       }
       return false;
     },
     handleDropzoneLeave(event) {
       event.stopPropagation();
       event.preventDefault();
-      event.target.classList.remove("active-top");
-      event.target.classList.remove("active-bottom");
+      event.target.classList.remove(this.$style.activeTop);
+      event.target.classList.remove(this.$style.activeBottom);
     },
     handleDrop(event) {
       event.stopPropagation();
       const { commands, parentId, todo } = this.$props;
-      event.target.classList.remove("active-top");
-      event.target.classList.remove("active-bottom");
+      event.target.classList.remove(this.$style.activeTop);
+      event.target.classList.remove(this.$style.activeBottom);
       const myTodo = JSON.parse(event.dataTransfer.getData("json/todo"));
       const position = parseInt(event.target.getAttribute("position"));
       const myPosition = position + (this.isTopHalf(event) ? 0 : 1);
@@ -128,23 +128,23 @@ export default {
 };
 </script>
 
-<style scoped>
-.todo-list {
+<style lang="scss" module>
+.todoList {
   clear: both;
   margin: 5px 0;
 }
-.todo-list ul {
+.todoList ul {
   list-style-type: none;
   padding-left: 25px;
 }
-.todo-list ul li {
+.todoList ul li {
   position: relative;
 }
 .dragging {
   border: 1px solid red;
   opacity: 0.2;
 }
-.dropzone-same {
+.dropzoneSame {
   position: absolute;
   top: -10px;
   bottom: -10px;
@@ -152,16 +152,16 @@ export default {
   right: 0;
   width: 25px;
 }
-.dropzone-same.active-top {
+.dropzoneSame.activeTop {
   border-top: 5px solid lightgreen;
 }
-.dropzone-same.active-bottom {
+.dropzoneSame.activeBottom {
   border-bottom: 5px solid lightgreen;
 }
-.dropzone-active {
+.dropzoneActive {
   z-index: 200;
 }
-.dropzone-inactive {
+.dropzoneInactive {
   z-index: -1;
 }
 </style>

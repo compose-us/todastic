@@ -6,7 +6,7 @@ see https://mongoosejs.com/docs/api.html#query_Query-findOneAndUpdate
 see https://docs.mongodb.com/manual/reference/command/findAndModify/
 */
 
-module.exports = { createSequenceSchema, getNextSequenceValue };
+export { createSequenceSchema, getNextSequenceValue };
 
 function createSequenceSchema({ mongoose }) {
   const sequenceSchema = new mongoose.Schema({
@@ -18,7 +18,7 @@ function createSequenceSchema({ mongoose }) {
 }
 
 async function getNextSequenceValue({ model, sequenceName }) {
-  const sequenceDocument = await new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     model.findOneAndUpdate(
       { sequenceId: sequenceName },
       { $inc: { sequenceValue: 1 } },
@@ -31,9 +31,8 @@ async function getNextSequenceValue({ model, sequenceName }) {
         if (err) {
           return reject(err);
         }
-        return resolve(doc);
+        return resolve(doc.sequenceValue);
       }
     );
   });
-  return sequenceDocument.sequenceValue;
 }

@@ -1,0 +1,142 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots LoginForm failing 1`] = `
+<div>
+  <svg
+    version="1.1"
+    viewBox="0 0 151 33"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+  >
+    <use
+      xlink:href="#todastic-logo.svg"
+    />
+  </svg>
+   
+  <form>
+    <input
+      name="username"
+      placeholder="Username"
+      type="text"
+    />
+     
+    <input
+      name="password"
+      placeholder="Password"
+      type="password"
+    />
+     
+    <!---->
+     
+    <button
+      type="submit"
+    >
+      Login
+    </button>
+  </form>
+</div>
+`;
+
+exports[`Storyshots LoginForm succeeding 1`] = `
+<div>
+  <svg
+    version="1.1"
+    viewBox="0 0 151 33"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+  >
+    <use
+      xlink:href="#todastic-logo.svg"
+    />
+  </svg>
+   
+  <form>
+    <input
+      name="username"
+      placeholder="Username"
+      type="text"
+    />
+     
+    <input
+      name="password"
+      placeholder="Password"
+      type="password"
+    />
+     
+    <!---->
+     
+    <button
+      type="submit"
+    >
+      Login
+    </button>
+  </form>
+</div>
+`;
+
+exports[`Storyshots TodoItem done 1`] = `
+<div>
+  <span
+    class="status isDone"
+  />
+   
+  <span>
+    this is a done todo
+  </span>
+   
+  <ul />
+</div>
+`;
+
+exports[`Storyshots TodoItem open 1`] = `
+<div>
+  <span
+    class="status isOpen"
+  />
+   
+  <span>
+    this is an open todo
+  </span>
+   
+  <ul />
+</div>
+`;
+
+exports[`Storyshots TodoItem with labels 1`] = `
+<div>
+  <span
+    class="status isOpen"
+  />
+   
+  <span>
+    this is a todo with labels
+  </span>
+   
+  <ul>
+    <li>
+      foo
+    </li>
+    <li>
+      bar
+    </li>
+    <li>
+      baz
+    </li>
+    <li>
+      something
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`Storyshots TodoItem/TodoItemStatus done 1`] = `
+<span
+  class="status isDone"
+/>
+`;
+
+exports[`Storyshots TodoItem/TodoItemStatus open 1`] = `
+<span
+  class="status isOpen"
+/>
+`;

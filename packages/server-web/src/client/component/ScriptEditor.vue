@@ -1,8 +1,8 @@
 <template>
-  <div class="script-editor">
-    <textarea rows=10 ref="input" type="text" class="script-editor-input" v-model="scriptingText" :placeholder="placeholder" />
+  <div :class="$style.scriptEditor">
+    <textarea rows=10 ref="input" type="text" :class="$style.scriptEditorInput" v-model="scriptingText" :placeholder="placeholder" />
     <div style="clear: both;"></div>
-    <button class="script-editor-button" v-on:click="submit">&#x25B6;</button>
+    <button :class="$style.scriptEditorButton" v-on:click="submit">&#x25B6;</button>
     <div style="clear: both;"></div>
   </div>
 </template>
@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     handleDropzoneEnter(event) {
-      event.target.classList.add("active");
+      event.target.classList.add(this.$style.active);
     },
     handleDropzoneOver(event) {
       event.preventDefault();
@@ -45,11 +45,11 @@ export default {
       return false;
     },
     handleDropzoneLeave(event) {
-      event.target.classList.remove("active");
+      event.target.classList.remove(this.$style.active);
     },
     handleDrop(event) {
       const { commands, todo } = this.$props;
-      event.target.classList.remove("active");
+      event.target.classList.remove(this.$style.active);
       const myTodo = JSON.parse(event.dataTransfer.getData("json/todo"));
       this.startScript([myTodo], dashboard);
     },
@@ -64,22 +64,22 @@ export default {
 };
 </script>
 
-<style>
-.script-editor {
+<style lang="scss" module>
+.scriptEditor {
   margin-top: 50px;
   float: right;
   margin-left: 5px;
   padding: 2px;
   height: 100%;
 }
-.script-editor-button {
+.scriptEditorButton {
   color: white;
   border-radius: 3px;
   margin-top: 5px;
   margin-right: 50px;
   float: right;
 }
-.script-editor-input {
+.scriptEditorInput {
   border: 0;
   box-shadow: 0 2px 1px -1px #000;
   margin-left: 5px;

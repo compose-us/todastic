@@ -1,8 +1,8 @@
 <template>
-	<div :class="`options ${this.$props.expanded ? 'expanded' : ''}`">
-    <div class="move" @click.prevent="toggleTodoOptions()"><i class="fas fa-ellipsis-v" /></div>
-		<div class="add" @click.prevent="toggleAddTodoItem()"><i :class="`fas fa-${this.$props.adderVisible ? 'minus' : 'plus'}`" /></div>
-		<div class="remove" @click.prevent="removeTodo()"><i class="fas fa-trash" /></div>
+	<div :class="{[$style.options]: true, [$style.expanded]: this.$props.expanded}">
+    <div :class="$style.move" @click.prevent="toggleTodoOptions()"><i class="fas fa-ellipsis-v" /></div>
+		<div :class="$style.add" @click.prevent="toggleAddTodoItem()"><i :class="`fas fa-${this.$props.adderVisible ? 'minus' : 'plus'}`" /></div>
+		<div :class="$style.remove" @click.prevent="removeTodo()"><i class="fas fa-trash" /></div>
 	</div>
 </template>
 
@@ -12,7 +12,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" module>
 .options {
   min-height: 25px;
   min-width: 25px;
@@ -21,27 +21,28 @@ export default {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-}
-.options.expanded {
-  width: 50px;
-}
-.options .add,
-.options .remove {
-  display: none;
-}
-.options.expanded .add,
-.options.expanded .remove {
-  display: flex;
-}
-.options .inactive {
-  display: none;
-}
-.options .move {
-}
-.options .add {
-  cursor: hand;
-}
-.options .remove {
-  cursor: crosshair;
+
+  &.expanded {
+    width: 50px;
+    .add,
+    .remove {
+      display: flex;
+    }
+  }
+
+  .add,
+  .remove {
+    display: none;
+  }
+  .add {
+    cursor: hand;
+  }
+  .remove {
+    cursor: crosshair;
+  }
+
+  .inactive {
+    display: none;
+  }
 }
 </style>

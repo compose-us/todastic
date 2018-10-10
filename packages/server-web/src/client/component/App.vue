@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <div id="nav">
-          <button v-if="isAuthenticated" v-on:click="showHelp=true" class="help">?</button>
+          <button v-if="isAuthenticated" v-on:click="showHelp=true" :class="$style.help">?</button>
 					<help v-if="showHelp" @close="showHelp = false" />
 
           <profile />
@@ -49,8 +49,7 @@ export default {
   }
 };
 </script>
-<style>
-@import "css/main.css";
+<style lang="scss" module>
 .help {
   color: black;
   background: #ffffff;

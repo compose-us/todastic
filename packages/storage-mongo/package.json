@@ -1,0 +1,45 @@
+{
+  "name": "@todastic/storage-mongo",
+  "version": "0.2.1",
+  "description": "Provides the complete database layer for todastic in MongoDB",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "clean": "rimraf dist",
+    "format": "prettier --write 'src/**/*.js'",
+    "test": "jest --config jest.config.js src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/compose-us/todastic"
+  },
+  "author": "compose.us",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-proposal-unicode-property-regex": "^7.0.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
+    "babel-loader": "^8.0.4",
+    "jest": "^23.6.0",
+    "prettier": "^1.13.7",
+    "rimraf": "^2.6.2",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.1.2",
+    "@todastic/config": "^0.2.1",
+    "connect-mongo": "^2.0.1",
+    "express-session": "^1.15.6",
+    "mongoose": "^5.2.9",
+    "mongoose-timestamp": "^0.6.0"
+  }
+}

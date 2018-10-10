@@ -1,5 +1,5 @@
 import timestamps from "mongoose-timestamp";
-import { createSequenceSchema, getNextSequenceValue } from "./mongo-autoincrement";
+import { createSequenceSchema, getNextSequenceValue } from "../service/mongo-autoincrement";
 
 export { createEventModel };
 

@@ -1,6 +1,6 @@
 <template>
   <div :class="{[$style.todoText]: true, [$style.hide]: !visible}">
-    <input ref="input" type="text" :class="$style.createTodo" @keyup.enter.prevent="change" :value="todoTitle" :placeholder="placeholder" />
+    <input ref="input" type="text" :class="$style.createTodo" @blur="change" @keyup.enter.prevent="change" :value="todoTitle" :placeholder="placeholder" />
   </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
 	<transition name="modal">
     <div :class="$style.modalMask">
-      <div :class="$style.modalWrapper">
+      <div :class="$style.modalWrapper" v-on:click="close">
         <div :class="$style.modalContainer">
 
           <div :class="$style.modalHeader">
@@ -78,7 +78,7 @@ export default {
     close() {
       this.$emit('close');
     },
-    escapeKeyListener: function(event) {
+    escapeKeyListener(event) {
       if (event.keyCode === 27) {
         this.close();
       }
@@ -118,7 +118,7 @@ export default {
 }
 .modalMask {
   position: fixed;
-  z-index: 9998;
+  z-index: 5;
   top: 0;
   left: 0;
   width: 100%;

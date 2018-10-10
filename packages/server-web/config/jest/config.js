@@ -1,5 +1,4 @@
 module.exports = {
-  coverageDirectory: "coverage",
   rootDir: "../../",
   testMatch: ["<rootDir>/src/**/?(*.)spec.js"],
   transform: {
@@ -7,5 +6,16 @@ module.exports = {
     "^(?!.*\\.(vue|js|json|svg)$)": "<rootDir>/config/jest/file-transform.js",
     "^.+\\.js$": "babel-jest",
     "^.+\\.vue$": "vue-jest"
-  }
+  },
+  collectCoverage: true,
+  collectCoverageFrom: [
+    "<rootDir>/src/**/*.{js}",
+    "!**/node_modules/**",
+    "!**/*.config.js",
+    "!**/client/**",
+    "!**/service/**",
+    "!**/dist/**"
+  ],
+  coverageReporters: ["json"],
+  coverageDirectory: "<rootDir>/../../coverage/server-web"
 };

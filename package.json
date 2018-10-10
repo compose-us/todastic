@@ -15,10 +15,11 @@
     "konsol": "node ./packages/konsol/src/konsol.js",
     "user-add": "node ./packages/konsol/src/user-add.js",
     "storyshots": "cd packages/server-web && npm run test:storyshots",
-    "test": "run-s test:*",
+    "combine-coverage": "node_modules/.bin/istanbul-combine -d coverage -p summary -r lcov -r html coverage/**/coverage-final.json",
+    "test": "run-s test:* combine-coverage",
     "test:integration": "jest",
     "test:packages": "lerna run test",
-    "test-ci": "run-s test:*",
+    "test-ci": "run-s test:* combine-coverage",
     "test-ci:integration": "jest --ci --detectOpenHandles",
     "test-ci:packages": "lerna run test-ci",
     "watch-web": "cd packages/server-web && npm run build -- --watch"
@@ -39,6 +40,7 @@
   },
   "devDependencies": {
     "coveralls": "^3.0.1",
+    "istanbul-combine": "^0.3.0",
     "jest": "^23.5.0",
     "lerna": "^2.11.0",
     "mongoose": "^5.2.9",

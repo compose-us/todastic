@@ -16,6 +16,7 @@ COPY . .
 RUN npm run bootstrap
 RUN npm run build
 
+VOLUME /app/coverage
 EXPOSE 3000
 
 CMD [ "npm", "run", "start-web" ]

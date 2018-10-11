@@ -5,7 +5,6 @@ module.exports = {
     "packages/**/*.{js}",
     "!**/node_modules/**",
     "!**/*.config.js",
-    "!**/server-web/src/client/**/*.js",
     "!**/service/**",
     "!**/dist/**"
   ],

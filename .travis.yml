@@ -20,8 +20,6 @@ script:
   - docker-compose -p tests run -p 3000 --rm todastic npm run test-ci
 
 after_script:
-  # Send coverage data to Coveralls
-  - "cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js"
   # Send coverage data to code climate
   - ./cc-test-reporter after-build --debug --exit-code $TRAVIS_TEST_RESULT
 

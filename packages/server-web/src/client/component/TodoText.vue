@@ -14,7 +14,8 @@ export default {
   data() {
     return {
       // we don't want to change the parent element's title directly
-      placeholder: getPlaceholder()
+      placeholder: getPlaceholder(),
+      active: this.$props.visible
     };
   },
   computed: {
@@ -26,7 +27,10 @@ export default {
     cancel() {
       if (this.$props.visible) {
         this.$data.todoTitle = this.$props.initialTodoTitle;
-        this.$emit('cancel');
+        // have to set state to inactive, otherwise we get another blur event that would
+        // trigger a save
+        this.$data.active = false;
+        this.$emit("cancel");
       }
     },
     escapeKeyListener(event) {
@@ -34,8 +38,11 @@ export default {
         this.cancel();
       }
     },
+    isChangeEvent(event) {
+      return event.target.value !== "" && (event.type === "keyup" || event.type === "blur") && this.$data.active;
+    },
     change(event) {
-      if(event.target.value !== "" && event.type === "keyup") {
+      if (this.isChangeEvent(event)) {
         this.$emit("change", event.target.value);
         // means, we are in "add new" mode
         if (!this.$props.initialTodoTitle) {
@@ -46,11 +53,11 @@ export default {
     }
   },
   created() {
-    document.addEventListener('keyup', this.escapeKeyListener);
+    document.addEventListener("keyup", this.escapeKeyListener);
   },
   destroyed() {
-    document.removeEventListener('keyup', this.escapeKeyListener);
-  },
+    document.removeEventListener("keyup", this.escapeKeyListener);
+  }
 };
 
 function getPlaceholder() {

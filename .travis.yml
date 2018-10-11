@@ -21,5 +21,5 @@ script:
 
 after_script:
   # Send coverage data to code climate
-  - ./cc-test-reporter after-build --debug --exit-code $TRAVIS_TEST_RESULT
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT -t lcov -p /app
 

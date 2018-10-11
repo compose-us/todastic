@@ -1,7 +1,7 @@
 <template>
 	<transition name="modal">
     <div :class="$style.modalMask">
-      <div :class="$style.modalWrapper">
+      <div :class="$style.modalWrapper" v-on:click="close">
         <div :class="$style.modalContainer">
 
           <div :class="$style.modalHeader">
@@ -60,7 +60,7 @@
           <div :class="$style.modalFooter">
             <slot name="footer">
               <a href="mailto:feedback@todastic.app">Feedback / Contact</a>
-              <button :class="$style.modalDefaultButton" @click="$emit('close')">
+              <button :class="$style.modalDefaultButton" @click="close">
                 Close
               </button>
             </slot>
@@ -73,7 +73,23 @@
 
 <script>
 export default {
-  name: "Help"
+  name: "Help",
+  methods: {
+    close() {
+      this.$emit('close');
+    },
+    escapeKeyListener(event) {
+      if (event.keyCode === 27) {
+        this.close();
+      }
+    }
+  },
+  created() {
+    document.addEventListener('keyup', this.escapeKeyListener);
+  },
+  destroyed() {
+    document.removeEventListener('keyup', this.escapeKeyListener);
+  },
 };
 </script>
 
@@ -102,7 +118,7 @@ export default {
 }
 .modalMask {
   position: fixed;
-  z-index: 9998;
+  z-index: 5;
   top: 0;
   left: 0;
   width: 100%;

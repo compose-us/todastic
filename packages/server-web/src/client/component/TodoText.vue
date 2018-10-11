@@ -1,6 +1,6 @@
 <template>
   <div :class="{[$style.todoText]: true, [$style.hide]: !visible}">
-    <input ref="input" type="text" :class="$style.createTodo" @keyup.enter.prevent="change" :value="todoTitle" :placeholder="placeholder" />
+    <input ref="input" type="text" :class="$style.createTodo" @blur="change" @keyup.enter.prevent="change" :value="todoTitle" :placeholder="placeholder" />
   </div>
 </template>
 
@@ -23,8 +23,19 @@ export default {
     }
   },
   methods: {
+    cancel() {
+      if (this.$props.visible) {
+        this.$data.todoTitle = this.$props.initialTodoTitle;
+        this.$emit('cancel');
+      }
+    },
+    escapeKeyListener(event) {
+      if (event.keyCode === 27) {
+        this.cancel();
+      }
+    },
     change(event) {
-      if(event.target.value !== "") {
+      if(event.target.value !== "" && event.type === "keyup") {
         this.$emit("change", event.target.value);
         // means, we are in "add new" mode
         if (!this.$props.initialTodoTitle) {
@@ -33,7 +44,13 @@ export default {
         }
       }
     }
-  }
+  },
+  created() {
+    document.addEventListener('keyup', this.escapeKeyListener);
+  },
+  destroyed() {
+    document.removeEventListener('keyup', this.escapeKeyListener);
+  },
 };
 
 function getPlaceholder() {

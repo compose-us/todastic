@@ -79,7 +79,7 @@ module.exports = ({ extractStyles = true } = {}) => {
         },
         {
           test: /\.svg$/,
-          issuer: /\.vue$/, // Prevent usage of icon sprite outside of vue
+          issuer: /(\.vue|\/asset\/.*\.js)$/, // Prevent usage of icon sprite outside of vue or assets
           include: [path.resolve(__dirname, "../../src/asset/icon"), path.resolve(__dirname, "../../src/asset/image")],
           use: [{ loader: "svg-sprite-loader" }, { loader: "svgo-loader" }]
         },

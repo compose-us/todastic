@@ -8,4 +8,8 @@ describe("DetailsExtractor", () => {
       )
     ).toMatchSnapshot();
   });
+  it("returns undefined labels and tracked times", () => {
+    // thank you, mongoose
+    expect(extractDetails("wait for this nice label do you?")).toMatchSnapshot();
+  });
 });

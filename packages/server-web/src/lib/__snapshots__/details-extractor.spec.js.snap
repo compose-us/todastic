@@ -15,3 +15,11 @@ Object {
   ],
 }
 `;
+
+exports[`DetailsExtractor returns undefined labels and tracked times 1`] = `
+Object {
+  "labels": undefined,
+  "text": "wait for this nice label do you?",
+  "trackedTimes": undefined,
+}
+`;

@@ -16,6 +16,7 @@ Object {
     "labels": undefined,
     "title": "Change a title",
     "todoId": "id-1",
+    "trackedTimes": undefined,
   },
   "eventType": "CHANGED_TODO",
   "userId": "uu",
@@ -28,6 +29,7 @@ Object {
   "data": Object {
     "labels": undefined,
     "title": "Create a test todo",
+    "trackedTimes": undefined,
   },
   "eventType": "ADDED_TODO",
   "userId": "uu",

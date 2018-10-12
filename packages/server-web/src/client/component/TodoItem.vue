@@ -13,6 +13,10 @@
       <div :class="$style.id">#{{todo.todoId.substring(0, 4)}}</div>
       <div v-if="!updating">
         <span v-on:click="updating=true" :class="{[$style.title]: true, [$style.titleOpen]: todo.status === 'open', [$style.titleDone]: todo.status === 'done' }">{{todo.title}}</span>
+        <span v-if="hasTrackedTime">
+          <todastic-icon :source="icons.Clock" />
+          {{trackedTimeOnTodo}}
+        </span>
         <todo-label v-for="label in todo.labels" :todoLabel="`${label}`" :key="label" />
       </div>
       <todo-text v-if="updating" v-on:cancel="cancel" v-on:change="updateTitle" v-bind.sync="{ initialTodoTitle: completeText }" :key="`updateTodo-${todo.todoId}`" />
@@ -22,14 +26,18 @@
 </template>
 
 <script>
+import TodasticIcon from "../../component/TodasticIcon";
 import TodoText from "./TodoText.vue";
 import TodoOptions from "./TodoOptions.vue";
 import TodoLabel from "./TodoLabel.vue";
+
+import * as icons from "../../asset/icon";
 
 export default {
   name: "TodoItem",
   props: ["commands", "todo"],
   components: {
+    "todastic-icon": TodasticIcon,
     "todo-text": TodoText,
     "todo-options": TodoOptions,
     "todo-label": TodoLabel
@@ -56,8 +64,27 @@ export default {
     completeText() {
       return (this.todoTitle + " " + this.todoLabels.join(" ") + " " + this.todoTrackedTimes.join(" ")).trim();
     },
+    hasTrackedTime() {
+      return this.$props.todo.trackedTimes.length > 0;
+    },
     todoTrackedTimes() {
       return this.$props.todo.trackedTimes.map(tracked => "#TRACK(" + JSON.stringify(tracked) + ")");
+    },
+    trackedTimeOnTodo() {
+      const timeToSeconds = time => {
+        const [hours, minutes, seconds] = time.split(":").map(num => parseInt(num));
+        return hours * 60 * 60 + minutes * 60 + seconds;
+      };
+      const secondsToTime = seconds => {
+        const h = Math.floor(seconds / 60 / 60);
+        const m = Math.floor((seconds % (60 * 60)) / 60);
+        const s = seconds % 60;
+        const nf = n => `${n < 10 ? "0" : ""}${n}`;
+        return [h, m, s].map(nf).join(":");
+      };
+      return secondsToTime(
+        this.$props.todo.trackedTimes.reduce((seconds, t) => seconds + timeToSeconds(t.trackedTime), 0)
+      );
     },
     todoTitle() {
       return this.$props.todo.title;
@@ -77,6 +104,7 @@ export default {
     return {
       adderVisible: false,
       expanded: false,
+      icons,
       updating: false
     };
   },

@@ -20,3 +20,5 @@ services:
       - DB_PORT=27017
       - DB_DATABASE=todastic
       - DB_HOST=mongo
+      - COVERALLS_REPO_TOKEN
+      - COVERALLS_SERVICE_NAME

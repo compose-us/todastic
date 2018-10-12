@@ -102,6 +102,6 @@ module.exports = ({ extractStyles = true } = {}) => {
         }
       })
     ],
-    stats: "errors-only"
+    stats: "minimal"
   };
 };

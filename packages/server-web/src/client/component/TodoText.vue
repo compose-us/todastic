@@ -1,6 +1,14 @@
 <template>
-  <div :class="{[$style.todoText]: true, [$style.hide]: !visible}">
-    <input ref="input" type="text" :class="$style.createTodo" @keyup.enter.prevent="change" :value="todoTitle" :placeholder="placeholder" />
+  <div :class="$style.todoText">
+    <input 
+      ref="input"
+      type="text"
+      :class="$style.createTodo"
+      :value="todoTitle"
+      :placeholder="placeholder"
+      @keyup.enter.prevent="change"
+      @blur="change"
+    />
   </div>
 </template>
 
@@ -8,30 +16,57 @@
 export default {
   name: "TodoText",
   props: {
-    initialTodoTitle: String,
-    visible: { type: Boolean, default: true }
+    initialTodoTitle: String
   },
   data() {
     return {
       // we don't want to change the parent element's title directly
-      placeholder: getPlaceholder()
+      placeholder: getPlaceholder(),
+      canceling: false
     };
   },
   computed: {
+    isAddingTodo() {
+      return !this.$props.initialTodoTitle;
+    },
     todoTitle() {
       return this.$props.initialTodoTitle;
     }
   },
   methods: {
+    escapeKeyListener(event) {
+      const escapePressed = event.keyCode === 27;
+      if (escapePressed) {
+        this.$data.todoTitle = this.$props.initialTodoTitle;
+        this.$data.canceling = true;
+        this.$emit("cancel");
+      }
+    },
+    isChangeEvent(event) {
+      const saveOnEnter = event.type === "keyup" && event.keyCode === 13;
+      const saveOnBlur = event.type === "blur" && !this.isAddingTodo;
+      const hasValue = event.target.value !== "";
+      return !this.$data.canceling && hasValue && (saveOnEnter || saveOnBlur);
+    },
     change(event) {
-      if(event.target.value !== "") {
+      if (this.isChangeEvent(event)) {
         this.$emit("change", event.target.value);
-        // means, we are in "add new" mode
-        if (!this.$props.initialTodoTitle) {
+        if (this.isAddingTodo) {
           this.$data.todoTitle = "";
           this.$data.placeholder = getPlaceholder();
         }
       }
+    }
+  },
+  created() {
+    if (!this.isAddingTodo) {
+      document.addEventListener("keyup", this.escapeKeyListener);
+      this.$nextTick(() => this.$refs.input.focus());
+    }
+  },
+  destroyed() {
+    if (!this.isAddingTodo) {
+      document.removeEventListener("keyup", this.escapeKeyListener);
     }
   }
 };
@@ -80,15 +115,18 @@ function oneOf(...arr) {
 </script>
 
 <style lang="scss" module>
-input {
-  display: block;
-  border: 0;
-  box-shadow: 0 2px 1px -1px #000;
-  padding: 10px;
-  width: 100%;
-  margin-right: 0.5%;
-  background-color: rgba(0, 0, 0, 0.05);
+.todoText {
+  input {
+    display: block;
+    border: 0;
+    box-shadow: 0 2px 1px -1px #000;
+    padding: 10px;
+    width: 100%;
+    margin-right: 0.5%;
+    background-color: rgba(0, 0, 0, 0.05);
+  }
 }
+
 .hide {
   display: none;
 }

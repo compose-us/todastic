@@ -15,9 +15,9 @@
         <span v-on:click="updating=true" :class="{[$style.title]: true, [$style.titleOpen]: todo.status === 'open', [$style.titleDone]: todo.status === 'done' }">{{todo.title}}</span>
         <todo-label v-for="label in todo.labels" :todoLabel="`${label}`" :key="label" />
       </div>
-      <todo-text v-if="updating" ref="updater" :visible="updating" v-on:change="updateTitle" v-bind.sync="{ initialTodoTitle: completeText }" :key="`updateTodo-${todo.todoId}`" />
+      <todo-text v-if="updating" v-on:cancel="cancel" v-on:change="updateTitle" v-bind.sync="{ initialTodoTitle: completeText }" :key="`updateTodo-${todo.todoId}`" />
     </div>
-    <todo-text ref="adder" v-on:change="addTodo" :visible="adderVisible" :key="`addTodo-${todo.todoId}`" :parentId="todo.todoId" />
+    <todo-text v-if="adderVisible" ref="adder" v-on:change="addTodo" v-on:cancel="cancel" :key="`addTodo-${todo.todoId}`" :parentId="todo.todoId" />
   </div>
 </template>
 
@@ -81,6 +81,9 @@ export default {
     };
   },
   methods: {
+    cancel() {
+      this.updating = false;
+    },
     handleDropzoneEnter(event) {},
     handleDropzoneOver(event) {
       event.preventDefault();

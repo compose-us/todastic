@@ -75,7 +75,6 @@ export default {
       event.stopPropagation();
       const { todos } = this.$props;
       const todoId = event.target.getAttribute("todoid");
-      console.log({ isEditing: this.$store.getters.isEditing, todoId });
       if (!this.$store.getters.isEditing[todoId]) {
         event.target.classList.add(this.$style.dragging);
         event.dataTransfer.effectAllowed = "move";

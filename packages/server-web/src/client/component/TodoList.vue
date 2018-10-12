@@ -75,15 +75,19 @@ export default {
       event.stopPropagation();
       const { todos } = this.$props;
       const todoId = event.target.getAttribute("todoid");
-      event.target.classList.add(this.$style.dragging);
-      event.dataTransfer.effectAllowed = "move";
-      const todo = todos.find(t => t.todoId === todoId);
-      event.dataTransfer.setData("json/todo", JSON.stringify(todo));
-      this.$store.commit('isDragging', true);
+      if (!this.$store.getters.isEditing[todoId]) {
+        event.target.classList.add(this.$style.dragging);
+        event.dataTransfer.effectAllowed = "move";
+        const todo = todos.find(t => t.todoId === todoId);
+        event.dataTransfer.setData("json/todo", JSON.stringify(todo));
+        this.$store.commit("isDragging", true);
+      } else {
+        event.preventDefault();
+      }
     },
     handleDragEnd(event) {
       event.target.classList.remove(this.$style.dragging);
-      this.$store.commit('isDragging', false);
+      this.$store.commit("isDragging", false);
     },
     handleDropzoneEnter(event) {
       event.stopPropagation();
@@ -119,7 +123,7 @@ export default {
       const myPosition = position + (this.isTopHalf(event) ? 0 : 1);
       commands.moveTodo(myTodo, { parentId, position: myPosition });
     },
-    isTopHalf(event){
+    isTopHalf(event) {
       const rect = event.target.getBoundingClientRect();
       const topHalfY = rect.top + rect.height / 2;
       return event.clientY <= topHalfY;

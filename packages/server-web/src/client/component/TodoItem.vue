@@ -1,7 +1,7 @@
 <template>
-  <div :class="{[$style.todoItem]: true, [$style.updating]: updating}" :ref="`todo-item-${todo.todoId}`">
+  <div :class="{[$style.todoItem]: true, [$style.updating]: isEditing}" :ref="`todo-item-${todo.todoId}`">
     <div :class="{[$style.todo]: true, [$style.todoDone]: todo.status === 'done', [$style.expanded]: expanded }">
-      <div :class="{[$style.dropzoneSub]: true, [$style.dropzoneActive]: isDragging, [$style.dropzoneInactive]: !isDragging}" v-if="!updating" ref="dropzoneSub"></div>
+      <div :class="{[$style.dropzoneSub]: true, [$style.dropzoneActive]: isDragging, [$style.dropzoneInactive]: !isDragging}" v-if="!isEditing" ref="dropzoneSub"></div>
 			<todo-options
         :adderVisible="adderVisible"
         :expanded="expanded"
@@ -11,15 +11,15 @@
       />
       <div :class="{[$style.status]: true, [$style.statusOpen]: todo.status === 'open', [$style.statusDone]: todo.status === 'done'}" v-on:click="toggleStatus(todo)"></div>
       <div :class="$style.id">#{{todo.todoId.substring(0, 4)}}</div>
-      <div v-if="!updating">
-        <span v-on:click="updating=true" :class="{[$style.title]: true, [$style.titleOpen]: todo.status === 'open', [$style.titleDone]: todo.status === 'done' }">{{todo.title}}</span>
+      <div v-if="!isEditing">
+        <span v-on:click="setEditing()" :class="{[$style.title]: true, [$style.titleOpen]: todo.status === 'open', [$style.titleDone]: todo.status === 'done' }">{{todo.title}}</span>
         <span v-if="hasTrackedTime">
           <todastic-icon :source="icons.Clock" />
           {{trackedTimeOnTodo}}
         </span>
         <todo-label v-for="label in todo.labels" :todoLabel="`${label}`" :key="label" />
       </div>
-      <todo-text v-if="updating" v-on:cancel="cancel" v-on:change="updateTitle" v-bind.sync="{ initialTodoTitle: completeText }" :key="`updateTodo-${todo.todoId}`" />
+      <todo-text v-if="isEditing" v-on:cancel="cancel" v-on:change="updateTitle" v-bind.sync="{ initialTodoTitle: completeText }" :key="`updateTodo-${todo.todoId}`" />
     </div>
     <todo-text v-if="adderVisible" ref="adder" v-on:change="addTodo" v-on:cancel="cancel" :key="`addTodo-${todo.todoId}`" :parentId="todo.todoId" />
   </div>
@@ -98,6 +98,10 @@ export default {
     },
     isDragging() {
       return this.$store.getters.isDragging;
+    },
+    isEditing() {
+      const { todo } = this.$props;
+      return this.$store.getters.isEditing[todo.todoId];
     }
   },
   data() {
@@ -132,11 +136,15 @@ export default {
     updateTitle(newTitle) {
       const { commands, todo } = this.$props;
       commands.changeTodo(todo, { title: newTitle });
-      this.updating = false;
+      this.$store.commit("isEditing", { [todo.todoId]: false });
     },
     addTodo(newTitle) {
       const { commands, todo } = this.$props;
       commands.addTodo({ title: newTitle, parentId: todo.todoId });
+    },
+    setEditing() {
+      const { todo } = this.$props;
+      this.$store.commit("isEditing", { [todo.todoId]: true });
     },
     toggleStatus(todo) {
       const { commands } = this.$props;

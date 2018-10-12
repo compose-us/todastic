@@ -6,12 +6,13 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    isDragging: false,
     allEvents: [],
     currentEventPosition: -1,
     todos: [],
     commands: {},
     isAuthenticated: false,
+    isDragging: false,
+    isEditing: {},
     isLoading: false
   },
   getters: {
@@ -23,6 +24,9 @@ export const store = new Vuex.Store({
     },
     isDragging(state) {
       return state.isDragging;
+    },
+    isEditing(state) {
+      return state.isEditing;
     },
     todos(state) {
       return state.todos;
@@ -42,6 +46,9 @@ export const store = new Vuex.Store({
     },
     isDragging(state, val) {
       state.isDragging = !!val;
+    },
+    isEditing(state, todosStatus) {
+      state.isEditing = { ...state.isEditing, ...todosStatus };
     },
     commands(state, commands) {
       state.commands = commands;

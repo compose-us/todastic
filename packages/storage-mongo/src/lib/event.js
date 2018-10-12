@@ -16,9 +16,13 @@ function createEventModel({ mongoose }) {
       parentId: { type: String, default: null },
       title: { type: String },
       status: { type: String, enum: ["open", "done"], default: "open" },
-      labels: { type: [String] },
+      // DO NOT CHANGE THE labels DEFAULT VALUE UNLESS YOU KNOW WHAT YOU'RE DOING
+      // https://stackoverflow.com/a/20714461/526426
+      labels: { type: [String], default: undefined },
       position: { type: Number }, // position of ToDo
-      trackedTimes: { type: Array }
+      // DO NOT CHANGE THE trackedTimes DEFAULT VALUE UNLESS YOU KNOW WHAT YOU'RE DOING
+      // https://stackoverflow.com/a/20714461/526426
+      trackedTimes: { type: Array, default: undefined }
     }
   });
 

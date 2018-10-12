@@ -122,13 +122,6 @@ export default {
       const myTodo = JSON.parse(event.dataTransfer.getData("json/todo"));
       const position = parseInt(event.target.getAttribute("position"));
       const myPosition = position + (this.isTopHalf(event) ? 0 : 1);
-      this.$store.commit(
-        "isEditing",
-        Object.keys(this.$store.getters.isEditing).reduce((isEditing, todoId) => {
-          console.log("setting", { todoId });
-          return { ...isEditing, [todoId]: false };
-        }, {})
-      );
       commands.moveTodo(myTodo, { parentId, position: myPosition });
     },
     isTopHalf(event) {

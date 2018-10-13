@@ -1,16 +1,8 @@
-env:
-  global:
-    - CC_TEST_REPORTER_ID=b6f1e4ba793f8cf7c401c3c45259080dffd1e77e6c6f98342cd4d4b29cc3df16
 
 language: node_js
 
 node_js:
   - "10"
-
-before_script:
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
 
 install:
   - travis_wait npm ci
@@ -18,8 +10,4 @@ install:
 script:
   - docker-compose build
   - docker-compose -p tests run -p 3000 --rm todastic npm run test-ci
-
-after_script:
-  # Send coverage data to code climate
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT -t lcov -p /app
 

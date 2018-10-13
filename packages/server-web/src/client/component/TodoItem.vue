@@ -62,13 +62,16 @@ export default {
   },
   computed: {
     completeText() {
-      return (this.todoTitle + " " + this.todoLabels.join(" ") + " " + this.todoTrackedTimes.join(" ")).trim();
+      return (this.todoTitle + " " + this.todoLabels.join(" ") + " " + this.todoTrackedTimesString.join(" ")).trim();
     },
     hasTrackedTime() {
-      return this.$props.todo.trackedTimes.length > 0;
+      return this.todoTrackedTimes.length > 0;
     },
     todoTrackedTimes() {
-      return (this.$props.todo.trackedTimes || []).map(tracked => "#TRACK(" + JSON.stringify(tracked) + ")");
+      return (this.$props.todo.trackedTimes || []);
+    },
+    todoTrackedTimesString() {
+      return this.todoTrackedTimes.map(tracked => "#TRACK(" + JSON.stringify(tracked) + ")");
     },
     trackedTimeOnTodo() {
       const timeToSeconds = time => {
@@ -83,7 +86,7 @@ export default {
         return [h, m, s].map(nf).join(":");
       };
       return secondsToTime(
-        this.$props.todo.trackedTimes.reduce((seconds, t) => seconds + timeToSeconds(t.trackedTime), 0)
+        this.todoTrackedTimes.reduce((seconds, t) => seconds + timeToSeconds(t.trackedTime), 0)
       );
     },
     todoTitle() {

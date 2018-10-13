@@ -34,13 +34,13 @@ Object {
 exports[`TrackedTimeExtractor discards broken entries 1`] = `
 Object {
   "text": "worked on #great",
-  "trackedTimes": undefined,
+  "trackedTimes": Array [],
 }
 `;
 
 exports[`TrackedTimeExtractor doesn't change anything when no tracked time is in the string 1`] = `
 Object {
   "text": "no time #really",
-  "trackedTimes": undefined,
+  "trackedTimes": Array [],
 }
 `;

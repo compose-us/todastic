@@ -18,8 +18,8 @@ Object {
 
 exports[`DetailsExtractor returns undefined labels and tracked times 1`] = `
 Object {
-  "labels": undefined,
+  "labels": Array [],
   "text": "wait for this nice label do you?",
-  "trackedTimes": undefined,
+  "trackedTimes": Array [],
 }
 `;

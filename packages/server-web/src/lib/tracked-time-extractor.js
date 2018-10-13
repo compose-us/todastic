@@ -16,9 +16,5 @@ function extractTrackedTimes(inputString) {
   }
   text = text.replace(/\s+/g, " ").trim();
 
-  if (trackedTimes.length === 0) {
-    return { trackedTimes: undefined, text };
-  }
-
   return { trackedTimes, text };
 }

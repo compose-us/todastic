@@ -68,7 +68,7 @@ export default {
       return this.$props.todo.trackedTimes.length > 0;
     },
     todoTrackedTimes() {
-      return this.$props.todo.trackedTimes.map(tracked => "#TRACK(" + JSON.stringify(tracked) + ")");
+      return (this.$props.todo.trackedTimes || []).map(tracked => "#TRACK(" + JSON.stringify(tracked) + ")");
     },
     trackedTimeOnTodo() {
       const timeToSeconds = time => {

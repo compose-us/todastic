@@ -4,9 +4,6 @@ function extractLabels(inputString) {
   const { labels: labelsEnd, text: textEnd } = extractLabelsAtTheEnd(inputString);
   const { labels: labelsInBetween, text } = extractLabelsInBetween(textEnd);
   const labels = labelsInBetween.concat(labelsEnd);
-  if (labels.length === 0) {
-    return { labels: undefined, text };
-  }
 
   return { labels, text };
 }

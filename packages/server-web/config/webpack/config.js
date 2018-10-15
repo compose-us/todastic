@@ -35,7 +35,7 @@ module.exports = ({ extractStyles = true } = {}) => {
           exclude: /(node_modules|dashboard|storage-events|storage-mongo)/,
           loader: "babel-loader"
         },
-        // this will apply to both plain `.css` files
+        // this will apply to both plain `.scss` files
         // AND `<style>` blocks in `.vue` files
         {
           test: /\.scss$/,
@@ -79,13 +79,13 @@ module.exports = ({ extractStyles = true } = {}) => {
         },
         {
           test: /\.svg$/,
-          issuer: /(\.vue|\/asset\/.*\.js)$/, // Prevent usage of icon sprite outside of vue or assets
+          issuer: /(\.vue|\/asset\/.*\.js|\.story\.js)$/, // Prevent usage of icon sprite outside of vue, assets or stories
           include: [path.resolve(__dirname, "../../src/asset/icon"), path.resolve(__dirname, "../../src/asset/image")],
           use: [{ loader: "svg-sprite-loader" }, { loader: "svgo-loader" }]
         },
         {
-          test: /\.(jpe?g|png|gif)$/,
-          include: [path.resolve(__dirname, "../../src/asset/image")],
+          test: /\.(jpe?g|png|gif|woff2?)$/,
+          include: [path.resolve(__dirname, "../../src/asset")],
           use: "file-loader"
         }
       ]

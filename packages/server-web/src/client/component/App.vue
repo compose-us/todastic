@@ -1,27 +1,31 @@
 <template>
-    <div id="app">
-        <div id="nav">
-          <button v-if="isAuthenticated" v-on:click="showHelp=true" :class="$style.help">?</button>
-					<help v-if="showHelp" @close="showHelp = false" />
-
-          <profile />
-        </div>
-        <loading v-if="isLoading" />
-        <router-view v-if="!isLoading" />
+  <div :class="$style.root">
+    <div :class="$style.header">
+      <todastic-logo :class="$style.logo" />
+      <div :class="$style.nav">
+        <button v-if="isAuthenticated" v-on:click="showHelp=true" :class="$style.help">?</button>
+        <help v-if="showHelp" @close="showHelp = false" />
+        <profile />
+      </div>
     </div>
+    <loading v-if="isLoading" />
+    <router-view v-if="!isLoading" />
+  </div>
 </template>
 
 <script>
 import Loading from "./Loading.vue";
 import Help from "./Help.vue";
 import Profile from "./Profile.vue";
+import TodasticLogo from "../../component/TodasticLogo";
 
 export default {
   name: "App",
   components: {
-    "loading": Loading,
-    "help": Help,
-    "profile": Profile
+    loading: Loading,
+    help: Help,
+    profile: Profile,
+    "todastic-logo": TodasticLogo
   },
   data() {
     return {
@@ -32,10 +36,10 @@ export default {
     this.$http
       .get("/login-status") // check server if logged in
       .then(() => {
-        this.$store.commit('isAuthenticated', true);
+        this.$store.commit("isAuthenticated", true);
       })
       .catch(() => {
-        this.$store.commit('isAuthenticated', false);
+        this.$store.commit("isAuthenticated", false);
         this.$router.replace({ name: "login" });
       });
   },
@@ -50,6 +54,21 @@ export default {
 };
 </script>
 <style lang="scss" module>
+.root {
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.nav {
+  justify-self: flex-end;
+}
+
 .help {
   color: black;
   background: #ffffff;

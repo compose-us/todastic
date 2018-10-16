@@ -1,6 +1,7 @@
 <template>
   <div :class="$style.todasticapp">
     <span></span> <!-- quickfix for grid layout -->
+    <span></span> <!-- second quickfix for grid layout -->
     <div>
       <input :class="$style.loginInputField" type="text" name="username" v-model="input.username" placeholder="Username" />
       <input :class="$style.loginInputField" type="password" name="password" v-model="input.password" v-on:keydown.enter="login()" placeholder="Password" />

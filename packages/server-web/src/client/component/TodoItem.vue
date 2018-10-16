@@ -1,6 +1,6 @@
 <template>
-  <div :class="{[$style.todoItem]: true, [$style.updating]: isEditing}" :ref="`todo-item-${todo.todoId}`">
-    <div :class="{[$style.todo]: true, [$style.todoDone]: todo.status === 'done', [$style.expanded]: expanded }">
+  <div :class="{[$style.todoItem]: true, [$style.updating]: isEditing, [$style.expanded]: expanded, [$style.open]: todo.status === 'open', [$style.done]: todo.status === 'done'}" :ref="`todo-item-${todo.todoId}`">
+    <div :class="$style.todo">
       <div :class="{[$style.dropzoneSub]: true, [$style.dropzoneActive]: isDragging, [$style.dropzoneInactive]: !isDragging}" v-if="!isEditing" ref="dropzoneSub"></div>
 			<todo-options
         :adderVisible="adderVisible"
@@ -9,10 +9,10 @@
         :toggleTodoOptions="toggleTodoOptions"
         :toggleAddTodoItem="toggleAddTodoItem"
       />
-      <div :class="{[$style.status]: true, [$style.statusOpen]: todo.status === 'open', [$style.statusDone]: todo.status === 'done'}" v-on:click="toggleStatus(todo)"></div>
+      <div :class="$style.status" v-on:click="toggleStatus(todo)"></div>
       <div :class="$style.id">#{{todo.todoId.substring(0, 4)}}</div>
       <div v-if="!isEditing">
-        <span v-on:click="setEditing()" :class="{[$style.title]: true, [$style.titleOpen]: todo.status === 'open', [$style.titleDone]: todo.status === 'done' }">{{todo.title}}</span>
+        <span v-on:click="setEditing()" :class="$style.title">{{todo.title}}</span>
         <span v-if="hasTrackedTime">
           <todastic-icon :source="icons.Clock" />
           {{trackedTimeOnTodo}}
@@ -68,7 +68,7 @@ export default {
       return this.todoTrackedTimes.length > 0;
     },
     todoTrackedTimes() {
-      return (this.$props.todo.trackedTimes || []);
+      return this.$props.todo.trackedTimes || [];
     },
     todoTrackedTimesString() {
       return this.todoTrackedTimes.map(tracked => "#TRACK(" + JSON.stringify(tracked) + ")");
@@ -85,9 +85,7 @@ export default {
         const nf = n => `${n < 10 ? "0" : ""}${n}`;
         return [h, m, s].map(nf).join(":");
       };
-      return secondsToTime(
-        this.todoTrackedTimes.reduce((seconds, t) => seconds + timeToSeconds(t.trackedTime), 0)
-      );
+      return secondsToTime(this.todoTrackedTimes.reduce((seconds, t) => seconds + timeToSeconds(t.trackedTime), 0));
     },
     todoTitle() {
       return this.$props.todo.title;
@@ -178,42 +176,27 @@ export default {
 <style lang="scss" module>
 .todoItem {
   margin: 1em 0;
-  &.updating {
-    .todo {
-      grid-template-columns: 25px 25px max-content 1fr;
-      justify-items: stretch;
-    }
-  }
 }
 
 .todo {
   position: relative;
   display: grid;
-  grid-template-columns: 25px 25px max-content max-content 1fr;
+  grid-template-columns: 25px 25px 50px repeat(auto-fit, minmax(50%, 1fr));
   justify-items: center;
   align-items: center;
+
+  & > * {
+    padding: 5px;
+    justify-self: flex-start;
+  }
 }
-.todo.expanded {
-  margin-left: -25px;
-  grid-template-columns: 50px 25px max-content max-content 1fr;
-  justify-items: left;
-}
-.todoDone {
-  font-size: 0.9em;
-}
-.todo > * {
-  padding: 5px;
-}
-.titleDone {
-  color: grey;
-  text-decoration: line-through;
-}
-.todo::after {
-  clear: both;
+
+.title {
+  justify-content: flex-start;
 }
 
 .id {
-  color: var(--notice-small-color);
+  color: $color-notice-small;
 }
 
 .status {
@@ -228,13 +211,7 @@ export default {
   border-radius: 3px;
   margin: 5px;
 }
-.status.statusDone::after {
-  content: "x";
-}
-.status.statusDone {
-  border: 2px solid grey;
-  color: grey;
-}
+
 .dropzones {
   display: grid;
   grid-template-columns: 50px 1fr;
@@ -254,5 +231,40 @@ export default {
 }
 .dropzoneInactive {
   z-index: -1;
+}
+
+.updating {
+  .todo {
+    grid-template-columns: 25px 25px max-content 1fr;
+    justify-items: stretch;
+  }
+}
+
+.done {
+  .todo {
+    font-size: 0.9em;
+  }
+
+  .status {
+    border: 2px solid grey;
+    color: grey;
+  }
+
+  .status::after {
+    content: "x";
+  }
+
+  .title {
+    color: grey;
+    text-decoration: line-through;
+  }
+}
+
+.expanded {
+  .todo {
+    margin-left: -25px;
+    grid-template-columns: 50px 25px max-content max-content 1fr;
+    justify-items: left;
+  }
 }
 </style>

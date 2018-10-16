@@ -1,11 +1,10 @@
 <template>
   <div :class="$style.todasticapp">
-    <div>
-      <img src="image/todastic-logo.svg" />
+    <script-editor :class="$style.editor" :list="todos" />
+    <div :class="$style.todos">
       <todo-list :commands="commands" :parentId="null" :todos="todos" key="root-list" />
       <todo-text v-on:change="addTodo" key="root-adder" />
     </div>
-    <script-editor :list="todos" />
   </div>
 </template>
 
@@ -44,7 +43,17 @@ function oneOf(arr) {
 
 <style lang="scss" module>
 .todasticapp {
-  display: grid;
-  grid-template-columns: auto 30%;
+  display: flex;
+  flex-direction: column;
+}
+
+.editor {
+  width: 100%;
+  margin: 25px 0;
+}
+
+.todos {
+  width: 100%;
+  height: 100%;
 }
 </style>

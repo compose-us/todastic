@@ -116,6 +116,8 @@ function oneOf(...arr) {
 
 <style lang="scss" module>
 .todoText {
+  width: 100%;
+
   input {
     display: block;
     border: 0;
@@ -125,9 +127,5 @@ function oneOf(...arr) {
     margin-right: 0.5%;
     background-color: rgba(0, 0, 0, 0.05);
   }
-}
-
-.hide {
-  display: none;
 }
 </style>

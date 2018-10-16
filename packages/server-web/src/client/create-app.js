@@ -5,6 +5,7 @@ import HomeComponent from "./component/Home.vue";
 import AppComponent from "./component/App.vue";
 import VueResource from "vue-resource";
 import { store } from "./store.js";
+import "../style/scaffolding.scss";
 
 Vue.use(Router);
 Vue.use(VueResource);

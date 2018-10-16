@@ -1,6 +1,5 @@
 <template>
   <div :class="$style.todasticapp">
-    <img src="image/todastic-logo.svg" />
     <span></span> <!-- quickfix for grid layout -->
     <div>
       <input :class="$style.loginInputField" type="text" name="username" v-model="input.username" placeholder="Username" />

@@ -115,7 +115,7 @@ export default {
   },
   methods: {
     cancel() {
-      this.updating = false;
+      this.$store.commit("isEditing", { [this.$props.todo.todoId]: false });
     },
     handleDropzoneEnter(event) {},
     handleDropzoneOver(event) {

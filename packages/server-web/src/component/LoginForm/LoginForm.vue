@@ -1,6 +1,6 @@
 <template>
-  <div :class="$style.loginForm">
-    <asset-image :source="logo" />
+  <div :class="$style.root">
+    <todastic-logo />
     <form v-on:submit.prevent="login()">
       <input type="text" name="username" v-model="input.username" placeholder="Username" />
       <input type="password" name="password" v-model="input.password" placeholder="Password" />
@@ -11,17 +11,15 @@
 </template>
 
 <script>
-import { AssetImage } from "../";
-import logo from "../../asset/image/todastic-logo.svg";
+import { TodasticLogo } from "../";
 
 export default {
   name: "LoginForm",
   props: ["verifyLogin"],
-  components: { AssetImage },
+  components: { TodasticLogo },
   data() {
     return {
       errorMessage: null,
-      logo,
       input: {
         username: "",
         password: ""
@@ -42,10 +40,15 @@ export default {
 </script>
 
 <style lang="scss" module>
-.loginForm {
+.root {
   display: flex;
   flex-direction: column;
+  height: 100%;
+  width: 100%;
+  border: 1px solid red;
 }
+
+// elements
 
 .errorInfo {
   color: $error-text;
@@ -61,4 +64,6 @@ input {
   margin-right: 0.5%;
   background-color: rgba(0, 0, 0, 0.05);
 }
+
+// modifiers
 </style>

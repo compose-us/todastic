@@ -5,8 +5,9 @@
 </template>
 
 <script>
-import AssetImage from "../AssetImage";
+import { AssetImage } from "../";
 import logo from "../../asset/image/todastic-logo.svg";
+
 export default {
   components: { "asset-image": AssetImage },
   data() {
@@ -19,4 +20,8 @@ export default {
 .root {
   width: 200px;
 }
+
+// elements
+
+// modifiers
 </style>

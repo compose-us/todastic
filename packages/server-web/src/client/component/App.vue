@@ -17,7 +17,7 @@
 import Loading from "./Loading.vue";
 import Help from "./Help.vue";
 import Profile from "./Profile.vue";
-import TodasticLogo from "../../component/TodasticLogo";
+import { TodasticLogo } from "../../component";
 
 export default {
   name: "App",

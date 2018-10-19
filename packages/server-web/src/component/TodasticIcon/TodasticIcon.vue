@@ -24,6 +24,10 @@ export default {
   vertical-align: middle;
 }
 
+// elements
+
+// modifiers
+
 .block {
   display: block;
 }

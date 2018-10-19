@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.todoItem">
+  <div :class="$style.root">
     <todo-item-status :class="$style.status" :status="todo.status" />
     <span :class="$style.text">{{todo.text}}</span>
     <ul :class="$style.labels">
@@ -18,10 +18,12 @@ export default {
 </script>
 
 <style lang="scss" module>
-.todoItem {
+.root {
   display: flex;
   align-items: center;
 }
+
+// elements
 
 .status {
   margin-right: 1em;
@@ -45,4 +47,6 @@ export default {
   padding: 0.25em 0.5em;
   margin: 0 0.5em;
 }
+
+// modifiers
 </style>

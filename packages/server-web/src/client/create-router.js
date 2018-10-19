@@ -2,7 +2,9 @@ import Router from "vue-router";
 import LoginComponent from "./component/Login.vue";
 import HomeComponent from "./component/Home.vue";
 
-export function initRouter({ commands }) {
+export function initRouter({ Vue }) {
+  Vue.use(Router);
+
   return new Router({
     mode: "history",
     routes: [
@@ -20,8 +22,7 @@ export function initRouter({ commands }) {
       {
         path: "/home",
         name: "home",
-        component: HomeComponent,
-        props: { commands }
+        component: HomeComponent
       }
     ]
   });

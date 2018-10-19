@@ -6,10 +6,9 @@ import { store } from "./store.js";
 import "../style/scaffolding.scss";
 
 export default function createApp(commands) {
-  Vue.use(Router);
   Vue.use(VueResource);
   store.commit("commands", commands);
-  const router = initRouter({ commands });
+  const router = initRouter({ Vue });
   new Vue({
     el: "#app",
     store,

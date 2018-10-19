@@ -16,6 +16,9 @@ export const store = new Vuex.Store({
     isLoading: false
   },
   getters: {
+    commands(state) {
+      return state.commands;
+    },
     isLoading(state) {
       return state.isLoading;
     },

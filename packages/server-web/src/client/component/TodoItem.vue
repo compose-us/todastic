@@ -35,7 +35,7 @@ import * as icons from "../../asset/icon";
 
 export default {
   name: "TodoItem",
-  props: ["commands", "todo"],
+  props: ["todo"],
   components: {
     "todastic-icon": TodasticIcon,
     "todo-text": TodoText,
@@ -129,18 +129,21 @@ export default {
       event.target.classList.remove(this.$style.activeBottom);
     },
     handleDrop(event) {
-      const { commands, todo } = this.$props;
+      const { todo } = this.$props;
+      const { commands } = this.$store.getters;
       event.target.classList.remove(this.$style.activeBottom);
       const myTodo = JSON.parse(event.dataTransfer.getData("json/todo"));
       commands.moveTodo(myTodo, { parentId: todo.todoId, position: todo.position + 1 });
     },
     updateTitle(newTitle) {
-      const { commands, todo } = this.$props;
+      const { todo } = this.$props;
+      const { commands } = this.$store.getters;
       commands.changeTodo(todo, { title: newTitle });
       this.$store.commit("isEditing", { [todo.todoId]: false });
     },
     addTodo(newTitle) {
-      const { commands, todo } = this.$props;
+      const { todo } = this.$props;
+      const { commands } = this.$store.getters;
       commands.addTodo({ title: newTitle, parentId: todo.todoId });
     },
     setEditing() {
@@ -148,7 +151,7 @@ export default {
       this.$store.commit("isEditing", { [todo.todoId]: true });
     },
     toggleStatus(todo) {
-      const { commands } = this.$props;
+      const { commands } = this.$store.getters;
       const newStatus = todo.status == "open" ? "done" : "open";
       commands.changeTodo(todo, { status: newStatus });
     },
@@ -166,7 +169,8 @@ export default {
       }
     },
     removeTodo() {
-      const { commands, todo } = this.$props;
+      const { todo } = this.$props;
+      const { commands } = this.$store.getters;
       return commands.removeTodo(todo);
     }
   }

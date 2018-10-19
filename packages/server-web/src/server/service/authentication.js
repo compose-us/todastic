@@ -19,9 +19,23 @@ function register({
   app.use(passport.initialize());
   app.use(passport.session());
 
-  app.get(loginRoute, passport.authenticate("local"), (req, res) => {
-    res.redirect(indexRoute);
-  });
+  app.get(
+    loginRoute,
+    (req, res, next) => {
+      logger.info("test?!");
+      if (req.query.username && req.query.password) {
+        logger.info("user and password provided");
+        next();
+      } else {
+        logger.info("nothing provided!");
+        res.redirect(indexRoute);
+      }
+    },
+    passport.authenticate("local"),
+    (req, res) => {
+      res.redirect(indexRoute);
+    }
+  );
 
   app.post(loginRoute, passport.authenticate("local"), (req, res) => {
     res.redirect(indexRoute);
@@ -56,6 +70,7 @@ function init({ passport, User, logger }) {
         username: username
       },
       function(err, user) {
+        logger.info("something");
         logger.debug("Authentication: Found user.");
         if (err) {
           return done(err);

@@ -1,7 +1,8 @@
 import Vuex from "vuex";
 import { replay } from "@todastic/storage-events";
+import createSocketConnection from "./socket-connection.js";
 
-export function initStore({ Vue, commands }) {
+export function initStore({ Vue }) {
   Vue.use(Vuex);
 
   const store = new Vuex.Store({
@@ -9,7 +10,7 @@ export function initStore({ Vue, commands }) {
       allEvents: [],
       currentEventPosition: -1,
       todos: [],
-      commands: commands,
+      commands: {},
       isAuthenticated: false,
       isDragging: false,
       isEditing: {},
@@ -36,6 +37,9 @@ export function initStore({ Vue, commands }) {
       }
     },
     mutations: {
+      setCommands(state, commands) {
+        state.commands = commands;
+      },
       isLoading(state, val) {
         state.isLoading = !!val;
       },
@@ -84,6 +88,10 @@ export function initStore({ Vue, commands }) {
       }
     }
   });
+
+  const processEvent = event => store.dispatch("processEvent", event);
+  const commands = createSocketConnection(processEvent);
+  store.commit("setCommands", commands);
 
   return store;
 }

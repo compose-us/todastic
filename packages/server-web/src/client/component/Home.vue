@@ -27,7 +27,7 @@ export default {
   },
   computed: {
     todos() {
-      const { todos } = this.$store.gettters;
+      const { todos } = this.$store.getters;
       return todos;
     }
   }

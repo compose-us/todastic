@@ -1,9 +1,9 @@
 const config = require("@todastic/config");
-const { createEventModel,initDatabase } = require("@todastic/storage-mongo");
+const { createEventModel, initDatabase } = require("@todastic/storage-mongo");
 const { createUserModel } = require("@todastic/storage-users");
 const parseArgs = require("minimist");
 
-const args = parseArgs(process.argv.slice(2))
+const args = parseArgs(process.argv.slice(2));
 
 if (args.h) {
   console.log("USAGE: user-add -u <username> -p <password> -l <en|de>");
@@ -16,23 +16,24 @@ if (args.h) {
 createUser(args).then(
   c => console.log(c),
   err => {
-     console.log("Error!", err);
-     process.exit(2);
-    });
+    console.log("Error!", err);
+    process.exit(2);
+  }
+);
 
 async function createUser(args) {
   const username = args.u;
   const password = args.p || generatePassword();
   const language = args.l || defaultLanguage();
-  
+
   if (username === undefined) {
     throw "Need username";
   }
 
-  const db = await initDatabase({ config, logger: console })
+  const db = await initDatabase({ config, logger: console });
   const User = await createUserModel({ mongoose: db.mongoose });
   const Event = await createEventModel({ mongoose: db.mongoose });
-  const user = await User.create({ username, password })
+  const user = await User.create({ username, password });
   const uid = user._id + "-id-";
 
   let events;
@@ -56,7 +57,9 @@ async function createUser(args) {
 
 function generatePassword() {
   console.log("No password given, generating one.");
-  password = Math.random().toString(36).slice(-8);
+  password = Math.random()
+    .toString(36)
+    .slice(-8);
   console.log("Using password '" + password + "'");
   return password;
 }
@@ -66,6 +69,7 @@ function defaultLanguage() {
   return "en";
 }
 
+// prettier-ignore
 function eventsDe(user, uid){
   return [
     { eventType: "ADDED_TODO", userId: user._id, data: { todoId: uid + "1", labels:[], trackedTimes:[], title: "Ein erstes Todo erstellen", position: 0 } },
@@ -89,6 +93,7 @@ function eventsDe(user, uid){
   ];
 }
 
+// prettier-ignore
 function eventsEn(user, uid){
   return [
     { eventType: "ADDED_TODO", userId: user._id, data: { todoId: uid + "1", labels:[], trackedTimes:[], title: "Create a first Todo", position: 0 } },

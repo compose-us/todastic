@@ -109,13 +109,12 @@ export default {
     return {
       adderVisible: false,
       expanded: false,
-      icons,
-      updating: false
+      icons
     };
   },
   methods: {
     cancel() {
-      this.updating = false;
+      this.$store.commit("isEditing", { [this.$props.todo.todoId]: false });
     },
     handleDropzoneEnter(event) {},
     handleDropzoneOver(event) {

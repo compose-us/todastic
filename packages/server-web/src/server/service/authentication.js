@@ -22,12 +22,9 @@ function register({
   app.get(
     loginRoute,
     (req, res, next) => {
-      logger.info("test?!");
       if (req.query.username && req.query.password) {
-        logger.info("user and password provided");
         next();
       } else {
-        logger.info("nothing provided!");
         res.redirect(indexRoute);
       }
     },
@@ -53,7 +50,6 @@ function register({
 
 function loggedIn(logger) {
   return (req, res, next) => {
-    logger.debug("Checking whether user is authenticated");
     if (!req.isAuthenticated || !req.isAuthenticated()) {
       logger.info("User not authenticated!");
       res.sendStatus(401);
@@ -70,7 +66,6 @@ function init({ passport, User, logger }) {
         username: username
       },
       function(err, user) {
-        logger.info("something");
         logger.debug("Authentication: Found user.");
         if (err) {
           return done(err);

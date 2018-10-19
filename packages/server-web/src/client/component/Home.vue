@@ -21,12 +21,14 @@ export default {
   },
   methods: {
     addTodo(newTitle) {
-      this.$store.getters.commands.addTodo({ title: newTitle });
+      const { commands } = this.$store.getters;
+      commands.addTodo({ title: newTitle });
     }
   },
   computed: {
     todos() {
-      return this.$store.getters.todos;
+      const { todos } = this.$store.gettters;
+      return todos;
     }
   }
 };

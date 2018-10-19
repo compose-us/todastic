@@ -1,1 +1,1 @@
-export { default } from "./TodasticLogo.vue";
+export { default as TodasticLogo } from "./TodasticLogo.vue";

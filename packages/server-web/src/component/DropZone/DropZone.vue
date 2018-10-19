@@ -19,9 +19,10 @@ export default {
   position: relative;
   height: 1px;
   border-radius: 0.2em;
-  box-shadow: 0 0 0.1em;
   width: 100%;
 }
+
+// elements
 
 .adder {
   position: absolute;
@@ -47,7 +48,13 @@ export default {
   display: none;
 }
 
+// modifiers
+
 .dragging {
+  &.root {
+    box-shadow: 0 0 0.1em;
+  }
+
   .adder {
     &:hover {
       background-color: $color-logo;

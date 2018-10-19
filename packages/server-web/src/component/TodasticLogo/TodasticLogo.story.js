@@ -5,10 +5,9 @@ import TodasticLogo from "./TodasticLogo.vue";
 
 Vue.component("TodasticLogo", TodasticLogo);
 
-storiesOf("TodasticLogo", module)
-  .add("default", () => ({
-    components: { TodasticLogo },
-    render() {
-      return <TodasticLogo />;
-    }
-  }));
+storiesOf("TodasticLogo", module).add("default", () => ({
+  components: { TodasticLogo },
+  render() {
+    return <TodasticLogo />;
+  }
+}));

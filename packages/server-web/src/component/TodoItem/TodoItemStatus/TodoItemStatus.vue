@@ -1,5 +1,5 @@
 <template>
-  <span :class="{[$style.status]: true, [$style.isOpen]: status === 'open', [$style.isDone]: status === 'done'}" />
+  <span :class="{[$style.root]: true, [$style.isOpen]: status === 'open', [$style.isDone]: status === 'done'}" />
 </template>
 
 <script>
@@ -9,12 +9,16 @@ export default {
 </script>
 
 <style lang="scss" module>
-.status {
+.root {
   border: 1px solid #000;
   display: inline-block;
   height: 1em;
   width: 1em;
 }
+
+// elements
+
+// modifiers
 
 .isOpen {
   background-color: #fff;

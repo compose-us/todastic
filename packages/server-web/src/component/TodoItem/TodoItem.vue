@@ -9,7 +9,8 @@
 </template>
 
 <script>
-import TodoItemStatus from "./TodoItemStatus.vue";
+import { TodoItemStatus } from "./TodoItemStatus";
+
 export default {
   components: { TodoItemStatus },
   props: ["todo"]
@@ -17,10 +18,6 @@ export default {
 </script>
 
 <style lang="scss" module>
-:global(body) {
-  background-color: $background-color;
-}
-
 .todoItem {
   display: flex;
   align-items: center;

@@ -1,2 +1,1 @@
-export { default } from "./TodoItem.vue";
-// export { default as TodoItemStatus } from "./TodoItemStatus.vue";
+export { default as TodoItem } from "./TodoItem.vue";

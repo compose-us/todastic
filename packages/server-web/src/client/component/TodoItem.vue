@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import TodasticIcon from "../../component/TodasticIcon";
+import { TodasticIcon } from "../../component";
 import TodoText from "./TodoText.vue";
 import TodoOptions from "./TodoOptions.vue";
 import TodoLabel from "./TodoLabel.vue";

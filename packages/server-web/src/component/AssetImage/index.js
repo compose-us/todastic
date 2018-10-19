@@ -1,1 +1,1 @@
-export { default } from "./AssetImage.vue";
+export { default as AssetImage } from "./AssetImage.vue";

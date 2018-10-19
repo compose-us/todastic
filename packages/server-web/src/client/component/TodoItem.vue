@@ -109,8 +109,7 @@ export default {
     return {
       adderVisible: false,
       expanded: false,
-      icons,
-      updating: false
+      icons
     };
   },
   methods: {

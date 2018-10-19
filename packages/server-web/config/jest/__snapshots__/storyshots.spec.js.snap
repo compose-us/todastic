@@ -1,5 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Storyshots AssetImage logo 1`] = `
+<svg
+  version="1.1"
+  viewBox="0 0 151 33"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlnsXlink="http://www.w3.org/1999/xlink"
+>
+  <use
+    xlink:href="#todastic-logo.svg"
+  />
+</svg>
+`;
+
 exports[`Storyshots LoginForm failing 1`] = `
 <div>
   <svg
@@ -71,6 +84,83 @@ exports[`Storyshots LoginForm succeeding 1`] = `
       Login
     </button>
   </form>
+</div>
+`;
+
+exports[`Storyshots TodasticIcon Calendar 1`] = `
+<svg
+  class="root"
+  version="1.1"
+  viewBox="0 0 48 48"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlnsXlink="http://www.w3.org/1999/xlink"
+>
+  <use
+    xlink:href="#calendar.svg"
+  />
+</svg>
+`;
+
+exports[`Storyshots TodasticIcon Clock 1`] = `
+<svg
+  class="root"
+  version="1.1"
+  viewBox="0 0 48 48"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlnsXlink="http://www.w3.org/1999/xlink"
+>
+  <use
+    xlink:href="#clock.svg"
+  />
+</svg>
+`;
+
+exports[`Storyshots TodasticIcon block 1`] = `
+<svg
+  class="root block"
+  version="1.1"
+  viewBox="0 0 48 48"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlnsXlink="http://www.w3.org/1999/xlink"
+>
+  <use
+    xlink:href="#calendar.svg"
+  />
+</svg>
+`;
+
+exports[`Storyshots TodasticIcon inline text 1`] = `
+<div>
+  There is a 
+  <svg
+    class="root"
+    version="1.1"
+    viewBox="0 0 48 48"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+  >
+    <use
+      xlink:href="#calendar.svg"
+    />
+  </svg>
+   in my sentence!
+</div>
+`;
+
+exports[`Storyshots TodasticLogo default 1`] = `
+<div
+  class="root"
+>
+  <svg
+    version="1.1"
+    viewBox="0 0 151 33"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+  >
+    <use
+      xlink:href="#todastic-logo.svg"
+    />
+  </svg>
 </div>
 `;
 

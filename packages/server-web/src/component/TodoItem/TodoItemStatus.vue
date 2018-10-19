@@ -1,5 +1,5 @@
 <template>
-  <span :class="{[$style.status]: true, [$style.isOpen]: status === 'open', [$style.isDone]: status === 'done'}"></span>
+  <span :class="{[$style.status]: true, [$style.isOpen]: status === 'open', [$style.isDone]: status === 'done'}" />
 </template>
 
 <script>

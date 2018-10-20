@@ -1,52 +1,80 @@
 <template>
-  <div :class="$style.root">
-    <todo-item-status :class="$style.status" :status="todo.status" />
-    <span :class="$style.text">{{todo.text}}</span>
-    <ul :class="$style.labels">
-      <li :class="$style.label" v-for="label in todo.labels" :key="label.id">{{label.text}}</li>
-    </ul>
+  <div :class="[$style.root, isExpanded && $style.isExpanded]">
+    <todo-item-expander :class="$style.expander" :is-expanded="isExpanded" :click-action="toggleExpand" />
+    <todo-item-status :class="$style.status" :status="todo.status" v-on:click.prevent.stop="toggleState" />
+    <div :class="$style.textLabels">
+      <todo-item-text :class="$style.text" :text="todo.text" />
+      <todo-item-labels :class="$style.labels" :labels="todo.labels" />
+    </div>
+    <todo-item-text :class="$style.expandedText" :text="todo.text" is-expanded />
   </div>
 </template>
 
 <script>
 import { TodoItemStatus } from "./TodoItemStatus";
+import { TodoItemExpander } from "./TodoItemExpander";
+import { TodoItemText } from "./TodoItemText";
 
 export default {
-  components: { TodoItemStatus },
-  props: ["todo"]
+  components: { TodoItemExpander, TodoItemStatus, TodoItemText },
+  props: {
+    isExpanded: { type: Boolean, default: false },
+    isEditing: { type: Boolean, default: false },
+    todo: { required: true },
+    toggleExpand: { required: true, type: Function },
+    toggleState: { required: true, type: Function }
+  }
 };
 </script>
 
 <style lang="scss" module>
 .root {
-  display: flex;
+  display: grid;
+  grid-template-columns: 2em 2em 1fr;
   align-items: center;
+  justify-content: center;
+  min-height: 2em;
 }
 
 // elements
 
+.expander {
+  align-self: center;
+  justify-self: center;
+}
+
 .status {
-  margin-right: 1em;
+  align-self: center;
+  justify-self: center;
 }
 
-.text {
-  margin: 0.5em;
-  margin-right: 1em;
-}
-
-.labels {
-  list-style-type: none;
-  padding: 0;
-  margin: 0 -0.5em;
+.textLabels {
+  margin: 0 0.5em;
+  align-self: center;
   display: flex;
 }
 
-.label {
-  border-radius: 3px;
-  border: 1px solid #000;
-  padding: 0.25em 0.5em;
-  margin: 0 0.5em;
+.labels {
+  display: inline-flex;
+}
+
+.text {
+  display: inline-flex;
+  margin-right: 1em;
+  align-self: center;
+  justify-self: center;
+}
+
+.expandedText {
+  grid-column: span 3;
+  display: none;
 }
 
 // modifiers
+
+.isExpanded {
+  .expandedText {
+    display: block;
+  }
+}
 </style>

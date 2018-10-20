@@ -4,9 +4,9 @@
       <todastic-logo :class="$style.logo" />
       <form v-on:submit.prevent="login()">
         <div :class="$style.formWrapper">
-          <input type="text" name="username" v-model="input.username" placeholder="Username" />
+          <input type="text" name="username" v-model="input.username" placeholder="Username" autocomplete="username" />
           <button :class="$style.loginButton" type="submit">Login</button>
-          <input type="password" name="password" v-model="input.password" placeholder="Password" />
+          <input type="password" name="password" v-model="input.password" placeholder="Password" autocomplete="current-password" />
           <div :class="$style.errorInfo" v-if="this.errorMessage">{{this.errorMessage}}</div>
         </div>
       </form>

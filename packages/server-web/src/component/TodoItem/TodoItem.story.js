@@ -1,6 +1,7 @@
 import Vue from "vue";
 
 import { storiesOf } from "@storybook/vue";
+import { action } from "@storybook/addon-actions";
 import TodoItem from "./TodoItem.vue";
 Vue.component("TodoItem", TodoItem);
 
@@ -9,14 +10,28 @@ storiesOf("TodoItem", module)
     components: { TodoItem },
     render() {
       const todo = { status: "open", text: "this is an open todo", labels: [] };
-      return <todo-item todo={todo} />;
+      return (
+        <todo-item
+          todo={todo}
+          isExpanded={false}
+          toggleExpand={action("toggleExpand")}
+          toggleState={action("toggleState")}
+        />
+      );
     }
   }))
   .add("done", () => ({
     components: { TodoItem },
     render() {
       const todo = { status: "done", text: "this is a done todo", labels: [] };
-      return <todo-item todo={todo} toggleState={() => (todo.status = "open")} />;
+      return (
+        <todo-item
+          todo={todo}
+          isExpanded={false}
+          toggleExpand={action("toggleExpand")}
+          toggleState={action("toggleState")}
+        />
+      );
     }
   }))
   .add("with labels", () => ({
@@ -27,7 +42,14 @@ storiesOf("TodoItem", module)
         text: "this is a todo with labels",
         labels: [{ id: 1, text: "foo" }, { id: 2, text: "bar" }, { id: 3, text: "baz" }, { id: 4, text: "something" }]
       };
-      return <todo-item todo={todo} />;
+      return (
+        <todo-item
+          todo={todo}
+          isExpanded={false}
+          toggleExpand={action("toggleExpand")}
+          toggleState={action("toggleState")}
+        />
+      );
     }
   }))
   .add("example", () => ({

@@ -1,17 +1,17 @@
 <template>
-  <span :class="{[$style.root]: true, [$style.isOpen]: status === 'open', [$style.isDone]: status === 'done'}" />
+  <div :class="{[$style.root]: true, [$style.isOpen]: status === 'open', [$style.isDone]: status === 'done'}" v-on:click.prevent.stop="toggleState" />
 </template>
 
 <script>
 export default {
-  props: ["status"]
+  props: ["status", "toggleState"]
 };
 </script>
 
 <style lang="scss" module>
 .root {
-  border: 1px solid #000;
   display: inline-block;
+  border: 1px solid $color-font;
   height: 1em;
   width: 1em;
 }
@@ -21,10 +21,10 @@ export default {
 // modifiers
 
 .isOpen {
-  background-color: #fff;
+  background-color: $color-background;
 }
 
 .isDone {
-  background-color: #000;
+  background-color: $color-font;
 }
 </style>

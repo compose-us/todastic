@@ -91,14 +91,20 @@ export default {
       return this.$props.todo.title;
     },
     todoLabels() {
-      return this.$props.todo.labels.map(label => `#${label.name}`) || [];
+      return (
+        this.$props.todo.labels.map(
+          label =>
+            `#${label.name}${label.args.length > 0 ? `(${label.args.map(arg => JSON.stringify(arg)).join(",")})` : ""}`
+        ) || []
+      );
     },
     titleWithLabels: function() {
       const { todo } = this.$props;
+      console.log({ labelsArgs: todo.labels.map(l => l.args) });
       const labelString = todo.labels
         .map(
           label =>
-            `#${label.name}${label.args.length > 0 ? `(${label.args.map(arg => JSON.stringify(arg).join(","))})` : ""}`
+            `#${label.name}${label.args.length > 0 ? `(${label.args.map(arg => JSON.stringify(arg)).join(",")})` : ""}`
         )
         .join(" ");
       return `${todo.title} ${labelString}`;

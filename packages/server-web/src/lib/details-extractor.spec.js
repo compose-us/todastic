@@ -1,4 +1,4 @@
-const { extractDetails } = require("./details-extractor");
+import { extractDetails } from "./details-extractor";
 
 describe("DetailsExtractor", () => {
   it("extracts labels and tracked times", () => {

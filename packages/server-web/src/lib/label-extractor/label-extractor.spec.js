@@ -1,4 +1,4 @@
-const { extractLabels } = require("./label-extractor");
+import { extractLabels } from "./label-extractor";
 
 describe("LabelExtractor", () => {
   describe("simple lables", () => {

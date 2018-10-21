@@ -17,7 +17,7 @@
           <todastic-icon :source="icons.Clock" />
           {{trackedTimeOnTodo}}
         </span>
-        <todo-label v-for="label in todo.labels" :todoLabel="`${label}`" :key="label" />
+        <todo-label v-for="label in todo.labels" :todoLabel="label" :key="label.name ? label.name : label" />
       </div>
       <todo-text v-if="isEditing" v-on:cancel="cancel" v-on:change="updateTitle" v-bind.sync="{ initialTodoTitle: completeText }" :key="`updateTodo-${todo.todoId}`" />
     </div>
@@ -68,9 +68,7 @@ export default {
       return this.todoTrackedTimes.length > 0;
     },
     todoTrackedTimes() {
-      return (this.$props.todo.calls || [])
-        .filter(call => /track/i.test(call.name))
-        .reduce((args, call) => [...args, call.args], []);
+      return this.$props.todo.trackedTimes || [];
     },
     todoTrackedTimesString() {
       return this.todoTrackedTimes.map(tracked => "#track(" + JSON.stringify(tracked) + ")");

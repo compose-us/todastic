@@ -76,6 +76,16 @@ describe("Event", () => {
     expect(JSON.stringify(event.data.trackedTimes)).toBe(JSON.stringify(trackedTimes));
   });
 
+  it("can store labels", async () => {
+    const labels = [
+      { name: "foo", args: [123] },
+      { name: "bar", args: ["hello", { at: { some: "event" } }] },
+      { name: "baz", args: [] }
+    ];
+    const event = await Event.create({ eventType: "CHANGED_TODO", data: { todoId: "bla", labels } });
+    expect(JSON.stringify(event.data.labels)).toBe(JSON.stringify(labels));
+  });
+
   describe("distinguishing users in getEventsByUserId", () => {
     const userId = "5b969b2490d222197f71109e";
     const otherUserId = "5b8ee36b68d1975c7c3d1682";

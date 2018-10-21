@@ -1,6 +1,6 @@
 <template>
-  <span :class="$style.todoLabel" :key="todoLabel" :style="`background-color: ${backgroundColor}`" >
-    {{todoLabel}}
+  <span :class="$style.todoLabel" :key="name" :style="`background-color: ${backgroundColor}`" >
+    {{name}}
   </span>
 </template>
 
@@ -11,10 +11,14 @@ export default {
   props: ["todoLabel"],
   computed: {
     backgroundColor() {
-      return stringToColor(this.$props.todoLabel);
+      return stringToColor(this.name);
+    },
+    name() {
+      const { todoLabel } = this.$props;
+      return todoLabel.name ? todoLabel.name : todoLabel;
     }
   }
-}
+};
 </script>
 
 <style lang="scss" module>

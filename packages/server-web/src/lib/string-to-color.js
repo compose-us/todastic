@@ -1,6 +1,6 @@
 // as seen on TV:
 // https://stackoverflow.com/a/16348977/526426
-function stringToColor(str) {
+export function stringToColor(str) {
   let hash = 0;
   for (let i = 0; i < str.length; i++) {
     hash = str.charCodeAt(i) + ((hash << 5) - hash);
@@ -12,5 +12,3 @@ function stringToColor(str) {
   }
   return color;
 }
-
-module.exports = { stringToColor };

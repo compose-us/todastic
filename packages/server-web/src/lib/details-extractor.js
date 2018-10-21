@@ -4,8 +4,9 @@ const { extractLabels } = require("./label-extractor");
 module.exports = { extractDetails };
 
 function extractDetails(inputString) {
-  const { trackedTimes, text: textWithoutTimes } = extractTrackedTimes(inputString);
-  const { labels, text } = extractLabels(textWithoutTimes);
+  const { labels, text } = extractLabels(inputString);
+  const labelsWithoutTrackedTime = labels.filter(label => !/track/i.test(label.name));
+  const trackedTimes = labels.filter(label => /track/i.test(label.name));
 
-  return { text, labels, trackedTimes };
+  return { text, labels: labelsWithoutTrackedTime, trackedTimes };
 }

@@ -248,13 +248,20 @@ describe("replay", () => {
 
       it("preserves labels", () => {
         const events = [
-          { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo", labels: ["#all", "#there"] } },
+          {
+            eventType: "ADDED_TODO",
+            data: {
+              todoId: "id-1",
+              title: "Create a todo",
+              labels: [{ name: "#all", args: [] }, { name: "#there", args: [] }]
+            }
+          },
           { eventType: "CHANGED_TODO", data: { todoId: "id-1", status: "done" } },
           { eventType: "CHANGED_TODO", data: { todoId: "id-1", status: "open" } }
         ];
         const state = replay(events);
         expect(state.todos.length).toEqual(1);
-        expect(state.todos[0].labels).toEqual(["#all", "#there"]);
+        expect(state.todos[0].labels).toEqual([{ name: "#all", args: [] }, { name: "#there", args: [] }]);
       });
 
       it("can replay changes in a child", () => {

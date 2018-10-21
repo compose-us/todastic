@@ -68,10 +68,12 @@ export default {
       return this.todoTrackedTimes.length > 0;
     },
     todoTrackedTimes() {
-      return this.$props.todo.trackedTimes || [];
+      return (this.$props.todo.calls || [])
+        .filter(call => /track/i.test(call.name))
+        .reduce((args, call) => [...args, call.args], []);
     },
     todoTrackedTimesString() {
-      return this.todoTrackedTimes.map(tracked => "#TRACK(" + JSON.stringify(tracked) + ")");
+      return this.todoTrackedTimes.map(tracked => "#track(" + JSON.stringify(tracked) + ")");
     },
     trackedTimeOnTodo() {
       const timeToSeconds = time => {
@@ -91,11 +93,17 @@ export default {
       return this.$props.todo.title;
     },
     todoLabels() {
-      return this.$props.todo.labels || [];
+      return this.$props.todo.labels.map(label => `#${label.name}`) || [];
     },
     titleWithLabels: function() {
       const { todo } = this.$props;
-      return `${todo.title} ${todo.labels.join(" ")}`;
+      const labelString = todo.labels
+        .map(
+          label =>
+            `#${label.name}${label.args.length > 0 ? `(${label.args.map(arg => JSON.stringify(arg).join(","))})` : ""}`
+        )
+        .join(" ");
+      return `${todo.title} ${labelString}`;
     },
     isDragging() {
       return this.$store.getters.isDragging;

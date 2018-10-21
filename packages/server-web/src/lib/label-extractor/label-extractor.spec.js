@@ -30,9 +30,7 @@ describe("LabelExtractor", () => {
 
   describe("functional labels", () => {
     it("returns function calls when using parentheses", () => {
-      console.log("snip");
       expect(extractLabels("A label can - at the end of the text - #call()")).toMatchSnapshot();
-      console.log("snap");
       expect(extractLabels("A label can #call() something in the middle of a text")).toMatchSnapshot();
     });
     it("returns function calls with parameters", () => {
@@ -62,13 +60,11 @@ describe("LabelExtractor", () => {
     it("returns function calls with parameters multiple times if there are multiple calls", () => {
       expect(
         extractLabels(
-          `A label #call("someone") eagerly while #call({"at":"(555)-1234"}) #somewhere in the middle of the #call(true) text`
+          `A label #call("someone") eagerly while #call({"at":"(555)-1234"}) l #somewhere in the middle of the #call(true) text`
         )
       ).toMatchSnapshot();
       expect(
-        extractLabels(
-          `Somewhere at the end of the text #call("someone") #call({"at":"(555)-1234"}) #call(true)`
-        )
+        extractLabels(`Somewhere at the end of the text #call("someone") #call({"at":"(555)-1234"}) #call(true)`)
       ).toMatchSnapshot();
     });
   });

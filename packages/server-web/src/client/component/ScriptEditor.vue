@@ -12,7 +12,8 @@ import * as dashboard from "@todastic/dashboard";
 export default {
   name: "ScriptEditor",
   props: {
-    list: Array
+    list: Array,
+    commands: Object
   },
   mounted() {
     const { input } = this.$refs;
@@ -58,8 +59,8 @@ export default {
       this.startScript(this.$props.list, dashboard);
     },
     startScript(list, dashboard) {
-      const scriptingFunction = new Function("list", "dashboard", this.scriptingText);
-      scriptingFunction(list, dashboard);
+      const scriptingFunction = new Function("list", "dashboard", "commands", this.scriptingText);
+      scriptingFunction(list, dashboard, this.$props.commands);
     }
   }
 };

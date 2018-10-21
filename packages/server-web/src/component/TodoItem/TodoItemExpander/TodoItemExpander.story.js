@@ -1,7 +1,6 @@
 import Vue from "vue";
 
 import { storiesOf } from "@storybook/vue";
-import { withState } from "@dump247/storybook-state";
 import TodoItemExpander from "./TodoItemExpander.vue";
 Vue.component("TodoItemExpander", TodoItemExpander);
 

@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.profile" v-if="isAuthenticated">
-    <button id="profile-button" v-on:click="menuCollapsed=!menuCollapsed"><i class="fas fa-user"></i></button>
+    <button id="profile-button" v-on:click="menuCollapsed=!menuCollapsed"><i class="fas fa-user"></i>&nbsp;{{username}}</button>
     <div style="clear: both;"></div>
     <div :class="$style.menu" v-if="!menuCollapsed">
       <ul>
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import PasswordChanger from './PasswordChanger.vue';
+import PasswordChanger from "./PasswordChanger.vue";
 export default {
   name: "Profile",
   components: {
@@ -24,18 +24,20 @@ export default {
     return {
       menuCollapsed: true,
       showPasswordChanger: false
-    }
+    };
   },
   methods: {
     logout() {
       this.$http
         .post("/logout", {})
-        .catch( err => {
+        .catch(err => {
           console.log(err);
           // TODO proper error handling
-        }).finally( () => {
-          this.$store.commit('isAuthenticated', false);
-          this.$store.commit('isLoading', false);
+        })
+        .finally(() => {
+          this.$store.commit("isAuthenticated", false);
+          this.$store.commit("isLoading", false);
+          this.$store.commit("username", "");
           this.$router.replace({ name: "login" });
         });
     }
@@ -43,9 +45,12 @@ export default {
   computed: {
     isAuthenticated() {
       return this.$store.getters.isAuthenticated;
+    },
+    username() {
+      return this.$store.getters.username;
     }
   }
-}
+};
 </script>
 
 <style lang="scss" module>
@@ -60,7 +65,7 @@ export default {
 }
 .menu button {
   float: right;
-  border: 1px solid #BBD5ED;
+  border: 1px solid #bbd5ed;
   background: #ffffff;
   color: #919098;
   right: 0px;

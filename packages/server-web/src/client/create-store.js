@@ -10,6 +10,7 @@ export function initStore({ Vue }) {
     currentEventPosition: -1,
     todos: [],
     commands: {},
+    username: "",
     isAuthenticated: false,
     isDragging: false,
     isEditing: {},
@@ -25,6 +26,9 @@ export function initStore({ Vue }) {
     },
     isAuthenticated(state) {
       return state.isAuthenticated;
+    },
+    username(state) {
+      return state.username;
     },
     isDragging(state) {
       return state.isDragging;
@@ -51,6 +55,9 @@ export function initStore({ Vue }) {
           state.commands.connect();
         }
       }
+    },
+    username(state, val) {
+      state.username = val;
     },
     isDragging(state, val) {
       state.isDragging = !!val;

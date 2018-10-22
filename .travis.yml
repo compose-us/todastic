@@ -15,5 +15,5 @@ install:
 script:
   - docker-compose build
   - docker-compose -p tests run -p 3000 --rm todastic npm run test-ci
-  - ./travis_integration_test.sh # NOTE: has to run outside the container so that we have a chrome installed
+  - ./travis-integration-test.sh # NOTE: has to run outside the container so that we have a chrome installed
 

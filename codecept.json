@@ -6,6 +6,8 @@
     "Puppeteer": {
       "url": "http://localhost",
       "show": false,
+      "waitForNavigation": "networkidle0",
+      "waitForAction": 500,
       "chrome": {
         "args": ["--no-sandbox", "--disable-setuid-sandbox"]
       }

@@ -32,6 +32,7 @@ import TodoOptions from "./TodoOptions.vue";
 import TodoLabel from "./TodoLabel.vue";
 
 import * as icons from "../../asset/icon";
+import { stringifyLabel } from "../../lib/stringify-label";
 
 export default {
   name: "TodoItem",
@@ -91,22 +92,12 @@ export default {
       return this.$props.todo.title;
     },
     todoLabels() {
-      return (
-        this.$props.todo.labels.map(
-          label =>
-            `#${label.name}${label.args.length > 0 ? `(${label.args.map(arg => JSON.stringify(arg)).join(",")})` : ""}`
-        ) || []
-      );
+      return this.$props.todo.labels.map(stringifyLabel) || [];
     },
     titleWithLabels: function() {
       const { todo } = this.$props;
       console.log({ labelsArgs: todo.labels.map(l => l.args) });
-      const labelString = todo.labels
-        .map(
-          label =>
-            `#${label.name}${label.args.length > 0 ? `(${label.args.map(arg => JSON.stringify(arg)).join(",")})` : ""}`
-        )
-        .join(" ");
+      const labelString = todo.labels.map(stringifyLabel).join(" ");
       return `${todo.title} ${labelString}`;
     },
     isDragging() {

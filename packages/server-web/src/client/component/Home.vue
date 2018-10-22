@@ -19,6 +19,11 @@ export default {
     "todo-list": TodoList,
     "todo-text": TodoText
   },
+  data() {
+    return {
+      commands: this.$store.getters
+    };
+  },
   methods: {
     addTodo(newTitle) {
       const { commands } = this.$store.getters;

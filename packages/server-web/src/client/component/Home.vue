@@ -2,7 +2,7 @@
   <div :class="$style.todasticapp">
     <script-editor :class="$style.editor" :list="todos" />
     <div :class="$style.todos">
-      <todo-list :commands="commands" :parentId="null" :todos="todos" key="root-list" />
+      <todo-list :parentId="null" :todos="todos" key="root-list" />
       <todo-text v-on:change="addTodo" key="root-adder" />
     </div>
   </div>
@@ -19,15 +19,16 @@ export default {
     "todo-list": TodoList,
     "todo-text": TodoText
   },
-  props: ["commands"],
   methods: {
     addTodo(newTitle) {
-      this.$props.commands.addTodo({ title: newTitle });
+      const { commands } = this.$store.getters;
+      commands.addTodo({ title: newTitle });
     }
   },
   computed: {
     todos() {
-      return this.$store.getters.todos;
+      const { todos } = this.$store.getters;
+      return todos;
     }
   }
 };

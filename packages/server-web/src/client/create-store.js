@@ -1,11 +1,11 @@
-import Vue from "vue";
 import Vuex from "vuex";
 import { replay } from "@todastic/storage-events";
+import createSocketConnection from "./socket-connection.js";
 
-Vue.use(Vuex);
+export function initStore({ Vue }) {
+  Vue.use(Vuex);
 
-export const store = new Vuex.Store({
-  state: {
+  const initialState = {
     allEvents: [],
     currentEventPosition: -1,
     todos: [],
@@ -14,8 +14,12 @@ export const store = new Vuex.Store({
     isDragging: false,
     isEditing: {},
     isLoading: false
-  },
-  getters: {
+  };
+
+  const getters = {
+    commands(state) {
+      return state.commands;
+    },
     isLoading(state) {
       return state.isLoading;
     },
@@ -31,8 +35,12 @@ export const store = new Vuex.Store({
     todos(state) {
       return state.todos;
     }
-  },
-  mutations: {
+  };
+
+  const syncActions = {
+    setCommands(state, commands) {
+      state.commands = commands;
+    },
     isLoading(state, val) {
       state.isLoading = !!val;
     },
@@ -50,9 +58,6 @@ export const store = new Vuex.Store({
     isEditing(state, todosStatus) {
       state.isEditing = { ...state.isEditing, ...todosStatus };
     },
-    commands(state, commands) {
-      state.commands = commands;
-    },
     currentEventPosition(state, position) {
       state.currentEventPosition = position;
     },
@@ -65,8 +70,9 @@ export const store = new Vuex.Store({
     addEventToAllEvents(state, event) {
       state.allEvents = [...state.allEvents, event];
     }
-  },
-  actions: {
+  };
+
+  const asyncActions = {
     processEvent(context, event) {
       new Promise((resolve, reject) => {
         try {
@@ -82,5 +88,18 @@ export const store = new Vuex.Store({
         }
       });
     }
-  }
-});
+  };
+
+  const store = new Vuex.Store({
+    state: initialState,
+    getters,
+    mutations: syncActions,
+    actions: asyncActions
+  });
+
+  const processEvent = event => store.dispatch("processEvent", event);
+  const commands = createSocketConnection(processEvent);
+  store.commit("setCommands", commands);
+
+  return store;
+}

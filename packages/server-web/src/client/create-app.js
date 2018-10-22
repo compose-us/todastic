@@ -1,44 +1,18 @@
 import Vue from "vue";
-import Router from "vue-router";
-import LoginComponent from "./component/Login.vue";
-import HomeComponent from "./component/Home.vue";
-import AppComponent from "./component/App.vue";
 import VueResource from "vue-resource";
-import { store } from "./store.js";
+import AppComponent from "./component/App.vue";
+import { initRouter } from "./create-router.js";
+import { initStore } from "./create-store.js";
 import "../style/scaffolding.scss";
 
-Vue.use(Router);
-Vue.use(VueResource);
+export default function createApp() {
+  Vue.use(VueResource);
 
-function createRouter(commands) {
-  return new Router({
-    mode: "history",
-    routes: [
-      {
-        path: "/",
-        redirect: {
-          name: "home"
-        }
-      },
-      {
-        path: "/login",
-        name: "login",
-        component: LoginComponent
-      },
-      {
-        path: "/home",
-        name: "home",
-        component: HomeComponent,
-        props: { commands }
-      }
-    ]
-  });
-}
+  const store = initStore({ Vue });
+  const router = initRouter({ Vue });
 
-export default function createApp(commands) {
-  store.commit("commands", commands);
-  const router = createRouter(commands);
-  new Vue({
+  console.log({ store });
+  return new Vue({
     el: "#app",
     store,
     render: h => h(AppComponent),

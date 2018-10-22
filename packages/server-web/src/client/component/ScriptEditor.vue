@@ -48,7 +48,8 @@ export default {
       event.target.classList.remove(this.$style.active);
     },
     handleDrop(event) {
-      const { commands, todo } = this.$props;
+      const { todo } = this.$props;
+      const { commands } = this.$store.getters;
       event.target.classList.remove(this.$style.active);
       const myTodo = JSON.parse(event.dataTransfer.getData("json/todo"));
       this.startScript([myTodo], dashboard);

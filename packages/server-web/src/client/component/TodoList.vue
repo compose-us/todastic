@@ -3,8 +3,8 @@
     <ul>
       <li v-for="todo in todos" :key="todo.todoId" :todoId="todo.todoId" draggable="true" ref="dragElement">
         <div :class="{[$style.dropzoneSame]: true, [$style.dropzoneActive]: isDragging, [$style.dropzoneInactive]: !isDragging }" :position="todo.position" ref="dropzoneSame"></div>
-        <todo-item :commands="commands" :todo="todo"/>
-        <todo-list :commands="commands" :parentId="todo.todoId" :todos="todo.children"/>
+        <todo-item :todo="todo"/>
+        <todo-list :parentId="todo.todoId" :todos="todo.children"/>
       </li>
     </ul>
   </div>
@@ -18,7 +18,7 @@ export default {
     "todo-item": TodoItem
   },
   name: "todo-list",
-  props: ["commands", "todos", "parentId"],
+  props: ["todos", "parentId"],
   beforeUpdate() {
     this.removeDragListeners();
   },
@@ -115,7 +115,8 @@ export default {
     },
     handleDrop(event) {
       event.stopPropagation();
-      const { commands, parentId, todo } = this.$props;
+      const { parentId, todo } = this.$props;
+      const { commands } = this.$store.getters;
       event.target.classList.remove(this.$style.activeTop);
       event.target.classList.remove(this.$style.activeBottom);
       const myTodo = JSON.parse(event.dataTransfer.getData("json/todo"));

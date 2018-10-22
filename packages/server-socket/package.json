@@ -5,6 +5,7 @@
   "main": "src/server-socket.js",
   "scripts": {
     "format": "prettier --write 'src/**/*.js'",
+    "test-ci": "jest --ci --detectOpenHandles",
     "test": "jest src/"
   },
   "repository": {

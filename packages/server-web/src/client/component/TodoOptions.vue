@@ -1,8 +1,8 @@
 <template>
 	<div :class="{[$style.options]: true, [$style.expanded]: this.$props.expanded}">
     <div :class="$style.move" @click.prevent="toggleTodoOptions()"><i class="fas fa-ellipsis-v" /></div>
-		<div :class="$style.add" @click.prevent="toggleAddTodoItem()"><i :class="`fas fa-${this.$props.adderVisible ? 'minus' : 'plus'}`" /></div>
 		<div :class="$style.remove" @click.prevent="removeTodo()"><i class="fas fa-trash" /></div>
+		<div :class="$style.add" @click.prevent="toggleAddTodoItem()"><i :class="`fas fa-${this.$props.adderVisible ? 'minus' : 'plus'}`" /></div>
 	</div>
 </template>
 

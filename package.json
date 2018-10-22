@@ -20,7 +20,7 @@
     "test": "run-s test:* combine-coverage",
     "test:integration": "jest",
     "test:packages": "lerna run test",
-    "test-ci": "run-s test:* combine-coverage upload-coverage",
+    "test-ci": "run-s test-ci:* combine-coverage upload-coverage",
     "test-ci:integration": "jest --ci --detectOpenHandles",
     "test-ci:packages": "lerna run test-ci",
     "test-browser": "./node_modules/.bin/codeceptjs run --steps",

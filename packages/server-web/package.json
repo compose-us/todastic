@@ -7,6 +7,9 @@
     "build": "webpack --config config/webpack/config.js",
     "format": "prettier --write 'src/**/*.js'",
     "storybook": "start-storybook -p 9001 -c config/storybook",
+    "test-ci": "run-s test-ci:*",
+    "test-ci:lib": "jest --ci --detectOpenHandles --config config/jest/config.js src/lib",
+    "test-ci:storyshots": "jest --ci --detectOpenHandles --config config/jest/config-storyshots.js --env=jsdom",
     "test": "run-s test:*",
     "test:lib": "jest --config config/jest/config.js src/lib",
     "test:storyshots": "jest --config config/jest/config-storyshots.js --env=jsdom"

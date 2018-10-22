@@ -17,13 +17,13 @@
     "storyshots": "cd packages/server-web && npm run test:storyshots",
     "upload-coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "combine-coverage": "istanbul report --root coverage",
-    "codeceptjs": "./node_modules/.bin/codeceptjs run --steps",
     "test": "run-s test:* combine-coverage",
     "test:integration": "jest",
     "test:packages": "lerna run test",
     "test-ci": "run-s test:* combine-coverage upload-coverage",
     "test-ci:integration": "jest --ci --detectOpenHandles",
     "test-ci:packages": "lerna run test-ci",
+    "test-browser": "./node_modules/.bin/codeceptjs run --steps",
     "watch-web": "cd packages/server-web && npm run build -- --watch"
   },
   "repository": {

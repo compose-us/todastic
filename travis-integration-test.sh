@@ -17,5 +17,5 @@ done
 
 docker exec todastic_todastic_1 npm run user-add -- -u John -p Snow -l de
 
-npm run codeceptjs
+npm run test-browser
 

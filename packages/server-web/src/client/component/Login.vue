@@ -28,6 +28,7 @@ export default {
           .post("/login", { username: this.input.username, password: this.input.password })
           .then(function(response) {
             this.$store.commit("isAuthenticated", true);
+            this.$store.commit("username", this.input.username);
             this.$router.replace({ name: "home" });
           })
           .catch(function(err) {

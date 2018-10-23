@@ -30,6 +30,7 @@ describe("replay", () => {
     });
 
     it("can add a task as a child of another task", () => {
+      // prettier-ignore
       const events = [
         { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a parent todo" } },
         { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Create a child todo", parentId: "id-1" } }
@@ -41,13 +42,11 @@ describe("replay", () => {
     });
 
     it("can add child todo to any parent", () => {
+      // prettier-ignore
       const events = [
         { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a parent todo" } },
         { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Create another parent todo" } },
-        {
-          eventType: "ADDED_TODO",
-          data: { todoId: "id-3", title: "Create a child todo in parent 2", parentId: "id-2" }
-        }
+        { eventType: "ADDED_TODO", data: { todoId: "id-3", title: "Create a child todo in parent 2", parentId: "id-2" } }
       ];
       const state = replay(events);
       expect(state.todos.length).toBe(2);
@@ -57,13 +56,11 @@ describe("replay", () => {
     });
 
     it("can add multiple children to a parent", () => {
+      // prettier-ignore
       const events = [
         { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a parent todo" } },
         { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Create a child todo in parent", parentId: "id-1" } },
-        {
-          eventType: "ADDED_TODO",
-          data: { todoId: "id-3", title: "Create another child todo in parent", parentId: "id-1" }
-        }
+        { eventType: "ADDED_TODO", data: { todoId: "id-3", title: "Create another child todo in parent", parentId: "id-1" } }
       ];
       const state = replay(events);
       expect(state.todos.length).toBe(1);
@@ -73,44 +70,28 @@ describe("replay", () => {
     });
 
     it("can add todos in a more complex example", () => {
+      // prettier-ignore
       const events = [
         { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a parent todo" } },
         { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Create another parent todo" } },
-        {
-          eventType: "ADDED_TODO",
-          data: { todoId: "id-3", title: "Create a child in another parent todo", parentId: "id-2" }
-        },
+        { eventType: "ADDED_TODO", data: { todoId: "id-3", title: "Create a child in another parent todo", parentId: "id-2" } },
         { eventType: "ADDED_TODO", data: { todoId: "id-4", title: "Create a third parent todo" } },
-        {
-          eventType: "ADDED_TODO",
-          data: { todoId: "id-5", title: "Create another child todo in parent 2", parentId: "id-2" }
-        }
+        { eventType: "ADDED_TODO", data: { todoId: "id-5", title: "Create another child todo in parent 2", parentId: "id-2" } }
       ];
       const state = replay(events);
       expect(state.todos).toMatchSnapshot();
     });
 
     it("can add todos as children of children", () => {
+      // prettier-ignore
       const events = [
         { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a parent todo" } },
         { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Create another parent todo" } },
-        {
-          eventType: "ADDED_TODO",
-          data: { todoId: "id-3", title: "Create a child in another parent todo", parentId: "id-2" }
-        },
+        { eventType: "ADDED_TODO", data: { todoId: "id-3", title: "Create a child in another parent todo", parentId: "id-2" } },
         { eventType: "ADDED_TODO", data: { todoId: "id-4", title: "Create a third parent todo" } },
-        {
-          eventType: "ADDED_TODO",
-          data: { todoId: "id-5", title: "Create a child todo of child of parent 2", parentId: "id-3" }
-        },
-        {
-          eventType: "ADDED_TODO",
-          data: { todoId: "id-6", title: "Create a second child todo of child of parent 2", parentId: "id-3" }
-        },
-        {
-          eventType: "ADDED_TODO",
-          data: { todoId: "id-7", title: "Create a child of 2nd child of child of parent 2", parentId: "id-6" }
-        }
+        { eventType: "ADDED_TODO", data: { todoId: "id-5", title: "Create a child todo of child of parent 2", parentId: "id-3" } },
+        { eventType: "ADDED_TODO", data: { todoId: "id-6", title: "Create a second child todo of child of parent 2", parentId: "id-3" } },
+        { eventType: "ADDED_TODO", data: { todoId: "id-7", title: "Create a child of 2nd child of child of parent 2", parentId: "id-6" } }
       ];
       const state = replay(events);
       expect(state.todos.length).toEqual(3);
@@ -121,19 +102,18 @@ describe("replay", () => {
     });
 
     it("can add children at the correct position", () => {
+      // prettier-ignore
       const events = [
         { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a parent todo" } },
         { eventType: "ADDED_TODO", data: { todoId: "id-1-1", title: "Create child 1", parentId: "id-1" } },
-        {
-          eventType: "ADDED_TODO",
-          data: { todoId: "id-1-2", title: "Create child 2", parentId: "id-1" }
-        }
+        { eventType: "ADDED_TODO", data: { todoId: "id-1-2", title: "Create child 2", parentId: "id-1" } }
       ];
       const state = replay(events);
       expect(state.todos).toMatchSnapshot();
     });
 
     it("can add root nodes at the correct position", () => {
+      // prettier-ignore
       const events = [
         { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a parent todo" } },
         { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Create other parent" } }
@@ -145,6 +125,7 @@ describe("replay", () => {
 
   describe("REMOVED_TODO event", () => {
     it("can remove an added todo", () => {
+      // prettier-ignore
       const events = [
         { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a parent todo" } },
         { eventType: "REMOVED_TODO", data: { todoId: "id-1" } }
@@ -154,6 +135,7 @@ describe("replay", () => {
     });
 
     it("can remove multiple todos", () => {
+      // prettier-ignore
       const events = [
         { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a parent todo" } },
         { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Create a second parent todo" } },
@@ -167,6 +149,7 @@ describe("replay", () => {
     });
 
     it("can remove a todo and re-add it afterwards", () => {
+      // prettier-ignore
       const events = [
         { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a parent todo" } },
         { eventType: "REMOVED_TODO", data: { todoId: "id-1" } },
@@ -178,12 +161,10 @@ describe("replay", () => {
     });
 
     it("removing a parent todo makes its children disappear", () => {
+      // prettier-ignore
       const events = [
         { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a parent todo" } },
-        {
-          eventType: "ADDED_TODO",
-          data: { todoId: "id-2", title: "Create a child for the parent todo", parentId: "id-1" }
-        },
+        { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Create a child for the parent todo", parentId: "id-1" } },
         { eventType: "REMOVED_TODO", data: { todoId: "id-1" } }
       ];
       const state = replay(events);
@@ -191,16 +172,11 @@ describe("replay", () => {
     });
 
     it("can remove a child todo", () => {
+      // prettier-ignore
       const events = [
         { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a parent todo" } },
-        {
-          eventType: "ADDED_TODO",
-          data: { todoId: "id-2", title: "Create a child for the parent todo", parentId: "id-1" }
-        },
-        {
-          eventType: "ADDED_TODO",
-          data: { todoId: "id-3", title: "Create another child for the parent todo", parentId: "id-1" }
-        },
+        { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Create a child for the parent todo", parentId: "id-1" } },
+        { eventType: "ADDED_TODO", data: { todoId: "id-3", title: "Create another child for the parent todo", parentId: "id-1" } },
         { eventType: "REMOVED_TODO", data: { todoId: "id-3" } }
       ];
       const state = replay(events);
@@ -212,6 +188,7 @@ describe("replay", () => {
   describe("editing todos", () => {
     describe("EDITING_TODO", () => {
       it("does not care in the store about intermediate edits", () => {
+        // prettier-ignore
         const events = [
           { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo" } },
           { eventType: "EDITING_TODO", data: { todoId: "id-1", title: "Changing the todo" } },
@@ -225,6 +202,7 @@ describe("replay", () => {
 
     describe("CHANGED_TODO", () => {
       it("will change the todos when the edit is done", () => {
+        // prettier-ignore
         const events = [
           { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo" } },
           { eventType: "EDITING_TODO", data: { todoId: "id-1", title: "Changing the todo" } },
@@ -236,6 +214,7 @@ describe("replay", () => {
       });
 
       it("can edit child todos", () => {
+        // prettier-ignore
         const events = [
           { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo", position: 0 } },
           { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child", parentId: "id-1", position: 0 } },
@@ -247,15 +226,9 @@ describe("replay", () => {
       });
 
       it("preserves labels", () => {
+        // prettier-ignore
         const events = [
-          {
-            eventType: "ADDED_TODO",
-            data: {
-              todoId: "id-1",
-              title: "Create a todo",
-              labels: [{ name: "#all", args: [] }, { name: "#there", args: [] }]
-            }
-          },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo", labels: [{ name: "#all", args: [] }, { name: "#there", args: [] }] } },
           { eventType: "CHANGED_TODO", data: { todoId: "id-1", status: "done" } },
           { eventType: "CHANGED_TODO", data: { todoId: "id-1", status: "open" } }
         ];
@@ -265,31 +238,12 @@ describe("replay", () => {
       });
 
       it("can replay changes in a child", () => {
+        // prettier-ignore
         const events = [
-          {
-            data: { title: "do it", todoId: "a0ca6051-43f9-410e-86c9-75ae37a1c682" },
-            eventType: "ADDED_TODO",
-            position: 1
-          },
-          {
-            data: {
-              title: "really",
-              parentId: "a0ca6051-43f9-410e-86c9-75ae37a1c682",
-              todoId: "6505d361-adc2-427f-ad45-a4e57b630830"
-            },
-            eventType: "ADDED_TODO",
-            position: 2
-          },
-          {
-            data: { title: "some other", todoId: "536540b4-6602-4242-ad2c-f199f49b7862" },
-            eventType: "ADDED_TODO",
-            position: 3
-          },
-          {
-            data: { title: "really really real", todoId: "6505d361-adc2-427f-ad45-a4e57b630830" },
-            eventType: "CHANGED_TODO",
-            position: 4
-          }
+          { eventType: "ADDED_TODO", position: 1, data: { title: "do it", todoId: "a0ca6051-43f9-410e-86c9-75ae37a1c682" } },
+          { eventType: "ADDED_TODO", position: 2, data: { title: "really", parentId: "a0ca6051-43f9-410e-86c9-75ae37a1c682", todoId: "6505d361-adc2-427f-ad45-a4e57b630830" } },
+          { eventType: "ADDED_TODO", position: 3, data: { title: "some other", todoId: "536540b4-6602-4242-ad2c-f199f49b7862" } },
+          { eventType: "CHANGED_TODO", position: 4, data: { title: "really really real", todoId: "6505d361-adc2-427f-ad45-a4e57b630830" } }
         ];
         const state = replay(events);
         expect(state.todos.length).toEqual(2);
@@ -297,13 +251,11 @@ describe("replay", () => {
       });
 
       it("only edits the things provided in data and does not touch other fields", () => {
+        // prettier-ignore
         const events = [
           { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo" } },
           { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child", parentId: "id-1" } },
-          {
-            eventType: "CHANGED_TODO",
-            data: { todoId: "id-2", title: "Changed title of child but did not change parentId" }
-          }
+          { eventType: "CHANGED_TODO", data: { todoId: "id-2", title: "Changed title of child but did not change parentId" } }
         ];
         const state = replay(events);
         expect(state.todos.length).toEqual(1);
@@ -311,25 +263,14 @@ describe("replay", () => {
       });
 
       it("can move subtasks to other parents", () => {
+        // prettier-ignore
         const events = [
           { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo", position: 0 } },
-          {
-            eventType: "ADDED_TODO",
-            data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1", position: 0 }
-          },
-          {
-            eventType: "ADDED_TODO",
-            data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1", position: 1 }
-          },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1", position: 0 } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1", position: 1 } },
           { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child", position: 1 } },
-          {
-            eventType: "ADDED_TODO",
-            data: { todoId: "id-2-1", title: "Added a child", parentId: "id-2", position: 0 }
-          },
-          {
-            eventType: "MOVED_TODO",
-            data: { todoId: "id-1-1", parentId: "id-2", position: 1 }
-          }
+          { eventType: "ADDED_TODO", data: { todoId: "id-2-1", title: "Added a child", parentId: "id-2", position: 0 } },
+          { eventType: "MOVED_TODO", data: { todoId: "id-1-1", parentId: "id-2", position: 1 } }
         ];
         const state = replay(events);
         expect(state.todos.length).toEqual(2);
@@ -337,37 +278,17 @@ describe("replay", () => {
       });
 
       it("moves subtasks from subtasks to different parents in other trees", () => {
+        // prettier-ignore
         const events = [
           { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo", position: 0 } },
-          {
-            eventType: "ADDED_TODO",
-            data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1", position: 0 }
-          },
-          {
-            eventType: "ADDED_TODO",
-            data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1", position: 1 }
-          },
-          {
-            eventType: "ADDED_TODO",
-            data: { todoId: "id-1-2-1", title: "Added a child", parentId: "id-1-2", position: 0 }
-          },
-          {
-            eventType: "ADDED_TODO",
-            data: { todoId: "id-1-2-2", title: "Added a child", parentId: "id-1-2", position: 1 }
-          },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1", position: 0 } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1", position: 1 } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-2-1", title: "Added a child", parentId: "id-1-2", position: 0 } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-2-2", title: "Added a child", parentId: "id-1-2", position: 1 } },
           { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child", position: 1 } },
-          {
-            eventType: "ADDED_TODO",
-            data: { todoId: "id-2-1", title: "Added a child", parentId: "id-2", position: 0 }
-          },
-          {
-            eventType: "ADDED_TODO",
-            data: { todoId: "id-2-2", title: "Added a child", parentId: "id-2", position: 1 }
-          },
-          {
-            eventType: "MOVED_TODO",
-            data: { todoId: "id-1-2-2", parentId: "id-2-1", position: 0 }
-          }
+          { eventType: "ADDED_TODO", data: { todoId: "id-2-1", title: "Added a child", parentId: "id-2", position: 0 } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-2-2", title: "Added a child", parentId: "id-2", position: 1 } },
+          { eventType: "MOVED_TODO", data: { todoId: "id-1-2-2", parentId: "id-2-1", position: 0 } }
         ];
         const state = replay(events);
         expect(state.todos.length).toEqual(2);
@@ -375,29 +296,15 @@ describe("replay", () => {
       });
 
       it("works when moving a todo up", () => {
+        // prettier-ignore
         const events = [
           { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo", position: 0 } },
-          {
-            eventType: "ADDED_TODO",
-            data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1", position: 0 }
-          },
-          {
-            eventType: "ADDED_TODO",
-            data: { todoId: "id-1-1-1", title: "Added a child", parentId: "id-1-1", position: 0 }
-          },
-          {
-            eventType: "ADDED_TODO",
-            data: { todoId: "id-1-1-2", title: "Added a child", parentId: "id-1-1", position: 1 }
-          },
-          {
-            eventType: "ADDED_TODO",
-            data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1", position: 1 }
-          },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1", position: 0 } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-1-1", title: "Added a child", parentId: "id-1-1", position: 0 } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-1-2", title: "Added a child", parentId: "id-1-1", position: 1 } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1", position: 1 } },
           { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child", position: 1 } },
-          {
-            eventType: "MOVED_TODO",
-            data: { todoId: "id-1-1-1", parentId: "id-1", position: 1 }
-          }
+          { eventType: "MOVED_TODO", data: { todoId: "id-1-1-1", parentId: "id-1", position: 1 } }
         ];
         const state = replay(events);
         expect(state.todos.length).toEqual(2);
@@ -405,29 +312,15 @@ describe("replay", () => {
       });
 
       it("works when moving a todo down", () => {
+        // prettier-ignore
         const events = [
           { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo", position: 0 } },
-          {
-            eventType: "ADDED_TODO",
-            data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1", position: 0 }
-          },
-          {
-            eventType: "ADDED_TODO",
-            data: { todoId: "id-1-1-2", title: "Added a child", parentId: "id-1-1", position: 0 }
-          },
-          {
-            eventType: "ADDED_TODO",
-            data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1", position: 1 }
-          },
-          {
-            eventType: "ADDED_TODO",
-            data: { todoId: "id-1-1-1", title: "Added a child", parentId: "id-1", position: 2 }
-          },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1", position: 0 } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-1-2", title: "Added a child", parentId: "id-1-1", position: 0 } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1", position: 1 } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-1-1", title: "Added a child", parentId: "id-1", position: 2 } },
           { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child", position: 1 } },
-          {
-            eventType: "MOVED_TODO",
-            data: { todoId: "id-1-1-1", parentId: "id-1-1", position: 1 }
-          }
+          { eventType: "MOVED_TODO", data: { todoId: "id-1-1-1", parentId: "id-1-1", position: 1 } }
         ];
         const state = replay(events);
         expect(state.todos.length).toEqual(2);
@@ -435,29 +328,15 @@ describe("replay", () => {
       });
 
       it("can move into root scope", () => {
+        // prettier-ignore
         const events = [
           { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo", position: 0 } },
-          {
-            eventType: "ADDED_TODO",
-            data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1", position: 0 }
-          },
-          {
-            eventType: "ADDED_TODO",
-            data: { todoId: "id-1-1-1", title: "Added a child", parentId: "id-1-1", position: 0 }
-          },
-          {
-            eventType: "ADDED_TODO",
-            data: { todoId: "id-1-1-2", title: "Added a child", parentId: "id-1-1", position: 1 }
-          },
-          {
-            eventType: "ADDED_TODO",
-            data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1", position: 1 }
-          },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1", position: 0 } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-1-1", title: "Added a child", parentId: "id-1-1", position: 0 } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-1-2", title: "Added a child", parentId: "id-1-1", position: 1 } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1", position: 1 } },
           { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child", position: 1 } },
-          {
-            eventType: "MOVED_TODO",
-            data: { todoId: "id-1-1-1", parentId: null, position: 2 }
-          }
+          { eventType: "MOVED_TODO", data: { todoId: "id-1-1-1", parentId: null, position: 2 } }
         ];
         const state = replay(events);
         expect(state.todos.length).toEqual(3);
@@ -465,26 +344,15 @@ describe("replay", () => {
       });
 
       it("can move from root scope", () => {
+        // prettier-ignore
         const events = [
           { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo", position: 0 } },
-          {
-            eventType: "ADDED_TODO",
-            data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1", position: 0 }
-          },
-          {
-            eventType: "ADDED_TODO",
-            data: { todoId: "id-1-1-2", title: "Added a child", parentId: "id-1-1", position: 0 }
-          },
-          {
-            eventType: "ADDED_TODO",
-            data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1", position: 1 }
-          },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1", position: 0 } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-1-2", title: "Added a child", parentId: "id-1-1", position: 0 } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1", position: 1 } },
           { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child", position: 1 } },
           { eventType: "ADDED_TODO", data: { todoId: "id-3", title: "Added a child", position: 2 } },
-          {
-            eventType: "MOVED_TODO",
-            data: { todoId: "id-3", parentId: "id-1-1", position: 1 }
-          }
+          { eventType: "MOVED_TODO", data: { todoId: "id-3", parentId: "id-1-1", position: 1 } }
         ];
         const state = replay(events);
         expect(state.todos.length).toEqual(2);
@@ -492,26 +360,15 @@ describe("replay", () => {
       });
 
       it("can move from root to root scope", () => {
+        // prettier-ignore
         const events = [
           { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo", position: 0 } },
           { eventType: "ADDED_TODO", data: { todoId: "id-3", title: "Created another todo", position: 2 } },
-          {
-            eventType: "ADDED_TODO",
-            data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1", position: 0 }
-          },
-          {
-            eventType: "ADDED_TODO",
-            data: { todoId: "id-1-1-2", title: "Added a child", parentId: "id-1-1", position: 0 }
-          },
-          {
-            eventType: "ADDED_TODO",
-            data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1", position: 1 }
-          },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1", position: 0 } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-1-2", title: "Added a child", parentId: "id-1-1", position: 0 } },
+          { eventType: "ADDED_TODO", data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1", position: 1 } },
           { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child", position: 1 } },
-          {
-            eventType: "MOVED_TODO",
-            data: { todoId: "id-3", parentId: null, position: 1 }
-          }
+          { eventType: "MOVED_TODO", data: { todoId: "id-3", parentId: null, position: 1 } }
         ];
         const state = replay(events);
         expect(state.todos.length).toEqual(3);
@@ -519,6 +376,7 @@ describe("replay", () => {
       });
 
       it("will not move itself into itself", () => {
+        // prettier-ignore
         const events = [
           { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo" } },
           { eventType: "ADDED_TODO", data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1" } },
@@ -526,10 +384,7 @@ describe("replay", () => {
           { eventType: "ADDED_TODO", data: { todoId: "id-1-1-2", title: "Added a child", parentId: "id-1-1" } },
           { eventType: "ADDED_TODO", data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1" } },
           { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child" } },
-          {
-            eventType: "MOVED_TODO",
-            data: { todoId: "id-1-1", parentId: "id-1-1" }
-          }
+          { eventType: "MOVED_TODO", data: { todoId: "id-1-1", parentId: "id-1-1" } }
         ];
         const state = replay(events);
         expect(state.todos.length).toEqual(2);
@@ -537,6 +392,7 @@ describe("replay", () => {
       });
 
       it("will not move itself into a child of itself", () => {
+        // prettier-ignore
         const events = [
           { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo" } },
           { eventType: "ADDED_TODO", data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1" } },
@@ -544,10 +400,7 @@ describe("replay", () => {
           { eventType: "ADDED_TODO", data: { todoId: "id-1-1-2", title: "Added a child", parentId: "id-1-1" } },
           { eventType: "ADDED_TODO", data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1" } },
           { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child" } },
-          {
-            eventType: "MOVED_TODO",
-            data: { todoId: "id-1-1", parentId: "id-1-1-1" }
-          }
+          { eventType: "MOVED_TODO", data: { todoId: "id-1-1", parentId: "id-1-1-1" } }
         ];
         const state = replay(events);
         expect(state.todos.length).toEqual(2);
@@ -555,6 +408,7 @@ describe("replay", () => {
       });
 
       it("will not move itself into a grandchild of itself", () => {
+        // prettier-ignore
         const events = [
           { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo" } },
           { eventType: "ADDED_TODO", data: { todoId: "id-1-1", title: "Added a child", parentId: "id-1" } },
@@ -562,10 +416,7 @@ describe("replay", () => {
           { eventType: "ADDED_TODO", data: { todoId: "id-1-1-2", title: "Added a child", parentId: "id-1-1" } },
           { eventType: "ADDED_TODO", data: { todoId: "id-1-2", title: "Added a child", parentId: "id-1" } },
           { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Added a child" } },
-          {
-            eventType: "MOVED_TODO",
-            data: { todoId: "id-1", parentId: "id-1-1-1" }
-          }
+          { eventType: "MOVED_TODO", data: { todoId: "id-1", parentId: "id-1-1-1" } }
         ];
         const state = replay(events);
         expect(state.todos.length).toEqual(2);
@@ -574,52 +425,37 @@ describe("replay", () => {
 
       describe("position sorting", () => {
         it("can move the position from root level", () => {
+          // prettier-ignore
           const events = [
             { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo" } },
             { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Another todo" } },
             { eventType: "ADDED_TODO", data: { todoId: "id-3", title: "Yet another todo" } },
             { eventType: "ADDED_TODO", data: { todoId: "id-4", title: "Yet another todo 2" } },
-            {
-              eventType: "MOVED_TODO",
-              data: { todoId: "id-3", position: 0, parentId: "id-2" }
-            },
-            {
-              eventType: "MOVED_TODO",
-              data: { todoId: "id-4", position: 1, parentId: "id-2" }
-            }
+            { eventType: "MOVED_TODO", data: { todoId: "id-3", position: 0, parentId: "id-2" } },
+            { eventType: "MOVED_TODO", data: { todoId: "id-4", position: 1, parentId: "id-2" } }
           ];
           const state = replay(events);
           expect(state.todos.length).toEqual(2);
           expect(state.todos).toMatchSnapshot();
         });
         it("can move the position on root level", () => {
+          // prettier-ignore
           const events = [
             { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo" } },
             { eventType: "ADDED_TODO", data: { todoId: "id-2", title: "Another todo" } },
-            {
-              eventType: "MOVED_TODO",
-              data: { todoId: "id-2", position: 0, parentId: null }
-            }
+            { eventType: "MOVED_TODO", data: { todoId: "id-2", position: 0, parentId: null } }
           ];
           const state = replay(events);
           expect(state.todos.length).toEqual(2);
           expect(state.todos).toMatchSnapshot();
         });
         it("can move the position attribute on child level", () => {
+          // prettier-ignore
           const events = [
             { eventType: "ADDED_TODO", data: { todoId: "id-1", title: "Create a todo", position: 0 } },
-            {
-              eventType: "ADDED_TODO",
-              data: { todoId: "id-1-1", title: "Create a sub todo", position: 0, parentId: "id-1" }
-            },
-            {
-              eventType: "ADDED_TODO",
-              data: { todoId: "id-1-2", title: "Create another sub todo", position: 1, parentId: "id-1" }
-            },
-            {
-              eventType: "MOVED_TODO",
-              data: { todoId: "id-1-2", position: 0, parentId: "id-1" }
-            }
+            { eventType: "ADDED_TODO", data: { todoId: "id-1-1", title: "Create a sub todo", position: 0, parentId: "id-1" } },
+            { eventType: "ADDED_TODO", data: { todoId: "id-1-2", title: "Create another sub todo", position: 1, parentId: "id-1" } },
+            { eventType: "MOVED_TODO", data: { todoId: "id-1-2", position: 0, parentId: "id-1" } }
           ];
           const state = replay(events);
           expect(state.todos.length).toEqual(1);

@@ -21,17 +21,36 @@ function groupByStatus(list) {
 
 function filterByTime(minTime) {
   if (minTime) {
-    const timeTrackingRegex = /^TRACK (?<h>\d{2,}):(?<m>\d\d):(?<s>\d\d), (.*?), (?<year>\d\d\d\d)-(?<month>\d\d)-(?<day>\d\d) (?<hour>\d\d):(?<minute>\d\d):(?<second>\d\d)$/;
-    const minTimeRegex = /^(?<year>\d\d\d\d)-(?<month>\d\d)-(?<day>\d\d) (?<hour>\d\d):(?<minute>\d\d):(?<second>\d\d)$/;
+    const timeTrackingRegex = /^TRACK (\d{2,}):(\d\d):(\d\d), (.*?), (\d\d\d\d)-(\d\d)-(\d\d) (\d\d):(\d\d):(\d\d)$/;
+    const minTimeRegex = /^(\d\d\d\d)-(\d\d)-(\d\d) (\d\d):(\d\d):(\d\d)$/;
     const minMatch = minTimeRegex.exec(minTime);
     if (minMatch) {
+      const minMatchGroups = {
+        year: minMatch[1],
+        month: minMatch[2],
+        day: minMatch[3],
+        hour: minMatch[4],
+        minute: minMatch[5],
+        second: minMatch[6]
+      };
       return tag => {
-        const { groups } = timeTrackingRegex.exec(tag);
-        if (!hasCorrectTimeValues(minMatch.groups)) {
+        const timeTrackingMatch = timeTrackingRegex.exec(tag);
+        const timeTrackingGroups = {
+          h: timeTrackingMatch[1],
+          m: timeTrackingMatch[2],
+          s: timeTrackingMatch[3],
+          year: timeTrackingMatch[5],
+          month: timeTrackingMatch[6],
+          day: timeTrackingMatch[7],
+          hour: timeTrackingMatch[8],
+          minute: timeTrackingMatch[9],
+          second: timeTrackingMatch[10]
+        };
+        if (!hasCorrectTimeValues(minMatchGroups)) {
           throw new Error("Incorrect date and time values for 'minTime'.");
         }
 
-        return isSameOrLater(minMatch.groups, groups);
+        return isSameOrLater(minMatchGroups, timeTrackingGroups);
       };
     } else {
       throw new Error("'minTime' is not correctly formatted");
@@ -52,8 +71,6 @@ function isSameOrLater(a, { year, month, day, hour, minute, second }) {
 }
 
 function timeFromTrackTag(tag) {
-  const {
-    groups: { h, m, s }
-  } = /^TRACK (?<h>\d\d):(?<m>\d\d):(?<s>\d\d)/.exec(tag);
+  const [, h, m, s] = /^TRACK (\d\d):(\d\d):(\d\d)/.exec(tag);
   return parseInt(h) * 60 * 60 + parseInt(m) * 60 + parseInt(s);
 }

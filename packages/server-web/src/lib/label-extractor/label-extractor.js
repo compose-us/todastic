@@ -32,7 +32,9 @@ export function extractLabels(inputString) {
 
   let labelsAtEnd = 0;
   for (let i = texts.length - 1; i >= 0; i--) {
-    if (texts[i].isLabel || /^\s*$/s.test(texts[i].text)) {
+    const isLabel = texts[i].isLabel;
+    const isOnlyWhitespace = texts[i].text.trim().length === 0;
+    if (isLabel || isOnlyWhitespace) {
       labelsAtEnd = labelsAtEnd + 1;
     } else {
       break;
@@ -107,9 +109,9 @@ function createLexer() {
       ws: { match: /\s+/, lineBreaks: true }
     },
     label: {
-      callEmpty: { match: new RegExp(`${unicodeIdentifier}+\\(\\)`, "s"), value: s => s.slice(0, -2), next: "main" },
-      call: { match: new RegExp(`${unicodeIdentifier}+\\(`, "s"), value: s => s.slice(0, -1), next: "call" },
-      name: { match: new RegExp(`${unicodeIdentifier}+`, "s"), next: "main" }
+      callEmpty: { match: new RegExp(`${unicodeIdentifier}+\\(\\)`), value: s => s.slice(0, -2), next: "main" },
+      call: { match: new RegExp(`${unicodeIdentifier}+\\(`), value: s => s.slice(0, -1), next: "call" },
+      name: { match: new RegExp(`${unicodeIdentifier}+`), next: "main" }
     },
     call: {
       comma: ",",

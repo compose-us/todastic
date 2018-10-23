@@ -2,19 +2,23 @@
   <div :class="$style.root">
     <textarea rows=10 ref="input" type="text" :class="$style.input" v-model="scriptingText" :placeholder="placeholder" />
     <div style="clear: both;"></div>
-    <button :class="$style.button" v-on:click="submit">&#x25B6;</button>
+    <button :class="$style.button" v-on:click="submit"><todastic-icon :source="playIcon" /></button>
     <div style="clear: both;"></div>
   </div>
 </template>
 
 <script>
 import * as dashboard from "@todastic/dashboard";
+import { TodasticIcon } from "../../component";
+import * as icon from "../../asset/icon";
+
 export default {
   name: "ScriptEditor",
   props: {
     list: Array,
     commands: Object
   },
+  components: { "todastic-icon": TodasticIcon },
   mounted() {
     const { input } = this.$refs;
     input.addEventListener("dragenter", this.handleDropzoneEnter, false);
@@ -31,6 +35,7 @@ export default {
   },
   data: () => {
     return {
+      playIcon: icon.Play,
       isVisible: false,
       scriptingText: "",
       placeholder: "Place your script here\nFor example 'console.log(dashboard.groupByStatus(list))'"

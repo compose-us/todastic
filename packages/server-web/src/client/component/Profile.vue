@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.profile" v-if="isAuthenticated">
-    <button id="profile-button" v-on:click="menuCollapsed=!menuCollapsed"><i class="fas fa-user"></i>&nbsp;{{username}}</button>
+    <button id="profile-button" v-on:click="menuCollapsed=!menuCollapsed"><todastic-icon :source="profileIcon" />&nbsp;{{username}}</button>
     <div style="clear: both;"></div>
     <div :class="$style.menu" v-if="!menuCollapsed">
       <ul>
@@ -15,14 +15,19 @@
 
 <script>
 import PasswordChanger from "./PasswordChanger.vue";
+import { TodasticIcon } from "../../component";
+import * as icon from "../../asset/icon";
+
 export default {
   name: "Profile",
   components: {
-    "password-changer": PasswordChanger
+    "password-changer": PasswordChanger,
+    "todastic-icon": TodasticIcon
   },
   data() {
     return {
       menuCollapsed: true,
+      profileIcon: icon.Profile,
       showPasswordChanger: false
     };
   },

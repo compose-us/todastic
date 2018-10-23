@@ -15,7 +15,7 @@ export default {
     },
     name() {
       const { todoLabel } = this.$props;
-      return todoLabel.name ? todoLabel.name : todoLabel;
+      return todoLabel.name ? todoLabel.name : todoLabel.substring(todoLabel.indexOf("#") + 1);
     }
   }
 };

@@ -1,8 +1,7 @@
 Feature("Adding todos");
 
-Scenario("on the root node", I => {
+Scenario("on the root node", (I, TodoList) => {
   I.loginForTest();
-  I.fillField("input", "Ein neues Todo");
-  I.pressKey("Enter");
+  TodoList.addRootlevelTodo("Ein neues Todo");
   I.see("Ein neues Todo");
 });

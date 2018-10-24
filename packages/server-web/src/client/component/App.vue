@@ -57,12 +57,17 @@ export default {
 .root {
 }
 
+// elements
+
 .header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   width: 100%;
+}
+
+.logo {
 }
 
 .nav {
@@ -74,8 +79,9 @@ export default {
   background: #ffffff;
   border-radius: 50%;
   margin-right: 10px;
-}
-.help:hover {
-  color: white;
+
+  &:hover {
+    color: white;
+  }
 }
 </style>

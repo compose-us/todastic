@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.todasticapp">
-    <script-editor :class="$style.editor" :commands="commands" :list="todos" />
+    <script-editor :class="$style.editor" :list="todos" />
     <div :class="$style.todos">
       <todo-list :parentId="null" :todos="todos" key="root-list" />
       <todo-text v-on:change="addTodo" key="root-adder" />
@@ -18,11 +18,6 @@ export default {
     "script-editor": ScriptEditor,
     "todo-list": TodoList,
     "todo-text": TodoText
-  },
-  data() {
-    return {
-      commands: this.$store.getters
-    };
   },
   methods: {
     addTodo(newTitle) {

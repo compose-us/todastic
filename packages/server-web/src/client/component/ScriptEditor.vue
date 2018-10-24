@@ -64,8 +64,9 @@ export default {
       this.startScript(this.$props.list, dashboard);
     },
     startScript(list, dashboard) {
+      const { commands } = this.$store.getters;
       const scriptingFunction = new Function("list", "dashboard", "commands", this.scriptingText);
-      scriptingFunction(list, dashboard, this.$props.commands);
+      scriptingFunction(list, dashboard, commands);
     }
   }
 };
@@ -80,7 +81,7 @@ export default {
 
 .input {
   border: 0;
-  box-shadow: 0 2px 1px -1px #000;
+  box-shadow: 0 0 5px -2px #000;
   box-sizing: border-box;
   font-family: $font-family-monospace;
   padding: 5px;

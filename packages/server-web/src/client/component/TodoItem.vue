@@ -96,7 +96,6 @@ export default {
     },
     titleWithLabels: function() {
       const { todo } = this.$props;
-      console.log({ labelsArgs: todo.labels.map(l => l.args) });
       const labelString = todo.labels.map(stringifyLabel).join(" ");
       return `${todo.title} ${labelString}`;
     },

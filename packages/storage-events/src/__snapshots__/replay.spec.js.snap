@@ -1,140 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`replay ADDED_TODO event can add children at the correct position 1`] = `
-Array [
-  Object {
-    "children": Array [
-      Object {
-        "children": Array [],
-        "parentId": "id-1",
-        "position": 0,
-        "title": "Create child 1",
-        "todoId": "id-1-1",
-      },
-      Object {
-        "children": Array [],
-        "parentId": "id-1",
-        "position": 1,
-        "title": "Create child 2",
-        "todoId": "id-1-2",
-      },
-    ],
-    "position": 0,
-    "title": "Create a parent todo",
-    "todoId": "id-1",
-  },
-]
-`;
-
-exports[`replay ADDED_TODO event can add root nodes at the correct position 1`] = `
-Array [
-  Object {
-    "children": Array [],
-    "position": 0,
-    "title": "Create a parent todo",
-    "todoId": "id-1",
-  },
-  Object {
-    "children": Array [],
-    "position": 1,
-    "title": "Create other parent",
-    "todoId": "id-2",
-  },
-]
-`;
-
-exports[`replay ADDED_TODO event can add todos as children of children 1`] = `
-Array [
-  Object {
-    "children": Array [],
-    "position": 0,
-    "title": "Create a parent todo",
-    "todoId": "id-1",
-  },
-  Object {
-    "children": Array [
-      Object {
-        "children": Array [
-          Object {
-            "children": Array [],
-            "parentId": "id-3",
-            "position": 0,
-            "title": "Create a child todo of child of parent 2",
-            "todoId": "id-5",
-          },
-          Object {
-            "children": Array [
-              Object {
-                "children": Array [],
-                "parentId": "id-6",
-                "position": 0,
-                "title": "Create a child of 2nd child of child of parent 2",
-                "todoId": "id-7",
-              },
-            ],
-            "parentId": "id-3",
-            "position": 1,
-            "title": "Create a second child todo of child of parent 2",
-            "todoId": "id-6",
-          },
-        ],
-        "parentId": "id-2",
-        "position": 0,
-        "title": "Create a child in another parent todo",
-        "todoId": "id-3",
-      },
-    ],
-    "position": 1,
-    "title": "Create another parent todo",
-    "todoId": "id-2",
-  },
-  Object {
-    "children": Array [],
-    "position": 2,
-    "title": "Create a third parent todo",
-    "todoId": "id-4",
-  },
-]
-`;
-
-exports[`replay ADDED_TODO event can add todos in a more complex example 1`] = `
-Array [
-  Object {
-    "children": Array [],
-    "position": 0,
-    "title": "Create a parent todo",
-    "todoId": "id-1",
-  },
-  Object {
-    "children": Array [
-      Object {
-        "children": Array [],
-        "parentId": "id-2",
-        "position": 0,
-        "title": "Create a child in another parent todo",
-        "todoId": "id-3",
-      },
-      Object {
-        "children": Array [],
-        "parentId": "id-2",
-        "position": 1,
-        "title": "Create another child todo in parent 2",
-        "todoId": "id-5",
-      },
-    ],
-    "position": 1,
-    "title": "Create another parent todo",
-    "todoId": "id-2",
-  },
-  Object {
-    "children": Array [],
-    "position": 2,
-    "title": "Create a third parent todo",
-    "todoId": "id-4",
-  },
-]
-`;
-
 exports[`replay editing todos CHANGED_TODO can edit child todos 1`] = `
 Array [
   Object {
@@ -305,6 +170,7 @@ Array [
         "todoId": "id-1-2",
       },
     ],
+    "parentId": null,
     "position": 0,
     "title": "Create a todo",
     "todoId": "id-1",
@@ -326,6 +192,7 @@ Array [
         "todoId": "id-1-1",
       },
     ],
+    "parentId": null,
     "position": 1,
     "title": "Added a child",
     "todoId": "id-2",
@@ -451,6 +318,7 @@ Array [
         "todoId": "id-1-1",
       },
     ],
+    "parentId": null,
     "position": 0,
     "title": "Create a todo",
     "todoId": "id-1",
@@ -483,6 +351,7 @@ Array [
         "todoId": "id-4",
       },
     ],
+    "parentId": null,
     "position": 1,
     "title": "Another todo",
     "todoId": "id-2",
@@ -691,6 +560,7 @@ Array [
         "todoId": "id-1-2",
       },
     ],
+    "parentId": null,
     "position": 0,
     "title": "Create a todo",
     "todoId": "id-1",
@@ -738,6 +608,7 @@ Array [
         "todoId": "id-1-2",
       },
     ],
+    "parentId": null,
     "position": 0,
     "title": "Create a todo",
     "todoId": "id-1",

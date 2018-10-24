@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bugs does not duplicate on move 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "children": Array [],
+                "parentId": "id-4-3",
+                "position": 0,
+                "status": "open",
+                "title": "Copy script from the wiki (https://github.com/compose-us/todastic/wiki/User-scripts)",
+                "todoId": "id-4-3-1",
+              },
+              Object {
+                "children": Array [],
+                "parentId": "id-4-3",
+                "position": 1,
+                "status": "open",
+                "title": "Run the script",
+                "todoId": "id-4-3-2",
+              },
+              Object {
+                "children": Array [],
+                "parentId": "id-4-3",
+                "position": 2,
+                "status": "open",
+                "title": "Look at results",
+                "todoId": "id-4-3-3",
+              },
+            ],
+            "parentId": "id-3-1",
+            "position": 2,
+            "status": "open",
+            "title": "See the tracked time via a script",
+            "todoId": "id-4-3",
+          },
+        ],
+        "parentId": "id-3",
+        "position": 0,
+        "status": "open",
+        "title": "Find email address via (?) at the upper right",
+        "todoId": "id-3-1",
+      },
+      Object {
+        "children": Array [],
+        "parentId": "id-3",
+        "position": 1,
+        "status": "open",
+        "title": "Play with Todastic for 2 minutes",
+        "todoId": "id-3-2",
+      },
+    ],
+    "parentId": null,
+    "position": 0,
+    "status": "open",
+    "title": "Give the curious todastic team feedback",
+    "todoId": "id-3",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "children": Array [],
+        "parentId": "id-4",
+        "position": 0,
+        "status": "open",
+        "title": "Add a time entry",
+        "todoId": "id-4-1",
+      },
+      Object {
+        "children": Array [],
+        "parentId": "id-4",
+        "position": 1,
+        "status": "open",
+        "title": "Change time entry",
+        "todoId": "id-4-2",
+      },
+    ],
+    "parentId": null,
+    "position": 1,
+    "status": "open",
+    "title": "Explore time tracking",
+    "todoId": "id-4",
+  },
+]
+`;

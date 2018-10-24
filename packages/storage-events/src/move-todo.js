@@ -20,7 +20,7 @@ function detachFromParent(todos, oldNode, newParentId) {
   }
   const oldParent = findTodo(todos, oldNode.parentId);
   oldParent.children = removeFromBranch(oldParent.children, oldNode.todoId);
-  return replaceNode(todos, oldParent.todoId, oldParent);
+  return replaceNode(todos, oldParent);
 }
 
 function attachToNewParent(todos, oldNode, position, newParentId) {
@@ -62,12 +62,13 @@ function replaceNode(todos, newNode) {
   });
 }
 
-function findTodo(todos, todoId) {
+function findTodo(todos, todoId, currentParentId = null) {
   for (let todo of todos) {
     if (todo.todoId === todoId) {
-      return todo;
+      // Fixes a bug as parentId might not be set correctly in older versions
+      return { ...todo, parentId: currentParentId };
     }
-    const found = findTodo(todo.children, todoId);
+    const found = findTodo(todo.children, todoId, todo.todoId);
     if (found) {
       return found;
     }

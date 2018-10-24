@@ -17,7 +17,7 @@
           <todastic-icon :source="icons.Clock" />
           {{trackedTimeOnTodo}}
         </span>
-        <todo-label v-for="label in todo.labels" :todoLabel="`${label}`" :key="label" />
+        <todo-label v-for="label in todo.labels" :todoLabel="label" :key="label.name ? label.name : label" />
       </div>
       <todo-text v-if="isEditing" v-on:cancel="cancel" v-on:change="updateTitle" v-bind.sync="{ initialTodoTitle: completeText }" :key="`updateTodo-${todo.todoId}`" />
     </div>
@@ -26,12 +26,13 @@
 </template>
 
 <script>
-import TodasticIcon from "../../component/TodasticIcon";
+import { TodasticIcon } from "../../component";
 import TodoText from "./TodoText.vue";
 import TodoOptions from "./TodoOptions.vue";
 import TodoLabel from "./TodoLabel.vue";
 
 import * as icons from "../../asset/icon";
+import { stringifyLabel } from "../../lib/stringify-label";
 
 export default {
   name: "TodoItem",
@@ -71,7 +72,7 @@ export default {
       return this.$props.todo.trackedTimes || [];
     },
     todoTrackedTimesString() {
-      return this.todoTrackedTimes.map(tracked => "#TRACK(" + JSON.stringify(tracked) + ")");
+      return this.todoTrackedTimes.map(tracked => "#track(" + JSON.stringify(tracked) + ")");
     },
     trackedTimeOnTodo() {
       const timeToSeconds = time => {
@@ -91,11 +92,12 @@ export default {
       return this.$props.todo.title;
     },
     todoLabels() {
-      return this.$props.todo.labels || [];
+      return this.$props.todo.labels.map(stringifyLabel) || [];
     },
     titleWithLabels: function() {
       const { todo } = this.$props;
-      return `${todo.title} ${todo.labels.join(" ")}`;
+      const labelString = todo.labels.map(stringifyLabel).join(" ");
+      return `${todo.title} ${labelString}`;
     },
     isDragging() {
       return this.$store.getters.isDragging;

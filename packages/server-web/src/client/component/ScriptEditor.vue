@@ -2,18 +2,23 @@
   <div :class="$style.root">
     <textarea rows=10 ref="input" type="text" :class="$style.input" v-model="scriptingText" :placeholder="placeholder" />
     <div style="clear: both;"></div>
-    <button :class="$style.button" v-on:click="submit">&#x25B6;</button>
+    <button :class="$style.button" v-on:click="submit"><todastic-icon :source="playIcon" /></button>
     <div style="clear: both;"></div>
   </div>
 </template>
 
 <script>
 import * as dashboard from "@todastic/dashboard";
+import { TodasticIcon } from "../../component";
+import * as icon from "../../asset/icon";
+
 export default {
   name: "ScriptEditor",
   props: {
-    list: Array
+    list: Array,
+    commands: Object
   },
+  components: { "todastic-icon": TodasticIcon },
   mounted() {
     const { input } = this.$refs;
     input.addEventListener("dragenter", this.handleDropzoneEnter, false);
@@ -30,6 +35,7 @@ export default {
   },
   data: () => {
     return {
+      playIcon: icon.Play,
       isVisible: false,
       scriptingText: "",
       placeholder: "Place your script here\nFor example 'console.log(dashboard.groupByStatus(list))'"
@@ -58,8 +64,9 @@ export default {
       this.startScript(this.$props.list, dashboard);
     },
     startScript(list, dashboard) {
-      const scriptingFunction = new Function("list", "dashboard", this.scriptingText);
-      scriptingFunction(list, dashboard);
+      const { commands } = this.$store.getters;
+      const scriptingFunction = new Function("list", "dashboard", "commands", this.scriptingText);
+      scriptingFunction(list, dashboard, commands);
     }
   }
 };
@@ -74,7 +81,7 @@ export default {
 
 .input {
   border: 0;
-  box-shadow: 0 2px 1px -1px #000;
+  box-shadow: 0 0 5px -2px #000;
   box-sizing: border-box;
   font-family: $font-family-monospace;
   padding: 5px;

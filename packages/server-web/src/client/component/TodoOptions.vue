@@ -1,14 +1,27 @@
 <template>
 	<div :class="{[$style.options]: true, [$style.expanded]: this.$props.expanded}">
     <div :class="$style.move" @click.prevent="toggleTodoOptions()"><i class="fas fa-ellipsis-v" /></div>
-		<div :class="$style.remove" @click.prevent="removeTodo()"><i class="fas fa-trash" /></div>
-		<div :class="$style.add" @click.prevent="toggleAddTodoItem()"><i :class="`fas fa-${this.$props.adderVisible ? 'minus' : 'plus'}`" /></div>
+		<div :class="$style.remove" @click.prevent="removeTodo()"><todastic-icon :source="trashIcon" /></div>
+		<div :class="$style.add" @click.prevent="toggleAddTodoItem()">
+      <i :class="`fas fa-${this.$props.adderVisible ? 'minus' : 'plus'}`" />
+    </div>
 	</div>
 </template>
 
 <script>
+import { TodasticIcon } from "../../component";
+import * as icon from "../../asset/icon";
+
 export default {
-  props: ["adderVisible", "drag", "expanded", "removeTodo", "toggleAddTodoItem", "toggleTodoOptions"]
+  props: ["adderVisible", "drag", "expanded", "removeTodo", "toggleAddTodoItem", "toggleTodoOptions"],
+  components: {
+    "todastic-icon": TodasticIcon
+  },
+  data() {
+    return {
+      trashIcon: icon.Trash
+    };
+  }
 };
 </script>
 

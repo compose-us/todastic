@@ -21,8 +21,11 @@ export default {
   display: inline-block;
   width: 1em;
   height: 1em;
-  vertical-align: middle;
 }
+
+// elements
+
+// modifiers
 
 .block {
   display: block;

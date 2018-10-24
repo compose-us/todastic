@@ -4,7 +4,7 @@
   "description": "Simple self-, project- and task management.",
   "main": "lib/index.js",
   "scripts": {
-    "bootstrap": "lerna bootstrap",
+    "bootstrap": "npm install && lerna bootstrap",
     "build": "lerna run build",
     "clean": "lerna run clean",
     "format": "prettier --write 'tests/**/*.js' && lerna run format",

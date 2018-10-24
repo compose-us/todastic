@@ -1,0 +1,310 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LabelExtractor functional labels returns function calls when using parentheses 1`] = `
+Object {
+  "labels": Array [
+    Object {
+      "args": Array [],
+      "name": "call",
+    },
+  ],
+  "text": "A label can - at the end of the text -",
+}
+`;
+
+exports[`LabelExtractor functional labels returns function calls when using parentheses 2`] = `
+Object {
+  "labels": Array [
+    Object {
+      "args": Array [],
+      "name": "call",
+    },
+  ],
+  "text": "A label can call something in the middle of a text",
+}
+`;
+
+exports[`LabelExtractor functional labels returns function calls with multiple parameters 1`] = `
+Object {
+  "labels": Array [
+    Object {
+      "args": Array [
+        123,
+        "please",
+        Object {
+          "ok": "thx, bye",
+        },
+      ],
+      "name": "call",
+    },
+  ],
+  "text": "A label can - at the end of the text -",
+}
+`;
+
+exports[`LabelExtractor functional labels returns function calls with multiple parameters 2`] = `
+Object {
+  "labels": Array [
+    Object {
+      "args": Array [
+        123,
+        "please",
+        Object {
+          "ok": "thx, bye",
+        },
+      ],
+      "name": "call",
+    },
+  ],
+  "text": "A label can call something in the middle of a text",
+}
+`;
+
+exports[`LabelExtractor functional labels returns function calls with parameters 1`] = `
+Object {
+  "labels": Array [
+    Object {
+      "args": Array [
+        "someone",
+      ],
+      "name": "call",
+    },
+  ],
+  "text": "A label can - at the end of the text -",
+}
+`;
+
+exports[`LabelExtractor functional labels returns function calls with parameters 2`] = `
+Object {
+  "labels": Array [
+    Object {
+      "args": Array [
+        "someone",
+      ],
+      "name": "call",
+    },
+  ],
+  "text": "A label can call something in the middle of a text",
+}
+`;
+
+exports[`LabelExtractor functional labels returns function calls with parameters multiple times if there are multiple calls 1`] = `
+Object {
+  "labels": Array [
+    Object {
+      "args": Array [
+        "someone",
+      ],
+      "name": "call",
+    },
+    Object {
+      "args": Array [
+        Object {
+          "at": "(555)-1234",
+        },
+      ],
+      "name": "call",
+    },
+    Object {
+      "args": Array [],
+      "name": "somewhere",
+    },
+    Object {
+      "args": Array [
+        true,
+      ],
+      "name": "call",
+    },
+  ],
+  "text": "A label call eagerly while call l somewhere in the middle of the call text",
+}
+`;
+
+exports[`LabelExtractor functional labels returns function calls with parameters multiple times if there are multiple calls 2`] = `
+Object {
+  "labels": Array [
+    Object {
+      "args": Array [
+        "someone",
+      ],
+      "name": "call",
+    },
+    Object {
+      "args": Array [
+        Object {
+          "at": "(555)-1234",
+        },
+      ],
+      "name": "call",
+    },
+    Object {
+      "args": Array [
+        true,
+      ],
+      "name": "call",
+    },
+  ],
+  "text": "Somewhere at the end of the text",
+}
+`;
+
+exports[`LabelExtractor functional labels returns function calls with parameters with complex parameters 1`] = `
+Object {
+  "labels": Array [
+    Object {
+      "args": Array [
+        Object {
+          "or": "have #strange(\\"sub(sub(things))\\" to #handle()",
+          "someone": "at (555)-1234",
+        },
+      ],
+      "name": "call",
+    },
+  ],
+  "text": "A label can - at the end of the text -",
+}
+`;
+
+exports[`LabelExtractor functional labels returns function calls with parameters with complex parameters 2`] = `
+Object {
+  "labels": Array [
+    Object {
+      "args": Array [
+        Object {
+          "or": "have #strange(\\"sub(sub(things))\\" to #handle()",
+          "someone": "at (555)-1234",
+        },
+      ],
+      "name": "call",
+    },
+  ],
+  "text": "A label can call something in the middle of a text",
+}
+`;
+
+exports[`LabelExtractor simple lables extracts a label when it's in-between 1`] = `
+Object {
+  "labels": Array [
+    Object {
+      "args": Array [],
+      "name": "label",
+    },
+  ],
+  "text": "wait for this nice label do you?",
+}
+`;
+
+exports[`LabelExtractor simple lables extracts and removes a label when it's at the end 1`] = `
+Object {
+  "labels": Array [
+    Object {
+      "args": Array [],
+      "name": "label",
+    },
+  ],
+  "text": "wait for it.",
+}
+`;
+
+exports[`LabelExtractor simple lables extracts and removes several labels when they're at the end 1`] = `
+Object {
+  "labels": Array [
+    Object {
+      "args": Array [],
+      "name": "label",
+    },
+    Object {
+      "args": Array [],
+      "name": "nice",
+    },
+  ],
+  "text": "wait for it.",
+}
+`;
+
+exports[`LabelExtractor simple lables extracts and removes several labels within and at the end 1`] = `
+Object {
+  "labels": Array [
+    Object {
+      "args": Array [],
+      "name": "fancy",
+    },
+    Object {
+      "args": Array [],
+      "name": "for",
+    },
+    Object {
+      "args": Array [],
+      "name": "label",
+    },
+    Object {
+      "args": Array [],
+      "name": "nice",
+    },
+  ],
+  "text": "fancy wait for it.",
+}
+`;
+
+exports[`LabelExtractor simple lables extracts and removes several unicode labels within and at the end 1`] = `
+Object {
+  "labels": Array [
+    Object {
+      "args": Array [],
+      "name": "fancy",
+    },
+    Object {
+      "args": Array [],
+      "name": "fôr",
+    },
+    Object {
+      "args": Array [],
+      "name": "läbel",
+    },
+    Object {
+      "args": Array [],
+      "name": "niçe",
+    },
+  ],
+  "text": "fancy wait fôr it laís.",
+}
+`;
+
+exports[`LabelExtractor simple lables extracts labels with a hyphen 1`] = `
+Object {
+  "labels": Array [
+    Object {
+      "args": Array [],
+      "name": "for-this",
+    },
+    Object {
+      "args": Array [],
+      "name": "nice-label",
+    },
+  ],
+  "text": "wait for-this cool thing.",
+}
+`;
+
+exports[`LabelExtractor simple lables extracts multiple labels when they're in-between 1`] = `
+Object {
+  "labels": Array [
+    Object {
+      "args": Array [],
+      "name": "nice",
+    },
+    Object {
+      "args": Array [],
+      "name": "label",
+    },
+  ],
+  "text": "wait for this nice label do you?",
+}
+`;
+
+exports[`LabelExtractor simple lables simply returns the plain string when there's no label 1`] = `
+Object {
+  "labels": Array [],
+  "text": "no label, really",
+}
+`;

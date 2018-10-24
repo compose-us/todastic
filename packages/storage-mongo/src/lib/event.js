@@ -18,7 +18,7 @@ function createEventModel({ mongoose }) {
       status: { type: String, enum: ["open", "done"], default: "open" },
       // DO NOT CHANGE THE labels DEFAULT VALUE UNLESS YOU KNOW WHAT YOU'RE DOING
       // https://stackoverflow.com/a/20714461/526426
-      labels: { type: [String], default: undefined },
+      labels: { type: Array, default: undefined },
       position: { type: Number }, // position of ToDo
       // DO NOT CHANGE THE trackedTimes DEFAULT VALUE UNLESS YOU KNOW WHAT YOU'RE DOING
       // https://stackoverflow.com/a/20714461/526426

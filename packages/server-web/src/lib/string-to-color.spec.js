@@ -1,4 +1,4 @@
-const { stringToColor } = require("./string-to-color.js");
+import { stringToColor } from "./string-to-color.js";
 
 describe("StringToColor", () => {
   it("generates a valid color", () => {

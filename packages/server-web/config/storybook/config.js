@@ -1,12 +1,14 @@
-import { configure } from "@storybook/vue";
-import { setOptions } from "@storybook/addon-options";
+import { addDecorator, configure } from "@storybook/vue";
+import { withOptions } from "@storybook/addon-options";
 import "../../src/style/scaffolding.scss";
 
-setOptions({
-  name: "Todastic Components",
-  showAddonPanel: true,
-  sortStoriesByKind: true
-});
+addDecorator(
+  withOptions({
+    name: "Todastic Components",
+    showAddonPanel: true,
+    sortStoriesByKind: true
+  })
+);
 
 const req = require.context("../../src/component", true, /\.story\.js$/);
 function loadStories() {

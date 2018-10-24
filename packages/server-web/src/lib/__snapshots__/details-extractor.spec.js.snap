@@ -3,7 +3,10 @@
 exports[`DetailsExtractor extracts labels and tracked times 1`] = `
 Object {
   "labels": Array [
-    "#label",
+    Object {
+      "args": Array [],
+      "name": "label",
+    },
   ],
   "text": "wait for this nice label do you?",
   "trackedTimes": Array [

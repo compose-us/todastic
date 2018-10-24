@@ -14,6 +14,3 @@ export default {
   props: ["source"]
 };
 </script>
-
-<style>
-</style>

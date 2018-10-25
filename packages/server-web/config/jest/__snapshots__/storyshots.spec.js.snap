@@ -61,10 +61,12 @@ exports[`Storyshots LoginForm failing 1`] = `
           autocomplete="username"
           name="username"
           placeholder="Username"
+          tabindex="1"
           type="text"
         />
          
         <button
+          tabindex="3"
           type="submit"
         >
           Login
@@ -74,6 +76,7 @@ exports[`Storyshots LoginForm failing 1`] = `
           autocomplete="current-password"
           name="password"
           placeholder="Password"
+          tabindex="2"
           type="password"
         />
          
@@ -108,10 +111,12 @@ exports[`Storyshots LoginForm succeeding 1`] = `
           autocomplete="username"
           name="username"
           placeholder="Username"
+          tabindex="1"
           type="text"
         />
          
         <button
+          tabindex="3"
           type="submit"
         >
           Login
@@ -121,6 +126,7 @@ exports[`Storyshots LoginForm succeeding 1`] = `
           autocomplete="current-password"
           name="password"
           placeholder="Password"
+          tabindex="2"
           type="password"
         />
          
@@ -259,83 +265,6 @@ exports[`Storyshots TodoItem done 1`] = `
      
     <div />
   </div>
-</div>
-`;
-
-exports[`Storyshots TodasticIcon Calendar 1`] = `
-<svg
-  class="root"
-  version="1.1"
-  viewBox="0 0 48 48"
-  xmlns="http://www.w3.org/2000/svg"
-  xmlnsXlink="http://www.w3.org/1999/xlink"
->
-  <use
-    xlink:href="#calendar.svg"
-  />
-</svg>
-`;
-
-exports[`Storyshots TodasticIcon Clock 1`] = `
-<svg
-  class="root"
-  version="1.1"
-  viewBox="0 0 48 48"
-  xmlns="http://www.w3.org/2000/svg"
-  xmlnsXlink="http://www.w3.org/1999/xlink"
->
-  <use
-    xlink:href="#clock.svg"
-  />
-</svg>
-`;
-
-exports[`Storyshots TodasticIcon block 1`] = `
-<svg
-  class="root block"
-  version="1.1"
-  viewBox="0 0 48 48"
-  xmlns="http://www.w3.org/2000/svg"
-  xmlnsXlink="http://www.w3.org/1999/xlink"
->
-  <use
-    xlink:href="#calendar.svg"
-  />
-</svg>
-`;
-
-exports[`Storyshots TodasticIcon inline text 1`] = `
-<div>
-  There is a 
-  <svg
-    class="root"
-    version="1.1"
-    viewBox="0 0 48 48"
-    xmlns="http://www.w3.org/2000/svg"
-    xmlnsXlink="http://www.w3.org/1999/xlink"
-  >
-    <use
-      xlink:href="#calendar.svg"
-    />
-  </svg>
-   in my sentence!
-</div>
-`;
-
-exports[`Storyshots TodasticLogo default 1`] = `
-<div
-  class="root"
->
-  <svg
-    version="1.1"
-    viewBox="0 0 151 33"
-    xmlns="http://www.w3.org/2000/svg"
-    xmlnsXlink="http://www.w3.org/1999/xlink"
-  >
-    <use
-      xlink:href="#todastic-logo.svg"
-    />
-  </svg>
 </div>
 `;
 

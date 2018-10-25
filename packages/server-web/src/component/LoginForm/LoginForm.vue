@@ -2,11 +2,11 @@
   <div :class="$style.root">
     <div :class="$style.wrapper">
       <todastic-logo :class="$style.logo" />
-      <form v-on:submit.prevent="login()">
+      <form v-on:submit.prevent="checkLogin()">
         <div :class="$style.formWrapper">
-          <input type="text" name="username" v-model="input.username" placeholder="Username" autocomplete="username" />
-          <button :class="$style.loginButton" type="submit">Login</button>
-          <input type="password" name="password" v-model="input.password" placeholder="Password" autocomplete="current-password" />
+          <input tabIndex="1" type="text" name="username" v-model="input.username" placeholder="Username" autocomplete="username" />
+          <button tabIndex="3" :class="$style.loginButton" type="submit">Login</button>
+          <input tabIndex="2" type="password" name="password" v-model="input.password" placeholder="Password" autocomplete="current-password" />
           <div :class="$style.errorInfo" v-if="this.errorMessage">{{this.errorMessage}}</div>
         </div>
       </form>
@@ -15,12 +15,12 @@
 </template>
 
 <script>
-import { TodasticLogo } from "../";
+import { TodasticLogo } from "../TodasticLogo";
 
 export default {
   name: "LoginForm",
-  props: ["verifyLogin"],
-  components: { TodasticLogo },
+  props: ["login"],
+  components: { "todastic-logo": TodasticLogo },
   data() {
     return {
       errorMessage: null,
@@ -31,10 +31,14 @@ export default {
     };
   },
   methods: {
-    async login() {
+    async checkLogin() {
       try {
-        await this.verifyLogin(this.input.username, this.input.password);
         this.errorMessage = null;
+        const { username, password } = this.input;
+        if (username === "" || password === "") {
+          throw new Error("A username and password must be present");
+        }
+        await this.login(username, password);
       } catch (err) {
         this.errorMessage = err.message;
       }
@@ -48,6 +52,11 @@ $max-box-size: 450px;
 $min-box-size: 320px;
 
 .root {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -14,15 +14,15 @@ storiesOf("LoginForm", module)
         i++;
         throw new Error(`Failed to login, try ${i}`);
       };
-      return <LoginForm verifyLogin={login} />;
+      return <LoginForm login={login} />;
     }
   }))
   .add("succeeding", () => ({
     components: { LoginForm },
     render() {
-      const login = async (...args) => {
-        action("logging in")(...args);
+      const login = async (username, password) => {
+        action("logging in")([username, password]);
       };
-      return <LoginForm verifyLogin={login} />;
+      return <LoginForm login={login} />;
     }
   }));

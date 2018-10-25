@@ -76,7 +76,7 @@ export default {
   name: "Help",
   methods: {
     close() {
-      this.$emit('close');
+      this.$emit("close");
     },
     escapeKeyListener(event) {
       if (event.keyCode === 27) {
@@ -85,15 +85,55 @@ export default {
     }
   },
   created() {
-    document.addEventListener('keyup', this.escapeKeyListener);
+    document.addEventListener("keyup", this.escapeKeyListener);
   },
   destroyed() {
-    document.removeEventListener('keyup', this.escapeKeyListener);
-  },
+    document.removeEventListener("keyup", this.escapeKeyListener);
+  }
 };
 </script>
 
 <style lang="scss" module>
+// elements
+
+.modalMask {
+  position: fixed;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  transition: opacity 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalWrapper {
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll;
+}
+
+.modalContainer {
+  max-width: 90%;
+  margin: 25px;
+  padding: 25px;
+  background-color: #fff;
+  border-radius: 25px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  transition: all 0.3s ease;
+}
+
+.modalBody {
+  margin: 20px 0;
+}
+
+.modalDefaultButton {
+  float: right;
+}
+
 .helpEntry {
   padding-bottom: 20px;
   font-size: medium;
@@ -116,40 +156,6 @@ export default {
 .helpEntry ul ul {
   padding-left: 50px;
 }
-.modalMask {
-  position: fixed;
-  z-index: 5;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
-  display: table;
-  transition: opacity 0.3s ease;
-}
-
-.modalWrapper {
-  display: table-cell;
-  vertical-align: middle;
-}
-
-.modalContainer {
-  width: 90%;
-  margin: 0px auto;
-  padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-  transition: all 0.3s ease;
-}
-
-.modalBody {
-  margin: 20px 0;
-}
-
-.modalDefaultButton {
-  float: right;
-}
 
 /*
  * The following styles are auto-applied to elements with
@@ -159,6 +165,7 @@ export default {
  * You can easily play with the modal transition by editing
  * these styles.
  */
+// modifiers
 
 .modalEnter {
   opacity: 0;

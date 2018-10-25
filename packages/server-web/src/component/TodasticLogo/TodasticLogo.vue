@@ -9,6 +9,7 @@ import { AssetImage } from "../";
 import logo from "../../asset/image/todastic-logo.svg";
 
 export default {
+  name: "TodasticLogo",
   components: { "asset-image": AssetImage },
   data() {
     return { logo };

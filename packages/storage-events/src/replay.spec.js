@@ -1,4 +1,3 @@
-const log = require("./todos-log.js");
 const replay = require("./replay.js");
 
 describe("replay", () => {

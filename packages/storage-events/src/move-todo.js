@@ -9,11 +9,11 @@ function moveTodo(todos, event) {
     return todos;
   }
 
-  const treeWithoutOldNode = detachFromParent(todos, oldNode, newParentId);
+  const treeWithoutOldNode = detachFromParent(todos, oldNode);
   return attachToNewParent(treeWithoutOldNode, oldNode, position, newParentId);
 }
 
-function detachFromParent(todos, oldNode, newParentId) {
+function detachFromParent(todos, oldNode) {
   // has it been a root node?
   if (oldNode.parentId === null || oldNode.parentId === undefined) {
     return removeFromBranch(todos, oldNode.todoId);
@@ -23,7 +23,7 @@ function detachFromParent(todos, oldNode, newParentId) {
   return replaceNode(todos, oldParent);
 }
 
-function attachToNewParent(todos, oldNode, position, newParentId) {
+function attachToNewParent(todos, oldNode, position = 0, newParentId) {
   // update the node values to reflect its new place
   oldNode.position = position;
   // is it gonna be a root node?

@@ -19,7 +19,7 @@
         </span>
         <todo-label v-for="label in todo.labels" :todoLabel="label" :key="label.name ? label.name : label" />
       </div>
-      <todo-text v-if="isEditing" v-on:cancel="cancel" v-on:change="updateTitle" v-bind.sync="{ initialTodoTitle: completeText }" :key="`updateTodo-${todo.todoId}`" :parentId="todo.parentId" />
+      <todo-text v-if="isEditing" v-on:cancel="cancel" v-on:change="updateTitle" v-bind.sync="{ initialTodoTitle: completeText }" :key="`updateTodo-${todo.todoId}`" />
     </div>
     <todo-text v-if="adderVisible" ref="adder" v-on:change="addTodo" v-on:cancel="cancel" :key="`addTodo-${todo.todoId}`" :parentId="todo.todoId" />
   </div>

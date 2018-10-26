@@ -9,21 +9,21 @@ function moveTodo(todos, event) {
     return todos;
   }
 
-  const treeWithoutOldNode = detachFromParent(todos, oldNode, newParentId);
+  const treeWithoutOldNode = detachFromParent(todos, oldNode);
   return attachToNewParent(treeWithoutOldNode, oldNode, position, newParentId);
 }
 
-function detachFromParent(todos, oldNode, newParentId) {
+function detachFromParent(todos, oldNode) {
   // has it been a root node?
   if (oldNode.parentId === null || oldNode.parentId === undefined) {
     return removeFromBranch(todos, oldNode.todoId);
   }
   const oldParent = findTodo(todos, oldNode.parentId);
   oldParent.children = removeFromBranch(oldParent.children, oldNode.todoId);
-  return replaceNode(todos, oldParent.todoId, oldParent);
+  return replaceNode(todos, oldParent);
 }
 
-function attachToNewParent(todos, oldNode, position, newParentId) {
+function attachToNewParent(todos, oldNode, position = 0, newParentId) {
   // update the node values to reflect its new place
   oldNode.position = position;
   // is it gonna be a root node?
@@ -62,12 +62,13 @@ function replaceNode(todos, newNode) {
   });
 }
 
-function findTodo(todos, todoId) {
+function findTodo(todos, todoId, currentParentId = null) {
   for (let todo of todos) {
     if (todo.todoId === todoId) {
-      return todo;
+      // Fixes a bug as parentId might not be set correctly in older versions
+      return { ...todo, parentId: currentParentId };
     }
-    const found = findTodo(todo.children, todoId);
+    const found = findTodo(todo.children, todoId, todo.todoId);
     if (found) {
       return found;
     }

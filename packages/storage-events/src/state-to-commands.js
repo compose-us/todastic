@@ -5,12 +5,17 @@ function stateToCommands(listOfTodos) {
 }
 
 const todoToEvent = parentId => todo => {
-  const { todoId, ...rest } = todo;
+  const data = dataFromTodo(todo);
   return {
     type: "ADD_TODO",
-    data: {
-      ...rest,
-      parentId
-    }
+    data: { ...data, parentId }
+  };
+};
+
+const dataFromTodo = todo => {
+  const { todoId, children, ...rest } = todo;
+  return {
+    ...rest,
+    children: children.map(dataFromTodo)
   };
 };

@@ -7,7 +7,7 @@ function stateToCommands(listOfTodos, parentId = null) {
 const todoToEvent = parentId => todo => {
   const data = dataFromTodo(todo);
   return {
-    type: "ADD_TODO",
+    command: "ADD_TODO",
     data: { ...data, parentId }
   };
 };

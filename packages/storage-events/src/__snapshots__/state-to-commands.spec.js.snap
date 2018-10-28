@@ -3,6 +3,7 @@
 exports[`stateToCommands returns working complex ADD_TODO commands 1`] = `
 Array [
   Object {
+    "command": "ADD_TODO",
     "data": Object {
       "children": Array [
         Object {
@@ -48,9 +49,9 @@ Array [
       "status": "open",
       "title": "One",
     },
-    "type": "ADD_TODO",
   },
   Object {
+    "command": "ADD_TODO",
     "data": Object {
       "children": Array [
         Object {
@@ -74,9 +75,9 @@ Array [
       "status": "open",
       "title": "Two",
     },
-    "type": "ADD_TODO",
   },
   Object {
+    "command": "ADD_TODO",
     "data": Object {
       "children": Array [],
       "labels": Array [],
@@ -85,9 +86,9 @@ Array [
       "status": "open",
       "title": "Three",
     },
-    "type": "ADD_TODO",
   },
   Object {
+    "command": "ADD_TODO",
     "data": Object {
       "children": Array [
         Object {
@@ -111,7 +112,6 @@ Array [
       "status": "open",
       "title": "Four",
     },
-    "type": "ADD_TODO",
   },
 ]
 `;
@@ -119,6 +119,7 @@ Array [
 exports[`stateToCommands returns working complex ADD_TODO commands with parentId 1`] = `
 Array [
   Object {
+    "command": "ADD_TODO",
     "data": Object {
       "children": Array [
         Object {
@@ -164,9 +165,9 @@ Array [
       "status": "open",
       "title": "One",
     },
-    "type": "ADD_TODO",
   },
   Object {
+    "command": "ADD_TODO",
     "data": Object {
       "children": Array [
         Object {
@@ -190,9 +191,9 @@ Array [
       "status": "open",
       "title": "Two",
     },
-    "type": "ADD_TODO",
   },
   Object {
+    "command": "ADD_TODO",
     "data": Object {
       "children": Array [],
       "labels": Array [],
@@ -201,9 +202,9 @@ Array [
       "status": "open",
       "title": "Three",
     },
-    "type": "ADD_TODO",
   },
   Object {
+    "command": "ADD_TODO",
     "data": Object {
       "children": Array [
         Object {
@@ -227,7 +228,6 @@ Array [
       "status": "open",
       "title": "Four",
     },
-    "type": "ADD_TODO",
   },
 ]
 `;

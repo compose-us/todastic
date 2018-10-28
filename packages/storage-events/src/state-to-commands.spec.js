@@ -65,4 +65,8 @@ describe("stateToCommands", () => {
   it("returns working complex ADD_TODO commands", () => {
     expect(stateToCommands(complexTest)).toMatchSnapshot();
   });
+
+  it("returns working complex ADD_TODO commands with parentId", () => {
+    expect(stateToCommands(complexTest, "id-0")).toMatchSnapshot();
+  });
 });

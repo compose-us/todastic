@@ -1,7 +1,7 @@
 module.exports = stateToCommands;
 
-function stateToCommands(listOfTodos) {
-  return listOfTodos.map(todoToEvent(null));
+function stateToCommands(listOfTodos, parentId = null) {
+  return listOfTodos.map(todoToEvent(parentId));
 }
 
 const todoToEvent = parentId => todo => {

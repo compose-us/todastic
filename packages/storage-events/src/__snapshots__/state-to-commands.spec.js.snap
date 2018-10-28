@@ -115,3 +115,119 @@ Array [
   },
 ]
 `;
+
+exports[`stateToCommands returns working complex ADD_TODO commands with parentId 1`] = `
+Array [
+  Object {
+    "data": Object {
+      "children": Array [
+        Object {
+          "children": Array [],
+          "labels": Array [],
+          "position": 0,
+          "status": "open",
+          "title": "One-One",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "labels": Array [],
+              "position": 0,
+              "status": "open",
+              "title": "One-Two-One",
+            },
+            Object {
+              "children": Array [],
+              "labels": Array [],
+              "position": 1,
+              "status": "open",
+              "title": "One-Two-Two",
+            },
+          ],
+          "labels": Array [],
+          "position": 1,
+          "status": "open",
+          "title": "One-Two",
+        },
+        Object {
+          "children": Array [],
+          "labels": Array [],
+          "position": 2,
+          "status": "open",
+          "title": "One-Three",
+        },
+      ],
+      "labels": Array [],
+      "parentId": "id-0",
+      "position": 0,
+      "status": "open",
+      "title": "One",
+    },
+    "type": "ADD_TODO",
+  },
+  Object {
+    "data": Object {
+      "children": Array [
+        Object {
+          "children": Array [],
+          "labels": Array [],
+          "position": 0,
+          "status": "open",
+          "title": "Two-One",
+        },
+        Object {
+          "children": Array [],
+          "labels": Array [],
+          "position": 1,
+          "status": "open",
+          "title": "Two-Two",
+        },
+      ],
+      "labels": Array [],
+      "parentId": "id-0",
+      "position": 1,
+      "status": "open",
+      "title": "Two",
+    },
+    "type": "ADD_TODO",
+  },
+  Object {
+    "data": Object {
+      "children": Array [],
+      "labels": Array [],
+      "parentId": "id-0",
+      "position": 2,
+      "status": "open",
+      "title": "Three",
+    },
+    "type": "ADD_TODO",
+  },
+  Object {
+    "data": Object {
+      "children": Array [
+        Object {
+          "children": Array [],
+          "labels": Array [],
+          "position": 0,
+          "status": "open",
+          "title": "Four-One",
+        },
+        Object {
+          "children": Array [],
+          "labels": Array [],
+          "position": 1,
+          "status": "open",
+          "title": "Four-Two",
+        },
+      ],
+      "labels": Array [],
+      "parentId": "id-0",
+      "position": 3,
+      "status": "open",
+      "title": "Four",
+    },
+    "type": "ADD_TODO",
+  },
+]
+`;

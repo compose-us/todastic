@@ -10,7 +10,7 @@ describe("stateToCommands", () => {
     const myTodos = [{ children: [], todoId: "1", labels: [], position: 0, status: "open", title: "Test title" }];
     const expected = [
       {
-        type: "ADD_TODO",
+        command: "ADD_TODO",
         data: { children: [], labels: [], parentId: null, position: 0, status: "open", title: "Test title" }
       }
     ];
@@ -24,11 +24,11 @@ describe("stateToCommands", () => {
     ];
     const expected = [
       {
-        type: "ADD_TODO",
+        command: "ADD_TODO",
         data: { children: [], labels: [], parentId: null, position: 0, status: "open", title: "One" }
       },
       {
-        type: "ADD_TODO",
+        command: "ADD_TODO",
         data: { children: [], labels: [], parentId: null, position: 1, status: "open", title: "Two" }
       }
     ];
@@ -48,7 +48,7 @@ describe("stateToCommands", () => {
     ];
     const expected = [
       {
-        type: "ADD_TODO",
+        command: "ADD_TODO",
         data: {
           children: [{ children: [], labels: [], position: 0, status: "open", title: "One-One" }],
           labels: [],

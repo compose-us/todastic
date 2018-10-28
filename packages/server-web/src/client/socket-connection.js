@@ -1,3 +1,4 @@
+import { stateToCommands } from "@todastic/storage-events";
 import io from "./socket.io-bundle.js";
 import { extractDetails } from "../lib/details-extractor.js";
 
@@ -8,6 +9,10 @@ export default function createSocketConnection(eventProcessor) {
     addTodo(todo) {
       const { text, labels, trackedTimes } = extractDetails(todo.title);
       socket.emit("command", { command: "ADD_TODO", data: { ...todo, labels, trackedTimes, title: text } });
+    },
+    copyTodo(todo, parentId) {
+      const copyCommands = stateToCommands([todo], parentId);
+      copyCommands.map(command => socket.emit("command", command));
     },
     removeTodo(todo) {
       socket.emit("command", { command: "REMOVE_TODO", data: { todoId: todo.todoId } });

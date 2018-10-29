@@ -121,7 +121,7 @@ export default {
     handleDropzoneEnter(event) {},
     handleDropzoneOver(event) {
       event.preventDefault();
-      event.dataTransfer.dropEffect = "move";
+      event.dataTransfer.dropEffect = "copyMove";
       event.target.classList.remove(this.$style.activeBottom);
       event.target.classList.add(this.$style.activeBottom);
       return false;
@@ -134,7 +134,11 @@ export default {
       const { commands } = this.$store.getters;
       event.target.classList.remove(this.$style.activeBottom);
       const myTodo = JSON.parse(event.dataTransfer.getData("json/todo"));
-      commands.moveTodo(myTodo, { parentId: todo.todoId, position: todo.position + 1 });
+      if (event.altKey) {
+        commands.copyTodo(myTodo, todo.todoId);
+      } else {
+        commands.moveTodo(myTodo, { parentId: todo.todoId, position: todo.position + 1 });
+      }
     },
     updateTitle(newTitle) {
       const { todo } = this.$props;

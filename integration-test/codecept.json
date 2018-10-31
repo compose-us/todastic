@@ -15,7 +15,7 @@
     }
   },
   "include": {
-    "I": "./support/steps-file.js",
+    "I": "./support/browser-test-helpers.js",
     "TodoList": "./support/pages/TodoList.js"
   },
   "mocha": {},

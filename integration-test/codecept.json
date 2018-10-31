@@ -18,7 +18,6 @@
     "I": "./support/browser-test-helpers.js",
     "TodoList": "./support/pages/TodoList.js"
   },
-  "mocha": {},
   "bootstrap": false,
   "teardown": null,
   "hooks": [],

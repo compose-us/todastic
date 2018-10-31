@@ -60,6 +60,18 @@ The tests are run via [travis-ci](https://travis-ci.com/compose-us/todastic).
 Run the following command in order to see results:
 `docker-compose -p tests run -p 3000 --rm todastic npm run test`
 
+### Browser based end-to-end tests
+
+The browser based tests in `travis-integration-test.sh` build and start
+the application via docker-compose in a docker container. The test
+itself is run on the baremetal machine (Getting a browser up and running
+in a container is not trivial). It reuses a installed Chrome browser.
+Codecept also supports other browsers.
+
+In case you want to start the npm task `test-browser` by hand, make
+sure, the app is running on `localhost:3000` and the user `John` exists
+with password `Snow`.
+
 ## Development
 
 You can automatically build frontend changes with `npm run watch-web`.

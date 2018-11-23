@@ -1,0 +1,67 @@
+{
+  "parser": "babel-eslint",
+  "root": true,
+  "plugins": ["import", "prettier", "react", "typescript"],
+  "extends": ["prettier", "eslint:recommended", "plugin:react/recommended"],
+  "env": {
+    "es6": true
+  },
+  "settings": {
+    "react": {
+      "version": "16.7"
+    }
+  },
+  "rules": {
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true,
+        "optionalDependencies": false,
+        "peerDependencies": false
+      }
+    ],
+    "import/prefer-default-export": 0,
+    "no-unused-vars": [
+      "error",
+      {
+        "args": "after-used",
+        "argsIgnorePattern": "^_",
+        "vars": "all"
+      }
+    ],
+    "spaced-comment": [
+      "error",
+      "always",
+      {
+        "line": {
+          "markers": ["/"],
+          "exceptions": ["-", "+"]
+        },
+        "block": {
+          "markers": ["!"],
+          "exceptions": ["*"],
+          "balanced": true
+        }
+      }
+    ],
+    "typescript/"
+  },
+  "overrides": [
+    {
+      "files": ["*.spec.ts"],
+      "rules": {
+        "import/no-extraneous-dependencies": [
+          "error",
+          {
+            "devDependencies": true,
+            "optionalDependencies": false,
+            "peerDependencies": false
+          }
+        ]
+      },
+      "env": {
+        "jest": true
+      }
+    }
+  ]
+}

@@ -2,7 +2,6 @@ const path = require("path");
 const webpack = require("webpack");
 const autoprefixer = require("autoprefixer");
 const CaseSensitivePathsPlugin = require("case-sensitive-paths-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
@@ -10,8 +9,6 @@ module.exports = ({ extractStyles = true } = {}) => {
   const env = process.env.NODE_ENV || "development";
   const isProduction = env === "production";
   const isDevelopment = !isProduction;
-
-  console.log("BUILD IS PRODUCTION?", isProduction);
 
   return {
     mode: env,
@@ -107,7 +104,7 @@ module.exports = ({ extractStyles = true } = {}) => {
       ]
     },
     resolve: {
-      extensions: [".js", ".json", ".ts"]
+      extensions: [".js", ".json", ".ts", ".tsx"]
     },
     plugins: [
       new HtmlWebpackPlugin({

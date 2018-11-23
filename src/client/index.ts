@@ -1,6 +1,6 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import ReactDom from "react-dom";
-import HelloWorld from "./hello-world.tsx";
+import HelloWorld from "./hello-world";
 
 function add(a: number, b: number): number {
   return a + b;

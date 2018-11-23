@@ -4,6 +4,9 @@
   "description": "Simple self-, project- and task management.",
   "main": "dist/index.js",
   "scripts": {
+    "build": "run-s build:*",
+    "build:client": "webpack --config config/webpack/client.js",
+    "build:server": "webpack --config config/webpack/server.js",
     "test": "run-s test:*:*",
     "test:client:unit": "jest --config config/jest/client-unit.config.js",
     "test:server:unit": "jest --config config/jest/server-unit.config.js"

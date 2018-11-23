@@ -18,7 +18,7 @@ module.exports = ({ extractStyles = true } = {}) => {
     bail: isProduction,
     target: "web",
     entry: {
-      client: path.resolve(__dirname, `../../src/client/index.js`)
+      client: path.resolve(__dirname, `../../src/client/index.ts`)
     },
     output: {
       path: path.resolve(__dirname, `../../dist/client`),
@@ -40,7 +40,7 @@ module.exports = ({ extractStyles = true } = {}) => {
     module: {
       rules: [
         {
-          test: /\.jsx?$/,
+          test: /\.(js|tsx?)$/,
           exclude: /node_modules/,
           use: "babel-loader"
         },
@@ -90,7 +90,7 @@ module.exports = ({ extractStyles = true } = {}) => {
         },
         {
           test: /\.svg$/,
-          issuer: /\.js$/, // Prevent usage of icon sprite outside of js
+          issuer: /\.ts$/, // Prevent usage of icon sprite outside of ts
           use: [
             {
               loader: "svg-sprite-loader"
@@ -107,7 +107,7 @@ module.exports = ({ extractStyles = true } = {}) => {
       ]
     },
     resolve: {
-      extensions: [".js", ".json"]
+      extensions: [".js", ".json", ".ts"]
     },
     plugins: [
       new HtmlWebpackPlugin({
@@ -126,5 +126,5 @@ module.exports = ({ extractStyles = true } = {}) => {
       new CaseSensitivePathsPlugin()
     ],
     devtool: isDevelopment ? "eval-source-map" : "source-map"
-  }));
+  };
 };

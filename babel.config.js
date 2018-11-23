@@ -1,5 +1,7 @@
 module.exports = {
   presets: [
+    "@babel/preset-typescript",
+    "@babel/preset-react",
     [
       "@babel/preset-env",
       {
@@ -8,12 +10,12 @@ module.exports = {
         },
         useBuiltIns: "entry"
       }
-    ],
-    "@babel/preset-react",
-    "@babel/preset-typescript"
+    ]
   ],
   plugins: [
     // "@babel/plugin-proposal-unicode-property-regex",
+    // "@babel/plugin-transform-typescript",
+    ["@babel/plugin-transform-modules-commonjs", { noInterop: true }],
     "@babel/plugin-syntax-dynamic-import",
     "babel-plugin-dynamic-import-node",
     [

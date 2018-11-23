@@ -1,7 +1,11 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import ReactDom from "react-dom";
+import HelloWorld from "./hello-world.tsx";
 
-const app = () => <div>hello world</div>;
+function add(a: number, b: number): number {
+  return a + b;
+}
+
 const node = document.getElementById("root");
 
-ReactDom.render(app, node);
+ReactDom.render(React.createElement(HelloWorld, { add }), node);

@@ -12,7 +12,7 @@ module.exports = () => {
     target: "node",
     node: { __dirname: false },
     entry: {
-      index: path.resolve(__dirname, "../../src/server/index.js")
+      index: path.resolve(__dirname, "../../src/server/index.ts")
     },
     output: {
       path: path.resolve(__dirname, "../../dist/server"),
@@ -21,14 +21,14 @@ module.exports = () => {
     module: {
       rules: [
         {
-          test: /\.js$/,
+          test: /\.(js|ts)$/,
           exclude: /node_modules/,
           use: "babel-loader"
         }
       ]
     },
     resolve: {
-      extensions: [".js", ".json"]
+      extensions: [".js", ".json", ".ts"]
     },
     plugins: [
       new webpack.DefinePlugin({

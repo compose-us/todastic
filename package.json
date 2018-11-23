@@ -23,7 +23,7 @@
     "test-ci": "run-s test-ci:* combine-coverage upload-coverage",
     "test-ci:integration": "jest --ci --detectOpenHandles",
     "test-ci:packages": "lerna run test-ci",
-    "test-browser": "./node_modules/.bin/codeceptjs run --steps",
+    "test-browser": "./node_modules/.bin/codeceptjs run --steps --config=integration-test/codecept.json",
     "watch-web": "cd packages/server-web && npm run build -- --watch"
   },
   "repository": {

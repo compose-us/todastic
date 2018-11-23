@@ -43,8 +43,7 @@
           "balanced": true
         }
       }
-    ],
-    "typescript/"
+    ]
   },
   "overrides": [
     {

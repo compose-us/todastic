@@ -1,6 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`command line interface can track time 1`] = `
-"Tracked time: 03:30:00
-"
-`;

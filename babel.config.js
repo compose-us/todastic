@@ -15,7 +15,7 @@ module.exports = {
   plugins: [
     // "@babel/plugin-proposal-unicode-property-regex",
     // "@babel/plugin-transform-typescript",
-    ["@babel/plugin-transform-modules-commonjs", { noInterop: true }],
+    // ["@babel/plugin-transform-modules-commonjs", { noInterop: true }],
     "@babel/plugin-syntax-dynamic-import",
     "babel-plugin-dynamic-import-node",
     [

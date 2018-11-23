@@ -14,7 +14,7 @@ function processCommand({ Event, User, logger }) {
     const eventCreateData = { ...helpers, data: { ...command.data, labels, trackedTimes } };
     switch (command.command) {
       case "ADD_TODO":
-        return createEvent({ ...eventCreateData, eventType: "ADDED_TODO" });
+        return createAddedTodoEvents({ helpers, data: eventCreateData.data });
       case "REMOVE_TODO":
         return createEvent({ ...eventCreateData, eventType: "REMOVED_TODO" });
       case "CHANGE_TODO":
@@ -32,6 +32,28 @@ function processCommand({ Event, User, logger }) {
         return;
     }
   };
+}
+
+async function createAddedTodoEvents({ helpers, data }) {
+  const labels = setUndefined({ data }, "labels");
+  const trackedTimes = setUndefined({ data }, "trackedTimes");
+  const parent = await createEvent({
+    ...helpers,
+    data: { ...data, labels, trackedTimes },
+    eventType: "ADDED_TODO"
+  });
+  if (data.children) {
+    const parentId = parent.data.todoId;
+    return await data.children.reduce(async (p, child) => {
+      const acc = await p;
+      const data = { ...child, parentId };
+      const labels = setUndefined({ data }, "labels");
+      const trackedTimes = setUndefined({ data }, "trackedTimes");
+      return [...acc, ...(await createAddedTodoEvents({ helpers, data: { ...data, labels, trackedTimes }, parentId }))];
+    }, Promise.resolve([parent]));
+  } else {
+    return [parent];
+  }
 }
 
 function setUndefined(command, fieldName) {
@@ -56,8 +78,12 @@ function createEvent({ Event, sendEvent, userId, eventType, data, logger }) {
   }).then(
     event => {
       logger.debug(event);
-      return sendEvent(event);
+      sendEvent(event);
+      return event;
     },
-    err => logger.error(err)
+    err => {
+      logger.error(err);
+      throw err;
+    }
   );
 }

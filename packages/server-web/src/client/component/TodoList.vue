@@ -77,7 +77,7 @@ export default {
       const todoId = event.target.getAttribute("todoid");
       if (!this.$store.getters.isEditing[todoId]) {
         event.target.classList.add(this.$style.dragging);
-        event.dataTransfer.effectAllowed = "move";
+        event.dataTransfer.effectAllowed = "copyMove";
         const todo = todos.find(t => t.todoId === todoId);
         event.dataTransfer.setData("json/todo", JSON.stringify(todo));
         this.$store.commit("isDragging", true);
@@ -96,7 +96,7 @@ export default {
     handleDropzoneOver(event) {
       event.stopPropagation();
       event.preventDefault();
-      event.dataTransfer.dropEffect = "move";
+      event.dataTransfer.dropEffect = "copyMove";
       event.target.classList.remove(this.$style.activeTop);
       event.target.classList.remove(this.$style.activeBottom);
 
@@ -122,7 +122,11 @@ export default {
       const myTodo = JSON.parse(event.dataTransfer.getData("json/todo"));
       const position = parseInt(event.target.getAttribute("position"));
       const myPosition = position + (this.isTopHalf(event) ? 0 : 1);
-      commands.moveTodo(myTodo, { parentId, position: myPosition });
+      if (event.altKey) {
+        commands.copyTodo(myTodo, parentId);
+      } else {
+        commands.moveTodo(myTodo, { parentId, position: myPosition });
+      }
     },
     isTopHalf(event) {
       const rect = event.target.getBoundingClientRect();

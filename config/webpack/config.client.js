@@ -76,7 +76,7 @@ module.exports = ({ extractStyles = true } = {}) => {
             {
               loader: "sass-resources-loader",
               options: {
-                resources: [path.resolve(__dirname, `../../src/client/style/base.scss`)]
+                resources: [path.resolve(__dirname, "../../src/client/style/base.scss")]
               }
             }
           ]
@@ -107,6 +107,7 @@ module.exports = ({ extractStyles = true } = {}) => {
       extensions: [".js", ".json", ".ts", ".tsx"]
     },
     plugins: [
+      new webpack.HotModuleReplacementPlugin(),
       new HtmlWebpackPlugin({
         inject: true,
         template: path.resolve(__dirname, `../../src/client/index.html`)

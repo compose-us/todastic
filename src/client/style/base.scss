@@ -1,4 +1,5 @@
-// base styles
-body {
-  background-color: green;
-}
+@charset "utf-8";
+
+@import "config";
+
+@import "mixin/zindex";

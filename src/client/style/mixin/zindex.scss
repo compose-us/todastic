@@ -1,0 +1,15 @@
+// Z-Index utility
+//
+// see http://www.smashingmagazine.com/2014/06/12/sassy-z-index-management-for-complex-layouts/
+
+@function z($list, $element) {
+  $z-index: index($list, $element);
+
+  @if $z-index {
+    @return $z-index * 10;
+  }
+
+  @warn 'There is no item "#{$element}" in this list; choose one of: #{$list}';
+
+  @return null;
+}

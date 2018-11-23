@@ -15,7 +15,7 @@ until curl --silent --output /dev/null localhost:3000 || [ $NEXT_WAIT_TIME -eq 8
    sleep $(( NEXT_WAIT_TIME++ ))
 done
 
-docker exec todastic_todastic_1 npm run user-add -- -u John -p Snow -l de
+docker-compose exec todastic npm run user-add -- -u John -p Snow -l de
 
 npm run test-browser
 

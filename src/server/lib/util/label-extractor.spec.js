@@ -1,4 +1,4 @@
-const extractLabels = require("./label-extractor.js");
+const { extractLabels } = require("./label-extractor.js");
 
 describe("LabelExtractor", () => {
   describe("simple lables", () => {

@@ -1,6 +1,6 @@
-const createEventModel = require("./event.js");
-const initDatabase = require("../../service/database-mongo.js");
-const config = require("../config/config.js");
+import createEventModel from "./event.js";
+import { initDatabase } from "../../service/database-mongo.js";
+import config from "../config/config.js";
 
 describe("Event", () => {
   let Event;

@@ -9,20 +9,28 @@ module.exports = {
       message: "Name of the new library (library-name)?",
       name: "libraryName",
       type: "input"
+    },
+    {
+      message: "Is it a client, common or server library?",
+      name: "environment",
+      type: "list",
+      choices: ["client", "common", "server"]
     }
   ],
   run: props => ({
     files: [
       {
-        filename: `src/lib/${kebabCase(props.libraryName)}/index.ts`,
+        filename: `src/${props.environment}/lib/${kebabCase(props.libraryName)}/index.ts`,
         template: indexTemplate(props.libraryName)
       },
       {
-        filename: `src/lib/${kebabCase(props.libraryName)}/${kebabCase(props.libraryName)}.ts`,
+        filename: `src/${props.environment}/lib/${kebabCase(props.libraryName)}/${kebabCase(props.libraryName)}.ts`,
         template: libTemplate(props.libraryName)
       },
       {
-        filename: `src/lib/${kebabCase(props.libraryName)}/${kebabCase(props.libraryName)}.spec.ts`,
+        filename: `src/${props.environment}/lib/${kebabCase(props.libraryName)}/${kebabCase(
+          props.libraryName
+        )}.spec.ts`,
         template: specTemplate(props.libraryName)
       }
     ].map(prettify)

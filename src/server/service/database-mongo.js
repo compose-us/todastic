@@ -1,5 +1,5 @@
 const connectMongo = require("connect-mongo");
-const Mongoose = require("mongoose");
+const { Mongoose } = require("mongoose");
 const session = require("express-session");
 
 // https://mongoosejs.com/docs/api.html#mongoose_Mongoose

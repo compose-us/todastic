@@ -1,4 +1,4 @@
-const stringToColor = require("./string-to-color.js");
+const { stringToColor } = require("./string-to-color.js");
 
 describe("StringToColor", () => {
   it("generates a valid color", () => {

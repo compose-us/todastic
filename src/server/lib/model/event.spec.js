@@ -1,4 +1,4 @@
-import createEventModel from "./event.js";
+import { createEventModel } from "./event.js";
 import { initDatabase } from "../../service/database-mongo.js";
 import config from "../config/config.js";
 

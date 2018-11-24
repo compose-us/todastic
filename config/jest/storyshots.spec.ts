@@ -1,6 +1,7 @@
 import util from "util";
 import initStoryshots from "@storybook/addon-storyshots";
 import registerRequireContext from "babel-plugin-require-context-hook/register";
+import "jest";
 
 // Storybook uses require.context() - we need to replace it for Jest
 registerRequireContext();

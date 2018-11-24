@@ -7,3 +7,4 @@ coverage
 lerna-debug.log
 *.events
 integration-test/output/
+.cache/

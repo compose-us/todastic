@@ -12,8 +12,8 @@ registerRequireContext();
 const consoleWarn = console.warn;
 const consoleError = console.error;
 
-function logToError(...args) {
-  throw new Error(util.format(...args));
+function logToError(format, ...args) {
+  throw new Error(util.format(format, ...args));
 }
 
 beforeEach(() => {
@@ -28,5 +28,5 @@ afterEach(() => {
 /* eslint-enable no-console */
 
 initStoryshots({
-  configPath: `config/storybook/config.ts`
+  configPath: "config/storybook/config.ts"
 });

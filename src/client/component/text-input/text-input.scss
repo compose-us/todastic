@@ -1,0 +1,17 @@
+.root {
+  background-color: rgba($color-text, 0.1);
+  border: 0;
+  border-bottom: 2px solid rgba($color-text, 0.9);
+  display: block;
+  outline: 0;
+  padding: 8px;
+  width: 100%;
+}
+
+// elements
+
+// modifiers
+
+.disabled {
+  background-color: darken($color-background, 0.1);
+}

@@ -1,5 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Storyshots Components/Button default 1`] = `
+<button
+  className=""
+  disabled={false}
+  onClick={[Function]}
+  type="button"
+>
+  Some text on button
+</button>
+`;
+
+exports[`Storyshots Components/Button disabled 1`] = `
+<button
+  className="undefined"
+  disabled={true}
+  onClick={[Function]}
+  type="button"
+>
+  Disabled
+</button>
+`;
+
 exports[`Storyshots Components/DeleteMe default 1`] = `
 <div
   className=""
@@ -18,4 +40,215 @@ exports[`Storyshots Components/DeleteMe modifier 1`] = `
     DeleteMe
   </div>
 </div>
+`;
+
+exports[`Storyshots Components/LoginForm default 1`] = `
+<div
+  className=""
+>
+  <form
+    onSubmit={[Function]}
+  >
+    <div>
+      Login
+    </div>
+    <div>
+      <label>
+        <span>
+          Username
+        </span>
+        <input
+          autoComplete="username"
+          className=""
+          disabled={false}
+          onChange={[Function]}
+          placeholder=""
+          type="text"
+          value=""
+        />
+      </label>
+    </div>
+    <div>
+      <label>
+        <span>
+          Passwort
+        </span>
+        <input
+          autoComplete="current-password"
+          className=""
+          disabled={false}
+          onChange={[Function]}
+          placeholder=""
+          type="password"
+          value=""
+        />
+      </label>
+    </div>
+    <div>
+      <button
+        className=""
+        disabled={false}
+        onClick={[Function]}
+        type="submit"
+      >
+        Login
+      </button>
+    </div>
+  </form>
+  <div />
+</div>
+`;
+
+exports[`Storyshots Components/LoginForm isError 1`] = `
+<div
+  className="undefined"
+>
+  <form
+    onSubmit={[Function]}
+  >
+    <div>
+      Login
+    </div>
+    <div>
+      <label>
+        <span>
+          Username
+        </span>
+        <input
+          autoComplete="username"
+          className=""
+          disabled={false}
+          onChange={[Function]}
+          placeholder=""
+          type="text"
+          value=""
+        />
+      </label>
+    </div>
+    <div>
+      <label>
+        <span>
+          Passwort
+        </span>
+        <input
+          autoComplete="current-password"
+          className=""
+          disabled={false}
+          onChange={[Function]}
+          placeholder=""
+          type="password"
+          value=""
+        />
+      </label>
+    </div>
+    <div>
+      <button
+        className=""
+        disabled={false}
+        onClick={[Function]}
+        type="submit"
+      >
+        Login
+      </button>
+    </div>
+  </form>
+  <div>
+    This is an error!
+  </div>
+</div>
+`;
+
+exports[`Storyshots Components/LoginForm isWarning 1`] = `
+<div
+  className="undefined"
+>
+  <form
+    onSubmit={[Function]}
+  >
+    <div>
+      Login
+    </div>
+    <div>
+      <label>
+        <span>
+          Username
+        </span>
+        <input
+          autoComplete="username"
+          className=""
+          disabled={false}
+          onChange={[Function]}
+          placeholder=""
+          type="text"
+          value=""
+        />
+      </label>
+    </div>
+    <div>
+      <label>
+        <span>
+          Passwort
+        </span>
+        <input
+          autoComplete="current-password"
+          className=""
+          disabled={false}
+          onChange={[Function]}
+          placeholder=""
+          type="password"
+          value=""
+        />
+      </label>
+    </div>
+    <div>
+      <button
+        className=""
+        disabled={false}
+        onClick={[Function]}
+        type="submit"
+      >
+        Login
+      </button>
+    </div>
+  </form>
+  <div>
+    This is a warning.
+  </div>
+</div>
+`;
+
+exports[`Storyshots Components/TextInput default 1`] = `
+<input
+  autoComplete="off"
+  className=""
+  disabled={false}
+  onChange={[Function]}
+  placeholder=""
+  type="text"
+  value=""
+/>
+`;
+
+exports[`Storyshots Components/TextInput disabled text 1`] = `
+<input
+  autoComplete="off"
+  className="undefined"
+  disabled={true}
+  onChange={[Function]}
+  placeholder=""
+  type="text"
+  value=""
+/>
+`;
+
+exports[`Storyshots Components/TextInput placeholder 1`] = `
+<input
+  autoComplete="off"
+  className=""
+  disabled={false}
+  onChange={[Function]}
+  placeholder="hello placeholder"
+  type="text"
+  value=""
+/>
 `;

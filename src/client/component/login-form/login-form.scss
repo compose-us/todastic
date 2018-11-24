@@ -1,0 +1,51 @@
+.root {
+  border: 1px solid $color-text;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  padding: 20px;
+}
+
+// elements
+
+.heading {
+  font-size: 32px;
+  margin: 20px 0;
+}
+
+.label {
+  margin: 20px 0;
+}
+
+.loginButton {
+  display: flex;
+  flex-direction: column;
+}
+
+.button {
+  align-self: flex-end;
+  width: 100px;
+}
+
+.message {
+  border: 0;
+  margin: 20px 0;
+  padding: 20px;
+}
+
+// modifiers
+
+.error {
+  .message {
+    background-color: lighten($color-error, 30%);
+    border-left: 2px solid $color-error;
+  }
+}
+
+.warn {
+  .message {
+    background-color: lighten($color-warning, 30%);
+    border-left: 2px solid $color-warning;
+  }
+}

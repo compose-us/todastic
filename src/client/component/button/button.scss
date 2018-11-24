@@ -1,0 +1,27 @@
+.root {
+  background: linear-gradient(to bottom, $color-highlight 5%, darken($color-highlight, 0.1) 90%);
+  border: 1px solid $color-highlight-dark;
+  border-radius: 4px;
+  box-shadow: 0 2px 0 0 $color-highlight-dark;
+  color: $color-text-inverted;
+  cursor: pointer;
+  display: inline-block;
+  outline: 0;
+  padding: 6px 12px;
+  text-decoration: none;
+
+  :hover {
+    background: linear-gradient(to bottom, $color-highlight 5%, lighten($color-highlight, 100) 100%);
+  }
+}
+
+// elements
+
+// modifiers
+
+.disabled {
+  background: $color-background;
+  border-color: $color-highlight-dark;
+  box-shadow: none;
+  color: $color-text;
+}

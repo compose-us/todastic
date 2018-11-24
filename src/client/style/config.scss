@@ -1,5 +1,14 @@
+// colors
 $color-background: #fff;
+$color-highlight: #77b55a;
+$color-highlight-dark: #3e7327;
 $color-text: #000;
-$font-family-regular: Arial, Helvetica, sans-serif;
+$color-text-inverted: #fff;
+$color-error: rgb(190, 50, 50);
+$color-warning: rgb(196, 158, 54);
+
+// typography
+$font-family-monospace: "Source Code Pro";
+$font-family-regular: "Source Sans Pro", Helvetica, Arial, sans-serif;
 $font-weight-regular: 400;
 $font-size-regular: 14px;

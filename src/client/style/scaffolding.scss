@@ -1,4 +1,10 @@
-@import "../../../node_modules/modern-normalize/modern-normalize.css";
+@import '../../../node_modules/modern-normalize/modern-normalize.css';
+@import './font-source-sans-pro';
+@import './font-source-code-pro';
+
+* {
+  margin: 0;
+}
 
 html,
 body,

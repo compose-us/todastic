@@ -4,7 +4,7 @@ module.exports = {
   coverageDirectory: "coverage",
   rootDir: path.resolve(__dirname, "../../"),
   moduleFileExtensions: ["ts", "tsx", "js", "json"],
-  testMatch: ["<rootDir>/src/**/?(*.)spec.ts"],
+  testMatch: ["<rootDir>/src/**/?(*.)spec.ts", "<rootDir>/src/**/?(*.)spec.js"],
   testPathIgnorePatterns: ["<rootDir>/node_modules/"],
   transform: {
     "^.+\\.scss$": "<rootDir>/config/jest/transform-scss.js",

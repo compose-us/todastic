@@ -26,6 +26,7 @@
       {
         "args": "after-used",
         "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
         "vars": "all"
       }
     ],
@@ -47,7 +48,7 @@
   },
   "overrides": [
     {
-      "files": ["*.spec.ts"],
+      "files": ["*.spec.ts", "*.spec.js"],
       "rules": {
         "import/no-extraneous-dependencies": [
           "error",

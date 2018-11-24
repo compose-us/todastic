@@ -252,3 +252,44 @@ exports[`Storyshots Components/TextInput placeholder 1`] = `
   value=""
 />
 `;
+
+exports[`Storyshots Components/TodoLabel default 1`] = `
+<span
+  className=""
+>
+  #
+  test
+</span>
+`;
+
+exports[`Storyshots Components/TodoLabel selected 1`] = `
+<span
+  className="undefined"
+>
+  #
+  some-label
+</span>
+`;
+
+exports[`Storyshots Components/TodoLabel track call 1`] = `
+<span
+  className=""
+>
+  #
+  track
+</span>
+`;
+
+exports[`Storyshots Components/TodoStatus default 1`] = `
+<div
+  className=""
+  onClick={[Function]}
+/>
+`;
+
+exports[`Storyshots Components/TodoStatus done 1`] = `
+<div
+  className="undefined"
+  onClick={[Function]}
+/>
+`;

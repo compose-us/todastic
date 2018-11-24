@@ -1,0 +1,17 @@
+.root {
+  background-color: #a00;
+}
+
+// elements
+
+.someElement {
+  background-color: #0a0;
+}
+
+// modifiers
+
+.modifier {
+  .someElement {
+    background-color: #00a;
+  }
+}

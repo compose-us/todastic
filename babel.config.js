@@ -1,4 +1,9 @@
 module.exports = {
+  env: {
+    test: {
+      plugins: ["babel-plugin-require-context-hook"]
+    }
+  },
   presets: [
     "@babel/preset-typescript",
     "@babel/preset-react",

@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Components/DeleteMe default 1`] = `
+<div
+  className=""
+>
+  <div>
+    DeleteMe
+  </div>
+</div>
+`;
+
+exports[`Storyshots Components/DeleteMe modifier 1`] = `
+<div
+  className="undefined"
+>
+  <div>
+    DeleteMe
+  </div>
+</div>
+`;

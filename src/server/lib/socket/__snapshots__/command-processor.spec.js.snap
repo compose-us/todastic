@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`command-processor processCommand sends a CHANGED_PASSWORD event when a correct CHANGE_PASSWORD command was received 1`] = `
+Object {
+  "createdAt": Any<Number>,
+  "data": Object {},
+  "eventType": "CHANGED_PASSWORD",
+  "userId": "uu",
+}
+`;
+
+exports[`command-processor processCommand sends a CHANGED_TODO event when a correct CHANGE_TODO command was received 1`] = `
+Object {
+  "createdAt": Any<Number>,
+  "data": Object {
+    "labels": undefined,
+    "title": "Change a title",
+    "todoId": "id-1",
+    "trackedTimes": undefined,
+  },
+  "eventType": "CHANGED_TODO",
+  "userId": "uu",
+}
+`;
+
+exports[`command-processor processCommand sends an ADDED_TODO event when a correct ADD_TODO command was received 1`] = `
+Object {
+  "createdAt": Any<Number>,
+  "data": Object {
+    "labels": undefined,
+    "title": "Create a test todo",
+    "trackedTimes": undefined,
+  },
+  "eventType": "ADDED_TODO",
+  "userId": "uu",
+}
+`;
